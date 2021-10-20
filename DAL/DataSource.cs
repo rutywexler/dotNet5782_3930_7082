@@ -14,5 +14,6 @@ namespace DalObject
         internal static Customer[] Customers = new Customer[100];
         internal static Parcel[] Parcels = new Parcel[1000];
 
+
     }
 }
