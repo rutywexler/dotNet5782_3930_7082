@@ -10,6 +10,15 @@ namespace DalObject
     class DataSource
     {
         internal static Drone[] Drones = new Drone[10];
+        internal class Config
+        {
+            internal static int NumOfDrons = 0;
+            internal static int NumOfBaseStations = 0;
+            internal static int  NumOfCustomers= 0;
+            internal static int NumOfParcels = 0;
+            internal int ParcelId;
+
+        }
 
 
     }
