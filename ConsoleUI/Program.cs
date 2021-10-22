@@ -1,4 +1,8 @@
 ﻿using System;
+using IDAL.DO;
+
+
+
 
 namespace ConsoleUI
 {
@@ -10,6 +14,7 @@ namespace ConsoleUI
         public enum Display { BaseStation, Drone, Customer, Parcel };
         public enum ViewTheLists { baseStations, Drone, Customers, Parcel, ParcelNotDrone, FreeBaseStations }
 
+        DalObject.DalObject dalObject = new DalObject.DalObject();
         static void Main(string[] args)
         {
             int index = 0;
@@ -50,7 +55,7 @@ namespace ConsoleUI
                 switch (choice)
                 {
                     case 1:
-                        InsertStation(InputFunctions.getStation());
+                        DataSource.InsertStation(InputFunctions.GetStation());
                         break;
                     default:
                         break;

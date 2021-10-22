@@ -10,32 +10,52 @@ namespace ConsoleUI
     class InputFunctions
     {
         //get
-        public static Stations getStation()
+        public static Stations GetStation()
         {
-            int tempID, tempChargeSlots, tempName;
-            double tempLongitude, tempLattitude;
             Stations tempStation = new Stations();
             Console.Write("Enter The Id Of The Station:");
-            tempID = int.Parse(Console.ReadLine());
-            tempStation.Id = tempID;
+            tempStation.Id = int.Parse(Console.ReadLine());
 
             Console.Write("Enter The Name Of The Station:");
-            tempName = int.Parse(Console.ReadLine());
-            tempStation.Name = tempName;
-
+            tempStation.Name = int.Parse(Console.ReadLine());
+           
             Console.Write("Enter longitude");
-            tempLongitude = double.Parse(Console.ReadLine());
-            tempStation.Longitude = tempLongitude;
-
+            tempStation.Longitude = double.Parse(Console.ReadLine());
+            
             Console.Write("Enter lattitude");
-            tempLattitude = double.Parse(Console.ReadLine());
-            tempStation.Lattitude = tempLattitude;
-
+            tempStation.Lattitude = double.Parse(Console.ReadLine());
+            
             Console.Write("Enter The Number Of The Charging Stations:");
-            tempChargeSlots = int.Parse(Console.ReadLine());
-            tempStation.ChargeSlots= tempChargeSlots;
+            tempStation.ChargeSlots = int.Parse(Console.ReadLine());
             return tempStation;
         }
+
+        public static Drone getDrone()
+        {
+            int Choice;
+            Drone tempDrone = new Drone();
+
+            Console.Write("Enter The Id Of The Drone:");
+            tempDrone.Id = int.Parse(Console.ReadLine());
+             
+            Console.Write("Enter The Model Of The Drone:");
+            tempDrone.Model = Console.ReadLine();
+          
+            Console.Write("Enter max weight, 1-medium,2-heavy,3-light");
+            Choice = int.Parse(Console.ReadLine());
+            tempDrone.MaxWeight = (WeightCategories)Choice;
+
+            Console.Write("Enter The BatteryStatus Of The Drone:");
+            tempDrone.Battery = double.Parse(Console.ReadLine());
+
+            Console.Write("Enter status, 1-available,2- maintenance,3-delivery");
+            Choice = int.Parse(Console.ReadLine());
+            tempDrone.Status = (DroneStatuses)Choice;
+            return tempDrone;
+        }
+    }
+}
+
     }
 }
 
