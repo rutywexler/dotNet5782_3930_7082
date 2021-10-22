@@ -8,12 +8,12 @@ namespace IDAL
 {
     namespace DO
     {
-        public struct Station
+        public struct Stations
         {
             public int Id { get; set; }
             public int Name { get; set; }
             public double Longitude { get; set; }
-            public double Lattyitude { get; set; }
+            public double Lattitude { get; set; }
             public int ChargeSlots { get; set; }
 
         }

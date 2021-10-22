@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IDAL.DO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,10 @@ namespace DalObject
         {
             Initalize();  
         }
+        public static void InsertStation(Stations station)
+        {
+            DataSource.BaseStations[DataSource.Config.NumOfBaseStations++] = station;
+        }
+
     }
 }
