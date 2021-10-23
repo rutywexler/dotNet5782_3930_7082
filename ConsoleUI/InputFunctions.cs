@@ -53,10 +53,17 @@ namespace ConsoleUI
             tempDrone.Status = (DroneStatuses)Choice;
             return tempDrone;
         }
+        public static Parcel GetParcel()
+        {
+            Parcel tempParcel = new Parcel();
+            Console.WriteLine("Enter The Id Of The Parcel:");
+            tempParcel.Id= int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter The Id Of The Sender:");
+
+            return tempParcel;
+        }
     }
 }
 
-    }
-}
-
+    
 
