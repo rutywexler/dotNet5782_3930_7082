@@ -46,7 +46,7 @@ namespace DalObject
             {
                 if ((Drones[i].MaxWeight >= Parcels[NumOfParcels].Weight) && (Drones[i].Battery >= 30) && Drones[i].Status == 0)
                 {
-                    Parcels[id].Droneld = Drones[i].Id;
+                    Parcels[id].DroneId = Drones[i].Id;
                     Parcels[id].Scheduled = DateTime.Now;
                     return;
                 }
@@ -61,7 +61,7 @@ namespace DalObject
         {
             checkValid(id, 0, NumOfParcels);
             Parcels[id].PickedUp = DateTime.Now;
-            Drones[Parcels[id].Droneld - 1].Status = (DroneStatuses)2;
+            Drones[Parcels[id].DroneId - 1].Status = (DroneStatuses)2;
         }
         /// <summary>
         /// UpdateSupply is a method in the DalObject class.
@@ -104,7 +104,7 @@ namespace DalObject
                     break;
                 }
             }
-            DroneCharges.RemoveRange(sum, 1);
+            BaseStations.RemoveRange(sum, 1);
         }
 
         /// <summary>
@@ -122,5 +122,34 @@ namespace DalObject
             }
         }
 
+        /// <summary>
+        /// FindChargeSlot is a static method in the DalObject class.
+        /// the method finds charge slot to a drone
+        /// </summary>
+        /// <param name="id">int value</param>
+        /// <returns>if succeed in finding charge slot to a drone</returns>
+        public static bool FindChargeSlot(int id)
+        {
+            foreach (BaseStation item in BaseStations)
+            {
+                int sum_chargeSlots = 0;
+                foreach (DroneCharge item2 in DroneCharges)
+                {
+                    if (item2.DroneId == item.Id)
+                        sum_chargeSlots++;
+                    if (item2.DroneId > item.Id)
+                        break;
+                }
+                if (sum_chargeSlots < item.ChargeSlots)
+                {
+                    DroneCharges.Add(new DroneCharge(id, item.Id));
+                    DroneCharges.Sort();
+                    return true;
+                }
+            }
+            return false;
+        }
     }
+
+}
 }

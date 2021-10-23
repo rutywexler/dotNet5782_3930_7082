@@ -13,6 +13,8 @@ namespace DalObject
         internal static Stations[] BaseStations = new Stations[5];
         internal static Customer[] Customers = new Customer[100];
         internal static Parcel[] Parcels = new Parcel[1000];
+        internal static List<DroneCharge> DroneCharges = new List<DroneCharge>();
+
         internal class Config
         {
             internal static int NumOfDrons = 0;
