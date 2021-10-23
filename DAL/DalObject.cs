@@ -5,16 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static DalObject.DataSource;
+using static DalObject.DataSource.Config;
 
 namespace DalObject
 {
-    class DalObject
+    public class DalObject
     {
         public DalObject()
         {
             Initalize();  
         }
-        public static void InsertStation(Stations station)
+        public void InsertStation(Stations station)
         {
             DataSource.BaseStations[DataSource.Config.NumOfBaseStations++] = station;
         }

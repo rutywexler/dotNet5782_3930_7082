@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DalObject
 {
-    class DataSource
+    public class DataSource
     {
         internal static Drone[] Drones = new Drone[10];
         internal static Stations[] BaseStations = new Stations[5];

@@ -14,9 +14,10 @@ namespace ConsoleUI
         public enum Display { BaseStation, Drone, Customer, Parcel };
         public enum ViewTheLists { baseStations, Drone, Customers, Parcel, ParcelNotDrone, FreeBaseStations }
 
-        DalObject.DalObject dalObject = new DalObject.DalObject();
+        
         static void Main(string[] args)
         {
+            DalObject.DalObject dalObject = new DalObject.DalObject();
             int index = 0;
             int choice = 0;
             while(choice!=5)
@@ -55,7 +56,7 @@ namespace ConsoleUI
                 switch (choice)
                 {
                     case 1:
-                        DataSource.InsertStation(InputFunctions.GetStation());
+                        dalObject.InsertStation(InputFunctions.GetStation());
                         break;
                     default:
                         break;
