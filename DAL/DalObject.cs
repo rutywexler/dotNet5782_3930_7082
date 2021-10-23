@@ -297,7 +297,7 @@ namespace DalObject
         {
             BaseStations[NumOfBaseStations] = new Stations();
             BaseStations[NumOfBaseStations].Id = NumOfBaseStations;
-            BaseStations[NumOfBaseStations].Name = $"station_{'a' + NumOfBaseStations}";
+            BaseStations[NumOfBaseStations].Name =  NumOfBaseStations;
             BaseStations[NumOfBaseStations].Longitude = ran.Next(0, 90);
             BaseStations[NumOfBaseStations].Lattitude = ran.Next(0, 180);
             int chargeSlots = ran.Next(3, 8);
