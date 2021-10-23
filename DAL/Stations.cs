@@ -15,6 +15,8 @@ namespace IDAL
             public double Longitude { get; set; }
             public double Lattitude { get; set; }
             public int ChargeSlots { get; set; }
+        
+           
 
         }
     }
