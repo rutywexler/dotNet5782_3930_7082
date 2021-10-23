@@ -58,6 +58,15 @@ namespace ConsoleUI
                     case 1:
                         dalObject.InsertStation(InputFunctions.GetStation());
                         break;
+                    case 2:
+                        dalObject.InsertDrone(InputFunctions.getDrone());
+                        break;
+                    case 3:
+                        dalObject.InsertCoustomer(InputFunctions.getCoustomer());
+                        break;
+                    case 4:
+                        dalObject.InsertParcel(InputFunctions.getParcel());
+
                     default:
                         break;
                 }
