@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DalObject
 {
-    public class DataSource
+    class DataSource
     {
         internal static Drone[] Drones = new Drone[10];
         internal static Stations[] BaseStations = new Stations[5];
@@ -19,7 +19,7 @@ namespace DalObject
             internal static int NumOfBaseStations = 0;
             internal static int  NumOfCustomers= 0;
             internal static int NumOfParcels = 0;
-            internal int ParcelId;
+            internal static int ParcelId=0;
         }
 
         public static Random rand = new Random();
@@ -86,11 +86,11 @@ namespace DalObject
                 {
                     if(drone.Status==0&&drone.MaxWeight>= tempParcel.Weight)
                     {
-                        tempParcel.Droneld = drone.Id;
+                        tempParcel.DroneId = drone.Id;
                         break;
                     }
                 }
-                if(tempParcel.Droneld==0)
+                if(tempParcel.DroneId==0)
                 {
                     // Console.WriteLine("No drone found suitable for send the parcel");
                     break;
