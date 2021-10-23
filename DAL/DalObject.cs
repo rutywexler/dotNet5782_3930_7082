@@ -5,19 +5,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static DalObject.DataSource;
-using static DalObject.DataSource.Config;
 
 namespace DalObject
 {
-    public class DalObject
+    class DalObject
     {
         public DalObject()
         {
             Initalize();  
         }
-        public void InsertStation(Stations station)
+        public static void InsertStation(Stations station)
         {
             DataSource.BaseStations[DataSource.Config.NumOfBaseStations++] = station;
+        }
+
+        public static void InsertDrone(Drone drone)
+        {
+            DataSource.Drones[DataSource.Config.NumOfDrons++] = drone;
         }
 
     }
