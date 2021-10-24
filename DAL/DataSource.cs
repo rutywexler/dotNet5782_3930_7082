@@ -106,12 +106,6 @@ namespace DalObject
             
 
         }
-
-
-
-
-
-
     }
 }
 
