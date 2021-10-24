@@ -11,8 +11,6 @@ namespace DalObject
 {
     public class DalObject
     {
-        static Random ran = new Random();
-
         /// <summary>
         /// DalObject constructor call to intilialize
         /// </summary>
@@ -94,7 +92,7 @@ namespace DalObject
         {
             checkValid(id, 0, NumOfParcels);
             Parcels[id].Delivered = DateTime.Now;
-            Drones[Parcels[id].DroneId - 1].Status = (DroneStatuses)0;
+            Drones[Parcels[id].DroneId - 1].Status =0;
         }
         /// <summary>
         /// UpdateCharge is a method in the DalObject class.
@@ -137,7 +135,7 @@ namespace DalObject
         {
             Console.WriteLine("enter base station id:");
             int input;
-            Valid2(0, NumOfBaseStations, out input);
+            ValidRange(0, NumOfBaseStations, out input);
             Console.WriteLine(BaseStations[input-1]);
         }
         /// <summary>
@@ -148,7 +146,7 @@ namespace DalObject
         {
             Console.WriteLine("enter drone id:");
             int input;
-            Valid2(1, NumOfDrons + 1, out input);
+            ValidRange(1, NumOfDrons + 1, out input);
             Console.WriteLine(Drones[input-1]);
         }
         /// <summary>
@@ -159,7 +157,7 @@ namespace DalObject
         {
             Console.WriteLine("enter customer id:");
             int input;
-            Valid2(0,NumOfCustomers, out input);
+            ValidRange(0,NumOfCustomers, out input);
             Console.WriteLine(Customers[input-1]);
         }
         /// <summary>
@@ -168,9 +166,9 @@ namespace DalObject
         /// </summary>
         public void DisplayParcel()
         {
-            Console.WriteLine("enter parcel id:");
+            Console.WriteLine("Enter parcel id:");
             int input;
-            Valid2(0, NumOfParcels, out input);
+            ValidRange(0, NumOfParcels, out input);
             Console.WriteLine(Parcels[input-1]);
         }
         /// <summary>
@@ -272,7 +270,7 @@ namespace DalObject
         /// <param name="min">the first int value</param>
         /// <param name="max">second int vaalue</param>
         /// <param name="input">3th bout int value</param>
-        public static void Valid2(int min, int max, out int input)
+        public static void ValidRange(int min, int max, out int input)
         {
             bool parse = int.TryParse(Console.ReadLine(), out input);
             while (!parse || input > max || input < min)
