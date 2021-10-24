@@ -43,10 +43,6 @@ namespace DalObject
         /// AddParcel is a method in the DalObject class.
         /// the method adds a new parcel
         /// </summary>
-        /// <param name="senderId">the first int value</param>
-        /// <param name="targetId">the second int value</param>
-        /// <param name="weight">the 3th WeightCategories value</param>
-        /// <param name="priority">the 4th Priorities value</param>
         public void InsertParcel(Parcel parcel)
         {
             DataSource.Parcels[DataSource.Config.NumOfParcels++] = parcel;
@@ -56,10 +52,6 @@ namespace DalObject
         /// AddCustomer is a method in the DalObject class.
         /// the method adds a new customer
         /// </summary>
-        /// <param name="name">the first string value</param>
-        /// <param name="phone">the second string value</param>
-        /// <param name="longitude">the 3th double value</param>
-        /// <param name="latitude">the 4th double value</param>
         public void InsertCustomer(Customer customer)
         {
             DataSource.Customers[DataSource.Config.NumOfCustomers++] = customer;
@@ -146,7 +138,7 @@ namespace DalObject
             Console.WriteLine("enter base station id:");
             int input;
             Valid2(0, NumOfBaseStations, out input);
-            Console.WriteLine(BaseStations[input]);
+            Console.WriteLine(BaseStations[input-1]);
         }
         /// <summary>
         /// DisplayDrone is a method in the DalObject class.
@@ -157,7 +149,7 @@ namespace DalObject
             Console.WriteLine("enter drone id:");
             int input;
             Valid2(1, NumOfDrons + 1, out input);
-            Console.WriteLine(Drones[input]);
+            Console.WriteLine(Drones[input-1]);
         }
         /// <summary>
         /// DisplayCustomer is a method in the DalObject class.
@@ -168,7 +160,7 @@ namespace DalObject
             Console.WriteLine("enter customer id:");
             int input;
             Valid2(0,NumOfCustomers, out input);
-            Console.WriteLine(Customers[input]);
+            Console.WriteLine(Customers[input-1]);
         }
         /// <summary>
         /// DisplayParcel is a method in the DalObject class.
@@ -179,7 +171,7 @@ namespace DalObject
             Console.WriteLine("enter parcel id:");
             int input;
             Valid2(0, NumOfParcels, out input);
-            Console.WriteLine(Parcels[input]);
+            Console.WriteLine(Parcels[input-1]);
         }
         /// <summary>
         /// ViewListBaseStations is a method in the DalObject class.
@@ -289,56 +281,7 @@ namespace DalObject
                 parse = int.TryParse(Console.ReadLine(), out input);
             }
         }
-        /// <summary>
-        /// AddONeBaseStation is a static method in the DalObject class.
-        /// the method adds a new base station
-        /// </summary>
-        public static void AddONeBaseStation()
-        {
-            BaseStations[NumOfBaseStations] = new Stations();
-            BaseStations[NumOfBaseStations].Id = NumOfBaseStations;
-            BaseStations[NumOfBaseStations].Name =  NumOfBaseStations;
-            BaseStations[NumOfBaseStations].Longitude = ran.Next(0, 90);
-            BaseStations[NumOfBaseStations].Lattitude = ran.Next(0, 180);
-            int chargeSlots = ran.Next(3, 8);
-            BaseStations[NumOfBaseStations].ChargeSlots = chargeSlots;
-            NumOfBaseStations++;
-        }
-        /// <summary>
-        /// AddOneDrone is a static method in the DalObject class.
-        /// the method adds a new drone
-        /// </summary>
-        public static bool AddOneDrone()
-        {
-            bool find = true;
-            Drones[NumOfDrons] = new Drone();
-            Drones[NumOfDrons].Id = NumOfDrons + 1;
-            Drones[NumOfDrons].Model = $"model_{ran.Next(9000, 9011)}";
-            Drones[NumOfDrons].MaxWeight = (WeightCategories)ran.Next(0, 3);
-            Drones[NumOfDrons].Battery = ran.Next(0, 101);
-            Drones[NumOfDrons].Status = (DroneStatuses)ran.Next(0, 3);
-            if (Drones[NumOfDrons].Status == (DroneStatuses)1)
-            {
-                find = FindChargeSlot(NumOfDrons);
-            }
-            NumOfDrons++;
-            return find;
-        }
-        /// <summary>
-        /// AddOneParcel is a static method in the DalObject class.
-        /// the method adds a new parcel
-        /// </summary>
-        public static void AddOneParcel()
-        {
-            Parcels[NumOfParcels].Id = NumOfParcels;
-            Parcels[NumOfParcels].Requested = DateTime.Now;
-            Parcels[NumOfParcels].DroneId = 0;
-            Parcels[NumOfParcels].Scheduled = new DateTime();
-            Parcels[NumOfParcels].PickedUp = new DateTime();
-            Parcels[NumOfParcels].Delivered = new DateTime();
-            NumOfParcels++;
-        }
-
+       
         /// <summary>
         /// checkValid is a static method in the DalObject class.
         /// the helper method check if input is valid if not the func throws exception 

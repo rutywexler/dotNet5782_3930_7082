@@ -37,7 +37,7 @@ namespace ConsoleUI
                         }
                         DalObject.DalObject.Valid(out tryInput);
                         Insert insert = (Insert)tryInput;
-                        InsertOption((Insert)choice);
+                        InsertOption(insert);
                         break;
                     case Options.Update:
                         foreach (Update item in Enum.GetValues(typeof(Update)))
@@ -46,7 +46,7 @@ namespace ConsoleUI
                         }
                         DalObject.DalObject.Valid(out tryInput);
                         Update update = (Update)tryInput;
-                        UpdateOption((Update)choice);
+                        UpdateOption(update);
                         break;
                     case Options.Display:
                         foreach (Display item in Enum.GetValues(typeof(Display)))
@@ -55,7 +55,7 @@ namespace ConsoleUI
                         }
                         DalObject.DalObject.Valid(out tryInput);
                         Display display = (Display)tryInput;
-                        DisplayOption((Display)display);
+                        DisplayOption(display);
                         break;
                     case Options.ViewTheLists:
                         foreach (ViewTheLists item in Enum.GetValues(typeof(ViewTheLists)))
