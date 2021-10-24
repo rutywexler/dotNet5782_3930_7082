@@ -49,7 +49,7 @@ namespace DalObject
         /// <param name="priority">the 4th Priorities value</param>
         public void InsertParcel(Parcel parcel)
         {
-            DataSource.Parcels[DataSource.Config.NumOfParcels] = parcel;
+            DataSource.Parcels[DataSource.Config.NumOfParcels++] = parcel;
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace DalObject
         /// <param name="latitude">the 4th double value</param>
         public void InsertCustomer(Customer customer)
         {
-            DataSource.Customers[DataSource.Config.NumOfCustomers] = customer;
+            DataSource.Customers[DataSource.Config.NumOfCustomers++] = customer;
         }
         /// <summary>
         /// UpdateScheduled is a method in the DalObject class.
@@ -381,7 +381,14 @@ namespace DalObject
             }
             return false;
         }
+        /// <summary>
+        /// Valid is a static method in the DalObject class.
+        /// the helper method check if input is valid 
+        /// </summary>
+        /// <param name="input">out int value</param>
+        
     }
+
 
 }
 

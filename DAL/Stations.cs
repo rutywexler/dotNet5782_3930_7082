@@ -15,8 +15,15 @@ namespace IDAL
             public double Longitude { get; set; }
             public double Lattitude { get; set; }
             public int ChargeSlots { get; set; }
-        
-           
+            /// <summary>
+            /// the method override ToString method
+            /// </summary>
+            public override string ToString()
+            {
+                return $"base-station id: {Id} name: {Name}";
+            }
+
+
 
         }
     }

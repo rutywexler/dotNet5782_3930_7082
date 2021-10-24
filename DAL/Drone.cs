@@ -9,7 +9,7 @@ namespace IDAL
             public int Id { get; set; }
             public string Model { get; set; }
             public WeightCategories MaxWeight { get; set; }
-            public DroneStatuses Status { get; set; }
+            public DroneStatuses Status { get; set; } 
             public Double Battery { get; set; }
             /// <summary>
             /// the method override ToString method

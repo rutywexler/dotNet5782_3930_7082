@@ -86,23 +86,24 @@ namespace DalObject
                 tempParcel.Requested = DateTime.Now;
                 foreach (Drone drone in Drones)
                 {
-                    if(drone.Status==0&&drone.MaxWeight>= tempParcel.Weight)
+                    if (drone.Status == 0 && drone.MaxWeight >= tempParcel.Weight)
                     {
                         tempParcel.DroneId = drone.Id;
                         break;
                     }
                 }
-                if(tempParcel.DroneId==0)
+                if (tempParcel.DroneId == 0)
                 {
-                    // Console.WriteLine("No drone found suitable for send the parcel");
+                    Console.WriteLine("No drone found suitable for send the parcel");
                     break;
                 }
                 tempParcel.Scheduled = DateTime.Now.AddDays(1);
                 tempParcel.PickedUp = DateTime.Now.AddDays(15);
                 tempParcel.Delivered = DateTime.Now.AddDays(16);
+                Parcels[Config.NumOfParcels] = tempParcel;
+                Config.NumOfParcels++;
             }
-            Parcels[Config.NumOfParcels] = tempParcel;
-            Config.NumOfParcels++;
+            
 
         }
 

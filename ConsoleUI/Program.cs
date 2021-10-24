@@ -35,6 +35,8 @@ namespace ConsoleUI
                         {
                             Console.WriteLine($"{(int)item} - {item}");
                         }
+                        DalObject.DalObject.Valid(out tryInput);
+                        Insert insert = (Insert)tryInput;
                         InsertOption((Insert)choice);
                         break;
                     case Options.Update:
@@ -42,6 +44,8 @@ namespace ConsoleUI
                         {
                             Console.WriteLine($"{(int)item} - {item}");
                         }
+                        DalObject.DalObject.Valid(out tryInput);
+                        Update update = (Update)tryInput;
                         UpdateOption((Update)choice);
                         break;
                     case Options.Display:
@@ -49,15 +53,23 @@ namespace ConsoleUI
                         {
                             Console.WriteLine($"{(int)item} - {item}");
                         }
-                        DisplayOption((Display)choice);
+                        DalObject.DalObject.Valid(out tryInput);
+                        Display display = (Display)tryInput;
+                        DisplayOption((Display)display);
                         break;
                     case Options.ViewTheLists:
                         foreach (ViewTheLists item in Enum.GetValues(typeof(ViewTheLists)))
                         {
                             Console.WriteLine($"{(int)item} - {item}");
                         }
-                        ViewTheListsOption((ViewTheLists)choice);
+                        DalObject.DalObject.Valid(out tryInput);
+                        ViewTheLists ViewTheLists = (ViewTheLists)tryInput;
+                        ViewTheListsOption(ViewTheLists);
                         break;
+                    case Options.Exit:
+                        break;
+                    default:
+                        throw new FormatException();
 
 
 
@@ -140,11 +152,69 @@ namespace ConsoleUI
 
             void DisplayOption(Display choice)
             {
-
+                switch (choice)
+                {
+                    case Display.BaseStation:
+                        {
+                            dalObject.DisplayBaseStation();
+                            break;
+                        }
+                    case Display.Drone:
+                        {
+                            dalObject.DisplayDrone();
+                            break;
+                        }
+                    case Display.Customer:
+                        {
+                            dalObject.DisplayCustomer();
+                            break;
+                        }
+                    case Display.Parcel:
+                        {
+                            dalObject.DisplayParcel();
+                            break;
+                        };
+                    default:
+                        throw new FormatException();
+                }
             }
             void ViewTheListsOption(ViewTheLists choice)
             {
-
+                switch (choice)
+                {
+                    case ViewTheLists.baseStations:
+                        {
+                            dalObject.ViewListBaseStations();
+                            break;
+                        }
+                    case ViewTheLists.Drone:
+                        {
+                            dalObject.ViewListDrones();
+                            break;
+                        }
+                    case ViewTheLists.Customers:
+                        {
+                            dalObject.ViewListCustomers();
+                            break;
+                        }
+                    case ViewTheLists.Parcel:
+                        {
+                            dalObject.ViewListParcels();
+                            break;
+                        }
+                    case ViewTheLists.ParcelNotDrone:
+                        {
+                            dalObject.ViewListPendingParcels();
+                            break;
+                        }
+                    case ViewTheLists.FreeBaseStations:
+                        {
+                            dalObject.ViewListAvailableChargeSlots();
+                            break;
+                        };
+                    default:
+                        throw new FormatException();
+                }
             }
 
 
