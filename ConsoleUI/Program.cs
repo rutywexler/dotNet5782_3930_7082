@@ -8,7 +8,7 @@ namespace ConsoleUI
 {
     class Program
     {
-        public enum Options { Insert, Update, Display, ViewTheLists };
+        public enum Options { Insert, Update, Display, ViewTheLists, Exit };
         public enum Insert { Station, Drone, Customer, Parcel };
         public enum Update { AssigningParcelToDrone, CollectParcel, ParcelSupply, SendingDroneforCharging, ReleasingDroneFromCharging };
         public enum Display { BaseStation, Drone, Customer, Parcel };
@@ -18,58 +18,133 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             DalObject.DalObject dalObject = new DalObject.DalObject();
-            int index = 0;
-            int choice = 0;
-            while(choice!=5)
+            Options choice;
+            int tryInput;
+            do
             {
-                foreach (var option in Enum.GetNames(typeof(Options)))
+                foreach (Options item in Enum.GetValues(typeof(Options)))
                 {
-                    Console.Write((index++) + "-" + option + "\n");
+                    Console.WriteLine($"{(int)item} - {item}");
                 }
-                choice = int.Parse(Console.ReadLine());
-                index = 0;
+                DalObject.DalObject.Valid(out tryInput);
+                choice = (Options)tryInput;
                 switch (choice)
                 {
-                    case 1:
-                        foreach (var optionInsert in Enum.GetNames(typeof(Insert)))
+                    case Options.Insert:
+                        foreach (Insert item in Enum.GetValues(typeof(Insert)))
                         {
-                            Console.Write((index++) + "-" + optionInsert + "\n");
+                            Console.WriteLine($"{(int)item} - {item}");
                         }
-                        index = 0;
-                        choice = int.Parse(Console.ReadLine());
-                        Insert(choice);
+                        InsertOption((Insert)choice);
+                        break;
+                    case Options.Update:
+                        foreach (Update item in Enum.GetValues(typeof(Update)))
+                        {
+                            Console.WriteLine($"{(int)item} - {item}");
+                        }
+                        UpdateOption((Update)choice);
+                        break;
+                    case Options.Display:
+                        foreach (Display item in Enum.GetValues(typeof(Display)))
+                        {
+                            Console.WriteLine($"{(int)item} - {item}");
+                        }
+                        DisplayOption((Display)choice);
+                        break;
+                    case Options.ViewTheLists:
+                        foreach (ViewTheLists item in Enum.GetValues(typeof(ViewTheLists)))
+                        {
+                            Console.WriteLine($"{(int)item} - {item}");
+                        }
+                        ViewTheListsOption((ViewTheLists)choice);
+                        break;
 
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        break;
-                   
+
+
                 }
 
-            }
+            } while (choice != Options.Exit);
 
-            void Insert(int choice)
+            void InsertOption(Insert choice)
             {
                 switch (choice)
                 {
-                    case 1:
+                    case Insert.Station:
                         dalObject.InsertStation(InputFunctions.GetStation());
                         break;
-                    case 2:
+                    case Insert.Drone:
                         dalObject.InsertDrone(InputFunctions.GetDrone());
                         break;
-                    case 3:
+                    case Insert.Customer:
                         dalObject.InsertCustomer(InputFunctions.GetCustomer());
                         break;
-                    case 4:
+                    case Insert.Parcel:
                         dalObject.InsertParcel(InputFunctions.GetParcel());
                         break;
                     default:
                         break;
                 }
+            }
+
+            void UpdateOption(Update choice)
+            {
+                switch (choice)
+                {
+                    case Update.AssigningParcelToDrone:
+                        {
+                            Console.WriteLine("enter parcel id");
+                            int id;
+                            DalObject.DalObject.Valid(out id);
+                            dalObject.UpdateScheduled(id);
+                            break;
+                        }
+                    case Update.CollectParcel:
+                        {
+                            Console.WriteLine("enter parcel id");
+                            int id;
+                            DalObject.DalObject.Valid(out id);
+                            dalObject.UpdatePickedUp(id);
+                            break;
+                        }
+                    case Update.ParcelSupply:
+                        {
+                            Console.WriteLine("enter parcel id");
+                            int id;
+                            DalObject.DalObject.Valid(out id);
+                            dalObject.UpdateSupply(id);
+                            break;
+                        }
+                    case Update.SendingDroneforCharging:
+                        {
+                            Console.WriteLine("enter drone id");
+                            int id;
+                            DalObject.DalObject.Valid(out id);
+                            if (!dalObject.UpdateCharge(id))
+                            {
+                                Console.WriteLine("there wasn't an available charge slot");
+                            }
+                            break;
+                        }
+                    case Update.ReleasingDroneFromCharging:
+                        {
+                            Console.WriteLine("enter drone id");
+                            int id;
+                            DalObject.DalObject.Valid(out id);
+                            dalObject.UpdateRelease(id);
+                            break;
+                        }
+                    default:
+                        throw new FormatException();
+                }
+            }
+
+            void DisplayOption(Display choice)
+            {
+
+            }
+            void ViewTheListsOption(ViewTheLists choice)
+            {
+
             }
 
 
