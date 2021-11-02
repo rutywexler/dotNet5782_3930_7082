@@ -23,37 +23,26 @@ namespace DalObject
         /// AddBaseStation is a method in the DalObject class.
         /// the method adds a new base station
         /// </summary>
-        public void InsertStation(Stations station)
-        {
-            DataSource.BaseStations[DataSource.Config.NumOfBaseStations++] = station;
-        }
+        public void InsertStation(Stations station) => BaseStations.Add(station);
 
         /// <summary>
         /// AddDrone is a method in the DalObject class.
         /// the method adds a new drone
         /// </summary>
-        public void InsertDrone(Drone drone)
-        {
-            DataSource.Drones[DataSource.Config.NumOfDrons++] = drone;
-        }
+        public void InsertDrone(Drone drone) => Drones.Add(drone);
 
         /// <summary>
         /// AddParcel is a method in the DalObject class.
         /// the method adds a new parcel
         /// </summary>
-        public void InsertParcel(Parcel parcel)
-        {
-            DataSource.Parcels[DataSource.Config.NumOfParcels++] = parcel;
-        }
+        public void InsertParcel(Parcel parcel) => Parcels.Add(parcel);
 
         /// <summary>
         /// AddCustomer is a method in the DalObject class.
         /// the method adds a new customer
         /// </summary>
-        public void InsertCustomer(Customer customer)
-        {
-            DataSource.Customers[DataSource.Config.NumOfCustomers++] = customer;
-        }
+        public void InsertCustomer(Customer customer) => Customers.Add(customer);
+
         /// <summary>
         /// UpdateScheduled is a method in the DalObject class.
         /// the method assigns a package to the drone
@@ -62,14 +51,16 @@ namespace DalObject
         public void UpdateScheduled(int id)
         {
             checkValid(id, 0, NumOfParcels);
-            for (int i = 0; i < Drones.Length; i++)
+            foreach (Drone drone in Drones)
             {
-                if ((Drones[i].MaxWeight >= Parcels[NumOfParcels].Weight) && (Drones[i].Battery >= 30) && Drones[i].Status == 0)
+                if ((drone.MaxWeight >= Parcels[NumOfParcels].Weight) && (drone.Battery >= 30) && drone.Status == 0)
                 {
-                    Parcels[id].DroneId = Drones[i].Id;
-                    Parcels[id].Scheduled = DateTime.Now;
-                    return;
-                }
+                    Parcel parcelTemp = Parcels[id];
+                    parcelTemp.DroneId = drone.Id;
+                    parcelTemp.Scheduled = DateTime.Now;
+                    Parcels[id] = parcelTemp;
+                   return;
+                } 
             }
         }
         /// <summary>
@@ -80,8 +71,12 @@ namespace DalObject
         public void UpdatePickedUp(int id)
         {
             checkValid(id, 0, NumOfParcels);
-            Parcels[id].PickedUp = DateTime.Now;
-            Drones[Parcels[id].DroneId - 1].Status = (DroneStatuses)2;
+            Parcel tempParcel = Parcels[id];
+            tempParcel.PickedUp = DateTime.Now;
+            Parcels[id] = tempParcel;
+            Drone droneTemp = Drones[Parcels[id].DroneId - 1];
+            droneTemp.Status = (DroneStatuses)2;
+            Drones[Parcels[id].DroneId - 1] = droneTemp;
         }
         /// <summary>
         /// UpdateSupply is a method in the DalObject class.
@@ -91,8 +86,11 @@ namespace DalObject
         public void UpdateSupply(int id)
         {
             checkValid(id, 0, NumOfParcels);
-            Parcels[id].Delivered = DateTime.Now;
-            Drones[Parcels[id].DroneId - 1].Status =0;
+            Parcel tempParcel = Parcels[id];
+            tempParcel.Delivered = DateTime.Now;
+            Parcels[id] = tempParcel;
+            Drone tempDrone = Drones[Parcels[id].DroneId - 1];
+            tempDrone.Status =0;
         }
         /// <summary>
         /// UpdateCharge is a method in the DalObject class.
@@ -103,7 +101,8 @@ namespace DalObject
         public bool UpdateCharge(int id)
         {
             checkValid(id, 1, NumOfDrons + 1);
-            Drones[id].Status = (DroneStatuses)1;
+            Drone tempDrone = Drones[id];
+            tempDrone.Status = (DroneStatuses)1;
             return FindChargeSlot(id);
         }
         /// <summary>
@@ -114,7 +113,8 @@ namespace DalObject
         public void UpdateRelease(int id)
         {
             checkValid(id, 1, NumOfDrons + 1);
-            Drones[id - 1].Status = 0;
+            Drone tempDrone = Drones[id - 1];
+            tempDrone.Status = 0;
             int sum = -1;
             foreach (DroneCharge item in DroneCharges)
             {
@@ -221,11 +221,11 @@ namespace DalObject
         /// </summary>
         public void ViewListPendingParcels()
         {
-            foreach (Parcel item in Parcels)
+            foreach (Parcel parcel in Parcels)
             {
-                if (item.DroneId == 0)
+                if (parcel.DroneId == 0)
                 {
-                    Console.WriteLine(item);
+                    Console.WriteLine(parcel);
                 }
             }
         }
@@ -238,11 +238,11 @@ namespace DalObject
             foreach (Stations item in BaseStations)
             {
                 int sum = 0;
-                foreach (DroneCharge item1 in DroneCharges)
+                foreach (DroneCharge droneCharge in DroneCharges)
                 {
-                    if (item1.DroneId == item.Id)
+                    if (droneCharge.DroneId == item.Id)
                         sum++;
-                    if (item1.DroneId > item.Id)
+                    if (droneCharge.DroneId > item.Id)
                         break;
                 }
                 if (sum < item.ChargeSlots)
