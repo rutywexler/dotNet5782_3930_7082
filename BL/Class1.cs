@@ -2,8 +2,11 @@
 
 namespace BL
 {
-
-    public class Class1
+    namespace BO
     {
+
+        public class Class1
+        {
+        }
     }
 }
