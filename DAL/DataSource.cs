@@ -9,10 +9,10 @@ namespace DalObject
 {
     class DataSource
     {
-        internal static Drone[] Drones = new Drone[10];
-        internal static Stations[] BaseStations = new Stations[5];
-        internal static Customer[] Customers = new Customer[100];
-        internal static Parcel[] Parcels = new Parcel[1000];
+        internal static List<Drone> Drones = new List<Drone>();
+        internal static List<Stations> BaseStations = new List<Stations>();
+        internal static List<Customer> Customers = new List<Customer>();
+        internal static List<Parcel > Parcels = new List<Parcel>();
         internal static List<DroneCharge> DroneCharges = new List<DroneCharge>();
 
         internal class Config
@@ -28,17 +28,18 @@ namespace DalObject
         public static void Initalize()
         {
             //station
-            const int STATION_NUM = 2;
-            Stations tempStation = new Stations();
-            for (int i = 0; i < STATION_NUM; i++)
+
+
+            for (int i = 0; i < 2; i++)
             {
+                Stations tempStation = new Stations();
                 tempStation.Id = Config.NumOfDrons + 1;
                 tempStation.Name = Config.NumOfDrons * rand.Next();
                 tempStation.Longitude = rand.Next(91);
                 tempStation.Lattitude = rand.Next(181);
                 tempStation.ChargeSlots = rand.Next() + 1;
-                BaseStations[Config.NumOfBaseStations] = tempStation;
-                Config.NumOfBaseStations++;
+                BaseStations.Add(tempStation);
+                
             }
 
             //Drone
