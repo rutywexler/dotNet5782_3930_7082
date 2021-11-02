@@ -17,6 +17,11 @@ namespace DalObject
 
         internal class Config
         {
+            static double Available;
+            static double LightWeightCarrier;
+            static double MediumWeightBearing;
+            static double CarryingHeavyWeight;
+            static double SkimmerLoadingRate;
 
         }
 
