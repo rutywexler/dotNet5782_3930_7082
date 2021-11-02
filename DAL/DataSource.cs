@@ -46,8 +46,6 @@ namespace DalObject
                 tempDrone.Id = Drones.Count+1;
                 tempDrone.Model = rand.Next(100, 1000).ToString();
                 tempDrone.MaxWeight= (WeightCategories)rand.Next(Enum.GetNames(typeof(WeightCategories)).Length);
-                tempDrone.Status= (DroneStatuses)rand.Next(Enum.GetNames(typeof(DroneStatuses)).Length);
-                tempDrone.Battery = rand.Next(101);
                 Drones.Add(tempDrone);
             
             }
