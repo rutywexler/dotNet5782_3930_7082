@@ -50,10 +50,10 @@ namespace DalObject
         /// <param name="id">int value</param>
         public void UpdateScheduled(int id)
         {
-            checkValid(id, 0, NumOfParcels);
+            checkValid(id, 0, Parcels.Count);
             foreach (Drone drone in Drones)
             {
-                if ((drone.MaxWeight >= Parcels[NumOfParcels].Weight) && (drone.Battery >= 30) && drone.Status == 0)
+                if ((drone.MaxWeight >= Parcels[Parcels.Count].Weight) && (drone.Battery >= 30) && drone.Status == 0)
                 {
                     Parcel parcelTemp = Parcels[id];
                     parcelTemp.DroneId = drone.Id;
@@ -70,7 +70,7 @@ namespace DalObject
         /// <param name="id">int value</param>
         public void UpdatePickedUp(int id)
         {
-            checkValid(id, 0, NumOfParcels);
+            checkValid(id, 0, Parcels.Count);
             Parcel tempParcel = Parcels[id];
             tempParcel.PickedUp = DateTime.Now;
             Parcels[id] = tempParcel;
@@ -85,7 +85,7 @@ namespace DalObject
         /// <param name="id">int value</param>
         public void UpdateSupply(int id)
         {
-            checkValid(id, 0, NumOfParcels);
+            checkValid(id, 0, Parcels.Count);
             Parcel tempParcel = Parcels[id];
             tempParcel.Delivered = DateTime.Now;
             Parcels[id] = tempParcel;
@@ -100,7 +100,7 @@ namespace DalObject
         /// <returns>if succeed in finding available charge slot</returns>
         public bool UpdateCharge(int id)
         {
-            checkValid(id, 1, NumOfDrons + 1);
+            checkValid(id, 1, Drones.Count + 1);
             Drone tempDrone = Drones[id];
             tempDrone.Status = (DroneStatuses)1;
             return FindChargeSlot(id);
@@ -112,7 +112,7 @@ namespace DalObject
         /// <param name="id">int value</param>
         public void UpdateRelease(int id)
         {
-            checkValid(id, 1, NumOfDrons + 1);
+            checkValid(id, 1, Drones.Count + 1);
             Drone tempDrone = Drones[id - 1];
             tempDrone.Status = 0;
             int sum = -1;
@@ -135,7 +135,7 @@ namespace DalObject
         {
             Console.WriteLine("enter base station id:");
             int input;
-            ValidRange(0, NumOfBaseStations, out input);
+            ValidRange(0, BaseStations.Count, out input);
             Console.WriteLine(BaseStations[input-1]);
         }
         /// <summary>
@@ -146,7 +146,7 @@ namespace DalObject
         {
             Console.WriteLine("enter drone id:");
             int input;
-            ValidRange(1, NumOfDrons + 1, out input);
+            ValidRange(1, Drones.Count + 1, out input);
             Console.WriteLine(Drones[input-1]);
         }
         /// <summary>
@@ -157,7 +157,7 @@ namespace DalObject
         {
             Console.WriteLine("enter customer id:");
             int input;
-            ValidRange(0,NumOfCustomers, out input);
+            ValidRange(0,Customers.Count, out input);
             Console.WriteLine(Customers[input-1]);
         }
         /// <summary>
@@ -168,7 +168,7 @@ namespace DalObject
         {
             Console.WriteLine("Enter parcel id:");
             int input;
-            ValidRange(0, NumOfParcels, out input);
+            ValidRange(0, Parcels.Count, out input);
             Console.WriteLine(Parcels[input-1]);
         }
         /// <summary>
