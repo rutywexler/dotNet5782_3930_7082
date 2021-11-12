@@ -9,7 +9,7 @@ namespace BL
 {
     namespace BO
     {
-        class DroneToList
+        public class DroneToList
         {
             public int IdDrone { get; set; }
             public string  ModelDrone { get; set; }

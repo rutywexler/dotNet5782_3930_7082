@@ -9,7 +9,7 @@ namespace BL
     namespace BO
 
     {
-        class Enums
+        public class Enums
         {
             public enum WeightCategories
             {

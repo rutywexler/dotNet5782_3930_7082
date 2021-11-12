@@ -8,7 +8,7 @@ namespace BL
 {
     namespace BO
     {
-        class CustomerForList
+        public class CustomerForList
         {
             public int CustomerId { get; set; }
             public string  CustomerName { get; set; }

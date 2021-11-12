@@ -9,7 +9,7 @@ namespace IBL
 {
     namespace BO
     {
-        class Deliverybytransfer
+        public class Deliverybytransfer
         {
             public int ID { get; set; }
             public WeightCategories Weight { get; set; }

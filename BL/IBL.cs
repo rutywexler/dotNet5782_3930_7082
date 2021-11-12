@@ -8,6 +8,10 @@ namespace IBL
 {
     interface IBL
     {
+        void BaseStation()
+        {
+
+        }
 
     }
 }

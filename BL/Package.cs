@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IBL.BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace BL
 {
     namespace BO
     {
-        class Package
+       public class Package
         {
             public int PackageId { get; set; }
             public Customer CustomerSends { get; set; }

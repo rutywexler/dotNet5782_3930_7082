@@ -8,7 +8,7 @@ namespace BL
 {
     namespace BO
     {
-        class BaseStationToList
+        public class BaseStationToList
         {
 
             public int IdStation { get; set; }
