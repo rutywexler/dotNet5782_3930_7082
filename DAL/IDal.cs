@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using DalObject;
 using static DalObject.DataSource.Config;
+using IDAL.DO;
 
-namespace DAL
+namespace IDAL
 {
-    interface IDal
+    public interface IDal
     {
     //    double [] PowerConsumptionRequest()
     //    {
