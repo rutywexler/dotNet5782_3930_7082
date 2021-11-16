@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static BL.BO.Enums;
 
-namespace BL
+namespace IBL
 {
     namespace BO
     {

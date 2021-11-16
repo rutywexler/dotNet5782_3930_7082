@@ -3,11 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IBL.BO;
 
 namespace IBL
 {
     public interface IblParcel
     {
-
+        public void ReceiptParcelForDelivery(int senderCustomerId, int recieveCustomerId, BO.WeightCategories Weight, BO.Priorities priority);
+        public void AssignPackageToDrone(int droneId);
+        public void PackageCollectionByDrone(int droneId);
+        public void DeliveryParcelByDrone(int droneId);
+        public Package GetParcel(int id);
+        public IEnumerable<Package> GetParcels();
+        public IEnumerable<Package> GetParcelsNotAssignedToDrone();
     }
 }
