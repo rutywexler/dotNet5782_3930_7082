@@ -18,7 +18,7 @@ namespace BL
             public WeightCategories WeightPackage { get; set; }
             public Priorities PackagesPriority { get; set; }
             public Drone DronePackage { get; set; }
-            public int TimereatedTheShipment { get; set; }
+            public int TimeCreatedThePackage { get; set; }
             public int AssignmentTime { get; set; }
             public int CollectionTime { get; set; }
             public int DeliveryTime { get; set; }
