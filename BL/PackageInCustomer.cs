@@ -9,13 +9,13 @@ namespace IBL
 {
     namespace BO
     {
-        public class DeliveryToCustomer
+        public class PackageInCustomer
         {
             public int ID { get; set; }
             public WeightCategories Weight { get; set; }
             public Priorities priority { get; set; }
             public DroneStatuses Status { get; set; }
-            public CustomerInDelivery CustomerInDelivery { get; set; }
+            public CustomerInPackage CustomerInDelivery { get; set; }
 
         }
     }

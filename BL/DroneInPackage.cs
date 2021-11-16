@@ -13,8 +13,8 @@ namespace IBL
             public int ID { get; set; }
             public int BatteryStatus { get; set; }
             public Location Location { get; set; }
-            public List<DeliveryToCustomer> DeliverieToCustomer = new List<DeliveryToCustomer>();
-            public List<DeliveryToCustomer> Delivery_list_customer_to_customer = new List<DeliveryToCustomer>();
+            public List<PackageInCustomer> DeliverieToCustomer = new List<PackageInCustomer>();
+            public List<PackageInCustomer> Delivery_list_customer_to_customer = new List<PackageInCustomer>();
 
         }
     }

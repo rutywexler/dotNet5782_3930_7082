@@ -17,7 +17,7 @@ namespace BL
             public WeightCategories Weight { get; set; }
             public int BatteryStatus { get; set; }
             public int DroneStatus { get; set; }
-            public Deliverybytransfer DeliveryTransfer { get; set; }
+            public PackageInTransfer DeliveryTransfer { get; set; }
             public Location DroneLocation { get; set; }
         }
         
