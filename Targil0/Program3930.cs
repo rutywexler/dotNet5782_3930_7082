@@ -9,6 +9,7 @@ namespace Targil0
             welcome3930();
             Welcome7082();
             Console.ReadLine();
+            
 
 
         }

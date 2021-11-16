@@ -7,6 +7,8 @@ namespace ConsoleUI_BL
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+            IBL bl = new BL();
+
         }
     }
 }
