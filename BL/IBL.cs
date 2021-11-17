@@ -9,6 +9,7 @@ namespace IBL
     interface IBL
     {
         void AddBaseStation(string stationName, int position);
+        
 
     }
 }
