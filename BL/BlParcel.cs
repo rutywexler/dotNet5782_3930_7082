@@ -1,7 +1,11 @@
-﻿using IBL;
+﻿using BL.BO;
+using IBL;
 using IBL.BO;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BL
 {
@@ -17,6 +21,8 @@ namespace BL
             Drone drone = GetDrone(droneId);
             if(PackageInTransfer
         }
+
+        
 
         public Package GetParcel(int id)
         {

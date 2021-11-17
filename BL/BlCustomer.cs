@@ -13,6 +13,7 @@ namespace BL
         public void AddCustomer(int id, int name, int phoneNumber, int position)
         {
             throw new NotImplementedException();
+            
         }
 
         public Customer GetCustomer(int id)

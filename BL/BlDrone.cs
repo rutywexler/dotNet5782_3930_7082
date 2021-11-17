@@ -9,16 +9,22 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-    public partial class BLDrone : IblDrone
+    public partial class BL : IblDrone
     {
         public void AddDrone(int id, string model, Enums.WeightCategories MaxWeight, int stationId)
         {
-            throw new NotImplementedException();
+            Drone newDrone = new Drone();
+            newDrone.BatteryStatus = ;
+            newDrone.DroneStatus = 0;
+            newDrone.DroneLocation = GetDrone(stationId).DroneLocation;
+            AssignPackageToDrone(56);
+
         }
 
         public Drone GetDrone(int id)
         {
-            throw new NotImplementedException();
+            Drone g = new Drone();
+            return g;
         }
 
         public IEnumerable<Drone> GetDrones()
