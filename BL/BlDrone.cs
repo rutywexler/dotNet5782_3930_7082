@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-    public partial class BL : IblDrone
+    public partial class BLDrone : IblDrone
     {
         public void AddDrone(int id, string model, Enums.WeightCategories MaxWeight, int stationId)
         {

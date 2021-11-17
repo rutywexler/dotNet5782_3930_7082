@@ -2,9 +2,6 @@
 using IBL.BO;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BL
 {
@@ -17,7 +14,8 @@ namespace BL
 
         public void DeliveryParcelByDrone(int droneId)
         {
-            throw new NotImplementedException();
+            Drone drone = GetDrone(droneId);
+            if(PackageInTransfer
         }
 
         public Package GetParcel(int id)
