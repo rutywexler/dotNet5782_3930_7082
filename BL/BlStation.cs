@@ -8,24 +8,29 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-    public partial class BL : IblCustomer
+    public partial class BlStation : IblStation
     {
-        public void AddCustomer(int id, int name, int phoneNumber, int position)
+        public void AddStation(int id, string name, Location location, int chargeSlots)
         {
             throw new NotImplementedException();
         }
 
-        public Customer GetCustomer(int id)
+        public IEnumerable<BaseStation> GetStaionsWithEmptyChargeSlots()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Customer> GetCustomers()
+        public BaseStation GetStation(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateCustomer(int id, string name, string PhoneNumber)
+        public IEnumerable<BaseStation> GetStations()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateStation(int id, string name, int chargeSlots)
         {
             throw new NotImplementedException();
         }
