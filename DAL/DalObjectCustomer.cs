@@ -14,32 +14,22 @@ namespace DalObject
         /// AddCustomer is a method in the DalObject class.
         /// the method adds a new customer
         /// </summary>
-        public void InsertCustomer(Customer customer) => Customers.Add(customer);
+        public void AddCustomer(Customer customer) => Customers.Add(customer);
 
         /// <summary>
-        /// DisplayCustomer is a method in the DalObject class.
-        /// the method allows customer view
+        /// Prepares the list of customer for display
         /// </summary>
-        public void DisplayCustomer()
-        {
-            Console.WriteLine("enter customer id:");
-            int input;
-            ValidRange(0, Customers.Count, out input);
-            Console.WriteLine(Customers[input - 1]);
-        }
+        /// <returns>A list of customer</returns>
+        public IEnumerable<Customer> GetCustomers() => Customers;
 
         /// <summary>
-        /// ViewListParcels is a method in the DalObject class.
-        /// the method displays View the customer list
+        /// Find a customer that has tha same id number as the parameter
         /// </summary>
-        public void ViewListCustomers()
+        /// <param name="id">The id number of the requested customer</param>
+        /// <returns>A customer for display</returns>
+        public Customer GetCustomer(int id)
         {
-            foreach (Customer item in Customers)
-            {
-                Console.WriteLine(item);
-            }
+            return Customers.First(item => item.Id == id);
         }
     }
-    
-   
 }
