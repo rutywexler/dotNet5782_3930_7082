@@ -78,7 +78,12 @@ namespace IBL
             }
 
         }
-
+        public Location FindCloseLocation()
+        {
+            var sCoord = new GeoCoordinate(sLocation.Latitude, sLocation.Longitud
+            var tCoord = new GeoCoordinate(tLocation.Latitude, tLocation.Longitude);
+            double distance = sCoord.GetDistanceTo(tCoord);
+        }
         public void UpdateDrone(int id, string name)
         {
             throw new NotImplementedException();
