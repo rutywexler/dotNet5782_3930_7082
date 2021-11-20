@@ -1,18 +1,21 @@
 ﻿using IBL;
 using IBL.BO;
+using IDAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BL
+namespace IBL
 {
-    public partial class BlStation : IblStation
+    public partial class BL : IblStation
     {
         public void AddStation(int id, string name, Location location, int chargeSlots)
         {
-            throw new NotImplementedException();
+            BaseStation BaseStation = new BaseStation();
+            BaseStation.NumberOfChargingStations‏ = 1;
+
         }
 
         public IEnumerable<BaseStation> GetStaionsWithEmptyChargeSlots()

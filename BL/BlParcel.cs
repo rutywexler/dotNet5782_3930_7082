@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BL
+namespace IBL
 {
-    public partial class Bl : IblParcel
+    public partial class BL : IblParcel
     {
         public void AssignPackageToDrone(int droneId)
         {
@@ -45,6 +45,11 @@ namespace BL
         }
 
         public void ReceiptParcelForDelivery(int senderCustomerId, int recieveCustomerId, IBL.BO.WeightCategories Weight, IBL.BO.Priorities priority)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ReceiptParcelForDelivery(int senderCustomerId, int recieveCustomerId, WeightCategories Weight, IBL.BO.Priorities priority)
         {
             throw new NotImplementedException();
         }

@@ -11,9 +11,9 @@ using IBL.BO;
 using BL;
 
 
-namespace BL
+namespace IBL
 {
-    public partial class Bl : IblDrone
+    public partial class BL : IblDrone
     {
         private IDal dal;
         public void AddDrone(int id, string model, Enums.WeightCategories MaxWeight, int stationId)

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace IBL
 {
-    interface IBL
+    public interface IBL : IblCustomer, IblDrone, IblStation, IblParcel
     {
-        void AddBaseStation(string stationName, int position);
+        
         
 
     }
