@@ -1,23 +1,33 @@
 ﻿using BL.BO;
 using IBL;
-using IBL.BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IDAL;
+using DalObject;
+using IBL.BO;
+using BL;
+
 
 namespace BL
 {
-    public partial class BL : IblDrone
+    public partial class Bl : IblDrone
     {
+        private IDal dal;
         public void AddDrone(int id, string model, Enums.WeightCategories MaxWeight, int stationId)
         {
             Drone newDrone = new Drone();
+            Random random = new Random();
+       int RandomNumber(int min, int max)
+            {
+                return random.Next(min, max);
+            }
             newDrone.BatteryStatus = ;
             newDrone.DroneStatus = 0;
             newDrone.DroneLocation = GetDrone(stationId).DroneLocation;
-            AssignPackageToDrone(56);
+            
 
         }
 
@@ -39,7 +49,34 @@ namespace BL
 
         public void SendDroneForCharge(int id)
         {
-            throw new NotImplementedException();
+            Drone newDrone = new Drone();
+            //צריך למצוא מיקום קרוב ביותר!!
+            BaseStation baseStation = new BaseStation();
+            newDrone = GetDrone(id);
+            if (newDrone.DroneStatus == 1/*||newDrone.DroneLocation.Lattitude*/)
+            {
+                int id2;//idשל התחנה הקרובה ביותר
+                newDrone.DroneLocation = baseStation.location;
+                /*■	הורדת מספר עמדות טעינה פנויות ב-1IDal.DO.*/
+                Drone drone = new Drone();
+
+                
+                IDAL.DO.Stations baseStations = dal.GetStation(id2);
+                baseStations.ChargeSlots -= 1;
+                IDAL.DO.Drone DalDrone = dal.GetDrone(id);
+                DalDrone.Battery = ;//לתקן!!
+                DalDrone.
+
+
+
+
+
+
+
+
+
+            }
+
         }
 
         public void UpdateDrone(int id, string name)
