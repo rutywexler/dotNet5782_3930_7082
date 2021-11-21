@@ -9,7 +9,7 @@ using IDAL;
 using DalObject;
 using IBL.BO;
 using BL;
-
+using System.Device.Location;
 
 namespace IBL
 {
@@ -78,11 +78,12 @@ namespace IBL
             }
 
         }
-        public Location FindCloseLocation()
+        public double FindCloseLocation(Location sLocation , Location tLocation)
         {
-            var sCoord = new GeoCoordinate(sLocation.Latitude, sLocation.Longitud
-            var tCoord = new GeoCoordinate(tLocation.Latitude, tLocation.Longitude);
+            var sCoord = new GeoCoordinate(sLocation.Lattitude, sLocation.Longitude);
+            var tCoord = new GeoCoordinate(tLocation.Lattitude, tLocation.Longitude);
             double distance = sCoord.GetDistanceTo(tCoord);
+            return distance;
         }
         public void UpdateDrone(int id, string name)
         {
