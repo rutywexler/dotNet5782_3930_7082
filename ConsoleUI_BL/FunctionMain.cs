@@ -92,7 +92,7 @@ namespace ConsoleUI_BL
             Customer tempCustomer = new Customer();
 
             Console.WriteLine("Enter customer id:");
-            tempCustomer.ID = int.Parse(Console.ReadLine());
+            tempCustomer.Id = int.Parse(Console.ReadLine());
 
             Console.WriteLine("Enter Customer name:");
             tempCustomer.Name = Console.ReadLine();
@@ -104,15 +104,15 @@ namespace ConsoleUI_BL
 
         }
 
-        public static Package AddShippingPackage()
+        public static Parcel AddShippingPackage()
         {
-            Package tempPackage = new Package();
+            Parcel tempPackage = new Parcel();
 
             Console.WriteLine("Enter send Customer id");
-            tempPackage.CustomerSends.ID = int.Parse(Console.ReadLine());
+            tempPackage.CustomerSends.Id = int.Parse(Console.ReadLine());
 
             Console.WriteLine("Enter recieve customer id:");
-            tempPackage.CustomerReceives.ID = int.Parse(Console.ReadLine());
+            tempPackage.CustomerReceives.Id = int.Parse(Console.ReadLine());
 
             Console.WriteLine("Enter the package weight: 1- Light, 2- medium, 3- weighty");
             int choice = int.Parse(Console.ReadLine());

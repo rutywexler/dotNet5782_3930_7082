@@ -9,7 +9,7 @@ namespace IBL
 {
     namespace BO
     {
-        public class PackageInTransfer
+        public class ParcelInTransfer
         {
             public int ID { get; set; }
             public Priorities Priority { get; set; }

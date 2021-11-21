@@ -24,17 +24,17 @@ namespace IBL
 
         
 
-        public Package GetParcel(int id)
+        public Parcel GetParcel(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Package> GetParcels()
+        public IEnumerable<Parcel> GetParcels()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Package> GetParcelsNotAssignedToDrone()
+        public IEnumerable<Parcel> GetParcelsNotAssignedToDrone()
         {
             throw new NotImplementedException();
         }

@@ -10,7 +10,7 @@ namespace IBL
 {
     namespace BO
     {
-       public class Package
+       public class Parcel
         {
             public int PackageId { get; set; }
             public Customer CustomerSends { get; set; }

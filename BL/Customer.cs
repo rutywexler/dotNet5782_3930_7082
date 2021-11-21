@@ -11,12 +11,12 @@ namespace IBL
     {
        public class Customer
         {
-            public int ID { get; set; }
+            public int Id { get; set; }
             public string Name { get; set; }
             public string PhoneNumber { get; set; }
             public Location Location { get; set; }
-            internal static List<Package> OackageInCustomerFromCustomer = new List<Package>();
-            internal static List<Package> OackageInCustomerToCustomer = new List<Package>();
+            public List<ParcelInCustomer> getCustomerSendParcels = new List<ParcelInCustomer>();//חבילות בדרך ללקוח
+            public List<ParcelInCustomer> getCustomerReceivedParcels = new List<ParcelInCustomer>();//חבילות שהתקבלו
 
 
         }

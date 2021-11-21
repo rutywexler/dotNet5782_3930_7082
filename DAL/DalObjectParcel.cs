@@ -75,5 +75,23 @@ namespace DalObject
                 }
             }
         }
+
+        /// <summary>
+        /// Find a parcel that has tha same id number as the parameter
+        /// </summary>
+        /// <param name="id">The id number of the requested parcel</param>
+        /// <returns>A parcel for display</returns>
+        public Parcel GetParcel(int id)
+        {
+            return Parcels.First(item => item.Id == id);
+        }
+
+        /// <summary>
+        /// Prepares the list of Parcels for display
+        /// </summary>
+        /// <returns>A list of parcel</returns>
+        public IEnumerable<Parcel> GetParcels() => Parcels;
+
+
     }
 }
