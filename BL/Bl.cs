@@ -39,6 +39,8 @@ namespace IBL
             int electricityConsumption;//צריכת חשמל
             int SkimmerLoadingRate;//קצב טעינת רחפן
                                    //TODO : DeliveryId
+            var parcels = dal.GetParcels().ToList();
+
             foreach (var drone in drones)
             {
                 drone.PackageNumberIsTransferred = 0;
