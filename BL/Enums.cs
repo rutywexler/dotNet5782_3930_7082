@@ -25,12 +25,20 @@ namespace BL
                 Emergency
             }
 
-            public enum DroneStatuses
+            public enum PackageStatuses
             {
                 Defined,
                 associated,
                 collected,
                 provided
+            }
+
+            public enum DroneStatuses
+            {
+                Available,
+                Meintenence,
+                Delivery
+
             }
         }
     }

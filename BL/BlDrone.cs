@@ -10,6 +10,7 @@ using DalObject;
 using IBL.BO;
 using BL;
 using System.Device.Location;
+using static BL.BO.Enums;
 
 namespace IBL
 {
@@ -33,8 +34,9 @@ namespace IBL
 
         public Drone GetDrone(int id)
         {
-            Drone g = new Drone();
-            return g;
+           /* if (!CheckIdIfExistInTheList(dal.GetDrones(), id))
+                throw new KeyNotFoundException();*/
+            return MapDrone(dal.GetDrone(id));
         }
 
         public IEnumerable<Drone> GetDrones()
@@ -45,6 +47,21 @@ namespace IBL
         public void ReleaseDroneFromCharging(int id, float timeOfCharge)
         {
             throw new NotImplementedException();
+        }
+
+        private BO.Drone MapDrone(IDAL.DO.Drone drone)
+        {
+            DroneToList droneToList = drones.Find(item => item.Id == drone.Id);
+            return new Drone()
+            {
+                DroneId = drone.Id,
+                DroneModel = drone.Model,
+                Weight = (WeightCategories)drone.MaxWeight,
+                DroneStatus = droneToList.DroneStatus,
+                BattaryMode = droneToList.BatteryStatus,
+                CurrentLocation = droneToList.CurrentLocation,
+                Parcel = droneToList.ParcelId != null ? CreateParcelInTransfer((int)droneToList.ParcelId) : null
+            };
         }
 
         public void SendDroneForCharge(int id)
@@ -78,16 +95,19 @@ namespace IBL
             }
 
         }
-        public double FindCloseLocation(Location sLocation , Location tLocation)
+       /* public double FindCloseLocation(Location sLocation , Location tLocation)
         {
             var sCoord = new GeoCoordinate(sLocation.Lattitude, sLocation.Longitude);
             var tCoord = new GeoCoordinate(tLocation.Lattitude, tLocation.Longitude);
             double distance = sCoord.GetDistanceTo(tCoord);
             return distance;
-        }
+        }*/
         public void UpdateDrone(int id, string name)
         {
             throw new NotImplementedException();
         }
+
+
+        
     }
 }
