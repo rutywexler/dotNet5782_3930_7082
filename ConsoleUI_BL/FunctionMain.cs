@@ -145,17 +145,17 @@ namespace ConsoleUI_BL
             {
                 case 1:
                     {
-                        tempPackage.PackagesPriority = Enums.Priorities.Regular;
+                        tempPackage.Priority = Enums.Priorities.Regular;
                         break;
                     }
                 case 2:
                     {
-                        tempPackage.PackagesPriority = Enums.Priorities.Fast;
+                        tempPackage.Priority = Enums.Priorities.Fast;
                         break;
                     }
                 case 3:
                     {
-                        tempPackage.PackagesPriority = Enums.Priorities.Emergency;
+                        tempPackage.Priority = Enums.Priorities.Emergency;
                         break;
                     }
                 default:

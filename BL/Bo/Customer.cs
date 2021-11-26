@@ -15,8 +15,8 @@ namespace IBL
             public string Name { get; set; }
             public string PhoneNumber { get; set; }
             public Location Location { get; set; }
-            public List<ParcelInCustomer> getCustomerSendParcels = new List<ParcelInCustomer>();//חבילות בדרך ללקוח
-            public List<ParcelInCustomer> getCustomerReceivedParcels = new List<ParcelInCustomer>();//חבילות שהתקבלו
+            public List<ParcelInCustomer> getCustomerSendParcels { get; set; }
+            public List<ParcelInCustomer> getCustomerReceivedParcels { get; set; }
 
 
         }

@@ -31,7 +31,7 @@ namespace IBL
 
         public IEnumerable<Parcel> GetParcels()
         {
-            throw new NotImplementedException();
+            return dal.GetParcels().Select(Parcel => GetParcel(Parcel.Id));
         }
 
         public IEnumerable<Parcel> GetParcelsNotAssignedToDrone()

@@ -9,6 +9,7 @@ namespace IBL
 {
     public interface IblParcel
     {
+        public void AddParcel(Parcel parcel);
         public void ReceiptParcelForDelivery(int senderCustomerId, int recieveCustomerId, BO.WeightCategories Weight, BO.Priorities priority);
         public void AssignPackageToDrone(int droneId);
         public void PackageCollectionByDrone(int droneId);
