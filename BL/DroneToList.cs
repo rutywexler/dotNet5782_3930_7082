@@ -12,11 +12,11 @@ namespace BL
     {
         public class DroneToList
         {
-            public int IdDrone { get; set; }
+            public int DroneId { get; set; }
             public string  ModelDrone { get; set; }
             public WeightCategories DroneWeight { get; set; }
             public int BatteryDrone { get; set; }
-            public int DroneStatus { get; set; }
+            public DroneStatuses DroneStatus { get; set; }
             public Location DroneLocation { get; set; }
             public int PackageNumberIsTransferred { get; set; }
         }

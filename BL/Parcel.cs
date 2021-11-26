@@ -12,12 +12,12 @@ namespace IBL
     {
        public class Parcel
         {
-            public int PackageId { get; set; }
+            public int Id { get; set; }
             public Customer CustomerSends { get; set; }
             public Customer CustomerReceives { get; set; }
-            public WeightCategories WeightPackage { get; set; }
-            public Priorities PackagesPriority { get; set; }
-            public Drone DronePackage { get; set; }
+            public WeightCategories WeightParcel { get; set; }
+            public Priorities Priority { get; set; }
+            public Drone DroneParcel { get; set; }
             public int TimeCreatedThePackage { get; set; }
             public int AssignmentTime { get; set; }
             public int CollectionTime { get; set; }

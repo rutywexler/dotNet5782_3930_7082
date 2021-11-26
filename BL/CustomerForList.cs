@@ -13,10 +13,10 @@ namespace BL
             public int CustomerId { get; set; }
             public string  CustomerName { get; set; }
             public string CustomerPhone { get; set; }
-            public int NumOfPackageOnTheWay { get; set; }
-            public int NumOfGettersPackage { get; set; }
-            public int NumOfPackagesSentAndDelivered { get; set; }
-            public int NumOfPackagesSentAndNotDelivered { get; set; }
+            public int NumOfParcelsOnTheWay { get; set; }
+            public int NumOfRecievedParcels { get; set; }
+            public int NumOfParcelsSentAndDelivered { get; set; }
+            public int NumOfParcelsSentAndNotDelivered { get; set; }
         }
     }
 }

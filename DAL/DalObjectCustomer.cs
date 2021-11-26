@@ -31,5 +31,10 @@ namespace DalObject
         {
             return Customers.First(item => item.Id == id);
         }
+
+        public void RemoveCustomer(Customer customer)
+        {
+            Customers.Remove(customer);
+        }
     }
 }
