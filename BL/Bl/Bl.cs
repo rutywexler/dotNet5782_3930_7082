@@ -34,7 +34,7 @@ namespace IBL
             {
                 drones.Add(new DroneToList
                 {
-                    IdDrone = drone.Id,
+                    DroneId = drone.Id,
                     ModelDrone = drone.Model,
                     DroneWeight = (WeightCategories)drone.MaxWeight
                 });
@@ -112,19 +112,18 @@ namespace IBL
 
             }*/
 
-
+       
+private static double FindDistance(Location sLocation, Location tLocation)
+{
+    var sCoord = new GeoCoordinate(sLocation.Lattitude, sLocation.Longitude);
+    var tCoord = new GeoCoordinate(tLocation.Lattitude, tLocation.Longitude);
+    return sCoord.GetDistanceTo(tCoord);
+}
 
 
         }
-        /*public double FindCloseLocation(*/IDAL.IDal.   //.Location sLocation, Location tLocation)
-        {
-            var sCoord = new GeoCoordinate(sLocation.Lattitude, sLocation.Longitude);
-            var tCoord = new GeoCoordinate(tLocation.Lattitude, tLocation.Longitude);
-            double distance = sCoord.GetDistanceTo(tCoord);
-            return private DroneStatuses associated;
 
-        distance;
-        }
-    }
-    }
+    
+
+    
     
