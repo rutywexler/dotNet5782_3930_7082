@@ -91,7 +91,7 @@ namespace ConsoleUI
                         dalObject.InsertCustomer(InputFunctions.GetCustomer());
                         break;
                     case Insert.Parcel:
-                        dalObject.InsertParcel(InputFunctions.GetParcel());
+                        dalObject.AddParcel(InputFunctions.GetParcel());
                         break;
                     default:
                         break;

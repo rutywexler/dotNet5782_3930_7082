@@ -16,7 +16,7 @@ namespace IBL
     {
         public void AddCustomer(int id, string name, string phoneNumber, Location location)
         {
-            dal.addCustomer(id, phoneNumber, name, location.Longitude, location.Lattitude);
+            dal.AddCustomer(id, phoneNumber, name, location.Longitude, location.Lattitude);
         }
 
         public Customer GetCustomer(int id)
@@ -41,10 +41,10 @@ namespace IBL
 
         public IEnumerable<CustomerForList> GetCustomers()
         {
-            return dal.GetCustomers().Select(customer => MapCustomerToList(customer));
+            return dal.GetCustomers().Select(customer => CustomerToList(customer));
         }
 
-        private CustomerForList MapCustomerToList(IDAL.DO.Customer customer)
+        private CustomerForList CustomerToList(IDAL.DO.Customer customer)
         {
             var parcels = dal.GetParcels();
             return new CustomerForList()
@@ -59,15 +59,15 @@ namespace IBL
             };
         }
 
-        public void UpdateCustomer(int id, string name, string PhoneNumber)
+        public void UpdateCustomer(int id, string name=null, string PhoneNumber=null)
         {
             IDAL.DO.Customer customer = dal.GetCustomer(id);
             dal.RemoveCustomer(customer);
-
-            customer.Name = name ?? customer.Name;
-            customer.Phone = name ?? customer.Phone;
-
-            dal.AddCustomer(customer);
+            if (name.Equals(default))
+                name = customer.Name;
+            else if (PhoneNumber.Equals(default))
+                PhoneNumber = customer.Phone;
+            dal.AddCustomer(id, PhoneNumber, name, customer.Longitude, customer.Lattitude);
         }
     }
 }
