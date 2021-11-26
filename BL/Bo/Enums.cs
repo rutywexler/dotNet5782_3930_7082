@@ -27,10 +27,9 @@ namespace BL
 
             public enum DroneStatuses
             {
-                Defined,
-                associated,
-                collected,
-                provided
+                AVAILABLE,
+                MAINTENANCE,
+                DELIVERY
             }
         }
     }

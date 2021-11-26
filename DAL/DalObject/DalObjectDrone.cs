@@ -14,7 +14,7 @@ namespace DAlObject
         /// AddDrone is a method in the DalObject class.
         /// the method adds a new drone
         /// </summary>
-        public void InsertDrone(Drone drone) => Drones.Add(drone);
+        public void AddDrone(Drone drone) => Drones.Add(drone);
 
         /// <summary>
         /// DisplayDrone is a method in the DalObject class.

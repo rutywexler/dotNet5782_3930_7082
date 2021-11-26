@@ -14,7 +14,7 @@ namespace DalObject
         /// AddParcel is a method in the DalObject class.
         /// the method adds a new parcel
         /// </summary>
-        public void InsertParcel(Parcel parcel) => Parcels.Add(parcel);
+        public void AddParcel(Parcel parcel) => Parcels.Add(parcel);
 
         /// <summary>
         /// DisplayParcel is a method in the DalObject class.
