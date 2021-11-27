@@ -116,6 +116,39 @@ private static double FindDistance(Location sLocation, Location tLocation)
 
 
         }
+      public void AddDrone(int id, string model, WeightCategories maxWeight, int stationId)
+{
+    var station = GetBaseStation(stationId);
+
+    var drone = new Drone()
+    {
+        DroneId = id,
+        DroneModel = model,
+        Weight = maxWeight,
+        BatteryStatus = 0,
+        DroneLocation = station.Location,
+        DeliveryTransfer = null,
+        DroneStatus = DroneStatuses.Meintenence,
+    };
+
+    drones.Add(new DroneToList()
+    {
+        DroneId = drone.DroneId,
+        ModelDrone = drone.DroneModel,
+        DroneWeight = drone.Weight,
+        BatteryDrone = drone.BatteryStatus,
+        Location = new Location() { Lattitude = drone.DroneLocation.Lattitude, Longitude = drone.DroneLocation.Longitude },
+        ParcelNumberInTransfer = null,
+        DroneStatus = drone.DroneStatus,
+    });
+
+    Dal.Add(new IDAL.DO.Drone()
+    {
+        Id = drone.DroneId,
+        Model = drone.DroneModel,
+        MaxWeight = (IDAL.DO.WeightCategories)drone.Weight,
+    });
+}
 
     
 
