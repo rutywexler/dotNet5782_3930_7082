@@ -32,7 +32,7 @@ namespace IDAL
         int AvailableChargingPorts(int baseStationId);
         public IEnumerable<Station> GetAvailableChargingStations();
         public void RemoveCustomer(Customer customer);
-        public double[] Power consumption by drone();
+        public double[] GetPowerConsumptionByDrone();
     }
 }
                      

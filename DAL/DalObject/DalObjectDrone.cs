@@ -113,6 +113,9 @@ namespace DalObject
             Drones.Remove(drone);
         }
 
-
+        public double[] GetPowerConsumptionByDrone()
+        {
+            return new double[] { Config.Available,Config.LightWeightCarrier, Config.MediumWeightBearing, Config.CarryingHeavyWeight,Config.DroneLoadingRate };
+        }
     }
 }

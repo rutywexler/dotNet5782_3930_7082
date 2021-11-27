@@ -56,10 +56,40 @@ namespace DalObject
         }
 
 
+        /// <summary>
+        /// Find a satation that has tha same id number as the parameter
+        /// </summary>
+        /// <param name="id">The id number of the requested station/param>
+        /// <returns>A station for display</returns>
+        public Station GetStation(int id) => BaseStations.First(item => item.Id == id);
 
+        /// <summary>
+        ///  Prepares the list of Sations for display
+        /// </summary>
+        /// <returns>A list of stations</returns>
+        public IEnumerable<Station> GetStations() => BaseStations;
 
+        /// <summary>
+        /// Find the satation that have empty charging slots
+        /// </summary>
+        /// <returns>A list of the requested station</returns>
+        /// /// <summary>
+        /// Checks which base Sations are available for charging
+        /// </summary>
+        /// <returns>A list of avaiable satations</returns>
+        private List<Station> getAvailbleStations() => (BaseStations.FindAll(item => item.ChargeSlots > AvailableChargingPorts(item.Id)));
+        public IEnumerable<Station> GetAvailableChargingStations() => getAvailbleStations().ToList();
 
-
+       int AvailableChargingPorts(int baseStationId)
+        {
+            int count = 0;
+            foreach (DroneCharge item in DroneCharges)
+            {
+                if (item.StationId == baseStationId)
+                    ++count;
+            }
+            return count;
+        }
 
 
 

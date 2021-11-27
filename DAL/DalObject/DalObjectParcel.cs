@@ -128,10 +128,9 @@ namespace DalObject
         public void CollectParcel(int parcelId)
         {
             Parcel tmpParcel = Parcels.FirstOrDefault(item => item.Id == parcelId);
-          
-            DataSorce.Parcels.Remove(tmpParcel);
+            Parcels.Remove(tmpParcel);
             tmpParcel.PickedUp = DateTime.Now;
-            DataSorce.Parcels.Add(tmpParcel);
+            Parcels.Add(tmpParcel);
         }
 
     }

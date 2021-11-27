@@ -3,6 +3,7 @@ using IBL;
 using IBL.BO;
 using System;
 using System.Collections.Generic;
+using System.Device.Location;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,7 +50,7 @@ namespace IBL
 
             if (drone.DroneStatus == DroneStatuses.Delivery)
             {
-              //לתקן  throw new InValidActionException();
+                //לתקן  throw new InValidActionException();
             }
 
             var parcels = (dal.GetUnAssignmentParcels() as List<IDAL.DO.Parcel>)
@@ -81,10 +82,10 @@ namespace IBL
         public void DeliveryParcelByDrone(int droneId)
         {
             Drone drone = GetDrone(droneId);
-            if(PackageInTransfer
+            if (PackageInTransfer
         }
 
-        
+
 
         public Parcel GetParcel(int id)
         {
@@ -130,7 +131,10 @@ namespace IBL
 
             ParcelInTransfer parcelInDeliver = GetParcelInDeliver(parcel.Id);
 
-          //להמשששייך
+            droneToList.BatteryDrone -= Distance(droneToList.Location, parcelInDeliver.CollectParcelLocation) * ElectricityConfumctiolFree;
+            droneToList.Location = parcelInDeliver.CollectParcelLocation;
+
+            dal.CollectParcel(parcel.Id);
         }
 
         public void ReceiptParcelForDelivery(int senderCustomerId, int recieveCustomerId, IBL.BO.WeightCategories Weight, IBL.BO.Priorities priority)
@@ -147,5 +151,28 @@ namespace IBL
         {
             throw new NotImplementedException();
         }
+        double[] arr;
+        arr = dal.RequestElectricity();
+            available = arr[0];
+            lightWeight = arr[1];
+            mediumWeight = arr[2];
+            heavyWeight = arr[3];
+            chargingRate = arr[4];
+        ///להעביר אחכ לבנאי
+        public int IdParcel = 0;
+        public double Available = 2;
+        public double LightWeightCarrier = 10;
+        public double MediumWeightBearing = 25;
+        public double CarryingHeavyWeight = 40;
+        public static double DroneLoadingRate = 10;
+
+        private static double Distance(Location sLocation, Location tLocation)
+        {
+            var sCoord = new GeoCoordinate(sLocation.Lattitude, sLocation.Longitude);
+            var tCoord = new GeoCoordinate(tLocation.Lattitude, tLocation.Longitude);
+            return sCoord.GetDistanceTo(tCoord);
+        }
     }
 }
+
+
