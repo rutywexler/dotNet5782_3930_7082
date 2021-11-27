@@ -31,7 +31,7 @@ namespace IBL
             {
                 drones.Add(new DroneToList
                 {
-                    IdDrone = drone.Id,
+                    DroneId = drone.Id,
                     ModelDrone = drone.Model,
                     DroneWeight = (WeightCategories)drone.MaxWeight
                 });
@@ -88,6 +88,39 @@ namespace IBL
 
 
 
+                if (parcel.PickedUp.Equals(default))
+                {
+                    var tmpStation = FindCloseLocation(dal.GetStations(), new() { Longitude = dal.GetCustomer(parcel.SenderId).Longitude, Latitude = dal.GetCustomer(parcel.SenderId).Latitude });
+                    drones.DroneLocation = new Location()
+                    {
+                        Longitude = tmpStation.Longitude,
+                        Latitude = tmpStation.Latitude
+                    };
+                }
+                else
+                    tmpDrone.CurrentLocation = new() { Longitude = dal.GetCustomer(parcel.SenderId).Longitude, Latitude = dal.GetCustomer(parcel.SenderId).Latitude };
+                double minDistance;
+                IDAL.DO.Customer customerSender = dal.GetCustomer(parcel.SenderId);
+                IDAL.DO.Customer customerReciver = dal.GetCustomer(parcel.TargetId);
+                double electrity = calculateElectricity(tmpDrone, new() { Latitude = customerSender.Latitude, Longitude = customerSender.Longitude }, new() { Latitude = customerReciver.Latitude, Longitude = customerReciver.Longitude }, (BO.WeightCategories)parcel.Weigth, out minDistance);
+
+            }*/
+
+       
+private static double FindDistance(Location sLocation, Location tLocation)
+{
+    var sCoord = new GeoCoordinate(sLocation.Lattitude, sLocation.Longitude);
+    var tCoord = new GeoCoordinate(tLocation.Lattitude, tLocation.Longitude);
+    return sCoord.GetDistanceTo(tCoord);
+}
+
+
+        }
+
+    
+
+    
+    
         }
     }
 
