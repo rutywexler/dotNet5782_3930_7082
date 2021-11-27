@@ -10,9 +10,9 @@ namespace ConsoleUI
     class InputFunctions
     {
         //get
-        public static Stations GetStation()
+        public static Station GetStation()
         {
-            Stations tempStation = new Stations();
+            Station tempStation = new Station();
             Console.Write("Enter The Id Of The Station:");
             tempStation.Id = int.Parse(Console.ReadLine());
 

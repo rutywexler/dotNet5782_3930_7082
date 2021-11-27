@@ -11,10 +11,24 @@ namespace DalObject
     public partial class DalObject
     {
         /// <summary>
-        /// AddParcel is a method in the DalObject class.
-        /// the method adds a new parcel
+        /// Gets parameters and create new parcel 
         /// </summary>
-        public void AddParcel(Parcel parcel) => Parcels.Add(parcel);
+        /// <param name="SenderId"> Id of sener</param>
+        /// <param name="TargetId"> Id of target</param>
+        /// <param name="Weigth"> The weigth of parcel (light- 0,medium - 1,heavy - 2)</param>
+        /// <param name="Priority"> The priority of send the parcel (regular - 0,fast - 1,emergency - 2)</param>
+        public void AddParcel(int SenderId, int TargetId, WeightCategories Weigth, Priorities Priority, int id = 0)
+        {
+            Parcel newParcel = new();
+            //תוקוווןןnewParcel.Id =id;
+            newParcel.SenderId = SenderId;
+            newParcel.TargetId = TargetId;
+            newParcel.Weight = Weigth;
+            newParcel.Priority = Priority;
+            newParcel.Requested = DateTime.Now;
+            newParcel.DroneId = 0;
+            Parcels.Add(newParcel);
+        }
 
         /// <summary>
         /// DisplayParcel is a method in the DalObject class.
@@ -92,6 +106,33 @@ namespace DalObject
         /// <returns>A list of parcel</returns>
         public IEnumerable<Parcel> GetParcels() => Parcels;
 
+        /// <summary>
+        /// Assign parcel to drone 
+        /// </summary>
+        /// <param name="parcelId">parcelId</param>
+        /// <param name="droneId">droneId</param>
+        public void AssignParcelToDrone(int parcelId, int droneId)
+        {
+            Parcel parcel = GetParcel(parcelId);
+            Parcels.Remove(parcel);
+            parcel.DroneId = droneId;
+            parcel.Scheduled = DateTime.Now;
+            Parcels.Add(parcel);
+        }
+
+        /// <summary>
+        /// collect parcel fo sending:
+        /// update time of pick up parcel
+        /// </summary>
+        /// <param name="parcelId">id of parcel</param>
+        public void CollectParcel(int parcelId)
+        {
+            Parcel tmpParcel = Parcels.FirstOrDefault(item => item.Id == parcelId);
+          
+            DataSorce.Parcels.Remove(tmpParcel);
+            tmpParcel.PickedUp = DateTime.Now;
+            DataSorce.Parcels.Add(tmpParcel);
+        }
 
     }
 }

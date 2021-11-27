@@ -11,15 +11,15 @@ namespace IBL
     {
         public class ParcelInTransfer
         {
-            public int ID { get; set; }
+            public int Id { get; set; }
             public Priorities Priority { get; set; }
             public CustomerInParcel Sender { get; set; }
             public CustomerInParcel Recipient { get; set; }
-            public bool PackageStatus { get; set; }
+            public bool ParcelStatus { get; set; }
             public WeightCategories Weight { get; set; }
-            public Location CollectPackage { get; set; }
-            public Location DeliveryDestination { get; set; }
-            public double DeliveryDistance { get; set; }
+            public Location CollectParcelLocation { get; set; }//מיקום איסוף
+            public Location DeliveryDestination { get; set; }//מיקום יעד לאספקה
+            public double DeliveryDistance { get; set; }//מרחק הובלה
         }
     }
    

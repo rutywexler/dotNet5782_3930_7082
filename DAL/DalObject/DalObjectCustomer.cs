@@ -11,10 +11,22 @@ namespace DalObject
     public partial class DalObject
     {
         /// <summary>
-        /// AddCustomer is a method in the DalObject class.
-        /// the method adds a new customer
+        /// Gets parameters and create new customer 
         /// </summary>
-        public void AddCustomer(Customer customer) => Customers.Add(customer);
+        /// <param name="phone">The customer`s number phone</param>
+        /// <param name="name">The customer`s name</param>
+        /// <param name="longitude">>The position of the customer in relation to the longitude</param>
+        /// <param name="latitude">>The position of the customer in relation to the latitude</param>
+        public void AddCustomer(int id, string phone, string name, double longitude, double latitude)
+        {
+            Customer newCustomer = new Customer();
+            newCustomer.Id = id;
+            newCustomer.Name = name;
+            newCustomer.Phone = phone;
+            newCustomer.Lattitude = latitude;
+            newCustomer.Longitude = longitude;
+            Customers.Add(newCustomer);
+        }
 
         /// <summary>
         /// Prepares the list of customer for display

@@ -109,10 +109,10 @@ namespace ConsoleUI_BL
             Parcel tempPackage = new Parcel();
 
             Console.WriteLine("Enter send Customer id");
-            tempPackage.CustomerSends.Id = int.Parse(Console.ReadLine());
+            tempPackage.CustomerSendsFrom.Id = int.Parse(Console.ReadLine());
 
             Console.WriteLine("Enter recieve customer id:");
-            tempPackage.CustomerReceives.Id = int.Parse(Console.ReadLine());
+            tempPackage.CustomerReceivesTo.Id = int.Parse(Console.ReadLine());
 
             Console.WriteLine("Enter the package weight: 1- Light, 2- medium, 3- weighty");
             int choice = int.Parse(Console.ReadLine());
