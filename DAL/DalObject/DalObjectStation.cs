@@ -8,14 +8,28 @@ using static DalObject.DataSource;
 
 namespace DalObject
 {
-    public partial class DalObjectStation
+    public partial class DalObject
     {
 
         /// <summary>
-        /// AddBaseStation is a method in the DalObject class.
-        /// the method adds a new base station
+        ///  Gets parameters and create new station 
         /// </summary>
-        public void InsertStation(Stations station) => BaseStations.Add(station);
+        /// <param name="name"> Station`s name</param>
+        /// <param name="longitude">The position of the station in relation to the longitude </param>
+        /// <param name="latitude">The position of the station in relation to the latitude</param>
+        /// <param name="chargeSlots">Number of charging slots at the station</param>
+        public void AddStation(int id, int name, double longitude, double latitude, int chargeSlots)
+        {
+            
+            Station newStation = new Station();
+            newStation.Id = id;
+            newStation.Name = name;
+            newStation.Lattitude = latitude;
+            newStation.Longitude = longitude;
+            newStation.ChargeSlots = chargeSlots;
+            BaseStations.Add(newStation);
+        }
+
 
         /// <summary>
         /// DisplayBaseStation is a method in the DalObject class.
@@ -35,7 +49,7 @@ namespace DalObject
         /// </summary>
         public void ViewListBaseStations()
         {
-            foreach (Stations item in BaseStations)
+            foreach (Station item in BaseStations)
             {
                 Console.WriteLine(item);
             }

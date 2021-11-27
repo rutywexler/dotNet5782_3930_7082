@@ -6,15 +6,25 @@ using System.Text;
 using System.Threading.Tasks;
 using static DalObject.DataSource;
 
-namespace DAlObject
+namespace DalObject
 {
     public partial class DalObject
     {
         /// <summary>
-        /// AddDrone is a method in the DalObject class.
-        /// the method adds a new drone
+        ///  Gets parameters and create new drone 
         /// </summary>
-        public void AddDrone(Drone drone) => Drones.Add(drone);
+        /// <param name="model"> Grone's model</param>
+        /// <param name="MaxWeight"> The max weight that the drone can swipe (light- 0,medium - 1,heavy - 2)</param>
+        public void AddDrone(int id, string model, WeightCategories MaxWeight)
+        {
+            Drone newDrone = new()
+            {
+                Id = id,
+                Model = model,
+                MaxWeight = MaxWeight
+            };
+           Drones.Add(newDrone);
+        }
 
         /// <summary>
         /// DisplayDrone is a method in the DalObject class.

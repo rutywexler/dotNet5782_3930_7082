@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static DalObject.DataSource;
 
-namespace DALObject
+namespace DalObject
 {
     public partial class DalObjectDroneCharge
     {
@@ -18,7 +18,7 @@ namespace DALObject
         /// <returns>if succeed in finding charge slot to a drone</returns>
         public static bool FindChargeSlot(int id)
         {
-            foreach (Stations item in BaseStations)
+            foreach (Station item in BaseStations)
             {
                 int sum_chargeSlots = 0;
                 foreach (DroneCharge item2 in DroneCharges)
@@ -58,7 +58,7 @@ namespace DALObject
         /// </summary>
         public void ViewListAvailableChargeSlots()
         {
-            foreach (Stations item in BaseStations)
+            foreach (Station item in BaseStations)
             {
                 int sum = 0;
                 foreach (DroneCharge droneCharge in DroneCharges)

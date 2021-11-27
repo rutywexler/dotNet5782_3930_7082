@@ -10,7 +10,7 @@ namespace DalObject
     public class DataSource
     {
         internal static List<Drone> Drones = new List<Drone>();
-        internal static List<Stations> BaseStations = new List<Stations>();
+        internal static List<Station> BaseStations = new List<Station>();
         internal static List<Customer> Customers = new List<Customer>();
         internal static List<Parcel > Parcels = new List<Parcel>();
         internal static List<DroneCharge> DroneCharges = new List<DroneCharge>();
@@ -33,7 +33,7 @@ namespace DalObject
 
             for (int i = 0; i < 2; i++)
             {
-                Stations tempStation = new Stations();
+                Station tempStation = new Station();
                 tempStation.Id = BaseStations.Count+1; 
                 tempStation.Name = BaseStations.Count * rand.Next();
                 tempStation.Longitude = rand.Next(91);

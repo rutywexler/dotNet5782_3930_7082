@@ -78,7 +78,7 @@ namespace IBL
                 Drone drone = new Drone();
 
                 
-                IDAL.DO.Stations baseStations = dal.GetStation(id2);
+                IDAL.DO.Station baseStations = dal.GetStation(id2);
                 baseStations.ChargeSlots -= 1;
                 IDAL.DO.Drone DalDrone = dal.GetDrone(id);
                 DalDrone.Battery = ;//לתקן!!

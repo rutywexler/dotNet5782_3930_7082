@@ -11,8 +11,8 @@ namespace IBL
     {
         public void AddParcel(Parcel parcel);
         public void ReceiptParcelForDelivery(int senderCustomerId, int recieveCustomerId, BO.WeightCategories Weight, BO.Priorities priority);
-        public void AssignPackageToDrone(int droneId);
-        public void PackageCollectionByDrone(int droneId);
+        public void AssignParcelToDrone(int droneId);
+        public void ParcelCollectionByDrone(int droneId);
         public void DeliveryParcelByDrone(int droneId);
         public Parcel GetParcel(int id);
         public IEnumerable<Parcel> GetParcels();
