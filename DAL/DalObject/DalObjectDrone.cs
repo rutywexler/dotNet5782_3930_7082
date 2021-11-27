@@ -93,6 +93,15 @@ namespace DAlObject
             }
             DroneCharges.RemoveRange(sum, 1);
         }
+        /// <summary>
+        /// RemoveDrone is a method in the DalObject class.
+        /// the method remove a drone frpm the drone list.
+        /// </summary>
+        public void RemoveDrone(Drone drone)
+        {
+            
+            Drones.Remove(drone);
+        }
 
 
     }

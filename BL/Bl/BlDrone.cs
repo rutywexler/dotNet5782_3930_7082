@@ -34,9 +34,21 @@ namespace IBL
 
         public Drone GetDrone(int id)
         {
-           /* if (!CheckIdIfExistInTheList(dal.GetDrones(), id))
-                throw new KeyNotFoundException();*/
-            return MapDrone(dal.GetDrone(id));
+            DroneToList drone = drones.Find(d => d.DroneId == id);
+            Deliverybytransfer parcelInDeliver = drone.DroneStatus == DroneStatuses.Delivery ?
+                                              GetParcelInDeliver((int)drone.DeliveredParcelId) :
+                                              null;
+            return new Drone()
+            {
+                DroneId = drone.DroneId,
+                BatteryStatus = drone.BatteryDrone,
+                DroneLocation = new Location() { Lattitude = drone.DroneLocation.Lattitude, Longitude = drone.DroneLocation.Longitude },
+                Weight = drone.DroneWeight,
+                DroneModel = drone.ModelDrone,
+                DroneStatus = drone.DroneStatus,
+                DeliveryTransfer = parcelInDeliver,
+
+            };
         }
 
         public IEnumerable<Drone> GetDrones()
@@ -49,20 +61,6 @@ namespace IBL
             throw new NotImplementedException();
         }
 
-        private BO.Drone MapDrone(IDAL.DO.Drone drone)
-        {
-            DroneToList droneToList = drones.Find(item => item.Id == drone.Id);
-            return new Drone()
-            {
-                DroneId = drone.Id,
-                DroneModel = drone.Model,
-                Weight = (WeightCategories)drone.MaxWeight,
-                DroneStatus = droneToList.DroneStatus,
-                BattaryMode = droneToList.BatteryStatus,
-                CurrentLocation = droneToList.CurrentLocation,
-                Parcel = droneToList.ParcelId != null ? CreateParcelInTransfer((int)droneToList.ParcelId) : null
-            };
-        }
 
         public void SendDroneForCharge(int id)
         {
@@ -104,7 +102,18 @@ namespace IBL
         }*/
         public void UpdateDrone(int id, string name)
         {
-            throw new NotImplementedException();
+
+            if (!ExistsIDTaxCheck(dal.GetDrones(), id))
+                throw new KeyNotFoundException();
+            IDAL.DO.Drone droneDl = dal.GetDrone(id);
+            if (name.Equals(default))
+                throw new ArgumentNullException("For updating the name must be initialized ");
+            dal.RemoveDrone(droneDl);
+            dal.AddDrone(id, name, droneDl.MaxWeight);
+            DroneToList droneToList = drones.Find(item => item.Id == id);
+            drones.Remove(droneToList);
+            droneToList.ModelDrone = name;
+            drones.Add(droneToList);
         }
 
 
