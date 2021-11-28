@@ -12,7 +12,7 @@ namespace BL
         {
 
             public int IdStation { get; set; }
-            public int NameStation { get; set; }
+            public string NameStation { get; set; }
             public int  NumOfAvailableChargingStations { get; set; }
             public int  NumOfBusyChargingStations { get; set; }
 
