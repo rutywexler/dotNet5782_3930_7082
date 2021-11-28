@@ -69,14 +69,16 @@ namespace IBL
         /// <param name="chargeSlots">A nwe number for charging slots</param>
         public void UpdateStation(int id, string name, int chargeSlots)
         {
-   
+            var station = dal.GetStation(id);
+            dal.RemoveStation(station);
+            dal.AddStation(id, name.Equals(string.Empty) ? station.Name : name, station.Longitude, station.Lattitude, chargeSlots == 0 ? station.ChargeSlots : chargeSlots);
         }
 
-        private BaseStation FindClosetStation(IEnumerable<IDAL.DO.Station> stations, Location location, double batteryDrone)
+        private IDAL.DO.Station FindClosetStation(IEnumerable<IDAL.DO.Station> stations, Location location, double batteryDrone)
         {
             double minDistance = 0;
             double curDistance;
-            BaseStation Station = new BaseStation();
+            IDAL.DO.Station Station = new();
             foreach (var item in stations)
             {
                 curDistance = Distance(location,
@@ -84,10 +86,10 @@ namespace IBL
                 if (curDistance < minDistance)
                 {
                     minDistance = curDistance;
-                    station = item;
+                    Station = item;
                 }
             }
-            return station;
+            return Station;
         }
 
         /// <summary>

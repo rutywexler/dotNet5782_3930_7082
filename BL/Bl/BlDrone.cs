@@ -79,7 +79,7 @@ namespace IBL
 
         }
 
-        }
+        
        /* public double FindCloseLocation(Location sLocation , Location tLocation)
         {
             var sCoord = new GeoCoordinate(sLocation.Lattitude, sLocation.Longitude);
@@ -110,7 +110,8 @@ namespace IBL
                               Distance(parcel.DeliveryDestination, FindClosetStation(dal.GetAvailableChargingStations(),drone.DroneLocation) * Available;
             return drone.BatteryStatus >= neededBattery;
         }
-
-
     }
+
+
+   
 }

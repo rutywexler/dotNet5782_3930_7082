@@ -18,9 +18,9 @@ namespace DalObject
         /// <param name="longitude">The position of the station in relation to the longitude </param>
         /// <param name="latitude">The position of the station in relation to the latitude</param>
         /// <param name="chargeSlots">Number of charging slots at the station</param>
-        public void AddStation(int id, int name, double longitude, double latitude, int chargeSlots)
+        public void AddStation(int id, string name, double longitude, double latitude, int chargeSlots)
         {
-            
+
             Station newStation = new Station();
             newStation.Id = id;
             newStation.Name = name;
@@ -80,7 +80,7 @@ namespace DalObject
         private List<Station> getAvailbleStations() => (BaseStations.FindAll(item => item.ChargeSlots > NotAvailableChargingPorts(item.Id)));
         public IEnumerable<Station> GetAvailableChargingStations() => getAvailbleStations().ToList();
 
-       public int NotAvailableChargingPorts(int baseStationId)
+        public int NotAvailableChargingPorts(int baseStationId)
         {
             int count = 0;
             foreach (DroneCharge item in DroneCharges)
@@ -91,7 +91,10 @@ namespace DalObject
             return count;
         }
 
-
+        public void RemoveStation(Station station)
+        {
+            BaseStations.Remove(station);
+        }
 
     }
 }
