@@ -21,7 +21,7 @@ namespace IBL
         {
             Drone newDrone = new Drone();
             Random random = new Random();
-       int RandomNumber(int min, int max)
+            int RandomNumber(int min, int max)
             {
                 return random.Next(min, max);
             }
@@ -36,7 +36,7 @@ namespace IBL
         {
             DroneToList drone = drones.Find(d => d.DroneId == id);
             Deliverybytransfer parcelInDeliver = drone.DroneStatus == DroneStatuses.Delivery ?
-                                              GetParcelInDeliver((int)drone.DeliveredParcelId) :
+                                              GetParcelInTransfer((int)drone.DeliveredParcelId) :
                                               null;
             return new Drone()
             {
@@ -71,7 +71,7 @@ namespace IBL
             if (newDrone.DroneStatus == 1/*||newDrone.DroneLocation.Lattitude*/)
             {
                 int id2;//idשל התחנה הקרובה ביותר
-                newDrone.DroneLocation = baseStation.location;
+                newDrone.DroneLocation = baseStation.Location;
                 /*■	הורדת מספר עמדות טעינה פנויות ב-1IDal.DO.*/
                 Drone drone = new Drone();
 
@@ -116,7 +116,14 @@ namespace IBL
             drones.Add(droneToList);
         }
 
+        private bool IsAbleToPassParcel(Drone drone, ParcelInTransfer parcel)
+        {
+            var neededBattery =Distance(drone.DroneLocation, parcel.CollectParcelLocation) * Available +
+                              Distance(parcel.CollectParcelLocation, parcel.DeliveryDestination) * GetElectricity(parcel.Weight) +
+                              Distance(parcel.DeliveryDestination, FindClosetStation(dal.GetAvailableChargingStations(),drone.DroneLocation) * Available;
+            return drone.BatteryStatus >= neededBattery;
+        }
 
-        
+
     }
 }

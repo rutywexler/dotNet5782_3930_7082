@@ -22,10 +22,10 @@ namespace ConsoleUI_BL
             tempBaseStation.Name = Console.ReadLine();
 
             Console.WriteLine("Enter station Lattitude:");
-            tempBaseStation.location.Lattitude = int.Parse(Console.ReadLine());
+            tempBaseStation.Location.Lattitude = int.Parse(Console.ReadLine());
 
             Console.WriteLine("Enter station Longitude:");
-            tempBaseStation.location.Longitude = int.Parse(Console.ReadLine());
+            tempBaseStation.Location.Longitude = int.Parse(Console.ReadLine());
 
             Console.WriteLine("Enter Number of charging stations:");
             tempBaseStation.NumberOfChargingStations = int.Parse(Console.ReadLine());

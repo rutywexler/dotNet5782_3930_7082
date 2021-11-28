@@ -12,7 +12,7 @@ namespace IDAL
     public interface IDal
     {
         public void AddCustomer(int id, string phone, string name, double longitude, double latitude);
-        public void AddParcel(int SenderId, int TargetId, WeightCategories Weigth, Priorities Priority, int id = 0)
+        public void AddParcel(int SenderId, int TargetId, WeightCategories Weigth, Priorities Priority, int id = 0);
         public void AddDrone(int id, string model, WeightCategories MaxWeight);
         public void AddStation(int id, int name, double longitude, double latitude, int chargeSlots);
         public void AssignParcelToDrone(int parcelId, int droneId);
@@ -32,6 +32,7 @@ namespace IDAL
         int AvailableChargingPorts(int baseStationId);
         public IEnumerable<Station> GetAvailableChargingStations();
         public void RemoveCustomer(Customer customer);
+        public void RemoveParcel(Parcel parcel);
         public double[] GetPowerConsumptionByDrone();
     }
 }

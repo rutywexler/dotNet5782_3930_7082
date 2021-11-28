@@ -12,11 +12,11 @@ namespace IBL
     { 
         public class ParcelList
         {
-            public int PackageListId { get; set; }
+            public int Id { get; set; }
             public string SendCustomer { get; set; }
             public string ReceivesCustomer  { get; set; }
-            public WeightCategories WeightCategory { get; set; }
-            public Priorities priority { get; set; }
+            public WeightCategories Weight { get; set; }
+            public Priorities Priority { get; set; }
 
 
         }

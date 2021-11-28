@@ -133,5 +133,14 @@ namespace DalObject
             Parcels.Add(tmpParcel);
         }
 
+        /// <summary>
+        /// Removing a Parcel from the list
+        /// </summary>
+        /// <param name="station"></param>
+        public void RemoveParcel(Parcel parcel)
+        {
+            Parcels.Remove(parcel);
+        }
+
     }
 }

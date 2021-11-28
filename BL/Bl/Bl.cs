@@ -18,13 +18,22 @@ namespace IBL
         private static readonly Random rand = new();
         private IDal dalObject;
         private List<DroneToList> drones;
+        public double Available { get; set; }
+        public double LightWeightCarrier { get; set; }
+        public double MediumWeightBearing { get; set; }
+        public double CarryingHeavyWeight { get; set; }
+        public static double DroneLoadingRate { get; set; }
         public BL()
         {
             dalObject = new DalObject.DalObject();
-            drones = new List<DroneToList>();
-            initializeDrones();
-            //drones = dal.GetDrones();
-        }
+            double[] arr;
+            arr = dal.GetPowerConsumptionByDrone();
+            Available = arr[0];
+            LightWeightCarrier = arr[1];
+            MediumWeightBearing = arr[2];
+            CarryingHeavyWeight = arr[3];
+            DroneLoadingRate = arr[4];
+    }
         public void initializeDrones()
         {
             foreach (var drone in dal.GetDrones())
@@ -36,14 +45,12 @@ namespace IBL
                     DroneWeight = (WeightCategories)drone.MaxWeight
                 });
             }
-            int electricityConsumption;//צריכת חשמל
-            int SkimmerLoadingRate;//קצב טעינת רחפן
-                                   //TODO : DeliveryId
+
             var parcels = dal.GetParcels().ToList();
 
             foreach (var drone in drones)
             {
-                drone.ParcelNumberInTransfer = 0;
+                drone.ParcelId = 0;
             }
             //TODO : Battery & Status
             foreach (var drone in drones)
@@ -79,86 +86,49 @@ namespace IBL
                 }
             }
         }
-    private static double Distance(Location sLocation, Location tLocation)
-    {
-        var sCoord = new GeoCoordinate(sLocation.Lattitude, sLocation.Longitude);
-        var tCoord = new GeoCoordinate(tLocation.Lattitude, tLocation.Longitude);
-        return sCoord.GetDistanceTo(tCoord);
-    }
-
-
-
-                if (parcel.PickedUp.Equals(default))
-                {
-                    var tmpStation = FindCloseLocation(dal.GetStations(), new() { Longitude = dal.GetCustomer(parcel.SenderId).Longitude, Latitude = dal.GetCustomer(parcel.SenderId).Latitude });
-                    drones.DroneLocation = new Location()
-                    {
-                        Longitude = tmpStation.Longitude,
-                        Latitude = tmpStation.Latitude
-                    };
-                }
-                else
-                    tmpDrone.CurrentLocation = new() { Longitude = dal.GetCustomer(parcel.SenderId).Longitude, Latitude = dal.GetCustomer(parcel.SenderId).Latitude };
-                double minDistance;
-                IDAL.DO.Customer customerSender = dal.GetCustomer(parcel.SenderId);
-                IDAL.DO.Customer customerReciver = dal.GetCustomer(parcel.TargetId);
-                double electrity = calculateElectricity(tmpDrone, new() { Latitude = customerSender.Latitude, Longitude = customerSender.Longitude }, new() { Latitude = customerReciver.Latitude, Longitude = customerReciver.Longitude }, (BO.WeightCategories)parcel.Weigth, out minDistance);
-
-            }*/
-
-       
-private static double FindDistance(Location sLocation, Location tLocation)
-{
-    var sCoord = new GeoCoordinate(sLocation.Lattitude, sLocation.Longitude);
-    var tCoord = new GeoCoordinate(tLocation.Lattitude, tLocation.Longitude);
-    return sCoord.GetDistanceTo(tCoord);
-}
-
-
+        private static double Distance(Location sLocation, Location tLocation)
+        {
+            var sCoord = new GeoCoordinate(sLocation.Lattitude, sLocation.Longitude);
+            var tCoord = new GeoCoordinate(tLocation.Lattitude, tLocation.Longitude);
+            return sCoord.GetDistanceTo(tCoord);
         }
-      public void AddDrone(int id, string model, WeightCategories maxWeight, int stationId)
-{
-    var station = GetBaseStation(stationId);
+        public void AddDrone(int id, string model, WeightCategories maxWeight, int stationId)
+        {
+            var station = GetBaseStation(stationId);
 
-    var drone = new Drone()
-    {
-        DroneId = id,
-        DroneModel = model,
-        Weight = maxWeight,
-        BatteryStatus = 0,
-        DroneLocation = station.Location,
-        DeliveryTransfer = null,
-        DroneStatus = DroneStatuses.Meintenence,
-    };
+            var drone = new Drone()
+            {
+                DroneId = id,
+                DroneModel = model,
+                Weight = maxWeight,
+                BatteryStatus = 0,
+                DroneLocation = station.Location,
+                DeliveryTransfer = null,
+                DroneStatus = DroneStatuses.Meintenence,
+            };
 
-    drones.Add(new DroneToList()
-    {
-        DroneId = drone.DroneId,
-        ModelDrone = drone.DroneModel,
-        DroneWeight = drone.Weight,
-        BatteryDrone = drone.BatteryStatus,
-        Location = new Location() { Lattitude = drone.DroneLocation.Lattitude, Longitude = drone.DroneLocation.Longitude },
-        ParcelNumberInTransfer = null,
-        DroneStatus = drone.DroneStatus,
-    });
+            drones.Add(new DroneToList()
+            {
+                DroneId = drone.DroneId,
+                ModelDrone = drone.DroneModel,
+                DroneWeight = drone.Weight,
+                BatteryDrone = drone.BatteryStatus,
+                Location = new Location() { Lattitude = drone.DroneLocation.Lattitude, Longitude = drone.DroneLocation.Longitude },
+                ParcelId = null,
+                DroneStatus = drone.DroneStatus,
+            });
+            dal.AddDrone(drone.DroneId,drone.DroneModel,(IDAL.DO.WeightCategories)drone.Weight);
+        }
 
-    Dal.Add(new IDAL.DO.Drone()
-    {
-        Id = drone.DroneId,
-        Model = drone.DroneModel,
-        MaxWeight = (IDAL.DO.WeightCategories)drone.Weight,
-    });
+
+
+
+
+    }
 }
 
     
 
-    
-    
-        }
-    }
-
-    
-
-    }
+   
     
     

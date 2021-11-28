@@ -1,4 +1,5 @@
 ﻿using BL.BO;
+using DalObject;
 using IBL;
 using IBL.BO;
 using System;
@@ -15,16 +16,12 @@ namespace IBL
     {
         public void AddParcel(Parcel parcel)
         {
-            dal.AddParcel(new IDAL.DO.Parcel()
-            {
-                Id = parcel.Id,
-                SenderId = parcel.CustomerSendsFrom.Id,
-                TargetId = parcel.CustomerReceivesTo.Id,
-                Priority = (IDAL.DO.Priorities)parcel.Priority,
-                Weight = (IDAL.DO.WeightCategories)parcel.WeightParcel,
-                DroneId = null,
-                Requested = parcel.TimeCreatedTheParcel,
-            });
+            dal.AddParcel(
+                parcel.CustomerSendsFrom.Id,
+                parcel.CustomerReceivesTo.Id,
+               (IDAL.DO.WeightCategories)parcel.WeightParcel,
+              (IDAL.DO.Priorities)parcel.Priority
+            );
         }
         public ParcelInTransfer GetParcelInTransfer(int id)
         {
@@ -50,7 +47,7 @@ namespace IBL
 
             if (drone.DroneStatus == DroneStatuses.Delivery)
             {
-                //לתקן  throw new InValidActionException();
+               
             }
 
             var parcels = (dal.GetUnAssignmentParcels() as List<IDAL.DO.Parcel>)
@@ -74,22 +71,54 @@ namespace IBL
             drone.DroneStatus = DroneStatuses.Delivery;
         }
 
-        private bool IsAbleToPassParcel(Drone drone, object p)
-        {
-            throw new NotImplementedException();
-        }
 
         public void DeliveryParcelByDrone(int droneId)
         {
-            Drone drone = GetDrone(droneId);
-            if (PackageInTransfer
+            DroneToList droneToList = drones.Find(drone => drone.DroneId == droneId);
+            IDAL.DO.Parcel parcel = dal.GetParcel(droneToList.ParcelId);
+            drones.Remove(droneToList);
+            IDAL.DO.Customer customer = dal.GetCustomer(parcel.TargetId);
+            Location receiverLocation = new() { Longitude = customer.Longitude, Lattitude = customer.Lattitude };
+            droneToList.BatteryDrone -= Distance(droneToList.Location, receiverLocation) * dal.GetPowerConsumptionByDrone()[1 + (int)parcel.Weight];
+            droneToList.Location = receiverLocation;
+            droneToList.DroneStatus = DroneStatuses.Available;
+            drones.Add(droneToList);
+            ParcelDeliveredDrone(parcel.Id);
         }
 
-
+        private void ParcelDeliveredDrone(int parcelId)
+        {
+            IDAL.DO.Parcel parcel = dal.GetParcel(parcelId);
+            dal.RemoveParcel(parcel);
+            parcel.Delivered = DateTime.Now;
+            dal.AddParcel(parcel.SenderId, parcel.TargetId, parcel.Weight, parcel.Priority, parcel.Id);
+        }
 
         public Parcel GetParcel(int id)
         {
-            throw new NotImplementedException();
+            var parcel = dal.GetParcel(id);
+            return new Parcel()
+            {
+                Id = parcel.Id,
+                DroneParcel = GetDrone(parcel.DroneId),
+                CustomerSendsFrom = CustomerToCustomerInParcel(dal.GetCustomer(parcel.SenderId)),
+                CustomerReceivesTo = CustomerToCustomerInParcel(dal.GetCustomer(parcel.TargetId)),
+                WeightParcel = (WeightCategories)parcel.Weight,
+                Priority = (Priorities)parcel.Priority,
+                TimeCreatedTheParcel = parcel.Requested,
+                AssignmentTime = parcel.Scheduled,
+                CollectionTime = parcel.PickedUp,
+                DeliveryTime = parcel.Delivered,
+            };
+        }
+
+        private CustomerInParcel CustomerToCustomerInParcel(IDAL.DO.Customer customer)
+        {
+            return new CustomerInParcel()
+            {
+                Id = customer.Id,
+                Name = customer.Name
+            };
         }
 
         public IEnumerable<Parcel> GetParcels()
@@ -97,80 +126,42 @@ namespace IBL
             return dal.GetParcels().Select(Parcel => GetParcel(Parcel.Id));
         }
 
-        /// <summary>
-        /// return converted parcel to parcel in delivery
-        /// </summary>
-        /// <param name="id">id of requested parcel</param>
-        /// <returns>parcel in delivery</returns>
-        public ParcelInTransfer GetParcelInDeliver(int id)
-        {
-            var parcel = GetParcel(id);
-            var targetCustomer = GetCustomer(parcel.CustomerReceivesTo.Id);
-            var senderCustomer = GetCustomer(parcel.CustomerSendsFrom.Id);
 
-            return new ParcelInTransfer()
-            {
-                Id = id,
-                Weight = parcel.WeightParcel,
-                Priority = parcel.Priority,
-                DeliveryDestination = targetCustomer.Location,
-                CollectParcelLocation = senderCustomer.Location,
-                ParcelStatus = parcel.DeliveryTime != null,
-                DeliveryDistance = Distance(senderCustomer.Location, targetCustomer.Location),
-            };
-        }
-        public IEnumerable<Parcel> GetParcelsNotAssignedToDrone()
+        public IEnumerable<ParcelList> GetParcelsNotAssignedToDrone()
         {
-            throw new NotImplementedException();
+            return dal.GetUnAssignmentParcels().Select(parcel => ParcelToParcelForList(parcel.Id));
         }
 
         public void ParcelCollectionByDrone(int droneId)
         {
             DroneToList droneToList = drones.Find(item => item.DroneId == droneId);
-            var parcel = dal.GetParcel(droneToList.ParcelNumberInTransfer);
+            var parcel = dal.GetParcel(droneToList.ParcelId);
 
-            ParcelInTransfer parcelInDeliver = GetParcelInDeliver(parcel.Id);
+            ParcelInTransfer parcelInDeliver = GetParcelInTransfer(parcel.Id);
 
-            droneToList.BatteryDrone -= Distance(droneToList.Location, parcelInDeliver.CollectParcelLocation) * ElectricityConfumctiolFree;
+            droneToList.BatteryDrone -= Distance(droneToList.Location, parcelInDeliver.CollectParcelLocation) * Available;
             droneToList.Location = parcelInDeliver.CollectParcelLocation;
 
             dal.CollectParcel(parcel.Id);
         }
 
-        public void ReceiptParcelForDelivery(int senderCustomerId, int recieveCustomerId, IBL.BO.WeightCategories Weight, IBL.BO.Priorities priority)
+        /// <summary>
+        /// return converted parcel to parcel for list
+        /// </summary>
+        /// <param name="id">id of requested parcel</param>
+        /// <returns>parcel for list</returns>
+        public ParcelList ParcelToParcelForList(int id)
         {
-            throw new NotImplementedException();
-        }
+            var parcel = GetParcel(id);
 
-        public void ReceiptParcelForDelivery(int senderCustomerId, int recieveCustomerId, WeightCategories Weight, IBL.BO.Priorities priority)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ReceiptParcelForDelivery(int senderCustomerId, int recieveCustomerId, BO.WeightCategories Weight, BO.Priorities priority)
-        {
-            throw new NotImplementedException();
-        }
-        double[] arr;
-        arr = dal.RequestElectricity();
-            available = arr[0];
-            lightWeight = arr[1];
-            mediumWeight = arr[2];
-            heavyWeight = arr[3];
-            chargingRate = arr[4];
-        ///להעביר אחכ לבנאי
-        public int IdParcel = 0;
-        public double Available = 2;
-        public double LightWeightCarrier = 10;
-        public double MediumWeightBearing = 25;
-        public double CarryingHeavyWeight = 40;
-        public static double DroneLoadingRate = 10;
-
-        private static double Distance(Location sLocation, Location tLocation)
-        {
-            var sCoord = new GeoCoordinate(sLocation.Lattitude, sLocation.Longitude);
-            var tCoord = new GeoCoordinate(tLocation.Lattitude, tLocation.Longitude);
-            return sCoord.GetDistanceTo(tCoord);
+            return new ParcelList()
+            {
+                Id = parcel.Id,
+                Priority = parcel.Priority,
+                Weight = parcel.WeightParcel,
+                SendCustomer = parcel.CustomerSendsFrom.Name,
+                ReceivesCustomer = parcel.CustomerReceivesTo.Name,
+            };
         }
     }
 }

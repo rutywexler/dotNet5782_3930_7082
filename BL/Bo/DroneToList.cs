@@ -18,7 +18,7 @@ namespace BL
             public double BatteryDrone { get; set; }
             public DroneStatuses DroneStatus { get; set; }
             public Location Location { get; set; }
-            public int ParcelNumberInTransfer { get; set; }
+            public int ParcelId { get; set; }
         }
     }
 }
