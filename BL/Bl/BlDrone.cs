@@ -51,10 +51,8 @@ namespace IBL
             };
         }
 
-        public IEnumerable<Drone> GetDrones()
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<DroneToList> GetDrones() => drones;
+
 
         public void ReleaseDroneFromCharging(int id, float timeOfCharge)
         {
