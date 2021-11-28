@@ -72,7 +72,7 @@ namespace IBL
    
         }
 
-        private BaseStation FindClosetStation(IEnumerable<IDAL.DO.Station> stations, Location location)
+        private BaseStation FindClosetStation(IEnumerable<IDAL.DO.Station> stations, Location location, double batteryDrone)
         {
             double minDistance = 0;
             double curDistance;

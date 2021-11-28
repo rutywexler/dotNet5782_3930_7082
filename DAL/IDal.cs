@@ -15,6 +15,8 @@ namespace IDAL
         public void AddParcel(int SenderId, int TargetId, WeightCategories Weigth, Priorities Priority, int id = 0);
         public void AddDrone(int id, string model, WeightCategories MaxWeight);
         public void AddStation(int id, int name, double longitude, double latitude, int chargeSlots);
+        public void AddDRoneCharge(int droneId, int stationId)
+
         public void AssignParcelToDrone(int parcelId, int droneId);
         public void CollectParcel(int parcelId);
         public void SupplyParcel(int parcelId);

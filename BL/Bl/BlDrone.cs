@@ -64,33 +64,22 @@ namespace IBL
 
         public void SendDroneForCharge(int id)
         {
-            Drone newDrone = new Drone();
-            //צריך למצוא מיקום קרוב ביותר!!
-            BaseStation baseStation = new BaseStation();
-            newDrone = GetDrone(id);
-            if (newDrone.DroneStatus == 1/*||newDrone.DroneLocation.Lattitude*/)
-            {
-                int id2;//idשל התחנה הקרובה ביותר
-                newDrone.DroneLocation = baseStation.Location;
-                /*■	הורדת מספר עמדות טעינה פנויות ב-1IDal.DO.*/
-                Drone drone = new Drone();
+            DroneToList droneToList = drones.FirstOrDefault(item => item.DroneId == id);
+            if (droneToList == default) ;
+                //throw new ArgumentNullException(" not exist a drone with this ID ");
+                if (droneToList.DroneStatus != DroneStatuses.Available) ;
+               // throw new InvalidEnumArgumentException("The drone is not available so it is not possible to send it for charging ");
+            IDAL.DO.Station station = FindClosetStation(dal.GetStations(), droneToList.Location, droneToList.BatteryDrone, out double minDistanc);
+            if (station.Equals(default(IDAL.DO.Station))) ;
+                //throw new ThereIsNoNearbyBaseStationThatTheDroneCanReachException();
+            drones.Remove(droneToList);
+            droneToList.DroneStatus = DroneStatuses.Meintenence;
+            droneToList.BatteryDrone -= minDistanc * Available;
+            droneToList.Location = new Location() { Longitude = station.Longitude, Lattitude = station.Lattitude }; ;
+            dal.AddDRoneCharge(id, station.Id);
+            drones.Add(droneToList);
 
-                
-                IDAL.DO.Station baseStations = dal.GetStation(id2);
-                baseStations.ChargeSlots -= 1;
-                IDAL.DO.Drone DalDrone = dal.GetDrone(id);
-                DalDrone.Battery = ;//לתקן!!
-                DalDrone.
-
-
-
-
-
-
-
-
-
-            }
+        }
 
         }
        /* public double FindCloseLocation(Location sLocation , Location tLocation)

@@ -87,5 +87,16 @@ namespace DalObject
             }
             return DronechargingInStation;
         }
+
+        /// <summary>
+        /// Gets parameters and create new DroneCharge 
+        /// </summary>
+        /// <param name="droneId">The drone to add</param>
+        /// <param name="stationId">The station to add the drone</param>
+        public void AddDRoneCharge(int droneId, int stationId)
+        {
+            DataSource.DroneCharges.Add(new DroneCharge() { DroneId = droneId, StationId = stationId });
+        }
+
     }
 }
