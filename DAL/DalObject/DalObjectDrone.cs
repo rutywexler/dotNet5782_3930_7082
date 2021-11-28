@@ -117,5 +117,7 @@ namespace DalObject
         {
             return new double[] { Config.Available,Config.LightWeightCarrier, Config.MediumWeightBearing, Config.CarryingHeavyWeight,Config.DroneLoadingRate };
         }
+
+
     }
 }

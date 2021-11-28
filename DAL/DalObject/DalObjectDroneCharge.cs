@@ -72,5 +72,20 @@ namespace DalObject
                     Console.WriteLine(item);
             }
         }
+        /// <summary>
+        /// Finds all the drones that are charged at a particular station
+        /// </summary>
+        /// <param name="id">The id of particular station</param>
+        /// <returns>A list of DroneCarge</returns>
+        public IEnumerable<DroneCharge> GetDronechargingInStation(int id)
+        {
+            List<DroneCharge> DronechargingInStation = new();
+            foreach (var DroneCharge in DroneCharges)
+            {
+                if (DroneCharge.StationId == id)
+                    DronechargingInStation.Add(DroneCharge);
+            }
+            return DronechargingInStation;
+        }
     }
 }

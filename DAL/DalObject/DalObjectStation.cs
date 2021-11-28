@@ -77,10 +77,10 @@ namespace DalObject
         /// Checks which base Sations are available for charging
         /// </summary>
         /// <returns>A list of avaiable satations</returns>
-        private List<Station> getAvailbleStations() => (BaseStations.FindAll(item => item.ChargeSlots > AvailableChargingPorts(item.Id)));
+        private List<Station> getAvailbleStations() => (BaseStations.FindAll(item => item.ChargeSlots > NotAvailableChargingPorts(item.Id)));
         public IEnumerable<Station> GetAvailableChargingStations() => getAvailbleStations().ToList();
 
-       int AvailableChargingPorts(int baseStationId)
+       public int NotAvailableChargingPorts(int baseStationId)
         {
             int count = 0;
             foreach (DroneCharge item in DroneCharges)

@@ -1,4 +1,5 @@
-﻿using IBL;
+﻿using BL.BO;
+using IBL;
 using IBL.BO;
 using IDAL;
 using System;
@@ -11,31 +12,98 @@ namespace IBL
 {
     public partial class BL : IblStation
     {
-        public void AddStation(int id, string name, Location location, int chargeSlots)
+        public void AddStation(BaseStation baseStation)
         {
-            BaseStation BaseStation = new BaseStation();
-            BaseStation.NumberOfChargingStations‏ = 1;
-
+            dal.AddStation(baseStation.ID, baseStation.Name, baseStation.Location.Longitude, baseStation.Location.Longitude, baseStation.NumberOfChargingStations);
         }
 
-        public IEnumerable<BaseStation> GetStaionsWithEmptyChargeSlots()
+        public IEnumerable<BaseStationToList> GetStaionsWithEmptyChargeSlots()
         {
-            throw new NotImplementedException();
+            IEnumerable<IDAL.DO.Station> AvailableChargingStationsFromDal = dal.GetAvailableChargingStations();
+            List<BaseStationToList> stations = new();
+            foreach (var Station in AvailableChargingStationsFromDal)
+            {
+                stations.Add(ConvertStationToStationForList(Station));
+            }
+            return stations;
         }
 
         public BaseStation GetStation(int id)
         {
-            throw new NotImplementedException();
+            var baseStation = dal.GetStation(id);
+            var chargeSlots = dal.GetDronechargingInStation(id).Where(charge => charge.StationId == id).ToList();
+            var dronesInChargeList = chargeSlots.Select(charge => GetDrone(charge.DroneId)).ToList();
+
+            return new BaseStation()
+            {
+                ID = baseStation.Id,
+                Name = baseStation.Name,
+                Location = new Location() { Lattitude = baseStation.Lattitude, Longitude = baseStation.Longitude },
+                NumberOfChargingStations = baseStation.ChargeSlots - chargeSlots.Count,
+                DronesInCharge = dronesInChargeList,
+            };
         }
 
-        public IEnumerable<BaseStation> GetStations()
+
+        /// <summary>
+        /// Retrieves the list of stations from the data and converts it to station to list
+        /// </summary>
+        /// <returns>A list of statin to print</returns>
+        public IEnumerable<BaseStationToList> GetStations()
         {
-            throw new NotImplementedException();
+            IEnumerable<IDAL.DO.Station> list = dal.GetStations();
+            List<BaseStationToList> stations = new();
+            foreach (var item in list)
+            {
+                stations.Add(ConvertStationToStationForList(item));
+            }
+            return stations;
         }
 
+
+        /// <summary>
+        /// Update a station in the Stations list
+        /// </summary>
+        /// <param name="id">The id of the station</param>
+        /// <param name="name">The new name</param>
+        /// <param name="chargeSlots">A nwe number for charging slots</param>
         public void UpdateStation(int id, string name, int chargeSlots)
         {
-            throw new NotImplementedException();
+   
+        }
+
+        private BaseStation FindClosetStation(IEnumerable<IDAL.DO.Station> stations, Location location)
+        {
+            double minDistance = 0;
+            double curDistance;
+            BaseStation Station = new BaseStation();
+            foreach (var item in stations)
+            {
+                curDistance = Distance(location,
+                    new Location() { Lattitude = item.Lattitude, Longitude = item.Longitude });
+                if (curDistance < minDistance)
+                {
+                    minDistance = curDistance;
+                    station = item;
+                }
+            }
+            return station;
+        }
+
+        /// <summary>
+        /// Convert a DAL station to BLStationToList satation
+        /// </summary>
+        /// <param name="station">The sation to convert</param>
+        /// <returns>The converted station</returns>
+        private BaseStationToList ConvertStationToStationForList(IDAL.DO.Station station)
+        {
+            return new BaseStationToList()
+            {
+                IdStation = station.Id,
+                NameStation = station.Name,
+                NumOfAvailableChargingStations = station.ChargeSlots - dal.NotAvailableChargingPorts(station.Id),
+                NumOfBusyChargingStations = dal.NotAvailableChargingPorts(station.Id)
+            };
         }
     }
 }
