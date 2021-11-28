@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BL.BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,13 +9,16 @@ namespace ConsoleUI_BL
 {
     partial class Program
     {
-       
-        public static void SwitchDisplay( IBL.IBL bl)
+
+        /// <summary>
+        /// Receives input from the user: type of organ to print, ID number and calls to the appropriate printing method
+        /// </summary>
+        /// <param name="dalObject"></param>
+        public static void ReplacingDisplay( IBL.IBL bl)
         {
      
            if (!Enum.TryParse(Console.ReadLine(), out Display option))
             {
-                Console.WriteLine("The input is invalid");
                 option = Display.False;
             }
             int id;
@@ -29,7 +33,7 @@ namespace ConsoleUI_BL
                     }
                 case Display.Drone:
                     {
-                        Console.WriteLine("Enter the Drone ID: mk");
+                        Console.WriteLine("Enter the Drone ID:");
                         if (int.TryParse(Console.ReadLine(), out id))
                             Console.WriteLine(bl.GetDrone(id));
                         break;
@@ -49,13 +53,64 @@ namespace ConsoleUI_BL
                         break;
                     }
                 case Display.False:
-                    break;
-              
-
+                    {
+                        Console.WriteLine("The input is invalid");
+                        break;
+                    }
+                    
             }
-
 
         }
 
+        /// <summary>
+        /// Receives input from the user and calls the printing method  
+        /// </summary>
+        /// <param name="dalObject"></param>
+        public static void ReplacingDisplayList( IBL.IBL bl)
+        {
+            if (!Enum.TryParse(Console.ReadLine(), out DisplayList option))
+            {
+                option = DisplayList.False;
+            }
+            switch (option)
+            {
+                case DisplayList.Sations:
+                    PrintTheList(bl.GetStations());
+                    break;
+                case DisplayList.Drones:
+                    PrintTheList(bl.GetDrones());
+                    break;
+                case DisplayList.Customers:
+                    PrintTheList(bl.GetCustomers());
+                    break;
+                case DisplayList.Parcels:
+                    PrintTheList(bl.GetParcels());
+                    break;
+                case DisplayList.AvailableChargingSations:
+                    PrintTheList(bl.GetStaionsWithEmptyChargeSlots());
+                    break;
+                case DisplayList.ParcelNotAssignToDrone:
+                    PrintTheList(bl.GetParcelsNotAssignedToDrone());
+                    break;
+                case DisplayList.False:
+                    Console.WriteLine("Invalid input");
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Prints the whole items in the console
+        /// </summary>
+        /// <param name="list">collection for printing</param>
+        public static void PrintTheList<T>(IEnumerable<T> list)
+        {
+            if (!list.Any())
+                Console.WriteLine("the list is empty!");
+            foreach (var item in list)
+            {
+                Console.WriteLine(item);
+            }
+
+        }
     }
 }
