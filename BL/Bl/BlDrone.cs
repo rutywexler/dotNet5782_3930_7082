@@ -11,44 +11,49 @@ using IBL.BO;
 using BL;
 using System.Device.Location;
 using static BL.BO.Enums;
-using IDAL.DO;
+
 
 namespace IBL
 {
     public partial class BL : IblDrone
     {
-        private IDal dal;
-        public void AddDrone(int id, string model, Enums.WeightCategories MaxWeight, int stationId)
-        {
-            Drone newDrone = new Drone();
-            Random random = new Random();
-            int RandomNumber(int min, int max)
-            {
-                return random.Next(min, max);
-            }
-            newDrone.BatteryStatus = ;
-            newDrone.DroneStatus = 0;
-            newDrone.DroneLocation = GetDrone(stationId).DroneLocation;
-            
 
+        private const int NUM_OF_MINUTE_IN_HOUR = 60;
+        private const int MIN_BATTERY = 20;
+        private const int MAX_BATTERY = 40;
+
+        private IDal dal;
+        public void AddDrone(Drone drone,int stationId)
+        {
+            dal.AddDrone(drone.DroneId, drone.DroneModel, (IDAL.DO.WeightCategories)drone.Weight);
+            IDAL.DO.Station station = dal.GetStation(stationId);
+            DroneToList droneToList = new()
+            {
+                DroneId = drone.DroneId,
+                ModelDrone = drone.DroneModel,
+                DroneWeight = drone.Weight,
+                BatteryDrone = rand.NextDouble() + rand.Next(MIN_BATTERY, MAX_BATTERY),
+                DroneStatus = DroneStatus.Meintenence,
+                Location = new Location() { Lattitude = station.Lattitude, Longitude = station.Longitude }
+            };
+            drones.Add(droneToList);
         }
 
         public Drone GetDrone(int id)
         {
             DroneToList drone = drones.Find(d => d.DroneId == id);
-            Deliverybytransfer parcelInDeliver = drone.DroneStatus == DroneStatuses.Delivery ?
-                                              GetParcelInTransfer((int)drone.DeliveredParcelId) :
+            ParcelInTransfer parcelInDeliver = drone.DroneStatus == DroneStatus.Delivery ?
+                                              GetParcelInTransfer(drone.ParcelId) :
                                               null;
             return new Drone()
             {
                 DroneId = drone.DroneId,
                 BatteryStatus = drone.BatteryDrone,
-                DroneLocation = new Location() { Lattitude = drone.DroneLocation.Lattitude, Longitude = drone.DroneLocation.Longitude },
+                DroneLocation = new Location() { Lattitude = drone.Location.Lattitude, Longitude = drone.Location.Longitude },
                 Weight = drone.DroneWeight,
                 DroneModel = drone.ModelDrone,
                 DroneStatus = drone.DroneStatus,
                 DeliveryTransfer = parcelInDeliver,
-
             };
         }
 
@@ -57,32 +62,36 @@ namespace IBL
 
         public void ReleaseDroneFromCharging(int id, float timeOfCharge)
         {
-            throw new NotImplementedException();
+            DroneToList drone = drones.FirstOrDefault(item => item.DroneId == id);
+
+            drone.BatteryDrone += DroneLoadingRate * timeOfCharge;
+            drone.DroneStatus = DroneStatus.Available;
+
+            dal.ReleaseDroneFromRecharge(drone.DroneId);
         }
 
 
         public void SendDroneForCharge(int id)
         {
             DroneToList droneToList = drones.FirstOrDefault(item => item.DroneId == id);
-            if (droneToList == default) ;
-                if (droneToList.DroneStatus != DroneStatuses.Available) ;
+            if (droneToList.DroneStatus != DroneStatus.Available)
+            {
+                throw new InValidActionException();
+            }
             IDAL.DO.Station station = ClosetStationThatPossible(dal.GetStations(), droneToList.Location, droneToList.BatteryDrone, out double minDistanc);
-            if (station.Equals(default(IDAL.DO.Station))) ;
             drones.Remove(droneToList);
-            droneToList.DroneStatus = DroneStatuses.Meintenence;
+            droneToList.DroneStatus = DroneStatus.Meintenence;
+            station.ChargeSlots -= 1;
             droneToList.BatteryDrone -= minDistanc * Available;
             droneToList.Location = new Location() { Longitude = station.Longitude, Lattitude = station.Lattitude }; ;
             dal.AddDRoneCharge(id, station.Id);
             drones.Add(droneToList);
-
-
-
         }
 
         private IDAL.DO.Station ClosetStationThatPossible(IEnumerable<IDAL.DO.Station> stations, Location droneToListLocation, double BatteryStatus, out double minDistance)
         {
             IDAL.DO.Station station = CloseStation(stations, droneToListLocation);
-            minDistance = Distance(droneToListLocation, new Location() { Longitude = station.Longitude, Lattitude = station.Latitude });
+            minDistance = Distance(droneToListLocation, new Location() { Longitude = station.Longitude, Lattitude = station.Lattitude });
             return minDistance * Available <= BatteryStatus ? station : default(IDAL.DO.Station);
         }
 
@@ -106,8 +115,7 @@ namespace IBL
         }
         public void UpdateDrone(int id, string name)
         {
-
-            if (!ExistsIDTaxCheck(dal.GetDrones(), id))
+            if (!ExistsIDCheck(dal.GetDrones(), id))
                 throw new KeyNotFoundException();
             IDAL.DO.Drone droneDl = dal.GetDrone(id);
             if (name.Equals(default))
@@ -120,11 +128,23 @@ namespace IBL
             drones.Add(droneToList);
         }
 
-        private bool IsAbleToPassParcel(Drone drone, ParcelInTransfer parcel)
+        private bool IsDroneCanTakeTheParcel(Drone drone, ParcelInTransfer parcel)
         {
-            var neededBattery =Distance(drone.DroneLocation, parcel.CollectParcelLocation) * Available +
-                              Distance(parcel.CollectParcelLocation, parcel.DeliveryDestination) * GetElectricity(parcel.Weight) +
-                              Distance(parcel.DeliveryDestination, CloseStation(dal.GetAvailableChargingStations(),drone.DroneLocation) * Available;
+            double electricity;
+            double e = parcel.Weight switch
+            {
+                WeightCategories.Light => LightWeightCarrier,
+                WeightCategories.Medium => MediumWeightBearing,
+                WeightCategories.Heavy => CarryingHeavyWeight,
+                _ => throw new NotImplementedException()
+            };
+            IDAL.DO.Station station;
+            var neededBattery = 
+            electricity = Distance(drone.DroneLocation, parcel.CollectParcelLocation) * Available +
+                        Distance(parcel.CollectParcelLocation, parcel.DeliveryDestination) * e;
+            station = ClosetStationThatPossible(dal.GetStations(), drone.DroneLocation, drone.BatteryStatus - electricity, out _);
+            electricity += Distance(parcel.DeliveryDestination,
+                         new Location() { Lattitude = station.Lattitude, Longitude = station.Longitude }) * Available;
             return drone.BatteryStatus >= neededBattery;
         }
 

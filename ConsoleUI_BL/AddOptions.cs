@@ -76,7 +76,8 @@ namespace ConsoleUI_BL
                                 break;
                             }
                             string Model = Console.ReadLine();
-                            bl.AddDrone(id, Model, MaxWeight, stationId);
+                            Drone drone = new() { DroneId = id, Weight = MaxWeight, DroneModel = Model };
+                            bl.AddDrone(drone, stationId);
                         }
                         else
                             Console.WriteLine("There were errors in the data entry and the addition was not made");

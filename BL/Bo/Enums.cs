@@ -14,8 +14,8 @@ namespace BL
             public enum WeightCategories
             {
                 Light,
-                medium,
-                weighty
+                Medium,
+                Heavy
             }
 
             public enum Priorities
@@ -32,7 +32,7 @@ namespace BL
                 DELIVERY
             }
 
-            public enum DroneStatuses
+            public enum DroneStatus
             {
                 Available,
                 Meintenence,

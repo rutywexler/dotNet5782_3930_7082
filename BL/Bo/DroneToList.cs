@@ -16,7 +16,7 @@ namespace BL
             public string  ModelDrone { get; set; }
             public WeightCategories DroneWeight { get; set; }
             public double BatteryDrone { get; set; }
-            public DroneStatuses DroneStatus { get; set; }
+            public DroneStatus DroneStatus { get; set; }
             public Location Location { get; set; }
             public int ParcelId { get; set; }
         }
