@@ -118,11 +118,25 @@ namespace IBL
             dal.AddDrone(drone.DroneId,drone.DroneModel,(IDAL.DO.WeightCategories)drone.Weight);
         }
 
+        ///  <summary>
+        /// Find if the id is unique in a spesific list
+        /// </summary>
+        /// <typeparam name="T">the type of list</typeparam>
+        /// <param name="list">the spesific list </param>
+        /// <param name="id">the id to check</param>
+        private static bool ExistsIDCheck<T>(IEnumerable<T> list, int id)
+        {
+            // no item in the list
+            if (!list.Any())
+                return false;
+            T temp = list.FirstOrDefault(item => (int)item.GetType().GetProperty("Id")?.GetValue(item, null) == id);
+            return !(temp.Equals(default(T)));
 
 
 
 
-    }
+
+        }
 }
 
     

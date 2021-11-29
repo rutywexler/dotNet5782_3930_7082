@@ -1,9 +1,11 @@
-﻿using BL.BO;
+﻿using BL.Bl;
+using BL.BO;
 using DalObject;
 using IBL;
 using IBL.BO;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Device.Location;
 using System.Linq;
 using System.Text;
@@ -16,29 +18,49 @@ namespace IBL
     {
         public void AddParcel(Parcel parcel)
         {
-            dal.AddParcel(
-                parcel.CustomerSendsFrom.Id,
-                parcel.CustomerReceivesTo.Id,
-               (IDAL.DO.WeightCategories)parcel.WeightParcel,
-              (IDAL.DO.Priorities)parcel.Priority
-            );
+            if (!ExistsIDCheck(dal.GetCustomers(), parcel.CustomerSendsFrom.Id))
+                throw new KeyNotFoundException("Sender not exist");
+            if (!ExistsIDCheck(dal.GetCustomers(), parcel.CustomerReceivesTo.Id))
+                throw new KeyNotFoundException("Target not exist");
+            try
+            {
+                dal.AddParcel(
+                    parcel.CustomerSendsFrom.Id,
+                    parcel.CustomerReceivesTo.Id,
+                   (IDAL.DO.WeightCategories)parcel.WeightParcel,
+                  (IDAL.DO.Priorities)parcel.Priority
+                );
+            }
+            catch (DAL.DalObject.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            {
+
+                throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
+            }
         }
         public ParcelInTransfer GetParcelInTransfer(int id)
         {
-            var parcel = GetParcel(id);
-            var targetCustomer = GetCustomer(parcel.CustomerReceivesTo.Id);
-            var senderCustomer = GetCustomer(parcel.CustomerSendsFrom.Id);
-
-            return new ParcelInTransfer()
+            try
             {
-                Id = id,
-                Weight = parcel.WeightParcel,
-                Priority = parcel.Priority,
-                CollectParcelLocation = targetCustomer.Location,
-                DeliveryDestination = senderCustomer.Location,
-                ParcelStatus = parcel.DeliveryTime != null,
-                DeliveryDistance = Distance(senderCustomer.Location, targetCustomer.Location),
-            };
+                var parcel = GetParcel(id);
+                var targetCustomer = GetCustomer(parcel.CustomerReceivesTo.Id);
+                var senderCustomer = GetCustomer(parcel.CustomerSendsFrom.Id);
+
+                return new ParcelInTransfer()
+                {
+                    Id = id,
+                    Weight = parcel.WeightParcel,
+                    Priority = parcel.Priority,
+                    CollectParcelLocation = targetCustomer.Location,
+                    DeliveryDestination = senderCustomer.Location,
+                    ParcelStatus = parcel.DeliveryTime != null,
+                    DeliveryDistance = Distance(senderCustomer.Location, targetCustomer.Location),
+                };
+            }
+            catch (KeyNotFoundException ex)
+            {
+
+                throw new KeyNotFoundException(ex.Message);
+            }
         }
 
         public void AssignParcelToDrone(int droneId)
@@ -47,7 +69,7 @@ namespace IBL
 
             if (drone.DroneStatus == DroneStatuses.Delivery)
             {
-               
+                throw new InvalidEnumArgumentException("Because that The drone is not available  its not possible to send it for charging ");
             }
 
             var parcels = (dal.GetUnAssignmentParcels() as List<IDAL.DO.Parcel>)
@@ -63,7 +85,7 @@ namespace IBL
 
             if (parcels.Count == 0)
             {
-                //לתקןthrow new InValidActionException();
+                throw new InvalidEnumArgumentException();
             }
 
             dal.AssignParcelToDrone(parcels.First().Id, droneId);
@@ -75,6 +97,7 @@ namespace IBL
         public void DeliveryParcelByDrone(int droneId)
         {
             DroneToList droneToList = drones.Find(drone => drone.DroneId == droneId);
+            
             IDAL.DO.Parcel parcel = dal.GetParcel(droneToList.ParcelId);
             drones.Remove(droneToList);
             IDAL.DO.Customer customer = dal.GetCustomer(parcel.TargetId);
@@ -96,20 +119,28 @@ namespace IBL
 
         public Parcel GetParcel(int id)
         {
-            var parcel = dal.GetParcel(id);
-            return new Parcel()
+            try { 
+                var parcel = dal.GetParcel(id);
+                return new Parcel()
+                {
+                    Id = parcel.Id,
+                    DroneParcel = GetDrone(parcel.DroneId),
+                    CustomerSendsFrom = CustomerToCustomerInParcel(dal.GetCustomer(parcel.SenderId)),
+                    CustomerReceivesTo = CustomerToCustomerInParcel(dal.GetCustomer(parcel.TargetId)),
+                    WeightParcel = (WeightCategories)parcel.Weight,
+                    Priority = (Priorities)parcel.Priority,
+                    TimeCreatedTheParcel = parcel.Requested,
+                    AssignmentTime = parcel.Scheduled,
+                    CollectionTime = parcel.PickedUp,
+                    DeliveryTime = parcel.Delivered,
+                };
+            }
+            catch (KeyNotFoundException ex)
             {
-                Id = parcel.Id,
-                DroneParcel = GetDrone(parcel.DroneId),
-                CustomerSendsFrom = CustomerToCustomerInParcel(dal.GetCustomer(parcel.SenderId)),
-                CustomerReceivesTo = CustomerToCustomerInParcel(dal.GetCustomer(parcel.TargetId)),
-                WeightParcel = (WeightCategories)parcel.Weight,
-                Priority = (Priorities)parcel.Priority,
-                TimeCreatedTheParcel = parcel.Requested,
-                AssignmentTime = parcel.Scheduled,
-                CollectionTime = parcel.PickedUp,
-                DeliveryTime = parcel.Delivered,
-            };
+
+                throw new KeyNotFoundException(ex.Message);
+            }
+
         }
 
         private CustomerInParcel CustomerToCustomerInParcel(IDAL.DO.Customer customer)
@@ -134,15 +165,26 @@ namespace IBL
 
         public void ParcelCollectionByDrone(int droneId)
         {
-            DroneToList droneToList = drones.Find(item => item.DroneId == droneId);
-            var parcel = dal.GetParcel(droneToList.ParcelId);
+            try
+            {
+                DroneToList droneToList = drones.Find(item => item.DroneId == droneId);
+                var parcel = dal.GetParcel(droneToList.ParcelId);
 
-            ParcelInTransfer parcelInDeliver = GetParcelInTransfer(parcel.Id);
+                ParcelInTransfer parcelInDeliver = GetParcelInTransfer(parcel.Id);
 
-            droneToList.BatteryDrone -= Distance(droneToList.Location, parcelInDeliver.CollectParcelLocation) * Available;
-            droneToList.Location = parcelInDeliver.CollectParcelLocation;
+                droneToList.BatteryDrone -= Distance(droneToList.Location, parcelInDeliver.CollectParcelLocation) * Available;
+                droneToList.Location = parcelInDeliver.CollectParcelLocation;
 
-            dal.CollectParcel(parcel.Id);
+                dal.CollectParcel(parcel.Id);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw new KeyNotFoundException(ex.Message);
+            }
+            catch (DAL.DalObject.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            {
+                throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
+            }
         }
 
         /// <summary>

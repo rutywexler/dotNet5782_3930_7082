@@ -1,4 +1,5 @@
-﻿using BL.BO;
+﻿using BL.Bl;
+using BL.BO;
 using IBL;
 using IBL.BO;
 using IDAL;
@@ -14,7 +15,14 @@ namespace IBL
     {
         public void AddStation(BaseStation baseStation)
         {
-            dal.AddStation(baseStation.Id, baseStation.Name, baseStation.Location.Longitude, baseStation.Location.Longitude, baseStation.NumberOfChargingStations);
+            try {
+                dal.AddStation(baseStation.Id, baseStation.Name, baseStation.Location.Longitude, baseStation.Location.Longitude, baseStation.NumberOfChargingStations); 
+              }
+            catch (DAL.DalObject.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            {
+                throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
+            }
+
         }
 
         public IEnumerable<BaseStationToList> GetStaionsWithEmptyChargeSlots()
@@ -30,17 +38,24 @@ namespace IBL
 
         public BaseStation GetStation(int id)
         {
-            var baseStation = dal.GetStation(id);
-            var chargeSlots = dal.GetDronechargingInStation(id).Where(StationId =>StationId == id).ToList();
-
-            return new BaseStation()
+            try
             {
-                Id = baseStation.Id,
-                Name = baseStation.Name,
-                Location = new Location() { Lattitude = baseStation.Lattitude, Longitude = baseStation.Longitude },
-                NumberOfChargingStations = baseStation.ChargeSlots - chargeSlots.Count,
-                DronesInCharge = ConvertDroneToDroneToList(id),
-            };
+                var baseStation = dal.GetStation(id);
+                var chargeSlots = dal.GetDronechargingInStation(id).Where(StationId => StationId == id).ToList();
+
+                return new BaseStation()
+                {
+                    Id = baseStation.Id,
+                    Name = baseStation.Name,
+                    Location = new Location() { Lattitude = baseStation.Lattitude, Longitude = baseStation.Longitude },
+                    NumberOfChargingStations = baseStation.ChargeSlots - chargeSlots.Count,
+                    DronesInCharge = ConvertDroneToDroneToList(id),
+                };
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw new KeyNotFoundException(ex.Message);
+            }
         }
 
 
@@ -68,9 +83,22 @@ namespace IBL
         /// <param name="chargeSlots">A nwe number for charging slots</param>
         public void UpdateStation(int id, string name, int chargeSlots)
         {
-            var station = dal.GetStation(id);
-            dal.RemoveStation(station);
-            dal.AddStation(id, name.Equals(string.Empty) ? station.Name : name, station.Longitude, station.Lattitude, chargeSlots == 0 ? station.ChargeSlots : chargeSlots);
+            if (name.Equals(string.Empty) && chargeSlots == 0)
+                throw new ArgumentNullException("You must enter all the details!");
+            try
+            {
+                var station = dal.GetStation(id);
+                dal.RemoveStation(station);
+                dal.AddStation(id, name.Equals(string.Empty) ? station.Name : name, station.Longitude, station.Lattitude, chargeSlots == 0 ? station.ChargeSlots : chargeSlots);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw new KeyNotFoundException(ex.Message);
+            }
+            catch (DAL.DalObject.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            {
+                throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
+            }
         }
 
         private IDAL.DO.Station FindClosetStation(IEnumerable<IDAL.DO.Station> stations, Location location, double batteryDrone)
