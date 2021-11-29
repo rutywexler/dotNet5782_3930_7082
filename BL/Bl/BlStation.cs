@@ -14,7 +14,7 @@ namespace IBL
     {
         public void AddStation(BaseStation baseStation)
         {
-            dal.AddStation(baseStation.ID, baseStation.Name, baseStation.Location.Longitude, baseStation.Location.Longitude, baseStation.NumberOfChargingStations);
+            dal.AddStation(baseStation.Id, baseStation.Name, baseStation.Location.Longitude, baseStation.Location.Longitude, baseStation.NumberOfChargingStations);
         }
 
         public IEnumerable<BaseStationToList> GetStaionsWithEmptyChargeSlots()
@@ -36,7 +36,7 @@ namespace IBL
 
             return new BaseStation()
             {
-                ID = baseStation.Id,
+                Id = baseStation.Id,
                 Name = baseStation.Name,
                 Location = new Location() { Lattitude = baseStation.Lattitude, Longitude = baseStation.Longitude },
                 NumberOfChargingStations = baseStation.ChargeSlots - chargeSlots.Count,

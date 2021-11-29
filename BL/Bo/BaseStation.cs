@@ -10,12 +10,12 @@ namespace IBL
     {
         public class BaseStation
         {
-            public int ID { get; set; }
+            public int Id { get; set; }
             public string Name { get; set; }
             public Location Location { get; set; }
             public int NumberOfChargingStations { get; set; }
 
-            public List<Drone> DronesInCharge = new List<Drone>();
+            public List<DroneInCharging> DronesInCharge = new List<DroneInCharging>();
 
         }
     }
