@@ -19,8 +19,12 @@ namespace DalObject
         /// <param name="Priority"> The priority of send the parcel (regular - 0,fast - 1,emergency - 2)</param>
         public void AddParcel(int SenderId, int TargetId, WeightCategories Weigth, Priorities Priority, int id = 0)
         {
+            if (!ExistsIDCheck(GetCustomers(), SenderId))
+                throw new KeyNotFoundException("Sender dosnt exist");
+            if (!ExistsIDCheck(GetCustomers(), TargetId))
+                throw new KeyNotFoundException("Target doesnt exist");
             Parcel newParcel = new();
-            //תוקוווןןnewParcel.Id =id;
+            newParcel.Id =id==0?++DataSource.Config.IdParcel:id;
             newParcel.SenderId = SenderId;
             newParcel.TargetId = TargetId;
             newParcel.Weight = Weigth;
@@ -30,17 +34,6 @@ namespace DalObject
             Parcels.Add(newParcel);
         }
 
-        /// <summary>
-        /// DisplayParcel is a method in the DalObject class.
-        /// the method allows parcel view
-        /// </summary>
-        public void DisplayParcel()
-        {
-            Console.WriteLine("Enter parcel id:");
-            int input;
-            ValidRange(0, Parcels.Count, out input);
-            Console.WriteLine(Parcels[input - 1]);
-        }
 
         /// <summary>
         /// ViewListParcels is a method in the DalObject class.
@@ -54,26 +47,7 @@ namespace DalObject
             }
         }
 
-        /// <summary>
-        /// UpdateScheduled is a method in the DalObject class.
-        /// the method assigns a package to the drone
-        /// </summary>
-        /// <param name="id">int value</param>
-        public void UpdateScheduled(int id)
-        {
-            checkValid(id, 0, Parcels.Count);
-            foreach (Drone drone in Drones)
-            {
-                if ((drone.MaxWeight >= Parcels[Parcels.Count].Weight) && (drone.Battery >= 30) && drone.Status == 0)
-                {
-                    Parcel parcelTemp = Parcels[id];
-                    parcelTemp.DroneId = drone.Id;
-                    parcelTemp.Scheduled = DateTime.Now;
-                    Parcels[id] = parcelTemp;
-                    return;
-                }
-            }
-        }
+      
 
         /// <summary>
         /// ViewListPendingParcels is a method in the DalObject class.
@@ -97,7 +71,10 @@ namespace DalObject
         /// <returns>A parcel for display</returns>
         public Parcel GetParcel(int id)
         {
-            return Parcels.First(item => item.Id == id);
+            Parcel parcel = DataSource.Parcels.FirstOrDefault(item => item.Id == id);
+            if (parcel.Equals(default(Parcel)))
+                throw new KeyNotFoundException("There isnt suitable parcel in the data!");
+            return parcel;
         }
 
         /// <summary>
@@ -120,18 +97,6 @@ namespace DalObject
             Parcels.Add(parcel);
         }
 
-        /// <summary>
-        /// collect parcel fo sending:
-        /// update time of pick up parcel
-        /// </summary>
-        /// <param name="parcelId">id of parcel</param>
-        public void CollectParcel(int parcelId)
-        {
-            Parcel tmpParcel = Parcels.FirstOrDefault(item => item.Id == parcelId);
-            Parcels.Remove(tmpParcel);
-            tmpParcel.PickedUp = DateTime.Now;
-            Parcels.Add(tmpParcel);
-        }
 
         /// <summary>
         /// Removing a Parcel from the list

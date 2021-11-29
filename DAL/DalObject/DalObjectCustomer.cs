@@ -1,4 +1,5 @@
-﻿using IDAL.DO;
+﻿using DAL.DalObject;
+using IDAL.DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,8 @@ namespace DalObject
         /// <param name="latitude">>The position of the customer in relation to the latitude</param>
         public void AddCustomer(int id, string phone, string name, double longitude, double latitude)
         {
+            if (ExistsIDCheck(DataSource.Customers, id))
+                throw new Exception_ThereIsInTheListObjectWithTheSameValue();
             Customer newCustomer = new Customer();
             newCustomer.Id = id;
             newCustomer.Name = name;
@@ -41,6 +44,8 @@ namespace DalObject
         /// <returns>A customer for display</returns>
         public Customer GetCustomer(int id)
         {
+            if (Customers.Equals(default(Customer)))
+                throw new KeyNotFoundException("There isn't suitable customer in the data!");
             return Customers.First(item => item.Id == id);
         }
 

@@ -38,19 +38,6 @@ namespace DalObject
             return false;
         }
 
-        /// <summary>
-        /// UpdateCharge is a method in the DalObject class.
-        /// the method updates sending a skimmer for charging at a base station
-        /// </summary>
-        /// <param name="id">int value</param>
-        /// <returns>if succeed in finding available charge slot</returns>
-        public bool UpdateCharge(int id)
-        {
-            checkValid(id, 1, Drones.Count + 1);
-            Drone tempDrone = Drones[id];
-            tempDrone.Status = (DroneStatuses)1;
-            return FindChargeSlot(id);
-        }
 
         /// <summary>
         /// ViewListAvailableChargeSlots is a method in the DalObject class.
