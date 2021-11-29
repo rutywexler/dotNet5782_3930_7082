@@ -52,7 +52,6 @@ namespace IBL
             {
                 drone.ParcelId = 0;
             }
-            //TODO : Battery & Status
             foreach (var drone in drones)
             {
                 drone.BatteryDrone = 1;
@@ -61,7 +60,6 @@ namespace IBL
 
             foreach (var drone in drones)
             {
-                // drone.Location = findDroneLocation(drone);
                 if (drone.DroneStatus != Enums.DroneStatuses.Delivery)
                 {
                     drone.DroneStatus = (DroneStatuses)rand.Next(0, 2);
@@ -92,9 +90,9 @@ namespace IBL
             var tCoord = new GeoCoordinate(tLocation.Lattitude, tLocation.Longitude);
             return sCoord.GetDistanceTo(tCoord);
         }
-        public void AddDrone(int id, string model, WeightCategories maxWeight, int stationId)
+        public void AddOneDrone(int id, string model, WeightCategories maxWeight, int stationId)
         {
-            var station = GetBaseStation(stationId);
+            var station = GetStation(stationId);
 
             var drone = new Drone()
             {
@@ -114,7 +112,7 @@ namespace IBL
                 DroneWeight = drone.Weight,
                 BatteryDrone = drone.BatteryStatus,
                 Location = new Location() { Lattitude = drone.DroneLocation.Lattitude, Longitude = drone.DroneLocation.Longitude },
-                ParcelId = null,
+                ParcelId = 0,
                 DroneStatus = drone.DroneStatus,
             });
             dal.AddDrone(drone.DroneId,drone.DroneModel,(IDAL.DO.WeightCategories)drone.Weight);
