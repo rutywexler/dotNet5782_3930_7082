@@ -101,23 +101,7 @@ namespace IBL
             }
         }
 
-        private IDAL.DO.Station FindClosetStation(IEnumerable<IDAL.DO.Station> stations, Location location, double batteryDrone)
-        {
-            double minDistance = 0;
-            double curDistance;
-            IDAL.DO.Station Station = new();
-            foreach (var item in stations)
-            {
-                curDistance = Distance(location,
-                    new Location() { Lattitude = item.Lattitude, Longitude = item.Longitude });
-                if (curDistance < minDistance)
-                {
-                    minDistance = curDistance;
-                    Station = item;
-                }
-            }
-            return Station;
-        }
+    
 
         /// <summary>
         /// Convert a DAL station to BLStationToList satation

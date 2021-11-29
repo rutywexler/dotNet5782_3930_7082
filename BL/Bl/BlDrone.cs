@@ -22,7 +22,6 @@ namespace IBL
         private const int MIN_BATTERY = 20;
         private const int MAX_BATTERY = 40;
 
-        private IDal dal;
         public void AddDrone(Drone drone,int stationId)
         {
             dal.AddDrone(drone.DroneId, drone.DroneModel, (IDAL.DO.WeightCategories)drone.Weight);
