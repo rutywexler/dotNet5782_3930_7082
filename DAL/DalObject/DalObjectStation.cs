@@ -21,7 +21,7 @@ namespace DalObject
         /// <param name="chargeSlots">Number of charging slots at the station</param>
         public void AddStation(int id, string name, double longitude, double latitude, int chargeSlots)
         {
-            if (ExistsIDCheck(DataSource.BaseStations, id))
+            if (!ExistsIDCheck(DataSource.BaseStations, id))
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue();
             Station newStation = new();
             newStation.Id = id;
@@ -42,7 +42,7 @@ namespace DalObject
         public Station GetStation(int id)
         {
             Station station = DataSource.BaseStations.FirstOrDefault(item => item.Id == id);
-            if (station.Equals(default(Station)))
+            if (!station.Equals(default(Station)))
                 throw new KeyNotFoundException("There isnt suitable customer in the data!");
             return station;
         }
