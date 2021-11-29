@@ -38,6 +38,7 @@ namespace IDAL
         public void RemoveParcel(Parcel parcel);
         public void RemoveStation(Station station);
         public double[] GetPowerConsumptionByDrone();
+        public void RemoveDrone(Drone drone);
     }
 }
                      

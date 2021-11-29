@@ -45,7 +45,7 @@ namespace IBL
         {
             Drone drone = GetDrone(droneId);
 
-            if (drone.DroneStatus == DroneStatuses.Delivery)
+            if (drone.DroneStatus == DroneStatus.Delivery)
             {
                
             }
@@ -68,7 +68,7 @@ namespace IBL
 
             dal.AssignParcelToDrone(parcels.First().Id, droneId);
 
-            drone.DroneStatus = DroneStatuses.Delivery;
+            drone.DroneStatus = DroneStatus.Delivery;
         }
 
 
@@ -81,7 +81,7 @@ namespace IBL
             Location receiverLocation = new() { Longitude = customer.Longitude, Lattitude = customer.Lattitude };
             droneToList.BatteryDrone -= Distance(droneToList.Location, receiverLocation) * dal.GetPowerConsumptionByDrone()[1 + (int)parcel.Weight];
             droneToList.Location = receiverLocation;
-            droneToList.DroneStatus = DroneStatuses.Available;
+            droneToList.DroneStatus = DroneStatus.Available;
             drones.Add(droneToList);
             ParcelDeliveredDrone(parcel.Id);
         }

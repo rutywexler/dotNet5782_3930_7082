@@ -60,10 +60,10 @@ namespace IBL
 
             foreach (var drone in drones)
             {
-                if (drone.DroneStatus != Enums.DroneStatuses.Delivery)
+                if (drone.DroneStatus != Enums.DroneStatus.Delivery)
                 {
-                    drone.DroneStatus = (DroneStatuses)rand.Next(0, 2);
-                    if (drone.DroneStatus == Enums.DroneStatuses.Meintenence)
+                    drone.DroneStatus = (DroneStatus)rand.Next(0, 2);
+                    if (drone.DroneStatus == Enums.DroneStatus.Meintenence)
                     {
                         IDAL.DO.Station station = dal.GetStations().ToList()[rand.Next(0, dal.GetStations().ToList().Count)];
                         drone.Location = new Location()
@@ -75,7 +75,7 @@ namespace IBL
                         drone.BatteryDrone = rand.Next(0, 20) + rand.NextDouble();
                     }
 
-                    if (drone.DroneStatus == Enums.DroneStatuses.Available)
+                    if (drone.DroneStatus == Enums.DroneStatus.Available)
                     {
 
                     }
@@ -102,7 +102,7 @@ namespace IBL
                 BatteryStatus = 0,
                 DroneLocation = station.Location,
                 DeliveryTransfer = null,
-                DroneStatus = DroneStatuses.Meintenence,
+                DroneStatus = DroneStatus.Meintenence,
             };
 
             drones.Add(new DroneToList()

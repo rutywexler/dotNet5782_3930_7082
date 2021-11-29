@@ -32,7 +32,7 @@ namespace BL
                 DELIVERY
             }
 
-            public enum DroneStatuses
+            public enum DroneStatus
             {
                 Available,
                 Meintenence,
