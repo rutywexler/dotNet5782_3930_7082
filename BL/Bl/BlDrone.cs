@@ -11,6 +11,7 @@ using IBL.BO;
 using BL;
 using System.Device.Location;
 using static BL.BO.Enums;
+using IDAL.DO;
 
 namespace IBL
 {
@@ -127,8 +128,26 @@ namespace IBL
             return drone.BatteryStatus >= neededBattery;
         }
 
-        
-       
+        private List<DroneInCharging> ConvertDroneToDroneToList(int droneId)
+        {
+            List<int> listDronechargingInStation = dal.GetDronechargingInStation(droneId);
+            if (listDronechargingInStation.Count == 0)
+                return new();
+            List<DroneInCharging> droneInChargings = new();
+            DroneToList droneToList;
+            foreach (var idDrone in listDronechargingInStation)
+            {
+                droneToList = drones.FirstOrDefault(item => (item.DroneId == idDrone));
+                if (droneToList != default)
+                {
+                    droneInChargings.Add(new DroneInCharging() { ID = idDrone, BatteryStatus = droneToList.BatteryDrone });
+                }
+            }
+            return droneInChargings;
+        }
+
+
+
     }
 
 

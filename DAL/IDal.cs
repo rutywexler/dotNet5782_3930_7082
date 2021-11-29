@@ -32,7 +32,7 @@ namespace IDAL
         public IEnumerable<Customer> GetCustomers();
         public IEnumerable<Parcel> GetUnAssignmentParcels();
         public int NotAvailableChargingPorts(int baseStationId);
-        public IEnumerable<DroneCharge> GetDronechargingInStation(int id);
+        public List<int> GetDronechargingInStation(int id);
         public IEnumerable<Station> GetAvailableChargingStations();
         public void RemoveCustomer(Customer customer);
         public void RemoveParcel(Parcel parcel);

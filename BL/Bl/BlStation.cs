@@ -31,8 +31,7 @@ namespace IBL
         public BaseStation GetStation(int id)
         {
             var baseStation = dal.GetStation(id);
-            var chargeSlots = dal.GetDronechargingInStation(id).Where(charge => charge.StationId == id).ToList();
-            var dronesInChargeList = chargeSlots.Select(charge => GetDrone(charge.DroneId)).ToList();
+            var chargeSlots = dal.GetDronechargingInStation(id).Where(StationId =>StationId == id).ToList();
 
             return new BaseStation()
             {
@@ -40,7 +39,7 @@ namespace IBL
                 Name = baseStation.Name,
                 Location = new Location() { Lattitude = baseStation.Lattitude, Longitude = baseStation.Longitude },
                 NumberOfChargingStations = baseStation.ChargeSlots - chargeSlots.Count,
-                DronesInCharge = dronesInChargeList,
+                DronesInCharge = ConvertDroneToDroneToList(id),
             };
         }
 

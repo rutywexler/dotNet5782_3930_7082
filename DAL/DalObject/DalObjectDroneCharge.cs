@@ -8,7 +8,7 @@ using static DalObject.DataSource;
 
 namespace DalObject
 {
-    public partial class DalObjectDroneCharge
+    public partial class DalObject
     {
         /// <summary>
         /// FindChargeSlot is a static method in the DalObject class.
@@ -77,13 +77,13 @@ namespace DalObject
         /// </summary>
         /// <param name="id">The id of particular station</param>
         /// <returns>A list of DroneCarge</returns>
-        public IEnumerable<DroneCharge> GetDronechargingInStation(int id)
+        public List<int> GetDronechargingInStation(int id)
         {
-            List<DroneCharge> DronechargingInStation = new();
+            List<int> DronechargingInStation = new();
             foreach (var DroneCharge in DroneCharges)
             {
                 if (DroneCharge.StationId == id)
-                    DronechargingInStation.Add(DroneCharge);
+                    DronechargingInStation.Add(DroneCharge.DroneId);
             }
             return DronechargingInStation;
         }
