@@ -166,27 +166,36 @@ namespace IBL
 
         public void ParcelCollectionByDrone(int droneId)
         {
-
-            DroneToList droneToList = drones.Find(item => item.DroneId == droneId);
-
+            DroneToList droneToList = drones.FirstOrDefault(item => item.DroneId == droneId);
+            if (droneToList == default)
+                throw new ArgumentNullException(" There is no a drone with the same id in data");
             if (droneToList.ParcelId == null)
+                throw new ArgumentNullException("No parcel has been associated yet");
+            drones.Remove(droneToList);
+            IDAL.DO.Parcel parcel = default;
+            try
             {
-                throw new InValidActionException();
-
-                var parcel = dal.GetParcel((int)droneToList.ParcelId);
-
-                if (parcel.PickedUp != null)
-                {
-                    throw new InValidActionException();
-                }
-
-                ParcelInTransfer parcelInDeliver = GetParcelInTransfer(parcel.Id);
-
-                droneToList.BatteryDrone -= Distance(droneToList.Location, parcelInDeliver.CollectParcelLocation) * Available;
-                droneToList.Location = parcelInDeliver.CollectParcelLocation;
-
-                dal.CollectParcel(parcel.Id);
-
+                parcel = dal.GetParcel((int)droneToList.ParcelId);
+                if (parcel.PickedUp != default)
+                    throw new ArgumentNullException("The package has already been collected");
+                IDAL.DO.Customer customer = dal.GetCustomer(parcel.SenderId);
+                Location senderLocation = new() { Longitude = customer.Longitude, Lattitude = customer.Lattitude };
+                droneToList.BatteryDrone -= Distance(droneToList.Location, senderLocation) * Available;
+                droneToList.Location = senderLocation;
+                colloctDalParcel(parcel.Id);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw new KeyNotFoundException(ex.Message);
+            }
+            catch (Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            {
+                throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
+            }
+            finally
+            {
+                drones.Add(droneToList);
+             
             }
         }
 
@@ -214,6 +223,6 @@ namespace IBL
     }
 
 
-}
+
 
 

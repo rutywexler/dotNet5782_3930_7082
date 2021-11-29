@@ -23,7 +23,7 @@ namespace DalObject
         {
             if (!ExistsIDCheck(DataSource.BaseStations, id))
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue();
-            Station newStation = new Station();
+            Station newStation = new();
             newStation.Id = id;
             newStation.Name = name;
             newStation.Lattitude = latitude;

@@ -70,6 +70,21 @@ namespace DalObject
             return drone;
         }
 
+        /// <summary>
+        /// Find a drone that has tha same id and release him from charging
+        /// </summary>
+        /// <param name="id">The id of the requested drone</param>
+        /// <returns>A drone for display</returns>
+        public void ReleaseDroneFromRecharge(int droneId)
+        {
+            var droneCharge = DataSource.DroneCharges.First(charge => charge.DroneId == droneId);
+            DataSource.DroneCharges.Remove(droneCharge);
+        }
+
+        public IEnumerable<Drone> GetDrones() => DataSource.Drones;
+
+
+
 
     }
 }

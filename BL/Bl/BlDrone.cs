@@ -59,7 +59,7 @@ namespace IBL
             {
                 DroneToList drone = drones.Find(d => d.DroneId == id);
                 ParcelInTransfer parcelInDeliver = drone.DroneStatus == DroneStatus.Delivery ?
-                                                  GetParcelInTransfer(drone.ParcelId) :
+                                                  GetParcelInTransfer((int)drone.ParcelId) :
                                                   null;
                 return new Drone()
                 {
@@ -190,6 +190,30 @@ namespace IBL
                 }
             }
             return droneInChargings;
+        }
+
+        /// <summary>
+        /// Collect the parcel by drone
+        /// </summary>
+        /// <param name="parcelId">The parcel to update</param>
+        private void colloctDalParcel(int parcelId)
+        {
+            try
+            {
+                IDAL.DO.Parcel parcel = dal.GetParcel(parcelId);
+                dal.RemoveParcel(parcel);
+                parcel.PickedUp = DateTime.Now;
+                dal.AddParcel(parcel.SenderId, parcel.TargetId, parcel.Weight, parcel.Priority, parcel.Id, parcel.DroneId, parcel.Requested, parcel.Scheduled, (DateTime)parcel.PickedUp, parcel.Delivered);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw new KeyNotFoundException(ex.Message);
+            }
+            catch (DAL.DalObject.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            {
+                throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
+            }
+
         }
 
 

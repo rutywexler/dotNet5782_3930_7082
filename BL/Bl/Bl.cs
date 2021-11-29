@@ -33,7 +33,7 @@ namespace IBL
             MediumWeightBearing = arr[2];
             CarryingHeavyWeight = arr[3];
             DroneLoadingRate = arr[4];
-    }
+        }
         public void initializeDrones()
         {
             foreach (var drone in dal.GetDrones())
@@ -115,7 +115,7 @@ namespace IBL
                 ParcelId = 0,
                 DroneStatus = drone.DroneStatus,
             });
-            dal.AddDrone(drone.DroneId,drone.DroneModel,(IDAL.DO.WeightCategories)drone.Weight);
+            dal.AddDrone(drone.DroneId, drone.DroneModel, (IDAL.DO.WeightCategories)drone.Weight);
         }
 
         ///  <summary>
@@ -137,6 +137,7 @@ namespace IBL
 
 
         }
+    }
 }
 
     

@@ -12,15 +12,13 @@ namespace IDAL
     public interface IDal
     {
         public void AddCustomer(int id, string phone, string name, double longitude, double latitude);
-        public void AddParcel(int SenderId, int TargetId, WeightCategories Weigth, Priorities Priority, int id = 0);
+        public void AddParcel(int SenderId, int TargetId, WeightCategories Weigth, Priorities Priority, int id = 0, int droneId = 0, DateTime requested = default, DateTime sceduled = default, DateTime pickedUp = default, DateTime delivered = default);
         public void AddDrone(int id, string model, WeightCategories MaxWeight);
         public void AddStation(int id, string name, double longitude, double latitude, int chargeSlots);
         public void AddDRoneCharge(int droneId, int stationId);
 
         public void AssignParcelToDrone(int parcelId, int droneId);
         public void CollectParcel(int parcelId);
-        public void SupplyParcel(int parcelId);
-        public void SendDroneToRecharge(int droneId);
         public void ReleaseDroneFromRecharge(int droneId);
         public Station GetStation(int id);
         public Drone GetDrone(int id);

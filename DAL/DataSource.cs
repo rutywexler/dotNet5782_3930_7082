@@ -36,7 +36,7 @@ namespace DalObject
             {
                 Station tempStation = new Station();
                 tempStation.Id = BaseStations.Count + 1;
-                tempStation.Name = BaseStations.Count * rand.Next();
+                tempStation.Name = $"station_{'a' + rand.Next()}"; 
                 tempStation.Longitude = rand.Next(91);
                 tempStation.Lattitude = rand.Next(181);
                 tempStation.ChargeSlots = rand.Next() + 1;
