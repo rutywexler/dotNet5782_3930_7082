@@ -53,7 +53,7 @@ namespace DalObject
         /// ViewListPendingParcels is a method in the DalObject class.
         /// the method displays a list of packages that have not yet been assigned to the drone
         /// </summary>
-        public void ViewListPendingParcels()
+        static public void ViewListPendingParcels()
         {
             foreach (Parcel parcel in Parcels)
             {

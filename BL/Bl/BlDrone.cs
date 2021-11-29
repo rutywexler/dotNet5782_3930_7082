@@ -11,7 +11,8 @@ using IBL.BO;
 using BL;
 using System.Device.Location;
 using static BL.BO.Enums;
-
+using BL.Bl;
+using System.ComponentModel;
 
 namespace IBL
 {
@@ -25,36 +26,57 @@ namespace IBL
         private IDal dal;
         public void AddDrone(Drone drone,int stationId)
         {
-            dal.AddDrone(drone.DroneId, drone.DroneModel, (IDAL.DO.WeightCategories)drone.Weight);
-            IDAL.DO.Station station = dal.GetStation(stationId);
-            DroneToList droneToList = new()
+            try
             {
-                DroneId = drone.DroneId,
-                ModelDrone = drone.DroneModel,
-                DroneWeight = drone.Weight,
-                BatteryDrone = rand.NextDouble() + rand.Next(MIN_BATTERY, MAX_BATTERY),
-                DroneStatus = DroneStatus.Meintenence,
-                Location = new Location() { Lattitude = station.Lattitude, Longitude = station.Longitude }
-            };
-            drones.Add(droneToList);
+                dal.AddDrone(drone.DroneId, drone.DroneModel, (IDAL.DO.WeightCategories)drone.Weight);
+                IDAL.DO.Station station = dal.GetStation(stationId);
+                DroneToList droneToList = new()
+                {
+                    DroneId = drone.DroneId,
+                    ModelDrone = drone.DroneModel,
+                    DroneWeight = drone.Weight,
+                    BatteryDrone = rand.NextDouble() + rand.Next(MIN_BATTERY, MAX_BATTERY),
+                    DroneStatus = DroneStatus.Meintenence,
+                    Location = new Location() { Lattitude = station.Lattitude, Longitude = station.Longitude }
+                };
+                drones.Add(droneToList);
+            }
+            catch (DAL.DalObject.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            {
+
+                throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
+            }
+            catch (KeyNotFoundException ex)
+            {
+
+                throw new KeyNotFoundException(ex.Message);
+            }
         }
 
         public Drone GetDrone(int id)
         {
-            DroneToList drone = drones.Find(d => d.DroneId == id);
-            ParcelInTransfer parcelInDeliver = drone.DroneStatus == DroneStatus.Delivery ?
-                                              GetParcelInTransfer(drone.ParcelId) :
-                                              null;
-            return new Drone()
+            try
             {
-                DroneId = drone.DroneId,
-                BatteryStatus = drone.BatteryDrone,
-                DroneLocation = new Location() { Lattitude = drone.Location.Lattitude, Longitude = drone.Location.Longitude },
-                Weight = drone.DroneWeight,
-                DroneModel = drone.ModelDrone,
-                DroneStatus = drone.DroneStatus,
-                DeliveryTransfer = parcelInDeliver,
-            };
+                DroneToList drone = drones.Find(d => d.DroneId == id);
+                ParcelInTransfer parcelInDeliver = drone.DroneStatus == DroneStatus.Delivery ?
+                                                  GetParcelInTransfer(drone.ParcelId) :
+                                                  null;
+                return new Drone()
+                {
+                    DroneId = drone.DroneId,
+                    BatteryStatus = drone.BatteryDrone,
+                    DroneLocation = new Location() { Lattitude = drone.Location.Lattitude, Longitude = drone.Location.Longitude },
+                    Weight = drone.DroneWeight,
+                    DroneModel = drone.ModelDrone,
+                    DroneStatus = drone.DroneStatus,
+                    DeliveryTransfer = parcelInDeliver,
+                };
+            }
+            catch (ArgumentNullException ex)
+            {
+
+                throw new ArgumentNullException(ex.Message);
+            }
         }
 
         public IEnumerable<DroneToList> GetDrones() => drones;
@@ -63,6 +85,10 @@ namespace IBL
         public void ReleaseDroneFromCharging(int id, float timeOfCharge)
         {
             DroneToList drone = drones.FirstOrDefault(item => item.DroneId == id);
+            if (drone == default)
+                throw new ArgumentNullException("In the charching not exist drone with this ID:(");
+            if (drone.DroneStatus != DroneStatus.Meintenence)
+                throw new InvalidEnumArgumentException("becouse that the drone status is not maintence, its not possible to release the srone from charging ");
 
             drone.BatteryDrone += DroneLoadingRate * timeOfCharge;
             drone.DroneStatus = DroneStatus.Available;
@@ -76,7 +102,7 @@ namespace IBL
             DroneToList droneToList = drones.FirstOrDefault(item => item.DroneId == id);
             if (droneToList.DroneStatus != DroneStatus.Available)
             {
-                throw new InValidActionException();
+                throw new InvalidEnumArgumentException("because the status drone isnt available, isnt possible to sent him for charge:(");
             }
             IDAL.DO.Station station = ClosetStationThatPossible(dal.GetStations(), droneToList.Location, droneToList.BatteryDrone, out double minDistanc);
             drones.Remove(droneToList);
@@ -119,7 +145,7 @@ namespace IBL
                 throw new KeyNotFoundException();
             IDAL.DO.Drone droneDl = dal.GetDrone(id);
             if (name.Equals(default))
-                throw new ArgumentNullException("For updating the name must be initialized ");
+                throw new ArgumentNullException("For updating, you must enter the name! ");
             dal.RemoveDrone(droneDl);
             dal.AddDrone(id, name, droneDl.MaxWeight);
             DroneToList droneToList = drones.Find(item => item.DroneId == id);
@@ -139,13 +165,13 @@ namespace IBL
                 _ => throw new NotImplementedException()
             };
             IDAL.DO.Station station;
-            var neededBattery = 
+            var electricityUse = 
             electricity = Distance(drone.DroneLocation, parcel.CollectParcelLocation) * Available +
                         Distance(parcel.CollectParcelLocation, parcel.DeliveryDestination) * e;
             station = ClosetStationThatPossible(dal.GetStations(), drone.DroneLocation, drone.BatteryStatus - electricity, out _);
             electricity += Distance(parcel.DeliveryDestination,
                          new Location() { Lattitude = station.Lattitude, Longitude = station.Longitude }) * Available;
-            return drone.BatteryStatus >= neededBattery;
+            return drone.BatteryStatus >= electricityUse;
         }
 
         private List<DroneInCharging> ConvertDroneToDroneToList(int droneId)

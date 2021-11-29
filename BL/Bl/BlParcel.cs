@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Device.Location;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using static BL.BO.Enums;
@@ -98,7 +99,7 @@ namespace IBL
         {
             DroneToList droneToList = drones.Find(drone => drone.DroneId == droneId);
             
-            IDAL.DO.Parcel parcel = dal.GetParcel(droneToList.ParcelId);
+            IDAL.DO.Parcel parcel = dal.GetParcel((int)droneToList.ParcelId);
             drones.Remove(droneToList);
             IDAL.DO.Customer customer = dal.GetCustomer(parcel.TargetId);
             Location receiverLocation = new() { Longitude = customer.Longitude, Lattitude = customer.Lattitude };
@@ -131,7 +132,7 @@ namespace IBL
                     Priority = (Priorities)parcel.Priority,
                     TimeCreatedTheParcel = parcel.Requested,
                     AssignmentTime = parcel.Scheduled,
-                    CollectionTime = parcel.PickedUp,
+                    CollectionTime = (DateTime)parcel.PickedUp,
                     DeliveryTime = parcel.Delivered,
                 };
             }
@@ -165,10 +166,19 @@ namespace IBL
 
         public void ParcelCollectionByDrone(int droneId)
         {
-            try
+
+            DroneToList droneToList = drones.Find(item => item.DroneId == droneId);
+
+            if (droneToList.ParcelId == null)
             {
-                DroneToList droneToList = drones.Find(item => item.DroneId == droneId);
-                var parcel = dal.GetParcel(droneToList.ParcelId);
+                throw new InValidActionException();
+
+                var parcel = dal.GetParcel((int)droneToList.ParcelId);
+
+                if (parcel.PickedUp != null)
+                {
+                    throw new InValidActionException();
+                }
 
                 ParcelInTransfer parcelInDeliver = GetParcelInTransfer(parcel.Id);
 
@@ -176,14 +186,7 @@ namespace IBL
                 droneToList.Location = parcelInDeliver.CollectParcelLocation;
 
                 dal.CollectParcel(parcel.Id);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                throw new KeyNotFoundException(ex.Message);
-            }
-            catch (DAL.DalObject.Exception_ThereIsInTheListObjectWithTheSameValue ex)
-            {
-                throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
+
             }
         }
 
@@ -194,18 +197,23 @@ namespace IBL
         /// <returns>parcel for list</returns>
         public ParcelList ParcelToParcelForList(int id)
         {
-            var parcel = GetParcel(id);
+            
+                var parcel = GetParcel(id);
 
-            return new ParcelList()
-            {
-                Id = parcel.Id,
-                Priority = parcel.Priority,
-                Weight = parcel.WeightParcel,
-                SendCustomer = parcel.CustomerSendsFrom.Name,
-                ReceivesCustomer = parcel.CustomerReceivesTo.Name,
-            };
+                return new ParcelList()
+                {
+                    Id = parcel.Id,
+                    Priority = parcel.Priority,
+                    Weight = parcel.WeightParcel,
+                    SendCustomer = parcel.CustomerSendsFrom.Name,
+                    ReceivesCustomer = parcel.CustomerReceivesTo.Name,
+                }; 
+            }
+            
         }
     }
+
+
 }
 
 
