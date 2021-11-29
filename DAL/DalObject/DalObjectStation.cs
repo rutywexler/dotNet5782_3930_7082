@@ -21,7 +21,7 @@ namespace DalObject
         /// <param name="chargeSlots">Number of charging slots at the station</param>
         public void AddStation(int id, string name, double longitude, double latitude, int chargeSlots)
         {
-            if (!ExistsIDCheck(DataSource.BaseStations, id))
+            if (ExistsIDCheck(DataSource.BaseStations, id))
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue();
             Station newStation = new();
             newStation.Id = id;

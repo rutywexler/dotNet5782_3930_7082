@@ -21,7 +21,7 @@ namespace IBL
         public const int FULLBATTRY = 100;
         private static readonly Random rand = new();
         private readonly IDal dal;
-        private List<DroneToList> drones;
+        private readonly List<DroneToList> drones;
         public double Available { get; set; }
         public double LightWeightCarrier { get; set; }
         public double MediumWeightBearing { get; set; }
@@ -30,6 +30,7 @@ namespace IBL
         public BL()
         {
             dal = new DalObject.DalObject();
+            drones = new List<DroneToList>();
             double[] arr;
             arr = dal.GetPowerConsumptionByDrone();
             Available = arr[0];
@@ -107,12 +108,7 @@ namespace IBL
 
     }
         }
-        private static double Distance(Location sLocation, Location tLocation)
-        {
-            var sCoord = new GeoCoordinate(sLocation.Lattitude, sLocation.Longitude);
-            var tCoord = new GeoCoordinate(tLocation.Lattitude, tLocation.Longitude);
-            return sCoord.GetDistanceTo(tCoord);
-        }
+
         public void AddOneDrone(int id, string model, WeightCategories maxWeight, int stationId)
         {
             var station = GetStation(stationId);
@@ -147,7 +143,7 @@ namespace IBL
         /// <typeparam name="T">the type of list</typeparam>
         /// <param name="list">the spesific list </param>
         /// <param name="id">the id to check</param>
-        private static bool ExistsIDCheck<T>(IEnumerable<T> list, int id)
+        private  bool ExistsIDCheck<T>(IEnumerable<T> list, int id)
         {
             // no item in the list
             if (!list.Any())
@@ -208,7 +204,7 @@ namespace IBL
             if (electrity > FULLBATTRY)
             {
                 dal.RemoveParcel(parcel);
-                dal.AddParcel(parcel.SenderId, parcel.TargetId, parcel.Weight, parcel.Priority, parcel.Id, 0, parcel.Requested, parcel.Scheduled, parcel.PickedUp, parcel.Delivered);
+                dal.AddParcel(parcel.SenderId, parcel.TargetId, parcel.Weight, parcel.Priority, parcel.Id, 0, parcel.Requested, parcel.Scheduled, (DateTime)parcel.PickedUp, parcel.Delivered);
                 canTakeParcel = false;
                 return 0;
             }
@@ -247,6 +243,8 @@ namespace IBL
             double electricity = Distance(location, new() { Lattitude = station.Lattitude, Longitude = station.Longitude }) * Available;
             return electricity > FULLBATTRY ? MININITBATTARY : electricity;
         }
+
+  
     }
 }
 

@@ -81,7 +81,7 @@ namespace DalObject
                 tempParcel.SenderId = Customers[rand.Next(Parcels.Count)].Id;
                 do
                 {
-                    tempParcel.TargetId = Customers[rand.Next(Parcels.Count)].Id;
+                    tempParcel.TargetId = Customers[rand.Next(Customers.Count)].Id;
                 } while (tempParcel.TargetId == tempParcel.SenderId);
                 tempParcel.Weight = (WeightCategories)(rand.Next(3));
                 tempParcel.Priority = (Priorities)(rand.Next(3));

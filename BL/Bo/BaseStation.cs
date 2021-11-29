@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using BL.Bo;
+
 namespace IBL
 {
     namespace BO
@@ -16,6 +18,7 @@ namespace IBL
             public int NumberOfChargingStations { get; set; }
 
             public List<DroneInCharging> DronesInCharge = new List<DroneInCharging>();
+            public override string ToString() => this.ToStringProps();
 
         }
     }

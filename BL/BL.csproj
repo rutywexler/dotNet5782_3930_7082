@@ -5,15 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="IDAL\**" />
+    <EmbeddedResource Remove="IDAL\**" />
+    <None Remove="IDAL\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.Device.Location.Portable" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="IDAL\DO\" />
   </ItemGroup>
 
 </Project>

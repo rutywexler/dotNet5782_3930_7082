@@ -98,11 +98,12 @@ namespace ConsoleUI_BL
         /// <param name="en"> type of enum</param>
         static public void DisplayMenus(Type en)
         {
-            const int FIRST = 0;
-            int idx = FIRST;
+            int idx = 0;
             foreach (var item in Enum.GetValues(en))
             {
                 string tmp = item.ToString();
+                if (tmp == "False")
+                    continue;
                 Console.WriteLine(tmp);
                 Console.WriteLine(" press " + idx++);
             }
