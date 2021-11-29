@@ -4,11 +4,11 @@ namespace ConsoleUI_BL
 {
     partial class Program
     {
-        enum Menu { Add, Update, Display, DisplayList, Exit }
-        enum Add { Station, Drone, Customer, Parcel }
-        enum Update { DroneName, StationDetails, CustomerDedails, SendDroneForCharg, RealsDroneFromChargh, AssingParcelToDrone, CollectParcelByDrone, SupplyParcelToDestination }
-        enum DisplayList { Sations, Drones, Customers, Parcels, ParcelNotAssignToDrone, AvailableChargingSations }
-        enum Display { Station, Drone, Customer, Parcel }
+        enum Menu { Add, Update, Display, DisplayList, Exit , False}
+        enum Add { Station, Drone, Customer, Parcel ,False }
+        enum Update { DroneName, StationDetails, CustomerDedails, SendDroneForCharg, RealsDroneFromChargh, AssingParcelToDrone, CollectParcelByDrone, SupplyParcelToDestination , False }
+        enum DisplayList { Sations, Drones, Customers, Parcels, ParcelNotAssignToDrone, AvailableChargingSations, False }
+        enum Display { Station, Drone, Customer, Parcel, False }
 
         static void Main()
         {
