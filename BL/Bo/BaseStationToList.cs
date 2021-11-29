@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BL.Bo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,8 @@ namespace BL
             public string NameStation { get; set; }
             public int  NumOfAvailableChargingStations { get; set; }
             public int  NumOfBusyChargingStations { get; set; }
+            public override string ToString() => this.ToStringProps();
+
 
         }
     }

@@ -1,4 +1,5 @@
-﻿using IBL.BO;
+﻿using BL.Bo;
+using IBL.BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,8 @@ namespace IBL
             public DateTime AssignmentTime { get; set; }
             public DateTime CollectionTime { get; set; }
             public DateTime? DeliveryTime { get; set; }
+            public override string ToString() => this.ToStringProps();
+
         }
 
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BL.Bo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,8 @@ namespace IBL
             public Location Location { get; set; }
             public List<ParcelInCustomer> DeliverieToCustomer = new ();
             public List<ParcelInCustomer> Delivery_list_customer_to_customer = new List<ParcelInCustomer>();
+            public override string ToString() => this.ToStringProps();
+
 
         }
     }

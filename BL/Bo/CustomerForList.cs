@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BL.Bo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,8 @@ namespace BL
             public int NumOfRecievedParcels { get; set; }
             public int NumOfParcelsSentAndDelivered { get; set; }
             public int NumOfParcelsSentAndNotDelivered { get; set; }
+            public override string ToString() => this.ToStringProps();
+
         }
     }
 }

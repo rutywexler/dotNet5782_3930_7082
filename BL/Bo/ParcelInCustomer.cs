@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BL.Bo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,8 @@ namespace IBL
             public Priorities Priority { get; set; }
             public DroneStatus Status { get; set; }
             public CustomerInParcel CustomerInDelivery { get; set; }
+            public override string ToString() => this.ToStringProps();
+
 
         }
     }

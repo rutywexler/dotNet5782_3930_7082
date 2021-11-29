@@ -1,4 +1,5 @@
-﻿using IBL.BO;
+﻿using BL.Bo;
+using IBL.BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,8 @@ namespace BL
             public DroneStatus DroneStatus { get; set; }
             public Location Location { get; set; }
             public int ? ParcelId { get; set; }
+            public override string ToString() => this.ToStringProps();
+
         }
     }
 }

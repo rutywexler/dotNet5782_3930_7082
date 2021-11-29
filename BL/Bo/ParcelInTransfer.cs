@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BL.Bo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,8 @@ namespace IBL
             public Location CollectParcelLocation { get; set; }//מיקום איסוף
             public Location DeliveryDestination { get; set; }//מיקום יעד לאספקה
             public double DeliveryDistance { get; set; }//מרחק הובלה
+            public override string ToString() => this.ToStringProps();
+
         }
     }
    

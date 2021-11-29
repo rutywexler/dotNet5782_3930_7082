@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BL.Bo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,8 @@ namespace IBL
             public double CollectionLocation { get; set; }
             public double DeliveryDestinationLocation { get; set; }
             public double TransportDistance { get; set; }
+            public override string ToString() => this.ToStringProps();
+
 
 
         }

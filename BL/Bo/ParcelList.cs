@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BL.Bo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,8 @@ namespace IBL
             public string ReceivesCustomer  { get; set; }
             public WeightCategories Weight { get; set; }
             public Priorities Priority { get; set; }
+            public override string ToString() => this.ToStringProps();
+
 
 
         }
