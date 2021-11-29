@@ -64,12 +64,9 @@ namespace IBL
         {
             DroneToList droneToList = drones.FirstOrDefault(item => item.DroneId == id);
             if (droneToList == default) ;
-                //throw new ArgumentNullException(" not exist a drone with this ID ");
                 if (droneToList.DroneStatus != DroneStatuses.Available) ;
-               // throw new InvalidEnumArgumentException("The drone is not available so it is not possible to send it for charging ");
-            IDAL.DO.Station station = FindClosetStation(dal.GetStations(), droneToList.Location, droneToList.BatteryDrone, out double minDistanc);
+            IDAL.DO.Station station = ClosetStationThatPossible(dal.GetStations(), droneToList.Location, droneToList.BatteryDrone, out double minDistanc);
             if (station.Equals(default(IDAL.DO.Station))) ;
-                //throw new ThereIsNoNearbyBaseStationThatTheDroneCanReachException();
             drones.Remove(droneToList);
             droneToList.DroneStatus = DroneStatuses.Meintenence;
             droneToList.BatteryDrone -= minDistanc * Available;
@@ -77,16 +74,35 @@ namespace IBL
             dal.AddDRoneCharge(id, station.Id);
             drones.Add(droneToList);
 
+
+
         }
 
-        
-       /* public double FindCloseLocation(Location sLocation , Location tLocation)
+        private IDAL.DO.Station ClosetStationThatPossible(IEnumerable<IDAL.DO.Station> stations, Location droneToListLocation, double BatteryStatus, out double minDistance)
         {
-            var sCoord = new GeoCoordinate(sLocation.Lattitude, sLocation.Longitude);
-            var tCoord = new GeoCoordinate(tLocation.Lattitude, tLocation.Longitude);
-            double distance = sCoord.GetDistanceTo(tCoord);
-            return distance;
-        }*/
+            IDAL.DO.Station station = CloseStation(stations, droneToListLocation);
+            minDistance = Distance(droneToListLocation, new Location() { Longitude = station.Longitude, Lattitude = station.Latitude });
+            return minDistance * Available <= BatteryStatus ? station : default(IDAL.DO.Station);
+        }
+
+
+        private IDAL.DO.Station CloseStation(IEnumerable<IDAL.DO.Station> stations, Location location)
+        {
+            double minDistance = double.MaxValue;
+            double curDistance;
+            IDAL.DO.Station station = default;
+            foreach (var item in stations)
+            {
+                curDistance = Distance(location,
+                    new Location() { Lattitude = item.Lattitude, Longitude = item.Longitude });
+                if (curDistance < minDistance)
+                {
+                    minDistance = curDistance;
+                    station = item;
+                }
+            }
+            return station;
+        }
         public void UpdateDrone(int id, string name)
         {
 
@@ -97,7 +113,7 @@ namespace IBL
                 throw new ArgumentNullException("For updating the name must be initialized ");
             dal.RemoveDrone(droneDl);
             dal.AddDrone(id, name, droneDl.MaxWeight);
-            DroneToList droneToList = drones.Find(item => item.Id == id);
+            DroneToList droneToList = drones.Find(item => item.DroneId == id);
             drones.Remove(droneToList);
             droneToList.ModelDrone = name;
             drones.Add(droneToList);
@@ -107,9 +123,12 @@ namespace IBL
         {
             var neededBattery =Distance(drone.DroneLocation, parcel.CollectParcelLocation) * Available +
                               Distance(parcel.CollectParcelLocation, parcel.DeliveryDestination) * GetElectricity(parcel.Weight) +
-                              Distance(parcel.DeliveryDestination, FindClosetStation(dal.GetAvailableChargingStations(),drone.DroneLocation) * Available;
+                              Distance(parcel.DeliveryDestination, CloseStation(dal.GetAvailableChargingStations(),drone.DroneLocation) * Available;
             return drone.BatteryStatus >= neededBattery;
         }
+
+        
+       
     }
 
 
