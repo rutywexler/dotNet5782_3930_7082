@@ -18,59 +18,30 @@ namespace DalObject
         {
             Initalize();  
         }
-     
-        
+
+
+ 
         /// <summary>
-        /// Valid is a static method in the DalObject class.
-        /// the helper method check if input is valid 
+        /// Find if the id is exist in a spesific list
         /// </summary>
-        /// <param name="input">out int value</param>
-        public static void Valid(out int input)
+        /// <typeparam name="T">type of list</typeparam>
+        /// <param name="lst">The list </param>
+        /// <param name="id">The id for checking</param>
+        static bool ExistsIDCheck<T>(IEnumerable<T> list, int id)
         {
-            bool parse = int.TryParse(Console.ReadLine(), out input);
-            while (!parse)
-            {
-                Console.WriteLine("not valid input! please enter again");
-                parse = int.TryParse(Console.ReadLine(), out input);
-            }
-        }
-        /// <summary>
-        /// Valid2 is a static method in the DalObject class.
-        /// the helper method check if input is valid in range 
-        /// </summary>
-        /// <param name="min">the first int value</param>
-        /// <param name="max">second int vaalue</param>
-        /// <param name="input">3th bout int value</param>
-        public static void ValidRange(int min, int max, out int input)
-        {
-            bool parse = int.TryParse(Console.ReadLine(), out input);
-            while (!parse || input > max || input < min)
-            {
-                Console.WriteLine("not valid input! please enter again");
-                parse = int.TryParse(Console.ReadLine(), out input);
-            }
-        }
-       
-        /// <summary>
-        /// checkValid is a static method in the DalObject class.
-        /// the helper method check if input is valid if not the func throws exception 
-        /// </summary>
-        /// <param name="id">the first int value</param>
-        /// <param name="min">the second int value</param>
-        /// <param name="max">3th out int value</param>
-        public void checkValid(int id, int min, int max)
-        {
-            if (id < min || id >= max)
-            {
-                throw new FormatException();
-            }
+            if (!list.Any())
+                return false;
+            T temp = list.FirstOrDefault(item => (int)item.GetType().GetProperty("Id")?.GetValue(item) == id);
+
+            return !(temp.Equals(default(T)));
         }
 
-        
-       
-        
+
+
+
+
     }
 
 
-}
+    }
 

@@ -41,19 +41,19 @@ namespace ConsoleUI_BL
                             {
 
                                 DisplayMenus(typeof(Update));
-                                SwitchUpdate(ref bl);
+                                SwitchUpdate(bl);
                                 break;
                             }
                         case Menu.Display:
                             {
                                 DisplayMenus(typeof(Display));
-                                SwitchDisplay(ref bl);
+                                ReplacingDisplay(bl);
                                 break;
                             }
                         case Menu.DisplayList:
                             {
                                 DisplayMenus(typeof(DisplayList));
-                                SwitchDisplayList(ref bl);
+                                ReplacingDisplayList(bl);
                                 break;
                             }
                         case Menu.Exit:

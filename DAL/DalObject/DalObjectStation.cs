@@ -1,4 +1,5 @@
-﻿using IDAL.DO;
+﻿using DAL.DalObject;
+using IDAL.DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,8 @@ namespace DalObject
         /// <param name="chargeSlots">Number of charging slots at the station</param>
         public void AddStation(int id, string name, double longitude, double latitude, int chargeSlots)
         {
-
+            if (!ExistsIDCheck(DataSource.BaseStations, id))
+                throw new Exception_ThereIsInTheListObjectWithTheSameValue();
             Station newStation = new Station();
             newStation.Id = id;
             newStation.Name = name;
@@ -31,37 +33,19 @@ namespace DalObject
         }
 
 
-        /// <summary>
-        /// DisplayBaseStation is a method in the DalObject class.
-        /// the method allows base station view
-        /// </summary>
-        public void DisplayBaseStation()
-        {
-            Console.WriteLine("enter base station id:");
-            int input;
-            ValidRange(0, BaseStations.Count, out input);
-            Console.WriteLine(BaseStations[input - 1]);
-        }
-
-        /// <summary>
-        /// ViewListBaseStations is a method in the DalObject class.
-        /// the method displays a list of base stations
-        /// </summary>
-        public void ViewListBaseStations()
-        {
-            foreach (Station item in BaseStations)
-            {
-                Console.WriteLine(item);
-            }
-        }
-
 
         /// <summary>
         /// Find a satation that has tha same id number as the parameter
         /// </summary>
         /// <param name="id">The id number of the requested station/param>
         /// <returns>A station for display</returns>
-        public Station GetStation(int id) => BaseStations.First(item => item.Id == id);
+        public Station GetStation(int id)
+        {
+            Station station = DataSource.BaseStations.FirstOrDefault(item => item.Id == id);
+            if (station.Equals(default(Station)))
+                throw new KeyNotFoundException("There isnt suitable customer in the data!");
+            return station;
+        }
 
         /// <summary>
         ///  Prepares the list of Sations for display

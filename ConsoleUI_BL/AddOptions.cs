@@ -23,15 +23,12 @@ namespace ConsoleUI_BL
         public static void SwitchAdd(IBL.IBL bl)
         {
             Add option;
-            try
+          
+            if(! Enum.TryParse(Console.ReadLine(), out option))
             {
-                Enum.TryParse(Console.ReadLine(), out option);
+                option = Add.False;
             }
-            catch (Exception)
-            {
-
-                throw new FormatException();
-            }
+        
 
             int id;
             switch (option)
@@ -158,7 +155,8 @@ namespace ConsoleUI_BL
                         break;
                     }
 
-                default:
+                case Add.False:
+                    Console.WriteLine("Invalid input");
                     break;
 
             }
