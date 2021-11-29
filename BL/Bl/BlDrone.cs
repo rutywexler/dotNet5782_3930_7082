@@ -115,7 +115,6 @@ namespace IBL
         }
         public void UpdateDrone(int id, string name)
         {
-
             if (!ExistsIDCheck(dal.GetDrones(), id))
                 throw new KeyNotFoundException();
             IDAL.DO.Drone droneDl = dal.GetDrone(id);
@@ -129,11 +128,23 @@ namespace IBL
             drones.Add(droneToList);
         }
 
-        private bool IsAbleToPassParcel(Drone drone, ParcelInTransfer parcel)
+        private bool IsDroneCanTakeTheParcel(Drone drone, ParcelInTransfer parcel)
         {
-            var neededBattery =Distance(drone.DroneLocation, parcel.CollectParcelLocation) * Available +
-                              Distance(parcel.CollectParcelLocation, parcel.DeliveryDestination) * GetElectricity(parcel.Weight) +
-                              Distance(parcel.DeliveryDestination, CloseStation(dal.GetAvailableChargingStations(),drone.DroneLocation) * Available;
+            double electricity;
+            double e = parcel.Weight switch
+            {
+                WeightCategories.Light => LightWeightCarrier,
+                WeightCategories.Medium => MediumWeightBearing,
+                WeightCategories.Heavy => CarryingHeavyWeight,
+                _ => throw new NotImplementedException()
+            };
+            IDAL.DO.Station station;
+            var neededBattery = 
+            electricity = Distance(drone.DroneLocation, parcel.CollectParcelLocation) * Available +
+                        Distance(parcel.CollectParcelLocation, parcel.DeliveryDestination) * e;
+            station = ClosetStationThatPossible(dal.GetStations(), drone.DroneLocation, drone.BatteryStatus - electricity, out _);
+            electricity += Distance(parcel.DeliveryDestination,
+                         new Location() { Lattitude = station.Lattitude, Longitude = station.Longitude }) * Available;
             return drone.BatteryStatus >= neededBattery;
         }
 

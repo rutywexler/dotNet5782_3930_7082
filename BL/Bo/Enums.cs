@@ -14,8 +14,8 @@ namespace BL
             public enum WeightCategories
             {
                 Light,
-                medium,
-                weighty
+                Medium,
+                Heavy
             }
 
             public enum Priorities

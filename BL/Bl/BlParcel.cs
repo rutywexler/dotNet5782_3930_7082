@@ -52,7 +52,7 @@ namespace IBL
 
             var parcels = (dal.GetUnAssignmentParcels() as List<IDAL.DO.Parcel>)
                           .FindAll(parcel =>
-                               IsAbleToPassParcel(drone, GetParcelInTransfer(parcel.Id)) &&
+                               IsDroneCanTakeTheParcel(drone, GetParcelInTransfer(parcel.Id)) &&
                                (int)parcel.Weight < (int)drone.Weight)
                           .OrderBy(parcel => parcel.Priority)
                           .ThenBy(parcel => parcel.Priority)
