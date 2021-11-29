@@ -31,4 +31,17 @@ namespace BL.Bl
             return Message + "Exception! there is in the list object with the same value";
         }
     }
+
+    [Serializable]
+    internal class InValidActionException : Exception
+    {
+        public InValidActionException()
+        {
+        }
+
+        public InValidActionException(string message) : base(message)
+        {
+        }
+
+    }
 }
