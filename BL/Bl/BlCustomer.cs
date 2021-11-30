@@ -15,6 +15,13 @@ namespace IBL
 {
     public partial class BL : IblCustomer
     {
+        /// <summary>
+        /// add customer to the data
+        /// </summary>
+        /// <param name="id">the customer id</param>
+        /// <param name="name">the customer name</param>
+        /// <param name="phoneNumber"> the customer phoner number</param>
+        /// <param name="location">the customer location</param>
         public void AddCustomer(int id, string name, string phoneNumber, Location location)
         {
             try { 
@@ -26,7 +33,11 @@ namespace IBL
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
             }
         }
-
+        /// <summary>
+        /// the function return the customer that the ID blongs to him
+        /// </summary>
+        /// <param name="id">the id of the customer i want to get</param>
+        /// <returns></returns>
         public Customer GetCustomer(int id)
         {
             try
@@ -55,7 +66,10 @@ namespace IBL
         }
 
 
-
+        /// <summary>
+        /// the function return the kist of the customers from the data
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<CustomerForList> GetCustomers()
         {
             return dal.GetCustomers().Select(customer => CustomerToList(customer));
@@ -76,6 +90,12 @@ namespace IBL
             };
         }
 
+        /// <summary>
+        /// the function update the details of the customer the user want to change
+        /// </summary>
+        /// <param name="id">the customer id that i want to change him</param>
+        /// <param name="name"> the name the user want to change from the old name</param>
+        /// <param name="PhoneNumber">the phone numberr the user want to change from the old phone number</param>
         public void UpdateCustomer(int id, string name=null, string PhoneNumber=null)
         {
             if (name.Equals(string.Empty) && PhoneNumber.Equals(string.Empty))

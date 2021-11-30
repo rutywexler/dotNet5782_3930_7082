@@ -23,9 +23,16 @@ namespace IBL
         private const int MIN_BATTERY = 20;
         private const int MAX_BATTERY = 40;
 
+        /// <summary>
+        /// the function add to the data the drone
+        /// </summary>
+        /// <param name="drone">the drone the user want to add</param>
+        /// <param name="stationId">the statiion id in order to know the location to put the drone</param>
         public void AddDrone(Drone drone,int stationId)
         {
-           
+            try
+            {
+
                 dal.AddDrone(drone.DroneId, drone.DroneModel, (IDAL.DO.WeightCategories)drone.Weight);
                 IDAL.DO.Station station = dal.GetStation(stationId);
                 DroneToList droneToList = new()
@@ -38,10 +45,25 @@ namespace IBL
                     Location = new Location() { Lattitude = station.Lattitude, Longitude = station.Longitude }
                 };
                 drones.Add(droneToList);
-            
-          
+            }
+            catch (DAL.DalObject.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            {
+
+                throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
+            }
+            catch (KeyNotFoundException ex)
+            {
+
+                throw new KeyNotFoundException(ex.Message);
+            }
+
         }
 
+        /// <summary>
+        /// the function returns the drone with the ID the function gets
+        /// </summary>
+        /// <param name="id">the id of the drone the user want to get</param>
+        /// <returns></returns>
         public Drone GetDrone(int id)
         {
             try
@@ -68,9 +90,17 @@ namespace IBL
             }
         }
 
+        /// <summary>
+        /// the function returns the drone list from the data
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<DroneToList> GetDrones() => drones;
 
-
+        /// <summary>
+        /// the function release the drone from charging
+        /// </summary>
+        /// <param name="id">the id of the drone the user wants to release</param>
+        /// <param name="timeOfCharge">how many time takes the charging</param>
         public void ReleaseDroneFromCharging(int id, float timeOfCharge)
         {
             DroneToList drone = drones.FirstOrDefault(item => item.DroneId == id);
@@ -85,7 +115,10 @@ namespace IBL
             dal.ReleaseDroneFromRecharge(drone.DroneId);
         }
 
-
+/// <summary>
+/// the function send the drone with the id the function get to charge
+/// </summary>
+/// <param name="id">the id of the drone the user want to charge</param>
         public void SendDroneForCharge(int id)
         {
             DroneToList droneToList = drones.FirstOrDefault(item => item.DroneId == id);
@@ -102,7 +135,14 @@ namespace IBL
             dal.AddDRoneCharge(id, station.Id);
             drones.Add(droneToList);
         }
-
+/// <summary>
+/// the function return the close station that possible
+/// </summary>
+/// <param name="stations">the list of the ststions</param>
+/// <param name="droneToListLocation">the location of the drone</param>
+/// <param name="BatteryStatus">the drone battery ststus</param>
+/// <param name="minDistance">the min distabce</param>
+/// <returns></returns>
         private IDAL.DO.Station ClosetStationThatPossible(IEnumerable<IDAL.DO.Station> stations, Location droneToListLocation, double BatteryStatus, out double minDistance)
         {
             IDAL.DO.Station station = CloseStation(stations, droneToListLocation);
@@ -128,6 +168,12 @@ namespace IBL
             }
             return station;
         }
+
+        /// <summary>
+        /// the function update the drone with theid that was send
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
         public void UpdateDrone(int id, string name)
         {
             if (ExistsIDCheck(dal.GetDrones(), id))
@@ -143,6 +189,12 @@ namespace IBL
             drones.Add(droneToList);
         }
 
+        /// <summary>
+        /// the function check if drone can take parcel
+        /// </summary>
+        /// <param name="drone">the drone the user want to check if its can take the parcel</param>
+        /// <param name="parcel">the parcel the user want to check if the drone can take him</param>
+        /// <returns></returns>
         private bool IsDroneCanTakeTheParcel(Drone drone, ParcelInTransfer parcel)
         {
             double electricity;
@@ -162,6 +214,11 @@ namespace IBL
                          new Location() { Lattitude = station.Lattitude, Longitude = station.Longitude }) * Available;
             return drone.BatteryStatus >= electricityUse;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="droneId"></param>
+        /// <returns></returns>
 
         private List<DroneInCharging> ConvertDroneToDroneToList(int droneId)
         {
