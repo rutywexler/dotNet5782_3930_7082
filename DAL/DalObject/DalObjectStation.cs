@@ -34,7 +34,7 @@ namespace DalObject
 
 
         /// <summary>
-        /// Find a satation that has tha same id number as the parameter
+        /// Find  satation that has tha same id number as the parameter
         /// </summary>
         /// <param name="id">The id number of the requested station/param>
         /// <returns>A station for display</returns>
