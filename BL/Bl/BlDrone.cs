@@ -39,19 +39,7 @@ namespace IBL
                 };
                 drones.Add(droneToList);
             }
-            catch (IDAL.DO.Exception_ThereIsInTheListObjectWithTheSameValue ex)
-            {
-
-                throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
-            }
-            catch (KeyNotFoundException ex)
-            {
-
-                throw new KeyNotFoundException(ex.Message);
-            }
-            
-          
-        }
+  
 
         public Drone GetDrone(int id)
         {
