@@ -46,7 +46,7 @@ namespace IBL
                 };
                 drones.Add(droneToList);
             }
-            catch (DAL.DalObject.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            catch (IDAL.DO.Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
 
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
@@ -63,7 +63,7 @@ namespace IBL
         /// the function returns the drone with the ID the function gets
         /// </summary>
         /// <param name="id">the id of the drone the user want to get</param>
-        /// <returns></returns>
+        /// <returns>new Drone</returns>
         public Drone GetDrone(int id)
         {
             try
@@ -93,7 +93,7 @@ namespace IBL
         /// <summary>
         /// the function returns the drone list from the data
         /// </summary>
-        /// <returns></returns>
+        /// <returns>the drone list</returns>
         public IEnumerable<DroneToList> GetDrones() => drones;
 
         /// <summary>
@@ -135,14 +135,14 @@ namespace IBL
             dal.AddDRoneCharge(id, station.Id);
             drones.Add(droneToList);
         }
-/// <summary>
-/// the function return the close station that possible
-/// </summary>
-/// <param name="stations">the list of the ststions</param>
-/// <param name="droneToListLocation">the location of the drone</param>
-/// <param name="BatteryStatus">the drone battery ststus</param>
-/// <param name="minDistance">the min distabce</param>
-/// <returns></returns>
+        /// <summary>
+        /// the function return the close station that possible
+        /// </summary>
+        /// <param name="stations">the list of the ststions</param>
+        /// <param name="droneToListLocation">the location of the drone</param>
+        /// <param name="BatteryStatus">the drone battery ststus</param>
+        /// <param name="minDistance">the min distabce</param>
+        /// <returns>he close station that possible</returns>
         private IDAL.DO.Station ClosetStationThatPossible(IEnumerable<IDAL.DO.Station> stations, Location droneToListLocation, double BatteryStatus, out double minDistance)
         {
             IDAL.DO.Station station = CloseStation(stations, droneToListLocation);
@@ -150,7 +150,12 @@ namespace IBL
             return minDistance * Available <= BatteryStatus ? station : default(IDAL.DO.Station);
         }
 
-
+        /// <summary>
+        /// the function find the close station and returns it
+        /// </summary>
+        /// <param name="stations">the list of all of the stations in the data</param>
+        /// <param name="location">the location that needs to find the close ststion from</param>
+        /// <returns>close station </returns>
         private IDAL.DO.Station CloseStation(IEnumerable<IDAL.DO.Station> stations, Location location)
         {
             double minDistance = double.MaxValue;
@@ -172,8 +177,8 @@ namespace IBL
         /// <summary>
         /// the function update the drone with theid that was send
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="name"></param>
+        /// <param name="id">the id</param>
+        /// <param name="name">the name</param>
         public void UpdateDrone(int id, string name)
         {
             if (ExistsIDCheck(dal.GetDrones(), id))
@@ -194,7 +199,7 @@ namespace IBL
         /// </summary>
         /// <param name="drone">the drone the user want to check if its can take the parcel</param>
         /// <param name="parcel">the parcel the user want to check if the drone can take him</param>
-        /// <returns></returns>
+        /// <returns>if drone can take parcel</returns>
         private bool IsDroneCanTakeTheParcel(Drone drone, ParcelInTransfer parcel)
         {
             double electricity;
@@ -218,7 +223,7 @@ namespace IBL
         /// made the changes between drone to drone to list
         /// </summary>
         /// <param name="droneId"> the id of the drone that needs to change to drone to list</param>
-        /// <returns></returns>
+        /// <returns>the fix drone to list</returns>
 
         private List<DroneInCharging> ConvertDroneToDroneToList(int droneId)
         {
