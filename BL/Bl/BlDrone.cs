@@ -215,9 +215,9 @@ namespace IBL
             return drone.BatteryStatus >= electricityUse;
         }
         /// <summary>
-        /// 
+        /// made the changes between drone to drone to list
         /// </summary>
-        /// <param name="droneId"></param>
+        /// <param name="droneId"> the id of the drone that needs to change to drone to list</param>
         /// <returns></returns>
 
         private List<DroneInCharging> ConvertDroneToDroneToList(int droneId)
