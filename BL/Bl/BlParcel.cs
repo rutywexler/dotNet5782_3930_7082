@@ -120,12 +120,13 @@ namespace IBL
 
         public Parcel GetParcel(int id)
         {
-            try { 
+            try {
                 var parcel = dal.GetParcel(id);
+                var Drone = drones.FirstOrDefault(drone => drone.DroneId == parcel.DroneId);
                 return new Parcel()
                 {
                     Id = parcel.Id,
-                    DroneParcel = GetDrone(parcel.DroneId),
+                    DroneParcel = Drone != default ? DroneToDroneInPackage(Drone) : null,
                     CustomerSendsFrom = CustomerToCustomerInParcel(dal.GetCustomer(parcel.SenderId)),
                     CustomerReceivesTo = CustomerToCustomerInParcel(dal.GetCustomer(parcel.TargetId)),
                     WeightParcel = (WeightCategories)parcel.Weight,
@@ -144,6 +145,22 @@ namespace IBL
 
         }
 
+        /// <summary>
+        /// Convert a drone To List to Drone With Parcel
+        /// </summary>
+        /// <param name="drone">The drone to convert</param>
+        /// <returns>The converter drone</returns>
+        private DroneInPackage DroneToDroneInPackage(DroneToList drone)
+        {
+            return new DroneInPackage()
+            {
+                ID = drone.DroneId,
+                BatteryStatus = drone.BatteryDrone,
+                Location = drone.Location
+            };
+        }
+
+
         private CustomerInParcel CustomerToCustomerInParcel(IDAL.DO.Customer customer)
         {
             return new CustomerInParcel()
@@ -153,9 +170,9 @@ namespace IBL
             };
         }
 
-        public IEnumerable<Parcel> GetParcels()
+        public IEnumerable<ParcelList> GetParcels()
         {
-            return dal.GetParcels().Select(Parcel => GetParcel(Parcel.Id));
+            return dal.GetParcels().Select(parcel => ParcelToParcelForList(parcel.Id));
         }
 
 

@@ -14,7 +14,7 @@ namespace IBL
         public void ParcelCollectionByDrone(int droneId);
         public void DeliveryParcelByDrone(int droneId);
         public Parcel GetParcel(int id);
-        public IEnumerable<Parcel> GetParcels();
+        public IEnumerable<ParcelList> GetParcels();
         public IEnumerable<ParcelList> GetParcelsNotAssignedToDrone();
     }
 }

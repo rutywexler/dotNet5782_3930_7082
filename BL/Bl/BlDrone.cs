@@ -144,7 +144,12 @@ namespace IBL
 
         private bool IsDroneCanTakeTheParcel(Drone drone, ParcelInTransfer parcel)
         {
-            double electricity;
+            var electricityUse = ElectricityUse(drone.DroneLocation,drone.BatteryStatus, parcel);
+            return drone.BatteryStatus >= electricityUse;
+        }
+
+        private double ElectricityUse(Location droneLocation,double battery, ParcelInTransfer parcel)
+        {
             double e = parcel.Weight switch
             {
                 WeightCategories.Light => LightWeightCarrier,
@@ -152,14 +157,15 @@ namespace IBL
                 WeightCategories.Heavy => CarryingHeavyWeight,
                 _ => throw new NotImplementedException()
             };
+            double electricity;
             IDAL.DO.Station station;
-            var electricityUse = 
-            electricity = Distance(drone.DroneLocation, parcel.CollectParcelLocation) * Available +
-                        Distance(parcel.CollectParcelLocation, parcel.DeliveryDestination) * e;
-            station = ClosetStationThatPossible(dal.GetStations(), drone.DroneLocation, drone.BatteryStatus - electricity, out _);
+            var electricityUse =
+           electricity = Distance(droneLocation, parcel.CollectParcelLocation) * Available +
+                       Distance(parcel.CollectParcelLocation, parcel.DeliveryDestination) * e;
+            station = ClosetStationThatPossible(dal.GetStations(), droneLocation, battery - electricity, out _);
             electricity += Distance(parcel.DeliveryDestination,
                          new Location() { Lattitude = station.Lattitude, Longitude = station.Longitude }) * Available;
-            return drone.BatteryStatus >= electricityUse;
+            return electricityUse;
         }
 
         private List<DroneInCharging> ConvertDroneToDroneToList(int droneId)
@@ -191,7 +197,7 @@ namespace IBL
                 IDAL.DO.Parcel parcel = dal.GetParcel(parcelId);
                 dal.RemoveParcel(parcel);
                 parcel.PickedUp = DateTime.Now;
-                dal.AddParcel(parcel.SenderId, parcel.TargetId, parcel.Weight, parcel.Priority, parcel.Id, parcel.DroneId, parcel.Requested, parcel.Scheduled, (DateTime)parcel.PickedUp, parcel.Delivered);
+                dal.AddParcel(parcel.SenderId, parcel.TargetId, parcel.Weight, parcel.Priority, parcel.Id, parcel.DroneId, parcel.Requested, parcel.Scheduled, (DateTime)parcel.PickedUp, (DateTime)parcel.Delivered);
             }
             catch (KeyNotFoundException ex)
             {

@@ -18,7 +18,7 @@ namespace IBL
             public CustomerInParcel CustomerReceivesTo { get; set; }
             public WeightCategories WeightParcel { get; set; }
             public Priorities Priority { get; set; }
-            public Drone DroneParcel { get; set; }
+            public DroneInPackage DroneParcel { get; set; }
             public DateTime TimeCreatedTheParcel { get; set; }
             public DateTime AssignmentTime { get; set; }
             public DateTime CollectionTime { get; set; }

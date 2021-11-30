@@ -21,7 +21,7 @@ namespace IDAL
             public int DroneId { get; set; }
             public DateTime Scheduled { get; set; }
             public DateTime ? PickedUp { get; set; }
-            public DateTime Delivered { get; set; }
+            public DateTime ? Delivered { get; set; }
             /// <summary>
             /// the method override ToString method
             /// </summary>
