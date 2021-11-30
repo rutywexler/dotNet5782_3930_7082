@@ -82,7 +82,7 @@ namespace DalObject
         /// <param name="stationId">The station to add the drone</param>
         public void AddDRoneCharge(int droneId, int stationId)
         {
-            DataSource.DroneCharges.Add(new DroneCharge() { DroneId = droneId, StationId = stationId });
+            DroneCharges.Add(new DroneCharge() { DroneId = droneId, StationId = stationId });
         }
 
     }

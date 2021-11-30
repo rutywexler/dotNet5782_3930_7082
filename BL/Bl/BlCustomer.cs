@@ -9,7 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static BL.BO.Enums;
-using DAL.DalObject;
+using BL.Bl;
+
 
 namespace IBL
 {
@@ -20,7 +21,7 @@ namespace IBL
             try { 
                  dal.AddCustomer(id, phoneNumber, name, location.Longitude, location.Lattitude);
             }
-            catch (DAL.DalObject.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            catch (IDAL.DO.Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
 
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
@@ -90,7 +91,7 @@ namespace IBL
                     PhoneNumber = customer.Phone;
                 dal.AddCustomer(id, PhoneNumber, name, customer.Longitude, customer.Lattitude); 
             }
-            catch (DAL.DalObject.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            catch (IDAL.DO.Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
             }

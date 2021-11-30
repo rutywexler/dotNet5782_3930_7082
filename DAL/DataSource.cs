@@ -88,7 +88,7 @@ namespace DalObject
                 tempParcel.Requested = DateTime.Now;
                 foreach (Drone drone in Drones)
                 {
-                    if (drone.Status == 0 && drone.MaxWeight >= tempParcel.Weight)
+                    if (drone.MaxWeight >= tempParcel.Weight)
                     {
                         tempParcel.DroneId = drone.Id;
                         break;

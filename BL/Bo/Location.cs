@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BL.Bo;
+using System;
 
 namespace IBL
 { 

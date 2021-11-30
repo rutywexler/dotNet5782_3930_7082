@@ -40,7 +40,7 @@ namespace IBL
                 };
                 drones.Add(droneToList);
             }
-            catch (DAL.DalObject.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            catch (IDAL.DO.Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
 
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
@@ -208,7 +208,7 @@ namespace IBL
             {
                 throw new KeyNotFoundException(ex.Message);
             }
-            catch (DAL.DalObject.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            catch (IDAL.DO.Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
             }
