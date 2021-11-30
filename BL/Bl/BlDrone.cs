@@ -25,8 +25,7 @@ namespace IBL
 
         public void AddDrone(Drone drone,int stationId)
         {
-            try
-            {
+           
                 dal.AddDrone(drone.DroneId, drone.DroneModel, (IDAL.DO.WeightCategories)drone.Weight);
                 IDAL.DO.Station station = dal.GetStation(stationId);
                 DroneToList droneToList = new()
@@ -50,6 +49,8 @@ namespace IBL
 
                 throw new KeyNotFoundException(ex.Message);
             }
+            
+          
         }
 
         public Drone GetDrone(int id)
@@ -140,7 +141,7 @@ namespace IBL
         }
         public void UpdateDrone(int id, string name)
         {
-            if (!ExistsIDCheck(dal.GetDrones(), id))
+            if (ExistsIDCheck(dal.GetDrones(), id))
                 throw new KeyNotFoundException();
             IDAL.DO.Drone droneDl = dal.GetDrone(id);
             if (name.Equals(default))

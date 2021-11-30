@@ -17,7 +17,7 @@ namespace DalObject
         /// <param name="MaxWeight"> The max weight that the drone can swipe (light- 0,medium - 1,heavy - 2)</param>
         public void AddDrone(int id, string model, WeightCategories MaxWeight)
         {
-            if (ExistsIDCheck(DataSource.Drones, id))
+            if (!ExistsIDCheck(DataSource.Drones, id))
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue();
             Drone newDrone = new()
             {
