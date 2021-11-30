@@ -20,7 +20,7 @@ namespace DalObject
         /// <param name="chargeSlots">Number of charging slots at the station</param>
         public void AddStation(int id, string name, double longitude, double latitude, int chargeSlots)
         {
-            if (!ExistsIDCheck(DataSource.BaseStations, id))
+            if (ExistsIDCheck(DataSource.BaseStations, id))
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue();
             Station newStation = new();
             newStation.Id = id;
@@ -63,6 +63,11 @@ namespace DalObject
         private List<Station> getAvailbleStations() => (BaseStations.FindAll(item => item.ChargeSlots > NotAvailableChargingPorts(item.Id)));
         public IEnumerable<Station> GetAvailableChargingStations() => getAvailbleStations().ToList();
 
+        /// <summary>
+        /// check how many station is not available charging 
+        /// </summary>
+        /// <param name="baseStationId">the ststion ID</param>
+        /// <returns></returns>
         public int NotAvailableChargingPorts(int baseStationId)
         {
             int count = 0;
@@ -73,7 +78,10 @@ namespace DalObject
             }
             return count;
         }
-
+        /// <summary>
+        /// remove station from ststion list
+        /// </summary>
+        /// <param name="station">the station i want to delete</param>
         public void RemoveStation(Station station)
         {
             BaseStations.Remove(station);

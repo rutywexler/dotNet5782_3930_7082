@@ -18,7 +18,6 @@ namespace IDAL
         public void AddDRoneCharge(int droneId, int stationId);
 
         public void AssignParcelToDrone(int parcelId, int droneId);
-        public void CollectParcel(int parcelId);
         public void ReleaseDroneFromRecharge(int droneId);
         public Station GetStation(int id);
         public Drone GetDrone(int id);

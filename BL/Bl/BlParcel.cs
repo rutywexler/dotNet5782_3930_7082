@@ -17,6 +17,10 @@ namespace IBL
 {
     public partial class BL : IblParcel
     {
+        /// <summary>
+        /// the function adds the parcel to the list in the data
+        /// </summary>
+        /// <param name="parcel">the parcel the user add</param>
         public void AddParcel(Parcel parcel)
         {
             if (ExistsIDCheck(dal.GetCustomers(), parcel.CustomerSendsFrom.Id))
@@ -38,6 +42,12 @@ namespace IBL
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
             }
         }
+
+        /// <summary>
+        /// the function returns parcelin transer that the id belongs to him
+        /// </summary>
+        /// <param name="id">the id of the parcel in transfer</param>
+        /// <returns></returns>
         public ParcelInTransfer GetParcelInTransfer(int id)
         {
             try
@@ -64,6 +74,10 @@ namespace IBL
             }
         }
 
+        /// <summary>
+        /// the function assigns parcel to drone
+        /// </summary>
+        /// <param name="droneId"> the drone id</param>
         public void AssignParcelToDrone(int droneId)
         {
             Drone drone = GetDrone(droneId);
@@ -94,7 +108,10 @@ namespace IBL
             drone.DroneStatus = DroneStatus.Delivery;
         }
 
-
+        /// <summary>
+        /// the function responsible to make the delivery parcel by the drone id the function get
+        /// </summary>
+        /// <param name="droneId"> the drone id</param>
         public void DeliveryParcelByDrone(int droneId)
         {
             DroneToList droneToList = drones.Find(drone => drone.DroneId == droneId);
@@ -110,6 +127,10 @@ namespace IBL
             ParcelDeliveredDrone(parcel.Id);
         }
 
+        /// <summary>
+        /// the function make the parcel with the id that the function get to deliverd drone
+        /// </summary>
+        /// <param name="parcelId">the parcel id</param>
         private void ParcelDeliveredDrone(int parcelId)
         {
             IDAL.DO.Parcel parcel = dal.GetParcel(parcelId);
@@ -118,6 +139,11 @@ namespace IBL
             dal.AddParcel(parcel.SenderId, parcel.TargetId, parcel.Weight, parcel.Priority, parcel.Id);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Parcel GetParcel(int id)
         {
             try {

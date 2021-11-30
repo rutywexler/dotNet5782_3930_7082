@@ -110,11 +110,10 @@ namespace DalObject
             Parcels.Remove(parcel);
         }
 
-        public void CollectParcel(int parcelId)
-        {
-
-        }
-
+        /// <summary>
+        /// the function return parcels that dont assignment
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Parcel> GetUnAssignmentParcels()
         {
             return DataSource.Parcels.Where(parcel => parcel.DroneId == 0);
