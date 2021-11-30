@@ -38,7 +38,7 @@ namespace IBL
         /// the function return the customer that the ID blongs to him
         /// </summary>
         /// <param name="id">the id of the customer i want to get</param>
-        /// <returns>the customer that the ID blongs to him</returns>
+        /// <returns></returns>
         public Customer GetCustomer(int id)
         {
             try
@@ -70,16 +70,12 @@ namespace IBL
         /// <summary>
         /// the function return the kist of the customers from the data
         /// </summary>
-        /// <returns>the kist of the customers from the data</returns>
+        /// <returns></returns>
         public IEnumerable<CustomerForList> GetCustomers()
         {
             return dal.GetCustomers().Select(customer => CustomerToList(customer));
         }
-        /// <summary>
-        /// the function convert customer to customer to list
-        /// </summary>
-        /// <param name="customer"></param>
-        /// <returns>customer to list- fix</returns>
+
         private CustomerForList CustomerToList(IDAL.DO.Customer customer)
         {
             var parcels = dal.GetParcels();

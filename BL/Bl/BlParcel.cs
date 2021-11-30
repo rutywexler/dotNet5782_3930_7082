@@ -47,7 +47,7 @@ namespace IBL
         /// the function returns parcelin transer that the id belongs to him
         /// </summary>
         /// <param name="id">the id of the parcel in transfer</param>
-        /// <returns>new ParcelInTransfer</returns>
+        /// <returns></returns>
         public ParcelInTransfer GetParcelInTransfer(int id)
         {
             try
@@ -140,10 +140,10 @@ namespace IBL
         }
 
         /// <summary>
-        /// the function get the parcel that the id the function get belongs to him
+        /// 
         /// </summary>
         /// <param name="id"></param>
-        /// <returns>new Parcel</returns>
+        /// <returns></returns>
         public Parcel GetParcel(int id)
         {
             try { 
@@ -170,11 +170,6 @@ namespace IBL
 
         }
 
-        /// <summary>
-        /// the function convert customer to customer in parcel
-        /// </summary>
-        /// <param name="customer">customer in type of idal</param>
-        /// <returns>new CustomerInParcel</returns>
         private CustomerInParcel CustomerToCustomerInParcel(IDAL.DO.Customer customer)
         {
             return new CustomerInParcel()
@@ -184,28 +179,17 @@ namespace IBL
             };
         }
 
-        /// <summary>
-        /// the function returns the list of the parcels from the data
-        /// </summary>
-        /// <returns>the parcel list from the data</returns>
         public IEnumerable<Parcel> GetParcels()
         {
             return dal.GetParcels().Select(Parcel => GetParcel(Parcel.Id));
         }
 
-        /// <summary>
-        /// the function get Parcels Not Assigned To Drone
-        /// </summary>
-        /// <returns>Parcels Not Assigned To Drone</returns>
+
         public IEnumerable<ParcelList> GetParcelsNotAssignedToDrone()
         {
             return dal.GetUnAssignmentParcels().Select(parcel => ParcelToParcelForList(parcel.Id));
         }
 
-        /// <summary>
-        /// the function responsible to Parcel Collection By Drone
-        /// </summary>
-        /// <param name="droneId"> drone id</param>
         public void ParcelCollectionByDrone(int droneId)
         {
             DroneToList droneToList = drones.FirstOrDefault(item => item.DroneId == droneId);

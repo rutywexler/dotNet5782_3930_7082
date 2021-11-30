@@ -13,10 +13,6 @@ namespace IBL
 {
     public partial class BL : IblStation
     {
-        /// <summary>
-        /// the function adds the ststion to the ststion list in the data
-        /// </summary>
-        /// <param name="baseStation"> the ststion needs to add</param>
         public void AddStation(BaseStation baseStation)
         {
             try {
@@ -29,10 +25,6 @@ namespace IBL
 
         }
 
-        /// <summary>
-        /// the function Get Staions With Empty Charge Slots
-        /// </summary>
-        /// <returns> station With Empty Charge Slots</returns>
         public IEnumerable<BaseStationToList> GetStaionsWithEmptyChargeSlots()
         {
             IEnumerable<IDAL.DO.Station> AvailableChargingStationsFromDal = dal.GetAvailableChargingStations();
@@ -44,11 +36,6 @@ namespace IBL
             return stations;
         }
 
-        /// <summary>
-        /// the function returns the station that has the id that the function get
-        /// </summary>
-        /// <param name="id"> the id of the ststion that needs</param>
-        /// <returns></returns>
         public BaseStation GetStation(int id)
         {
             try
