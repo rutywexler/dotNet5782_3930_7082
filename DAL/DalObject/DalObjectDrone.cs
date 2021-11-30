@@ -1,5 +1,4 @@
-﻿using DAL.DalObject;
-using IDAL.DO;
+﻿using IDAL.DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +25,7 @@ namespace DalObject
                 Model = model,
                 MaxWeight = MaxWeight
             };
-           Drones.Add(newDrone);
+            Drones.Add(newDrone);
         }
 
         /// <summary>
@@ -36,7 +35,7 @@ namespace DalObject
         public void DisplayDrone()
         {
             Console.WriteLine("enter drone id:");
-            int input= int.Parse(Console.ReadLine());        
+            int input = int.Parse(Console.ReadLine());
             Console.WriteLine(Drones[input - 1]);
         }
 
@@ -48,13 +47,13 @@ namespace DalObject
         /// </summary>
         public void RemoveDrone(Drone drone)
         {
-            
+
             Drones.Remove(drone);
         }
 
         public double[] GetPowerConsumptionByDrone()
         {
-            return new double[] { Config.Available,Config.LightWeightCarrier, Config.MediumWeightBearing, Config.CarryingHeavyWeight,Config.DroneLoadingRate };
+            return new double[] { Config.Available, Config.LightWeightCarrier, Config.MediumWeightBearing, Config.CarryingHeavyWeight, Config.DroneLoadingRate };
         }
 
         /// <summary>
@@ -81,7 +80,7 @@ namespace DalObject
             DataSource.DroneCharges.Remove(droneCharge);
         }
 
-        public IEnumerable<Drone> GetDrones() => DataSource.Drones;
+        public IEnumerable<Drone> GetDrones() => Drones;
 
 
 

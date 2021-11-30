@@ -1,4 +1,4 @@
-﻿/*using IDAL.DO;
+﻿using IDAL.DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +17,7 @@ namespace ConsoleUI
             tempStation.Id = int.Parse(Console.ReadLine());
 
             Console.Write("Enter The Name Of The Station:");
-            tempStation.Name = int.Parse(Console.ReadLine());
+            tempStation.Name = Console.ReadLine();
            
             Console.Write("Enter longitude");
             tempStation.Longitude = double.Parse(Console.ReadLine());
@@ -43,11 +43,6 @@ namespace ConsoleUI
             Console.Write("Enter max weight, 1-medium,2-heavy,3-light");
             tempDrone.MaxWeight = (WeightCategories)(int.Parse(Console.ReadLine()));
 
-            Console.Write("Enter The BatteryStatus Of The Drone:");
-            tempDrone.Battery = double.Parse(Console.ReadLine());
-
-            Console.Write("Enter status, 1-available,2- maintenance,3-delivery");
-            tempDrone.Status = (DroneStatuses)(int.Parse(Console.ReadLine()));
             return tempDrone;
         }
         public static Parcel GetParcel()
@@ -99,7 +94,7 @@ namespace ConsoleUI
         }
 
     }
-}*/
+}
 
     
 

@@ -18,7 +18,7 @@ namespace IBL
             try {
                 dal.AddStation(baseStation.Id, baseStation.Name, baseStation.Location.Longitude, baseStation.Location.Longitude, baseStation.NumberOfChargingStations); 
               }
-            catch (DAL.DalObject.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            catch (IDAL.DO.Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
             }
@@ -95,7 +95,7 @@ namespace IBL
             {
                 throw new KeyNotFoundException(ex.Message);
             }
-            catch (DAL.DalObject.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            catch (IDAL.DO.Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
             }

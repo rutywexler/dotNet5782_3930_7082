@@ -36,7 +36,7 @@ namespace IBL
                   (IDAL.DO.Priorities)parcel.Priority
                 );
             }
-            catch (DAL.DalObject.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            catch (IDAL.DO.Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
 
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);

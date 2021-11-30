@@ -8,13 +8,6 @@
             medium,
             weighty
         }
-        public enum DroneStatuses
-        {
-            Available,
-            Meintenence,
-            Delivery
-
-        }
         public enum Priorities
         {
             Regular,
