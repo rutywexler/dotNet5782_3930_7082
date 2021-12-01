@@ -40,9 +40,9 @@ namespace DalObject
         /// <returns>A station for display</returns>
         public Station GetStation(int id)
         {
-            Station station = DataSource.BaseStations.FirstOrDefault(item => item.Id == id);
-            if (!station.Equals(default(Station)))
-                throw new KeyNotFoundException("There isnt suitable customer in the data!");
+            Station station = BaseStations.FirstOrDefault(item => item.Id == id);
+            if (station.Equals(default(Station)))
+                throw new KeyNotFoundException("There isnt suitable Station in the data!");
             return station;
         }
 

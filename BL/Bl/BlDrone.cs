@@ -76,7 +76,7 @@ namespace IBL
                 {
                     DroneId = drone.DroneId,
                     BatteryStatus = drone.BatteryDrone,
-                    DroneLocation = new Location() { Lattitude = drone.Location.Lattitude, Longitude = drone.Location.Longitude },
+                    DroneLocation = drone.Location,
                     Weight = drone.DroneWeight,
                     DroneModel = drone.ModelDrone,
                     DroneStatus = drone.DroneStatus,

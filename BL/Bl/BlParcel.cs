@@ -52,19 +52,19 @@ namespace IBL
         {
             try
             {
-                var parcel = GetParcel(id);
-                var targetCustomer = GetCustomer(parcel.CustomerReceivesTo.Id);
-                var senderCustomer = GetCustomer(parcel.CustomerSendsFrom.Id);
+                var parcel = dal.GetParcel(id);
+                var targetCustomer = dal.GetCustomer(parcel.TargetId);
+                var senderCustomer = dal.GetCustomer(parcel.SenderId);
 
                 return new ParcelInTransfer()
                 {
                     Id = id,
-                    Weight = parcel.WeightParcel,
-                    Priority = parcel.Priority,
-                    CollectParcelLocation = targetCustomer.Location,
-                    DeliveryDestination = senderCustomer.Location,
-                    ParcelStatus = parcel.DeliveryTime != null,
-                    DeliveryDistance = Distance(senderCustomer.Location, targetCustomer.Location),
+                    Weight = (WeightCategories)parcel.Weight,
+                    Priority = (Priorities)parcel.Priority,
+                    CollectParcelLocation = new Location { Lattitude = targetCustomer.Lattitude, Longitude = targetCustomer.Longitude },
+                    DeliveryDestination = new Location { Lattitude = senderCustomer.Lattitude, Longitude = senderCustomer.Longitude },
+                    ParcelStatus = parcel.Delivered != null,
+                    DeliveryDistance = Distance(new Location() { Longitude = senderCustomer.Longitude, Lattitude = senderCustomer.Lattitude }, new Location() { Longitude = targetCustomer.Longitude, Lattitude = targetCustomer.Lattitude }),
                 };
             }
             catch (KeyNotFoundException ex)
@@ -140,7 +140,7 @@ namespace IBL
         }
 
         /// <summary>
-        /// 
+        /// get parcel
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

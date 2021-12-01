@@ -43,8 +43,6 @@ namespace IBL
         {
             try
             {
-           
-         
                  var customer = dal.GetCustomer(id);
                 return new Customer()
                 {
