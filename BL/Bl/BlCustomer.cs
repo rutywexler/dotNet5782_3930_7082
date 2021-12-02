@@ -25,8 +25,9 @@ namespace IBL
         /// <param name="location">the customer location</param>
         public void AddCustomer(int id, string name, string phoneNumber, Location location)
         {
-            try { 
-                 dal.AddCustomer(id, phoneNumber, name, location.Longitude, location.Lattitude);
+            try
+            {
+                dal.AddCustomer(id, phoneNumber, name, location.Longitude, location.Lattitude);
             }
             catch (IDAL.DO.Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
@@ -43,19 +44,20 @@ namespace IBL
         {
             try
             {
-                 var customer = dal.GetCustomer(id);
+
+                var customer = dal.GetCustomer(id);
                 return new Customer()
                 {
                     Id = customer.Id,
                     Location = new Location() { Lattitude = customer.Lattitude, Longitude = customer.Longitude },
                     Name = customer.Name,
                     PhoneNumber = customer.Phone,
-                    getCustomerSendParcels = (List<ParcelInCustomer>)(from parcel in dal.GetParcels()
-                                                                       where parcel.SenderId == id
-                                                                       select GetParcel(parcel.Id)),
-                    getCustomerReceivedParcels = (List<ParcelInCustomer>)(from parcel in dal.GetParcels()
-                                                                        where parcel.TargetId == id
-                                                                        select GetParcel(parcel.Id)),
+                    GetCustomerSendParcels = (from parcel in dal.GetParcels()
+                                              where parcel.SenderId == id
+                                              select ParcelToParcelAtCustomer(GetParcel(parcel.Id), "sender")).ToList(),
+                    GetCustomerReceivedParcels = (from parcel in dal.GetParcels()
+                                                  where parcel.TargetId == id
+                                                  select ParcelToParcelAtCustomer(GetParcel(parcel.Id), "Target")).ToList(),
                 };
             }
             catch (KeyNotFoundException ex)
@@ -95,19 +97,20 @@ namespace IBL
         /// <param name="id">the customer id that i want to change him</param>
         /// <param name="name"> the name the user want to change from the old name</param>
         /// <param name="PhoneNumber">the phone numberr the user want to change from the old phone number</param>
-        public void UpdateCustomer(int id, string name=null, string PhoneNumber=null)
+        public void UpdateCustomer(int id, string name = null, string PhoneNumber = null)
         {
             if (name.Equals(string.Empty) && PhoneNumber.Equals(string.Empty))
                 throw new ArgumentNullException("There is not field to update");
-            
+
             IDAL.DO.Customer customer = dal.GetCustomer(id);
-            try {
+            try
+            {
                 dal.RemoveCustomer(customer);
                 if (name.Equals(default))
                     name = customer.Name;
                 else if (PhoneNumber.Equals(default))
                     PhoneNumber = customer.Phone;
-                dal.AddCustomer(id, PhoneNumber, name, customer.Longitude, customer.Lattitude); 
+                dal.AddCustomer(id, PhoneNumber, name, customer.Longitude, customer.Lattitude);
             }
             catch (IDAL.DO.Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
@@ -117,6 +120,43 @@ namespace IBL
             {
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
             }
+        }
+
+        /// <summary>
+        /// Convert a BL parcel to Parcel At Customer
+        /// </summary>
+        /// <param name="parcel">The parcel to convert</param>
+        /// <param name="type">The type of the customer</param>
+        /// <returns>The converted parcel</returns>
+        private ParcelInCustomer ParcelToParcelAtCustomer(Parcel parcel, string type)
+        {
+            ParcelInCustomer newParcel = new()
+            {
+                Id = parcel.Id,
+                Weight = parcel.WeightParcel,
+                Priority = parcel.Priority,
+                Status = parcel.AssignmentTime == default ? PackageStatuses.DEFINED : parcel.CollectionTime == default ? PackageStatuses.ASSOCIATED : parcel.DeliveryTime == default ? PackageStatuses.COLLECTED : PackageStatuses.PROVIDED
+            };
+
+
+            if (type == "sender")
+            {
+                newParcel.CustomerInDelivery = new CustomerInParcel()
+                {
+                    Id = parcel.CustomerReceivesTo.Id,
+                    Name = parcel.CustomerReceivesTo.Name
+                };
+            }
+            else
+            {
+                newParcel.CustomerInDelivery = new CustomerInParcel()
+                {
+                    Id = parcel.CustomerSendsFrom.Id,
+                    Name = parcel.CustomerSendsFrom.Name
+                };
+            }
+
+            return newParcel;
         }
     }
 }
