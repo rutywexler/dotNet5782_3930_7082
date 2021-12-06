@@ -12,7 +12,7 @@ namespace DalObject
     public partial class DalObject:IDAL.IDal
     {
         /// <summary>
-        /// DalObject constructor call to intilialize
+        /// DalObject constructor  call to intilialize
         /// </summary>
         public DalObject()
         {
