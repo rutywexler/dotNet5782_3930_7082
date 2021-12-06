@@ -17,8 +17,8 @@ namespace IBL
             public string Name { get; set; }
             public string PhoneNumber { get; set; }
             public Location Location { get; set; }
-            public List<ParcelInCustomer> getCustomerSendParcels { get; set; }
-            public List<ParcelInCustomer> getCustomerReceivedParcels { get; set; }
+            public List<ParcelInCustomer> GetCustomerSendParcels { get; set; }
+            public List<ParcelInCustomer> GetCustomerReceivedParcels { get; set; }
             public override string ToString() => this.ToStringProps();
 
 

@@ -27,9 +27,10 @@ namespace BL
 
             public enum PackageStatuses
             {
-                AVAILABLE,
-                MAINTENANCE,
-                DELIVERY
+                DEFINED,
+                ASSOCIATED,
+                COLLECTED,
+                PROVIDED
             }
 
             public enum DroneStatus
