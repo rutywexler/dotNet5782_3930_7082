@@ -5,14 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="27*"/>
-            <ColumnDefinition Width="373*"/>
-        </Grid.ColumnDefinitions>
-        <Button Content="Drone List" Grid.Column="1" HorizontalAlignment="Left" Margin="103,144,0,0" VerticalAlignment="Top" Height="91" Width="117" 
-                Click="Button_Click"/>
+        Title="MainWindow" Height="640" Width="800">
+    <Grid Name="MainGrid">
+        <Button Content="Button" HorizontalAlignment="Left" Margin="144,49,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+
 
     </Grid>
 </Window>

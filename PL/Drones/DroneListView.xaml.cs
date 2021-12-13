@@ -22,8 +22,16 @@ namespace PL.Drones
         public DroneListView()
         {
             InitializeComponent();
-            IBL bl = new .BL();
             
+        }
+
+        public DroneListView(IBL.IBL bl)
+        {
+        }
+
+        private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
