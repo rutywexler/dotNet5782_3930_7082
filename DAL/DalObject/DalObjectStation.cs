@@ -60,8 +60,9 @@ namespace DalObject
         /// Checks which base Sations are available for charging
         /// </summary>
         /// <returns>A list of avaiable satations</returns>
-        private List<Station> getAvailbleStations() => (BaseStations.FindAll(item => item.ChargeSlots > NotAvailableChargingPorts(item.Id)));
-        public IEnumerable<Station> GetAvailableChargingStations() => getAvailbleStations().ToList();
+        //private List<Station> getAvailbleStations(Predicate<Station> predicate) => (BaseStations.FindAll(item => item.ChargeSlots > NotAvailableChargingPorts(item.Id)));
+        private List<Station> getAvailbleStations(Predicate<Station> predicate) => (BaseStations.FindAll(predicate));
+        public IEnumerable<Station> GetAvailableChargingStations() => getAvailbleStations(item => item.ChargeSlots > NotAvailableChargingPorts(item.Id)).ToList();
 
         /// <summary>
         /// check how many station is not available charging 

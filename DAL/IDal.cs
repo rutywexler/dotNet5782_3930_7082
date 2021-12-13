@@ -28,7 +28,7 @@ namespace IDAL
         public IEnumerable<Parcel> GetParcels();
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate);
         public IEnumerable<Customer> GetCustomers();
-        public IEnumerable<Parcel> GetUnAssignmentParcels();
+       // public IEnumerable<Parcel> GetUnAssignmentParcels();
         public int NotAvailableChargingPorts(int baseStationId);
         public List<int> GetDronechargingInStation(int id);
         public IEnumerable<Station> GetAvailableChargingStations();

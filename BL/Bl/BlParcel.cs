@@ -87,8 +87,9 @@ namespace IBL
                 throw new InvalidEnumArgumentException("Because that The drone is not available  its not possible to send it for charging ");
             }
 
-            var parcels = (dal.GetUnAssignmentParcels() as List<IDAL.DO.Parcel>)
-                          .FindAll(parcel =>
+            // var parcels = (dal.GetUnAssignmentParcels() as List<IDAL.DO.Parcel>)
+            var parcels = (dal.GetParcels(parcel => parcel.DroneId == 0) as List<IDAL.DO.Parcel>)
+               .FindAll(parcel =>
                                IsDroneCanTakeTheParcel(drone, GetParcelInTransfer(parcel.Id)) &&
                                (int)parcel.Weight < (int)drone.Weight)
                           .OrderBy(parcel => parcel.Priority)
