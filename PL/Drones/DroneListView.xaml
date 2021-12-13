@@ -6,7 +6,30 @@
         xmlns:local="clr-namespace:PL.Drones"
         mc:Ignorable="d"
         Title="DroneListView" Height="450" Width="800">
-    <Grid>
-        <TextBlock Text="DroneList View"/>
+    <Grid Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="400*"/>
+        </Grid.RowDefinitions>
+        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
+             VerticalAlignment="Stretch" Width="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions >
+            <Label Content="StatusSelector" HorizontalAlignment="Center" Margin="0,18,0,0" VerticalAlignment="Top"/>
+            <Label Content="WeightSelector" Grid.Column="2" HorizontalAlignment="Center" Margin="0,23,0,0" VerticalAlignment="Top"/>
+            <ComboBox Name="StatusSelector"  Grid.Column="1" Margin="40,11,40,8" Width="120" SelectionChanged="StatusSelector_SelectionChanged"/>
+            <ComboBox Name="WeightSelector" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Top" Width="120" Margin="0,15,0,0"/>
+        </Grid>
+        <ListView Grid.Row="1">
+            <ListView.View>
+                <GridView x:Name="ListView">
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>
