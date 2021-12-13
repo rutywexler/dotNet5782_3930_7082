@@ -50,7 +50,7 @@ namespace DalObject
             }
         }
 
-      
+
 
         /// <summary>
         /// ViewListPendingParcels is a method in the DalObject class.
@@ -118,7 +118,10 @@ namespace DalObject
         {
             return DataSource.Parcels.Where(parcel => parcel.DroneId == 0);
         }
-
+        public IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate)
+        {
+            return DataSource.Parcels.Where(parcel => predicate(parcel));
+        }
 
 
     }

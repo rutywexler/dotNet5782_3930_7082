@@ -26,6 +26,7 @@ namespace IDAL
         public IEnumerable<Station> GetStations();
         public IEnumerable<Drone> GetDrones();
         public IEnumerable<Parcel> GetParcels();
+        public IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate);
         public IEnumerable<Customer> GetCustomers();
         public IEnumerable<Parcel> GetUnAssignmentParcels();
         public int NotAvailableChargingPorts(int baseStationId);
@@ -38,4 +39,3 @@ namespace IDAL
         public void RemoveDrone(Drone drone);
     }
 }
-                     

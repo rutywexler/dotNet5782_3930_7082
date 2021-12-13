@@ -201,10 +201,11 @@ namespace IBL
             return dal.GetParcels().Select(parcel => ParcelToParcelForList(parcel.Id));
         }
 
-
         public IEnumerable<ParcelList> GetParcelsNotAssignedToDrone()
         {
-            return dal.GetUnAssignmentParcels().Select(parcel => ParcelToParcelForList(parcel.Id));
+            return dal.GetParcels(parcel => parcel.DroneId == 0)
+                .Select(parcel => ParcelToParcelForList(parcel.Id));
+            //return dal.GetUnAssignmentParcels().Select(parcel => ParcelToParcelForList(parcel.Id));
         }
 
         public void ParcelCollectionByDrone(int droneId)
