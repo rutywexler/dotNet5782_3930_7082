@@ -24,12 +24,16 @@
             <ComboBox Name="StatusSelector"  Grid.Column="1" Margin="40,11,40,8" Width="120" SelectionChanged="StatusSelector_SelectionChanged"/>
             <ComboBox Name="WeightSelector" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Top" Width="120" Margin="0,15,0,0"/>
         </Grid>
-        <ListView Grid.Row="1">
-            <ListView.View>
-                <GridView x:Name="ListView">
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
+        <ListView Grid.Row="1" Margin="0,5,0,-5" x:Name="DronesListView" ItemsSource="{Binding}" DataContext="{Binding}">
+            <ListView.ItemTemplate >
+                <DataTemplate>
+                    <Border BorderBrush="Red">
+                    <StackPanel>
+                            <TextBlock Text="{Binding }"></TextBlock>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
     </Grid>
 </Window>

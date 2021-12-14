@@ -44,7 +44,7 @@ namespace DalObject
         public Customer GetCustomer(int id)
         {
             if (Customers.Equals(default(Customer)))
-                throw new KeyNotFoundException("There isn' suitable customer in the data");
+                throw new KeyNotFoundException("There isn't suitable customer in the data");
             return Customers.FirstOrDefault(item => item.Id == id);
         }
 
