@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IBL.BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,7 @@ namespace PL.Drones
         public AddsNewDrone()
         {
             InitializeComponent();
+            NewDrone.DataContext = new Drone();
         }
 
         public AddsNewDrone(IBL.IBL ibl) :this()
@@ -29,5 +31,11 @@ namespace PL.Drones
             
         }
 
+        private void AddingDrone(object sender, RoutedEventArgs e)
+        {
+            var a =(Drone) NewDrone.DataContext;
+            a.BatteryStatus = 2;//???
+        }
+        public int? DroneId { get; set; }
     }
 }
