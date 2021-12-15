@@ -21,20 +21,20 @@
             </Grid.ColumnDefinitions >
             <Label Content="StatusSelector" HorizontalAlignment="Center" Margin="0,18,0,0" VerticalAlignment="Top"/>
             <Label Content="WeightSelector" Grid.Column="2" HorizontalAlignment="Center" Margin="0,23,0,0" VerticalAlignment="Top"/>
-            <ComboBox Name="StatusSelector"  Grid.Column="1" Margin="40,11,40,8" Width="120" SelectionChanged="StatusSelector_SelectionChanged"/>
+            <ComboBox Name="StatusSelector"  Grid.Column="1" Margin="40,11,40,8" Width="120" SelectionChanged="StatusSelector_SelectionChanged" />
             <ComboBox Name="WeightSelector" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Top" Width="120" Margin="0,15,0,0" SelectionChanged="WeightSelector_SelectionChanged"/>
         </Grid>
-        <ListView Grid.Row="1" Margin="0,5,0,-5" x:Name="DronesListView" ItemsSource="{Binding}" DataContext="{Binding}">
+        <ListView Grid.Row="1" Margin="0,5,0,-5" x:Name="DronesListView" ItemsSource="{Binding}"  MouseDoubleClick="ViewDrone">
             <ListView.ItemTemplate >
                 <DataTemplate>
                     <Border BorderBrush="Red">
-                        <StackPanel>
+                        <StackPanel >
                             <TextBlock Text="{Binding }"></TextBlock>
                         </StackPanel>
                     </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Content="Add new drone" HorizontalAlignment="Left" Margin="138,69,0,0" Grid.Row="1" VerticalAlignment="Top" Height="90" Width="148" Click="Button_Click"/>
+        <Button Content="Add new drone" HorizontalAlignment="Left" Margin="622,268,0,0" Grid.Row="1" VerticalAlignment="Top" Height="90" Width="148" Click="Button_Click"/>
     </Grid>
 </Window>

@@ -1,0 +1,44 @@
+﻿<Window x:Class="PL.Drones.ViewDrone"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.Drones"
+        mc:Ignorable="d"
+        Title="ViewDrone" Height="450" Width="800">
+    <Grid x:Name="DroneView">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Id"/>
+        <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Path=DroneId}"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="ModelDrone"/>
+        <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Path=ModelDrone}"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="DroneWeight"/>
+        <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Path=DroneWeight}"/>
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="BatteryDrone"/>
+        <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding Path=BatteryDrone}"/>
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="DroneStatus"/>
+        <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding Path=DroneStatus}"/>
+        <TextBlock Grid.Row="5" Grid.Column="0" Text="Location"/>
+        <TextBlock Grid.Row="5" Grid.Column="2" Text="{Binding Path=Location}"/>
+        <TextBlock Grid.Row="6" Grid.Column="0" Text="ParcelId"/>
+        <TextBlock Grid.Row="6" Grid.Column="2" Text="{Binding Path=ParcelId}"/>
+        <Button Content="close Window" Grid.Column="2" HorizontalAlignment="Left" Margin="626,294,0,0" Grid.Row="6" VerticalAlignment="Top"/>
+        <Button Content="update" Grid.Column="2" HorizontalAlignment="Left" Margin="569,294,0,0" Grid.Row="6" VerticalAlignment="Top"/>
+
+
+
+    </Grid>
+</Window>
