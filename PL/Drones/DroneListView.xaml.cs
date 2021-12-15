@@ -54,5 +54,11 @@ namespace PL.Drones
         {
             new AddsNewDrone(ibl).Show();
         }
+
+        private void ViewDrone(object sender, MouseButtonEventArgs e)
+        {
+            var selectedDrone = (e.OriginalSource as FrameworkElement).DataContext as IBL.BO.DroneToList;
+            new ViewDrone(ibl, selectedDrone).Show();
+        }
     }
 }
