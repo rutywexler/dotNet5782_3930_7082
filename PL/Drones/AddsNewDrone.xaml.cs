@@ -34,7 +34,7 @@ namespace PL.Drones
         private void AddingDrone(object sender, RoutedEventArgs e)
         {
             var a =(Drone) NewDrone.DataContext;
-            a.BatteryStatus = 2;//???
+            a.BatteryStatus = 2;//????
         }
         public int? DroneId { get; set; }
     }
