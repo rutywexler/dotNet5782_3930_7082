@@ -13,7 +13,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="240,50,0,0" Text="Enter drone ID" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Center" Margin="0,90,0,0" Text="{Binding  Path=DroneModel}"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
         <TextBlock HorizontalAlignment="Left" Margin="240,90,0,0" Text="Enter drone model" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <ComboBox ItemsSource="{}" SelectedItem="{Binding }"
+        <!--<ComboBox ItemsSource="{}" SelectedItem="{Binding }"></ComboBox>-->
         <TextBox HorizontalAlignment="Center" Margin="0,130,0,0" Text="{Binding  Path=DroneId}" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
         <TextBlock HorizontalAlignment="Left" Margin="240,130,0,0" Text="choose weight category"  TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Center" Margin="0,170,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
