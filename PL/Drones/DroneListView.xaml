@@ -28,12 +28,13 @@
             <ListView.ItemTemplate >
                 <DataTemplate>
                     <Border BorderBrush="Red">
-                    <StackPanel>
+                        <StackPanel>
                             <TextBlock Text="{Binding }"></TextBlock>
                         </StackPanel>
                     </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Button Content="Add new drone" HorizontalAlignment="Left" Margin="138,69,0,0" Grid.Row="1" VerticalAlignment="Top" Height="90" Width="148" Click="Button_Click"/>
     </Grid>
 </Window>

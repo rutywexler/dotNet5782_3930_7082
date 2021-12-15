@@ -49,5 +49,10 @@ namespace PL.Drones
             WeightCategories weightCategories = (WeightCategories)WeightSelector.SelectedItem;
             DronesListView.DataContext = ibl.GetSomeDronesByWeight(weightCategories);
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new AddsNewDrone(ibl).Show();
+        }
     }
 }
