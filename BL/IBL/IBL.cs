@@ -1,4 +1,5 @@
-﻿using IBL.BO;
+﻿using BL.BO;
+using IBL.BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,5 @@ namespace IBL
 {
     public interface IBL : IblCustomer, IblDrone, IblStation, IblParcel
     {
-
-
     }
 }

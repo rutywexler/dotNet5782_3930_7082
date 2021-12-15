@@ -86,19 +86,23 @@ namespace DalObject
                 tempParcel.Weight = (WeightCategories)(rand.Next(3));
                 tempParcel.Priority = (Priorities)(rand.Next(3));
                 tempParcel.Requested = DateTime.Now;
-                foreach (Drone drone in Drones)
+                if(i<3)
                 {
-                    if (drone.MaxWeight >= tempParcel.Weight)
+                    foreach (Drone drone in Drones)
                     {
-                        tempParcel.DroneId = drone.Id;
-                        break;
+                        if (drone.MaxWeight >= tempParcel.Weight)
+                        {
+                            tempParcel.DroneId = drone.Id;
+                            break;
+                        }
                     }
                 }
-                if (tempParcel.DroneId == 0)
+                else
                 {
-                    Console.WriteLine("No drone found suitable for send the parcel");
-                    break;
+                    tempParcel.DroneId = 0;
                 }
+             
+               
                 tempParcel.Scheduled = DateTime.Now.AddDays(1);
                 tempParcel.PickedUp = DateTime.Now.AddDays(15);
                 tempParcel.Delivered = DateTime.Now.AddDays(16);

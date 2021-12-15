@@ -17,5 +17,7 @@ namespace IBL
         public void ReleaseDroneFromCharging(int id, float timeOfCharge);
         public Drone GetDrone(int id);
         public IEnumerable<DroneToList> GetDrones();
+        public IEnumerable<DroneToList> GetSomeDronesByStatus(DroneStatus droneStatus);
+        public IEnumerable<DroneToList> GetSomeDronesByWeight(WeightCategories WeightCategories);
     }
 }

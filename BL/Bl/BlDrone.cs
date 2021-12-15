@@ -268,10 +268,15 @@ namespace IBL
 
         }
 
-        
+        public IEnumerable<DroneToList> GetSomeDronesByStatus(DroneStatus droneStatus)
+        {
+            return ((List<DroneToList>)GetDrones()).FindAll(item => item.DroneStatus == droneStatus);
+        }
 
-
-
+        public IEnumerable<DroneToList> GetSomeDronesByWeight(WeightCategories weightCategories)
+        {
+            return ((List<DroneToList>)GetDrones()).FindAll(item => item.DroneWeight == weightCategories);
+        }
     }
 
 

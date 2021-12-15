@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IBL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,30 +35,19 @@ namespace PL.Drones
 
             DronesListView.DataContext = ibl.GetDrones();
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
-
-
+            WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
         }
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+           DroneStatus droneStatus = (DroneStatus)StatusSelector.SelectedItem;
+            DronesListView.DataContext= ibl.GetSomeDronesByStatus(droneStatus);
+        }
 
-            switch ((DroneStatus)StatusSelector.SelectedItem)
-            {
-                case DroneStatus.Available:
-                    {
-                        DronesListView.
-                        break;
-                    }
-                case DroneStatus.Delivery:
-                    {
-                        break;
-                    }
-                case DroneStatus.Meintenence:
-                    {
-                        break;
-                    }
-            }
-            
+        private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            WeightCategories weightCategories = (WeightCategories)WeightSelector.SelectedItem;
+            DronesListView.DataContext = ibl.GetSomeDronesByWeight(weightCategories);
         }
     }
 }
