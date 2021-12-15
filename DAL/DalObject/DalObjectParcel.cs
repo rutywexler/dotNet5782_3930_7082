@@ -123,6 +123,6 @@ namespace DalObject
             return DataSource.Parcels.Where(parcel => predicate(parcel));
         }
 
-
+        
     }
 }
