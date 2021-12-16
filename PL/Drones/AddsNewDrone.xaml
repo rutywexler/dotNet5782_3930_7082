@@ -9,25 +9,19 @@
     <Grid x:Name="NewDrone">
 
 
-        <TextBox HorizontalAlignment="Center" Margin="0,50,0,0" Text="{Binding  Path=DroneId}"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
-        <TextBlock HorizontalAlignment="Left" Margin="240,50,0,0" Text="Enter drone ID" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Center" Margin="0,90,0,0" Text="{Binding  Path=DroneModel}"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
-        <TextBlock HorizontalAlignment="Left" Margin="240,90,0,0" Text="Enter drone model" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <!--<ComboBox ItemsSource="{}" SelectedItem="{Binding }"></ComboBox>-->
-        <TextBox HorizontalAlignment="Center" Margin="0,130,0,0" Text="{Binding  Path=DroneId}" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
-        <TextBlock HorizontalAlignment="Left" Margin="240,130,0,0" Text="choose weight category"  TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Center" Margin="0,170,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
-        <TextBlock HorizontalAlignment="Left" Margin="240,170,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Center" Margin="0,210,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
-        <TextBlock HorizontalAlignment="Left" Margin="240,210,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Center" Margin="0,250,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
-        <TextBlock HorizontalAlignment="Left" Margin="240,250,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Center" Margin="0,290,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
-        <TextBlock HorizontalAlignment="Left" Margin="240,290,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Center" Margin="0,330,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
-        <TextBlock HorizontalAlignment="Left" Margin="240,330,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="ID_Drone" HorizontalAlignment="Center" Margin="0,50,0,0" Text="{Binding  Path=DroneId}"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewTextInput="NumberValidationTextBox" />
+        <TextBlock  HorizontalAlignment="Left" Margin="240,50,0,0" Text="Enter drone ID" TextWrapping="Wrap" VerticalAlignment="Top" />
+        <TextBox x:Name="Drone_model" HorizontalAlignment="Center" Margin="0,90,0,0" Text="{Binding  Path=DroneModel}"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
+        <TextBlock HorizontalAlignment="Left" Margin="200,90,0,0" Text="Enter drone model" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <ComboBox  HorizontalAlignment="Center" Name="WeightSelector"  Margin="0,130,0,0"  SelectedItem="{Binding Weight }"  VerticalAlignment="Top"></ComboBox>
+        <TextBlock HorizontalAlignment="Left" Margin="200,130,0,0" Text="choose weight category"  TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="ID_Station" HorizontalAlignment="Center" Margin="0,210,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewTextInput="NumberValidationTextBox"/>
+        <TextBlock HorizontalAlignment="Left" Margin="240,210,0,0" Text="Enter station ID:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+
         <Button Content="OK" Margin="0,350,0,0" Click="AddingDrone" Height="30"></Button>
-            <Grid></Grid>
+            <Grid>
+            <Button Content="cancel" HorizontalAlignment="Left" Margin="600,275,0,0" VerticalAlignment="Top" Click="cancelationAdd" Height="50" Width="100"/>
+        </Grid>
 
     </Grid>
 </Window>

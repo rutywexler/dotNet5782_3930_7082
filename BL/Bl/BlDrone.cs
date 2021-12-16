@@ -28,11 +28,11 @@ namespace IBL
         /// </summary>
         /// <param name="drone">the drone the user want to add</param>
         /// <param name="stationId">the statiion id in order to know the location to put the drone</param>
-        public void AddDrone(Drone drone,int stationId)
+        public void AddDrone(int id, IDAL.DO.WeightCategories MaxWeight, string Model,int stationId)
         {
             try
             {
-
+                Drone drone= new() { DroneId = id, Weight = (WeightCategories)MaxWeight, DroneModel = Model };
                 dal.AddDrone(drone.DroneId, drone.DroneModel, (IDAL.DO.WeightCategories)drone.Weight);
                 IDAL.DO.Station station = dal.GetStation(stationId);
                 DroneToList droneToList = new()
