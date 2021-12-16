@@ -20,6 +20,7 @@ namespace PL.Drones
     /// </summary>
     public partial class ViewDrone : Window
     {
+        IBL.IBL MyIbl;
         public ViewDrone()
         {
             InitializeComponent();
@@ -28,10 +29,26 @@ namespace PL.Drones
         public ViewDrone(IBL.IBL ibl, DroneToList selectedDrone) 
             : this()
         {
+            MyIbl = ibl;
             SelectedDrone = selectedDrone;
             this.DataContext = selectedDrone;
         }
 
         public DroneToList SelectedDrone { get; }
+
+        private void SendingTheDroneForCharging(object sender, RoutedEventArgs e)
+        {
+            MyIbl.SendDroneForCharge(SelectedDrone.DroneId);
+        }
+
+        private void SendingTheDroneForDelivery(object sender, RoutedEventArgs e)
+        {
+            MyIbl.DeliveryParcelByDrone(SelectedDrone.DroneId);
+        }
+
+        private void ReleaseDroneFromCharging(object sender, RoutedEventArgs e)
+        {
+            //MyIbl.ReleaseDroneFromCharging(SelectedDrone.DroneId)
+        }
     }
 }

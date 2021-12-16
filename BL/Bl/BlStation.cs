@@ -49,7 +49,7 @@ namespace IBL
                     Name = baseStation.Name,
                     Location = new Location() { Lattitude = baseStation.Lattitude, Longitude = baseStation.Longitude },
                     NumberOfChargingStations = baseStation.ChargeSlots - chargeSlots.Count,
-                    DronesInCharge = ConvertDroneToDroneToList(id),
+                    DronesInCharge = ConvertDroneToDroneToDroneInCharging(id),
                 };
             }
             catch (KeyNotFoundException ex)

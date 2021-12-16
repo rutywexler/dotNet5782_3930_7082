@@ -78,9 +78,9 @@ namespace ConsoleUI_BL
                     }
                 case Update.RealsDroneFromChargh:
                     {
-                        Console.WriteLine("Enter drone ID and time of charge in minute");
-                        if (int.TryParse(Console.ReadLine(), out id) && float.TryParse(Console.ReadLine(), out float timeOfCharge))
-                            bl.ReleaseDroneFromCharging(id, timeOfCharge);
+                        Console.WriteLine("Enter drone ID");
+                        if (int.TryParse(Console.ReadLine(), out id) )
+                            bl.ReleaseDroneFromCharging(id);
                         break;
                     }
                 case Update.AssingParcelToDrone:

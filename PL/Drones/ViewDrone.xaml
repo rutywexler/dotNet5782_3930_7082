@@ -6,39 +6,78 @@
         xmlns:local="clr-namespace:PL.Drones"
         mc:Ignorable="d"
         Title="ViewDrone" Height="450" Width="800">
+    <Window.Resources>
+        <local:AvailableDroneToVisibilityConverter x:Key="AvailableDroneToVisibilityConverter"/>
+        <local:MeintenceDroneToVisibilityConverter x:Key="MeintenceDroneToVisibilityConverter"/>
+        <local:DeliveryDroneToVisibilityConverter x:Key="DeliveryDroneToVisibilityConverter" />
+    </Window.Resources>
+
     <Grid x:Name="DroneView">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="5"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="Id"/>
-        <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Path=DroneId}"/>
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="ModelDrone"/>
-        <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Path=ModelDrone}"/>
-        <TextBlock Grid.Row="2" Grid.Column="0" Text="DroneWeight"/>
-        <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Path=DroneWeight}"/>
-        <TextBlock Grid.Row="3" Grid.Column="0" Text="BatteryDrone"/>
-        <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding Path=BatteryDrone}"/>
-        <TextBlock Grid.Row="4" Grid.Column="0" Text="DroneStatus"/>
-        <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding Path=DroneStatus}"/>
-        <TextBlock Grid.Row="5" Grid.Column="0" Text="Location"/>
-        <TextBlock Grid.Row="5" Grid.Column="2" Text="{Binding Path=Location}"/>
-        <TextBlock Grid.Row="6" Grid.Column="0" Text="ParcelId"/>
-        <TextBlock Grid.Row="6" Grid.Column="2" Text="{Binding Path=ParcelId}"/>
-        <Button Content="close Window" Grid.Column="2" HorizontalAlignment="Left" Margin="626,294,0,0" Grid.Row="6" VerticalAlignment="Top"/>
-        <Button Content="update" Grid.Column="2" HorizontalAlignment="Left" Margin="569,294,0,0" Grid.Row="6" VerticalAlignment="Top"/>
-
-
-
+        <StackPanel Grid.Row="0" Margin="188,0,411,60" Grid.RowSpan="2">
+            <DockPanel>
+                <TextBlock  Text="Id"/>
+                <TextBlock  Text="{Binding Path=DroneId}" TextAlignment="Right"/>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock  Text="ModelDrone"/>
+                <TextBox  Text="{Binding Path=ModelDrone}" TextAlignment="Right"/>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock  Text="DroneWeight"/>
+                <TextBlock  Text="{Binding Path=DroneWeight}" TextAlignment="Right"/>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock  Text="BatteryDrone"/>
+                <TextBlock  Text="{Binding Path=BatteryDrone}" TextAlignment="Right"/>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock  Text="DroneStatus"/>
+                <TextBlock  Text="{Binding Path=DroneStatus}" TextAlignment="Right"/>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock  Text="Location"/>
+                <TextBlock  Text="{Binding Path=Location}" TextAlignment="Right"/>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock  Text="ParcelId"/>
+                <TextBlock  Text="{Binding Path=ParcelId}" TextAlignment="Right"/>
+            </DockPanel>
+        </StackPanel>
+        
+        <!--available-->
+        <StackPanel Grid.Row="1" Visibility="{Binding DroneStatus, Converter={StaticResource AvailableDroneToVisibilityConverter }}"  >
+            <Button Content="Sending the drone for charging"  HorizontalAlignment="Left"   VerticalAlignment="Top" Click="SendingTheDroneForCharging"/>
+            <Button Content="Sending the drone for delivery"  HorizontalAlignment="Left"   VerticalAlignment="Top" Click="SendingTheDroneForDelivery"/>
+        </StackPanel>
+        
+        <!--meintence-->
+        <StackPanel Grid.Row="1" Visibility="{Binding DroneStatus, Converter={StaticResource MeintenceDroneToVisibilityConverter }}"  >
+            <Button Content="Release drone from charging"  HorizontalAlignment="Left"   VerticalAlignment="Top" Click="ReleaseDroneFromCharging"/>
+        </StackPanel>
+        
+       <!--delivery-->
+        <StackPanel Grid.Row="1"  Visibility="{Binding DroneStatus, Converter={StaticResource DeliveryDroneToVisibilityConverter }}"  >
+            <!--drone in delivery with a package that has not yet been collected-->
+            <Button Content="parcel collection"  HorizontalAlignment="Left"   VerticalAlignment="Top"/>
+            <!--drone in the delivery that has already collected the package-->
+            <Button Content="parcel delivery"  HorizontalAlignment="Left"   VerticalAlignment="Top"/>
+        </StackPanel>
+    
+        
+        <StackPanel Grid.Row="2" >
+            <Button Content="close Window" HorizontalAlignment="Left"   VerticalAlignment="Top" />
+            <Button Content="update" HorizontalAlignment="Left"   VerticalAlignment="Top"/>
+        </StackPanel>
     </Grid>
+
+
+
+
+
+
 </Window>

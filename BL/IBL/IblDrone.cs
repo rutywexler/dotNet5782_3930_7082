@@ -14,7 +14,7 @@ namespace IBL
         public void AddDrone(Drone drone ,int stationId);
         public void UpdateDrone(int id, string name);
         public void SendDroneForCharge(int id);
-        public void ReleaseDroneFromCharging(int id, float timeOfCharge);
+        public void ReleaseDroneFromCharging(int id);
         public Drone GetDrone(int id);
         public IEnumerable<DroneToList> GetDrones();
         public IEnumerable<DroneToList> GetSomeDronesByStatus(DroneStatus droneStatus);

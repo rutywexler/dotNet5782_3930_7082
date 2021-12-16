@@ -77,6 +77,7 @@ namespace DalObject
         public void ReleaseDroneFromRecharge(int droneId)
         {
             var droneCharge = DataSource.DroneCharges.First(charge => charge.DroneId == droneId);
+
             DataSource.DroneCharges.Remove(droneCharge);
         }
 

@@ -101,16 +101,18 @@ namespace IBL
         /// </summary>
         /// <param name="id">the id of the drone the user wants to release</param>
         /// <param name="timeOfCharge">how many time takes the charging</param>
-        public void ReleaseDroneFromCharging(int id, float timeOfCharge)
+        public void ReleaseDroneFromCharging(int id)
         {
             DroneToList drone = drones.FirstOrDefault(item => item.DroneId == id);
             if (drone == default)
                 throw new ArgumentNullException("In the charching not exist drone with this ID:(");
             if (drone.DroneStatus != DroneStatus.Meintenence)
                 throw new InvalidEnumArgumentException("becouse that the drone status is not maintence, its not possible to release the srone from charging ");
+            TimeSpan timeOfCharge = (TimeSpan)(DateTime.Now - drone.EnterCharge);
 
-            drone.BatteryDrone += DroneLoadingRate * timeOfCharge;
+            drone.BatteryDrone += DroneLoadingRate * timeOfCharge.Hours;
             drone.DroneStatus = DroneStatus.Available;
+
 
             dal.ReleaseDroneFromRecharge(drone.DroneId);
         }
@@ -132,7 +134,8 @@ namespace IBL
             station.ChargeSlots -= 1;
             droneToList.BatteryDrone -= minDistanc * Available;
             droneToList.Location = new Location() { Longitude = station.Longitude, Lattitude = station.Lattitude }; ;
-            dal.AddDRoneCharge(id, station.Id);
+            droneToList.EnterCharge = DateTime.Now;
+            dal.AddDRoneCharge(id, station.Id,DateTime.Now);
             drones.Add(droneToList);
         }
 /// <summary>
@@ -226,7 +229,7 @@ namespace IBL
         /// <param name="droneId"> the id of the drone that needs to change to drone to list</param>
         /// <returns></returns>
 
-        private List<DroneInCharging> ConvertDroneToDroneToList(int droneId)
+        private List<DroneInCharging> ConvertDroneToDroneToDroneInCharging(int droneId)
         {
             List<int> listDronechargingInStation = dal.GetDronechargingInStation(droneId);
             if (listDronechargingInStation.Count == 0)
@@ -238,7 +241,7 @@ namespace IBL
                 droneToList = drones.FirstOrDefault(item => (item.DroneId == idDrone));
                 if (droneToList != default)
                 {
-                    droneInChargings.Add(new DroneInCharging() { ID = idDrone, BatteryStatus = droneToList.BatteryDrone });
+                    droneInChargings.Add(new DroneInCharging() { ID = idDrone, BatteryStatus = droneToList.BatteryDrone});
                 }
             }
             return droneInChargings;
