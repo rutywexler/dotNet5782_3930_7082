@@ -19,8 +19,8 @@ namespace IBL
             public WeightCategories WeightParcel { get; set; }
             public Priorities Priority { get; set; }
             public DroneInPackage DroneParcel { get; set; }
-            public DateTime TimeCreatedTheParcel { get; set; }
-            public DateTime AssignmentTime { get; set; }
+            public DateTime ? TimeCreatedTheParcel { get; set; }
+            public DateTime ? AssignmentTime { get; set; }
             public DateTime? CollectionTime { get; set; }
             public DateTime? DeliveryTime { get; set; }
             public override string ToString() => this.ToStringProps();

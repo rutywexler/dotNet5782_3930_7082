@@ -44,25 +44,27 @@ namespace PL.Drones
             {
                 var a = int.Parse(ID_Station.Text);
                 BaseStation baseStation = bl.GetStation(a);
+                try
+                {
+                    bl.AddDrone(int.Parse(ID_Drone.Text), (IDAL.DO.WeightCategories)(WeightCategories)WeightSelector.SelectedItem, Drone_model.Text, int.Parse(ID_Station.Text));
+
+                    if (MessageBox.Show("the drone succeeded to add ", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
+                    {
+                        this.Close();
+                    }
+
+                }
+                catch
+                {
+                    MessageBox.Show("Didnt succeed to add the drone. enter the details again");
+                }
+
             }
             catch
             {
                 MessageBox.Show("Doesnt succeed to find the station enter id again");
             }
-            try
-            {
-                bl.AddDrone(int.Parse(ID_Drone.Text), (IDAL.DO.WeightCategories)(WeightCategories)WeightSelector.SelectedItem, Drone_model.Text, int.Parse(ID_Station.Text));
-                if(MessageBox.Show("the drone succeeded to add ", "success", MessageBoxButton.OK)==MessageBoxResult.OK)
-                {
-                    this.Close();
-                }
-                
-            }
-            catch
-            {
-                MessageBox.Show("Didnt succeed to add the drone. enter the detaiks again");
-            }
-
+          
 
         }
 private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
