@@ -38,5 +38,6 @@
             </ListView.ItemTemplate>
         </ListView>
         <Button Content="Add new drone" HorizontalAlignment="Left" Margin="622,268,0,0" Grid.Row="1" VerticalAlignment="Top" Height="90" Width="148" Click="Button_Click"/>
+        <Button Content="Cancel filtering" HorizontalAlignment="Left" Margin="650,42,0,0" Grid.Row="1" VerticalAlignment="Top" Height="60" Width="110" Click="Cancel_filtering"/>
     </Grid>
 </Window>
