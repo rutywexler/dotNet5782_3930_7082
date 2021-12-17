@@ -25,7 +25,7 @@
             </DockPanel>
             <DockPanel>
                 <TextBlock  Text="ModelDrone"/>
-                <TextBox  Text="{Binding Path=ModelDrone}" TextAlignment="Right"/>
+                <TextBox x:Name="UpdateModelContext"  Text="{Binding Path=ModelDrone}" TextAlignment="Right"/>
             </DockPanel>
             <DockPanel>
                 <TextBlock  Text="DroneWeight"/>
@@ -70,8 +70,8 @@
     
         
         <StackPanel Grid.Row="2" >
-            <Button Content="close Window" HorizontalAlignment="Left"   VerticalAlignment="Top" />
-            <Button Content="update" HorizontalAlignment="Left"   VerticalAlignment="Top"/>
+            <Button Content="close Window" HorizontalAlignment="Left"   VerticalAlignment="Top" Click="CloseWindow" />
+            <Button Content="update" HorizontalAlignment="Left"   VerticalAlignment="Top" Click="UpdateModel"/>
         </StackPanel>
     </Grid>
 

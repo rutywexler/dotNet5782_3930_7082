@@ -48,7 +48,19 @@ namespace PL.Drones
 
         private void ReleaseDroneFromCharging(object sender, RoutedEventArgs e)
         {
-            //MyIbl.ReleaseDroneFromCharging(SelectedDrone.DroneId)
+            MyIbl.ReleaseDroneFromCharging(SelectedDrone.DroneId);
+        }
+
+
+        private void UpdateModel(object sender, RoutedEventArgs e)
+        {
+            SelectedDrone.ModelDrone = UpdateModelContext.Text;
+
+        }
+
+        private void CloseWindow(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
