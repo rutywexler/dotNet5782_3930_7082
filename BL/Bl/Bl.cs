@@ -63,7 +63,7 @@ namespace IBL
                 Location senderLocation = null;
 
                 //status
-                if (parcel.Equals(default))
+                if (parcel.Equals(default(IDAL.DO.Parcel)))
                 {
                     status = (DroneStatus)rand.Next(0, 2);
                 }
@@ -106,7 +106,7 @@ namespace IBL
                 //battery
                 battery = status switch
                 {
-                    DroneStatus.Available => rand.Next((int)((int)Distance(location, FindClosest(location, availableStationsLocations)) * Available), 100),
+                    DroneStatus.Available => rand.Next(/*(int)((int)Distance(location, FindClosest(location, availableStationsLocations))*/(int)(20 * Available), 100),
                     DroneStatus.Meintenence => rand.NextDouble() * 20,
                     DroneStatus.Delivery => rand.Next(Math.Min(
                                               (int)(

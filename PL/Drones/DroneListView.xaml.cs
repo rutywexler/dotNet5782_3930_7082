@@ -1,6 +1,7 @@
 ﻿using IBL;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,37 +23,62 @@ namespace PL.Drones
     public partial class DroneListView : Window
     {
         private IBL.IBL ibl;
-        
+        ListCollectionView droneCollectionView;
+
         public DroneListView()
         {
             InitializeComponent();
-            
+
         }
 
-        public DroneListView(IBL.IBL bl): this()
+        public DroneListView(IBL.IBL bl) : this()
         {
             ibl = bl;
+            var droneToLists = new ObservableCollection<IBL.BO.DroneToList>(ibl.GetDrones());
+            droneCollectionView = new ListCollectionView(droneToLists);
+            droneCollectionView.Filter = FilterDrone;
 
-            DronesListView.DataContext = ibl.GetDrones();
+            DronesListView.DataContext = droneCollectionView;
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
         }
 
+        private bool FilterDrone(object obj)
+        {
+            if (obj is IBL.BO.DroneToList drone)
+            {
+                //var selectedDroneStatus = (DroneStatus)StatusSelector.SelectedItem;
+                //var selectedWeightCategories = (WeightCategories)WeightSelector.SelectedItem;
+             
+                return (WeightSelector.SelectedItem == null ||drone.DroneWeight == (WeightCategories)WeightSelector.SelectedItem)
+                    &&(StatusSelector.SelectedItem == null||drone.DroneStatus== (DroneStatus)StatusSelector.SelectedItem );
+            }
+            else
+                return false;
+        }
+
+        private void RefreshDroneList()
+        {
+            DronesListView.DataContext = ibl.GetDrones();
+        }
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           DroneStatus droneStatus = (DroneStatus)StatusSelector.SelectedItem;
-            DronesListView.DataContext= ibl.GetSomeDronesByStatus(droneStatus);
+
+            droneCollectionView.Filter = FilterDrone;
+            //DroneStatus droneStatus = (DroneStatus)StatusSelector.SelectedItem;
+            //DronesListView.DataContext = ibl.GetSomeDronesByStatus(droneStatus);
         }
 
         private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            WeightCategories weightCategories = (WeightCategories)WeightSelector.SelectedItem;
-            DronesListView.DataContext = ibl.GetSomeDronesByWeight(weightCategories);
+            droneCollectionView.Filter = FilterDrone;
+            //WeightCategories weightCategories = (WeightCategories)WeightSelector.SelectedItem;
+            //DronesListView.DataContext = ibl.GetSomeDronesByWeight(weightCategories);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            new AddsNewDrone(ibl).Show();
+            new AddsNewDrone(ibl, RefreshDroneList).Show();
         }
 
         private void ViewDrone(object sender, MouseButtonEventArgs e)

@@ -94,7 +94,7 @@ namespace IBL
         /// the function returns the drone list from the data
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<DroneToList> GetDrones() => drones;
+        public IEnumerable<DroneToList> GetDrones() => drones.ToList();
 
         /// <summary>
         /// the function release the drone from charging

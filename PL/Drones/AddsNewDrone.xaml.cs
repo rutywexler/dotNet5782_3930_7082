@@ -24,6 +24,7 @@ namespace PL.Drones
 
     {
         private IBL.IBL bl;
+        Action refreshDroneList;
 
         public AddsNewDrone()
         {
@@ -31,9 +32,10 @@ namespace PL.Drones
             NewDrone.DataContext = new Drone();
         }
 
-        public AddsNewDrone(IBL.IBL ibl) :this()
+        public AddsNewDrone(IBL.IBL ibl, Action refreshDroneList) :this()
         {
             bl = ibl;
+            this.refreshDroneList = refreshDroneList;
             NewDrone.DataContext = ibl.GetDrones();
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
         }
@@ -42,8 +44,8 @@ namespace PL.Drones
         {
             try
             {
-                var a = int.Parse(ID_Station.Text);
-                BaseStation baseStation = bl.GetStation(a);
+                
+                BaseStation baseStation = bl.GetStation(int.Parse(ID_Station.Text));
                 try
                 {
                     bl.AddDrone(int.Parse(ID_Drone.Text), (IDAL.DO.WeightCategories)(WeightCategories)WeightSelector.SelectedItem, Drone_model.Text, int.Parse(ID_Station.Text));
@@ -52,6 +54,7 @@ namespace PL.Drones
                     {
                         this.Close();
                     }
+                    
 
                 }
                 catch
