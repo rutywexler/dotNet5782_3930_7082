@@ -30,7 +30,7 @@ namespace DalObject
                 }
                 if (sum_chargeSlots < item.ChargeSlots)
                 {
-                    DroneCharges.Add(new DroneCharge(id, item.Id,DateTime.Now));
+                    DroneCharges.Add(new DroneCharge(id, item.Id));
                     DroneCharges.Sort();
                     return true;
                 }
@@ -80,9 +80,9 @@ namespace DalObject
         /// </summary>
         /// <param name="droneId">The drone to add</param>
         /// <param name="stationId">The station to add the drone</param>
-        public void AddDRoneCharge(int droneId, int stationId,DateTime timeEnterToCharge)
+        public void AddDRoneCharge(int droneId, int stationId)
         {
-            DroneCharges.Add(new DroneCharge() { DroneId = droneId, StationId = stationId,DroneEntryTimeForCharging= timeEnterToCharge });
+            DroneCharges.Add(new DroneCharge() { DroneId = droneId, StationId = stationId});
         }
 
     }

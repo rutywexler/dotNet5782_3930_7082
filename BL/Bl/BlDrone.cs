@@ -135,7 +135,7 @@ namespace IBL
             droneToList.BatteryDrone -= minDistanc * Available;
             droneToList.Location = new Location() { Longitude = station.Longitude, Lattitude = station.Lattitude }; ;
             droneToList.EnterCharge = DateTime.Now;
-            dal.AddDRoneCharge(id, station.Id,DateTime.Now);
+            dal.AddDRoneCharge(id, station.Id);
             drones.Add(droneToList);
         }
 /// <summary>

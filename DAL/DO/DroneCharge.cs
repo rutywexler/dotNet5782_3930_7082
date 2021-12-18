@@ -12,18 +12,18 @@ namespace IDAL
         {
             public int DroneId { get; set; }
             public int StationId { get; set; }
-            public DateTime DroneEntryTimeForCharging { get; set; }
+           
 
             /// <summary>
             /// DroneCharge constructor
             /// </summary>
             /// <param name="droneId">the first int value</param>
             /// <param name="stationId">the second int value</param>
-            public DroneCharge(int droneId, int stationId, DateTime droneEntryTimeForCharging)
+            public DroneCharge(int droneId, int stationId)
             {
                 DroneId = droneId;
                 StationId = stationId;
-                DroneEntryTimeForCharging = droneEntryTimeForCharging;
+               
             }
         }
     }

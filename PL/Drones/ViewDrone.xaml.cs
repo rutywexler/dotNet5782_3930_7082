@@ -54,7 +54,16 @@ namespace PL.Drones
 
         private void UpdateModel(object sender, RoutedEventArgs e)
         {
-            SelectedDrone.ModelDrone = UpdateModelContext.Text;
+            try
+            {
+                SelectedDrone.ModelDrone = UpdateModelContext.Text;
+                MessageBox.Show("the drone succeeded to update ", "success", MessageBoxButton.OK);
+            }
+            catch
+            {
+                MessageBox.Show("Failed to update the drone");
+            }
+           
 
         }
 
