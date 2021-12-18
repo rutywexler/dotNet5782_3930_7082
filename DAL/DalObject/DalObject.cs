@@ -1,4 +1,4 @@
-﻿using IDAL.DO;
+﻿using DalApi.DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using static DalObject.DataSource.Config;
 
 namespace DalObject
 {
-    public partial class DalObject:IDAL.IDal
+    public partial class DalObject:DalApi.Idal
     {
         /// <summary>
         /// DalObject constructor  call to intilialize

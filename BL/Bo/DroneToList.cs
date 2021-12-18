@@ -19,7 +19,6 @@ namespace IBL
             public double BatteryDrone { get; set; }
             public DroneStatus DroneStatus { get; set; }
             public Location Location { get; set; }
-            public DateTime? EnterCharge { get; set; }
             public int ? ParcelId { get; set; }
             public override string ToString() => this.ToStringProps();
 

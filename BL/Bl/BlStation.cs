@@ -2,7 +2,7 @@
 using BL.BO;
 using IBL;
 using IBL.BO;
-using IDAL;
+using DalApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +18,7 @@ namespace IBL
             try {
                 dal.AddStation(baseStation.Id, baseStation.Name, baseStation.Location.Longitude, baseStation.Location.Longitude, baseStation.NumberOfChargingStations); 
               }
-            catch (IDAL.DO.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            catch (DalApi.DO.Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
             }
@@ -27,7 +27,7 @@ namespace IBL
 
         public IEnumerable<BaseStationToList> GetStaionsWithEmptyChargeSlots()
         {
-            IEnumerable<IDAL.DO.Station> AvailableChargingStationsFromDal = dal.GetAvailableChargingStations();
+            IEnumerable<DalApi.DO.Station> AvailableChargingStationsFromDal = dal.GetAvailableChargingStations();
             List<BaseStationToList> stations = new();
             foreach (var Station in AvailableChargingStationsFromDal)
             {
@@ -65,7 +65,7 @@ namespace IBL
         /// <returns>A list of statin to print</returns>
         public IEnumerable<BaseStationToList> GetStations()
         {
-            IEnumerable<IDAL.DO.Station> list = dal.GetStations();
+            IEnumerable<DalApi.DO.Station> list = dal.GetStations();
             List<BaseStationToList> stations = new();
             foreach (var item in list)
             {
@@ -95,7 +95,7 @@ namespace IBL
             {
                 throw new KeyNotFoundException(ex.Message);
             }
-            catch (IDAL.DO.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            catch (DalApi.DO.Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
             }
@@ -108,7 +108,7 @@ namespace IBL
         /// </summary>
         /// <param name="station">The sation to convert</param>
         /// <returns>The converted station</returns>
-        private BaseStationToList ConvertStationToStationForList(IDAL.DO.Station station)
+        private BaseStationToList ConvertStationToStationForList(DalApi.DO.Station station)
         {
             return new BaseStationToList()
             {

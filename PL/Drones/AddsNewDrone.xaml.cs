@@ -24,7 +24,7 @@ namespace PL.Drones
 
     {
         private IBL.IBL bl;
-        Action refreshDroneList;
+         Action refreshDroneList;
 
         public AddsNewDrone()
         {
@@ -48,8 +48,8 @@ namespace PL.Drones
                 BaseStation baseStation = bl.GetStation(int.Parse(ID_Station.Text));
                 try
                 {
-                    bl.AddDrone(int.Parse(ID_Drone.Text), (IDAL.DO.WeightCategories)(WeightCategories)WeightSelector.SelectedItem, Drone_model.Text, int.Parse(ID_Station.Text));
-
+                    bl.AddDrone(int.Parse(ID_Drone.Text), (DalApi.DO.WeightCategories)(WeightCategories)WeightSelector.SelectedItem, Drone_model.Text, int.Parse(ID_Station.Text));
+                    refreshDroneList();
                     if (MessageBox.Show("the drone succeeded to add ", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                     {
                         this.Close();

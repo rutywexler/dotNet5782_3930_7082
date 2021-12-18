@@ -77,7 +77,7 @@ namespace ConsoleUI_BL
                             }
                             string Model = Console.ReadLine();
                             
-                            bl.AddDrone(id, (IDAL.DO.WeightCategories)MaxWeight, Model, stationId);
+                            bl.AddDrone(id, (DalApi.DO.WeightCategories)MaxWeight, Model, stationId);
                         }
                         else
                             Console.WriteLine("There were errors in the data entry and the addition was not made");

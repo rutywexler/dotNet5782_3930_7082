@@ -32,11 +32,11 @@ namespace IBL
                 dal.AddParcel(
                     parcel.CustomerSendsFrom.Id,
                     parcel.CustomerReceivesTo.Id,
-                   (IDAL.DO.WeightCategories)parcel.WeightParcel,
-                  (IDAL.DO.Priorities)parcel.Priority
+                   (DalApi.DO.WeightCategories)parcel.WeightParcel,
+                  (DalApi.DO.Priorities)parcel.Priority
                 );
             }
-            catch (IDAL.DO.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            catch (DalApi.DO.Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
 
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
@@ -88,23 +88,38 @@ namespace IBL
             }
 
             // var parcels = (dal.GetUnAssignmentParcels() as List<IDAL.DO.Parcel>)
-            var parcels = (dal.GetParcels(parcel => parcel.DroneId == 0) as List<IDAL.DO.Parcel>)
-               .FindAll(parcel =>
-                               IsDroneCanTakeTheParcel(drone, GetParcelInTransfer(parcel.Id)) &&
-                               (int)parcel.Weight < (int)drone.Weight)
-                          .OrderBy(parcel => parcel.Priority)
-                          .ThenBy(parcel => parcel.Priority)
-                          .ThenBy(parcel => parcel.Weight)
-                          .ThenBy(parcel => Distance(GetCustomer(parcel.SenderId).Location, drone.DroneLocation))
-                          .ThenBy(parcel => Distance(GetCustomer(parcel.SenderId).Location, drone.DroneLocation))
-                          .ToList();
+            //var parcels = (dal.GetParcels(parcel => parcel.DroneId==0) as List<IDAL.DO.Parcel>)
+            //   .FindAll(parcel =>
+            //                   IsDroneCanTakeTheParcel(drone, GetParcelInTransfer(parcel.Id)) &&
+            //                   (int)parcel.Weight < (int)drone.Weight)
+            //              .OrderBy(parcel => parcel.Priority)
+            //              .ThenBy(parcel => parcel.Priority)
+            //              .ThenBy(parcel => parcel.Weight)
+            //              .ThenBy(parcel => Distance(GetCustomer(parcel.SenderId).Location, drone.DroneLocation))
+            //              .ThenBy(parcel => Distance(GetCustomer(parcel.SenderId).Location, drone.DroneLocation))
+            //              .ToList();
 
-            if (parcels.Count == 0)
-            {
-                throw new InvalidEnumArgumentException();
-            }
+            var parcels = GetParcelsNotAssignedToDrone()
+                 .Select(parcel => GetParcel(parcel.Id)).ToList()
+                 .Where(parcel =>
+                      (int)parcel.WeightParcel < (int)drone.Weight &&
+                      IsDroneCanTakeTheParcel(drone, GetParcelInTransfer(parcel.Id)))
+                 .OrderBy(p => p.Priority)
+                 .ThenBy(p => p.WeightParcel)
+                 .ThenBy(p => Distance(GetCustomer(p.CustomerSendsFrom.Id).Location, drone.DroneLocation));
 
-            dal.AssignParcelToDrone(parcels.First().Id, droneId);
+            //if (parcels.Count == 0)
+            //{
+            //    throw new InvalidEnumArgumentException();
+            //}
+
+            //if (!parcels.Any())
+            //{
+            //    throw new InValidActionException("Couldn't assign any parcel to the drone.");
+            //}
+
+            //Parcel parcel = parcels.First();
+            dal.AssignParcelToDrone(4, droneId);
 
             drone.DroneStatus = DroneStatus.Delivery;
         }
@@ -117,9 +132,9 @@ namespace IBL
         {
             DroneToList droneToList = drones.Find(drone => drone.DroneId == droneId);
             
-            IDAL.DO.Parcel parcel = dal.GetParcel((int)droneToList.ParcelId);
+            DalApi.DO.Parcel parcel = dal.GetParcel((int)droneToList.DroneId);
             drones.Remove(droneToList);
-            IDAL.DO.Customer customer = dal.GetCustomer(parcel.TargetId);
+            DalApi.DO.Customer customer = dal.GetCustomer(parcel.TargetId);
             Location receiverLocation = new() { Longitude = customer.Longitude, Lattitude = customer.Lattitude };
             droneToList.BatteryDrone -= Distance(droneToList.Location, receiverLocation) * dal.GetPowerConsumptionByDrone()[1 + (int)parcel.Weight];
             droneToList.Location = receiverLocation;
@@ -134,7 +149,7 @@ namespace IBL
         /// <param name="parcelId">the parcel id</param>
         private void ParcelDeliveredDrone(int parcelId)
         {
-            IDAL.DO.Parcel parcel = dal.GetParcel(parcelId);
+            DalApi.DO.Parcel parcel = dal.GetParcel(parcelId);
             dal.RemoveParcel(parcel);
             parcel.Delivered = DateTime.Now;
             dal.AddParcel(parcel.SenderId, parcel.TargetId, parcel.Weight, parcel.Priority, parcel.Id);
@@ -188,7 +203,7 @@ namespace IBL
         }
 
 
-        private CustomerInParcel CustomerToCustomerInParcel(IDAL.DO.Customer customer)
+        private CustomerInParcel CustomerToCustomerInParcel(DalApi.DO.Customer customer)
         {
             return new CustomerInParcel()
             {
@@ -206,6 +221,7 @@ namespace IBL
         {
             return dal.GetParcels(parcel => parcel.DroneId == 0)
                 .Select(parcel => ParcelToParcelForList(parcel.Id));
+
             //return dal.GetUnAssignmentParcels().Select(parcel => ParcelToParcelForList(parcel.Id));
         }
 
@@ -217,13 +233,13 @@ namespace IBL
             if (droneToList.ParcelId == null)
                 throw new ArgumentNullException("No parcel has been associated yet");
             drones.Remove(droneToList);
-            IDAL.DO.Parcel parcel = default;
+            DalApi.DO.Parcel parcel = default;
             try
             {
                 parcel = dal.GetParcel((int)droneToList.ParcelId);
-                if (parcel.PickedUp != default)
-                    throw new ArgumentNullException("The package has already been collected");
-                IDAL.DO.Customer customer = dal.GetCustomer(parcel.SenderId);
+                //if (parcel.PickedUp != default)
+                //    throw new ArgumentNullException("The package has already been collected");
+                DalApi.DO.Customer customer = dal.GetCustomer(parcel.SenderId);
                 Location senderLocation = new() { Longitude = customer.Longitude, Lattitude = customer.Lattitude };
                 droneToList.BatteryDrone -= Distance(droneToList.Location, senderLocation) * Available;
                 droneToList.Location = senderLocation;

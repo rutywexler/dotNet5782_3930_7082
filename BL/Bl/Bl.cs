@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BL.BO;
-using IDAL;
+using DalApi;
 using IBL;
 using static BL.BO.Enums;
 using IBL.BO;
@@ -19,7 +19,7 @@ namespace IBL
         public const int MININITBATTARY = 0;
         public const int FULLBATTRY = 100;
         private static readonly Random rand = new();
-        private readonly IDal dal;
+        private readonly DalApi.Idal dal;
         private readonly List<DroneToList> drones;
         public double Available { get; set; }
         public double LightWeightCarrier { get; set; }
@@ -63,7 +63,7 @@ namespace IBL
                 Location senderLocation = null;
 
                 //status
-                if (parcel.Equals(default(IDAL.DO.Parcel)))
+                if (parcel.Equals(default(DalApi.DO.Parcel)))
                 {
                     status = (DroneStatus)rand.Next(0, 2);
                 }

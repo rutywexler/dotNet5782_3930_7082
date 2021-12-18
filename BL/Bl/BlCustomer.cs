@@ -1,7 +1,7 @@
 ﻿using BL.BO;
 using IBL;
 using IBL.BO;
-using IDAL;
+using DalApi;
 using DalObject;
 using System;
 using System.Collections.Generic;
@@ -29,7 +29,7 @@ namespace IBL
             {
                 dal.AddCustomer(id, phoneNumber, name, location.Longitude, location.Lattitude);
             }
-            catch (IDAL.DO.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            catch (DalApi.DO.Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
 
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
@@ -76,7 +76,7 @@ namespace IBL
             return dal.GetCustomers().Select(customer => CustomerToList(customer));
         }
 
-        private CustomerForList CustomerToList(IDAL.DO.Customer customer)
+        private CustomerForList CustomerToList(DalApi.DO.Customer customer)
         {
             var parcels = dal.GetParcels();
             return new CustomerForList()
@@ -102,7 +102,7 @@ namespace IBL
             if (name.Equals(string.Empty) && PhoneNumber.Equals(string.Empty))
                 throw new ArgumentNullException("There is not field to update");
 
-            IDAL.DO.Customer customer = dal.GetCustomer(id);
+            DalApi.DO.Customer customer = dal.GetCustomer(id);
             try
             {
                 dal.RemoveCustomer(customer);
@@ -112,7 +112,7 @@ namespace IBL
                     PhoneNumber = customer.Phone;
                 dal.AddCustomer(id, PhoneNumber, name, customer.Longitude, customer.Lattitude);
             }
-            catch (IDAL.DO.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            catch (DalApi.DO.Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
             }

@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using DalObject;
 using static DalObject.DataSource.Config;
-using IDAL.DO;
+using DalApi.DO;
 
-namespace IDAL
+namespace DalApi
 {
-    public interface IDal
+    public interface Idal
     {
         public void AddCustomer(int id, string phone, string name, double longitude, double latitude);
         public void AddParcel(int SenderId, int TargetId, WeightCategories Weigth, Priorities Priority, int id = 0, int droneId = 0, DateTime requested = default, DateTime sceduled = default, DateTime pickedUp = default, DateTime delivered = default);

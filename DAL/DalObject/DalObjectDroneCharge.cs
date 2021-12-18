@@ -1,4 +1,4 @@
-﻿using IDAL.DO;
+﻿using DalApi.DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,27 +16,27 @@ namespace DalObject
         /// </summary>
         /// <param name="id">int value</param>
         /// <returns>if succeed in finding charge slot to a drone</returns>
-        public static bool FindChargeSlot(int id)
-        {
-            foreach (Station item in BaseStations)
-            {
-                int sum_chargeSlots = 0;
-                foreach (DroneCharge item2 in DroneCharges)
-                {
-                    if (item2.DroneId == item.Id)
-                        sum_chargeSlots++;
-                    if (item2.DroneId > item.Id)
-                        break;
-                }
-                if (sum_chargeSlots < item.ChargeSlots)
-                {
-                    DroneCharges.Add(new DroneCharge(id, item.Id));
-                    DroneCharges.Sort();
-                    return true;
-                }
-            }
-            return false;
-        }
+        //public static bool FindChargeSlot(int id)
+        //{
+        //    foreach (Station item in BaseStations)
+        //    {
+        //        int sum_chargeSlots = 0;
+        //        foreach (DroneCharge item2 in DroneCharges)
+        //        {
+        //            if (item2.DroneId == item.Id)
+        //                sum_chargeSlots++;
+        //            if (item2.DroneId > item.Id)
+        //                break;
+        //        }
+        //        if (sum_chargeSlots < item.ChargeSlots)
+        //        {
+        //            DroneCharges.Add(new DroneCharge(id, item.Id));
+        //            DroneCharges.Sort();
+        //            return true;
+        //        }
+        //    }
+        //    return false;
+        //}
 
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace DalObject
         /// <param name="stationId">The station to add the drone</param>
         public void AddDRoneCharge(int droneId, int stationId)
         {
-            DroneCharges.Add(new DroneCharge() { DroneId = droneId, StationId = stationId});
+            DroneCharges.Add(new DroneCharge() { DroneId = droneId, StationId = stationId,StartTime=DateTime.Now});
         }
 
     }
