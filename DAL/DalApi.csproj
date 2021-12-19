@@ -5,4 +5,8 @@
     <RootNamespace>DAL</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Singelton\Singelton.csproj" />
+  </ItemGroup>
+
 </Project>

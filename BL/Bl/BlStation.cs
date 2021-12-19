@@ -1,15 +1,10 @@
-﻿using BL.Bl;
-using BL.BO;
-using IBL;
-using IBL.BO;
-using DalApi;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BlApi;
+using BO;
 
-namespace IBL
+namespace Bl
 {
     public partial class BL : IblStation
     {
@@ -18,7 +13,7 @@ namespace IBL
             try {
                 dal.AddStation(baseStation.Id, baseStation.Name, baseStation.Location.Longitude, baseStation.Location.Longitude, baseStation.NumberOfChargingStations); 
               }
-            catch (DalApi.DO.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            catch (DalObject.Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
             }
@@ -27,7 +22,7 @@ namespace IBL
 
         public IEnumerable<BaseStationToList> GetStaionsWithEmptyChargeSlots()
         {
-            IEnumerable<DalApi.DO.Station> AvailableChargingStationsFromDal = dal.GetAvailableChargingStations();
+            IEnumerable<DO.Station> AvailableChargingStationsFromDal = dal.GetAvailableChargingStations();
             List<BaseStationToList> stations = new();
             foreach (var Station in AvailableChargingStationsFromDal)
             {
@@ -65,7 +60,7 @@ namespace IBL
         /// <returns>A list of statin to print</returns>
         public IEnumerable<BaseStationToList> GetStations()
         {
-            IEnumerable<DalApi.DO.Station> list = dal.GetStations();
+            IEnumerable<DO.Station> list = dal.GetStations();
             List<BaseStationToList> stations = new();
             foreach (var item in list)
             {
@@ -95,7 +90,7 @@ namespace IBL
             {
                 throw new KeyNotFoundException(ex.Message);
             }
-            catch (DalApi.DO.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            catch (DalObject.Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
             }
@@ -108,7 +103,7 @@ namespace IBL
         /// </summary>
         /// <param name="station">The sation to convert</param>
         /// <returns>The converted station</returns>
-        private BaseStationToList ConvertStationToStationForList(DalApi.DO.Station station)
+        private BaseStationToList ConvertStationToStationForList(DO.Station station)
         {
             return new BaseStationToList()
             {

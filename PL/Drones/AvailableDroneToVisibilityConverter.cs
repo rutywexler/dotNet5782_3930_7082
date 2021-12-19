@@ -13,7 +13,7 @@ namespace PL.Drones
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (BL.BO.Enums.DroneStatus)value == BL.BO.Enums.DroneStatus.Available ? Visibility.Visible : Visibility.Collapsed;
+            return (BO.Enums.DroneStatus)value == BO.Enums.DroneStatus.Available ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -26,7 +26,7 @@ namespace PL.Drones
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (BL.BO.Enums.DroneStatus)value == BL.BO.Enums.DroneStatus.Meintenence ? Visibility.Visible : Visibility.Collapsed;
+            return (BO.Enums.DroneStatus)value == BO.Enums.DroneStatus.Meintenence ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -39,7 +39,7 @@ namespace PL.Drones
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (BL.BO.Enums.DroneStatus)value == BL.BO.Enums.DroneStatus.Delivery ? Visibility.Visible : Visibility.Collapsed;
+            return (BO.Enums.DroneStatus)value == BO.Enums.DroneStatus.Delivery ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -53,8 +53,7 @@ namespace PL.Drones
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            IBL.IBL bl = new IBL.BL();
-            var parcel = bl.GetParcel((int)value);
+            var parcel = BlApi.BlFactory.GetBL().GetParcel((int)value);
             return parcel.CollectionTime == null ? Visibility.Visible : Visibility.Collapsed;
         }
 
@@ -69,8 +68,7 @@ namespace PL.Drones
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            IBL.IBL bl = new IBL.BL();
-            var parcel = bl.GetParcel((int)value);
+            var parcel = BlApi.BlFactory.GetBL().GetParcel((int)value);
             return parcel.CollectionTime != null && parcel.DeliveryTime == null? Visibility.Visible : Visibility.Collapsed;
         }
 

@@ -1,26 +1,23 @@
-﻿using DalApi.DO;
-using System;
+﻿using DalApi;
+using Singelton;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static DalObject.DataSource;
-using static DalObject.DataSource.Config;
 
 namespace DalObject
 {
-    public partial class DalObject:DalApi.Idal
+    public sealed partial class DalObject : Singleton<DalObject>, Idal
     {
         /// <summary>
         /// DalObject constructor  call to intilialize
         /// </summary>
-        public DalObject()
+         DalObject()
         {
-            Initalize();  
+            Initalize();
         }
 
+        static DalObject() { }
 
- 
         /// <summary>
         /// Find if the id is exist in a spesific list
         /// </summary>
@@ -35,13 +32,6 @@ namespace DalObject
 
             return !(temp.Equals(default(T)));
         }
-
-
-
-
-
     }
-
-
     }
 

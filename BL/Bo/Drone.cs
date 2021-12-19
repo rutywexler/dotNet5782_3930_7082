@@ -1,28 +1,21 @@
-﻿using BL.Bo;
-using IBL.BO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static BL.BO.Enums;
+﻿using Bo;
+using static BO.Enums;
 
-namespace IBL
+
+namespace BO
 {
-    namespace BO
+    public class Drone
     {
-        public class Drone
-        {
-            public int DroneId { get; set; }
-            public string DroneModel { get; set; }
-            public WeightCategories Weight { get; set; }
-            public double BatteryStatus { get; set; }
-            public DroneStatus DroneStatus { get; set; }
-            public ParcelInTransfer DeliveryTransfer { get; set; }
-            public Location DroneLocation { get; set; }
-            public override string ToString() => this.ToStringProps();
-
-        }
+        public int DroneId { get; set; }
+        public string DroneModel { get; set; }
+        public WeightCategories Weight { get; set; }
+        public double BatteryStatus { get; set; }
+        public DroneStatus DroneStatus { get; set; }
+        public ParcelInTransfer DeliveryTransfer { get; set; }
+        public Location DroneLocation { get; set; }
+        public override string ToString() => this.ToStringProps();
 
     }
+
 }
+

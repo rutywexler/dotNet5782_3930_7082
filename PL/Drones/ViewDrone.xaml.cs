@@ -1,17 +1,6 @@
-﻿using IBL.BO;
+﻿using BO;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PL.Drones
 {
@@ -20,14 +9,14 @@ namespace PL.Drones
     /// </summary>
     public partial class ViewDrone : Window
     {
-        IBL.IBL MyIbl;
+        BlApi.IBL MyIbl;
         Action RefreshDroneList;
         public ViewDrone()
         {
             InitializeComponent();
         }
 
-        public ViewDrone(IBL.IBL ibl, DroneToList selectedDrone,Action refreshDroneList) 
+        public ViewDrone(BlApi.IBL ibl, DroneToList selectedDrone,Action refreshDroneList) 
             : this()
         {
             MyIbl = ibl;

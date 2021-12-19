@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using IBL.BO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static BL.BO.Enums;
+using BO;
+using static BO.Enums;
 
 namespace ConsoleUI_BL
 {
@@ -20,7 +17,7 @@ namespace ConsoleUI_BL
         /// Receives input from the user what type of organ to print as well as ID number and calls to the appropriate adding method
         /// </summary>
         /// <param name="dalObject"></param>
-        public static void SwitchAdd(IBL.IBL bl)
+        public static void SwitchAdd(BlApi.IBL bl)
         {
             Add option;
           
@@ -77,7 +74,7 @@ namespace ConsoleUI_BL
                             }
                             string Model = Console.ReadLine();
                             
-                            bl.AddDrone(id, (DalApi.DO.WeightCategories)MaxWeight, Model, stationId);
+                            bl.AddDrone(id, (DO.WeightCategories)MaxWeight, Model, stationId);
                         }
                         else
                             Console.WriteLine("There were errors in the data entry and the addition was not made");

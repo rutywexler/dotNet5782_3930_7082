@@ -1,9 +1,6 @@
-﻿using BL.BO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleUI_BL
 {
@@ -14,7 +11,7 @@ namespace ConsoleUI_BL
         /// Receives input from the user: type of organ to print, ID number and calls to the appropriate printing method
         /// </summary>
         /// <param name="dalObject"></param>
-        public static void ReplacingDisplay( IBL.IBL bl)
+        public static void ReplacingDisplay(BlApi.IBL bl)
         {
      
            if (!Enum.TryParse(Console.ReadLine(), out Display option))
@@ -66,7 +63,7 @@ namespace ConsoleUI_BL
         /// Receives input from the user and calls the printing method  
         /// </summary>
         /// <param name="dalObject"></param>
-        public static void ReplacingDisplayList( IBL.IBL bl)
+        public static void ReplacingDisplayList(BlApi.IBL bl)
         {
             if (!Enum.TryParse(Console.ReadLine(), out DisplayList option))
             {

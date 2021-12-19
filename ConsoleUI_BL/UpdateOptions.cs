@@ -9,7 +9,7 @@ namespace ConsoleUI_BL
         /// <summary>
         /// /// Receiving input from the user: type of organ to print, ID number and calls to the appropriate update method
         /// <param name="dalObject"></param>
-        public static void SwitchUpdate(IBL.IBL bl)
+        public static void SwitchUpdate(BlApi.IBL bl)
         {
             if (!Enum.TryParse(Console.ReadLine(), out Update option))
             {
@@ -80,7 +80,7 @@ namespace ConsoleUI_BL
                     {
                         Console.WriteLine("Enter drone ID");
                         if (int.TryParse(Console.ReadLine(), out id) )
-                            bl.ReleaseDroneFromCharging(id);
+                            bl.ReleaseDroneFromCharging(id,23.0);
                         break;
                     }
                 case Update.AssingParcelToDrone:

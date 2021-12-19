@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IBL.BO;
+﻿using System.Collections.Generic;
+using BO;
 
-namespace IBL
+namespace BlApi
 {
     public interface IblParcel
     {

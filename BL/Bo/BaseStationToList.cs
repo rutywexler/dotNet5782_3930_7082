@@ -1,24 +1,17 @@
-﻿using BL.Bo;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bo;
 
-namespace BL
+namespace BO
 {
-    namespace BO
+    public class BaseStationToList
     {
-        public class BaseStationToList
-        {
 
-            public int IdStation { get; set; }
-            public string NameStation { get; set; }
-            public int  NumOfAvailableChargingStations { get; set; }
-            public int  NumOfBusyChargingStations { get; set; }
-            public override string ToString() => this.ToStringProps();
+        public int IdStation { get; set; }
+        public string NameStation { get; set; }
+        public int NumOfAvailableChargingStations { get; set; }
+        public int NumOfBusyChargingStations { get; set; }
+        public override string ToString() => this.ToStringProps();
 
 
-        }
     }
 }
+

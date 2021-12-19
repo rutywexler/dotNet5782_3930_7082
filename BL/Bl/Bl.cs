@@ -1,35 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BL.BO;
-using DalApi;
-using IBL;
-using static BL.BO.Enums;
-using IBL.BO;
-using System.Device.Location;
+using BO;
+using BlApi;
+using static BO.Enums;
+using Singelton;
 
-
-namespace IBL
+namespace Bl
 {
-    public partial class BL : IBL
+    public sealed partial class BL : Singleton<BL>, IBL
     {
         public const int MAXINITBATTARY = 20;
         public const int MININITBATTARY = 0;
         public const int FULLBATTRY = 100;
         private static readonly Random rand = new();
-        private readonly DalApi.Idal dal;
-        private readonly List<DroneToList> drones;
+        DalApi.Idal dal { get; } = DalObject.DalObject.Instance;
+        public List<DroneToList> drones = new();
         public double Available { get; set; }
         public double LightWeightCarrier { get; set; }
         public double MediumWeightBearing { get; set; }
         public double CarryingHeavyWeight { get; set; }
         public static double DroneLoadingRate { get; set; }
-        public BL()
+        BL()
         {
-            dal = new DalObject.DalObject();
-            drones = new List<DroneToList>();
+            //dal = new DalObject.DalObject();
+            //drones = new List<DroneToList>();
             double[] arr;
             arr = dal.GetPowerConsumptionByDrone();
             Available = arr[0];
@@ -39,6 +34,8 @@ namespace IBL
             DroneLoadingRate = arr[4];
             Initialize();
         }
+        static BL()
+        { }
 
         /// <summary>
         /// Initialize drones
@@ -63,7 +60,7 @@ namespace IBL
                 Location senderLocation = null;
 
                 //status
-                if (parcel.Equals(default(DalApi.DO.Parcel)))
+                if (parcel.Equals(default(DO.Parcel)))
                 {
                     status = (DroneStatus)rand.Next(0, 2);
                 }

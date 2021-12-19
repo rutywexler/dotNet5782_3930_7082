@@ -1,4 +1,4 @@
-﻿using IBL;
+﻿using Bl;
 using PL.Drones;
 using System;
 using System.Collections.Generic;
@@ -17,16 +17,18 @@ using System.Windows.Shapes;
 
 namespace PL
 {
+   
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        IBL.IBL bl= new IBL.BL();
+        public BlApi.IBL bl { get; set; }
+      
         public MainWindow()
         {
             InitializeComponent();
-
+            bl = BlApi.BlFactory.GetBL();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

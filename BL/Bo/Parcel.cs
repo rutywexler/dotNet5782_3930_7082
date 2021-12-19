@@ -1,31 +1,25 @@
-﻿using BL.Bo;
-using IBL.BO;
+﻿using Bo;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static BL.BO.Enums;
+using static BO.Enums;
 
-namespace IBL
+namespace BO
 {
-    namespace BO
+    public class Parcel
     {
-        public class Parcel
-        {
-            public int Id { get; set; }
-            public CustomerInParcel CustomerSendsFrom { get; set; }
-            public CustomerInParcel CustomerReceivesTo { get; set; }
-            public WeightCategories WeightParcel { get; set; }
-            public Priorities Priority { get; set; }
-            public DroneInPackage DroneParcel { get; set; }
-            public DateTime ? TimeCreatedTheParcel { get; set; }
-            public DateTime ? AssignmentTime { get; set; }
-            public DateTime? CollectionTime { get; set; }
-            public DateTime? DeliveryTime { get; set; }
-            public override string ToString() => this.ToStringProps();
-
-        }
+        public int Id { get; set; }
+        public CustomerInParcel CustomerSendsFrom { get; set; }
+        public CustomerInParcel CustomerReceivesTo { get; set; }
+        public WeightCategories WeightParcel { get; set; }
+        public Priorities Priority { get; set; }
+        public DroneInPackage DroneParcel { get; set; }
+        public DateTime? TimeCreatedTheParcel { get; set; }
+        public DateTime? AssignmentTime { get; set; }
+        public DateTime? CollectionTime { get; set; }
+        public DateTime? DeliveryTime { get; set; }
+        public override string ToString() => this.ToStringProps();
 
     }
+
 }
+
+

@@ -4,25 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DalApi
+
+namespace DO
 {
-    namespace DO
+    public struct Customer
     {
-        public struct Customer
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Phone { get; set; }
+        public double Longitude { get; set; }
+        public double Lattitude { get; set; }
+        /// <summary>
+        /// the method override ToString method
+        /// </summary>
+        public override string ToString()
         {
-            public int Id { get; set; }
-            public string Name { get; set; }
-            public string Phone { get; set; }
-            public double Longitude { get; set; }
-            public double Lattitude { get; set; }
-            /// <summary>
-            /// the method override ToString method
-            /// </summary>
-            public override string ToString()
-            {
-                return $"Id: {Id} Name: {Name} Phone: {Phone}" +
-                    $" Longitude: {Longitude} Lattitude: {Lattitude}";
-            }
+            return $"Id: {Id} Name: {Name} Phone: {Phone}" +
+                $" Longitude: {Longitude} Lattitude: {Lattitude}";
         }
     }
 }

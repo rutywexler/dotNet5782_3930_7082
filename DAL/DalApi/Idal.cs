@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DalObject;
 using static DalObject.DataSource.Config;
-using DalApi.DO;
+using DO;
 
 namespace DalApi
 {

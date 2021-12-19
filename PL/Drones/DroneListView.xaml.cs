@@ -1,19 +1,10 @@
-﻿using IBL;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using static BL.BO.Enums;
+using static BO.Enums;
 
 namespace PL.Drones
 {
@@ -22,7 +13,7 @@ namespace PL.Drones
     /// </summary>
     public partial class DroneListView : Window
     {
-        private IBL.IBL ibl;
+        private BlApi.IBL ibl;
         ListCollectionView droneCollectionView;
 
         public DroneListView()
@@ -31,10 +22,10 @@ namespace PL.Drones
 
         }
 
-        public DroneListView(IBL.IBL bl) : this()
+        public DroneListView(BlApi.IBL bl) : this()
         {
             ibl = bl;
-            var droneToLists = new ObservableCollection<IBL.BO.DroneToList>(ibl.GetDrones());
+            var droneToLists = new ObservableCollection<BO.DroneToList>(ibl.GetDrones());
             droneCollectionView = new ListCollectionView(droneToLists);
             droneCollectionView.Filter = FilterDrone;
 
@@ -45,7 +36,7 @@ namespace PL.Drones
 
         private bool FilterDrone(object obj)
         {
-            if (obj is IBL.BO.DroneToList drone)
+            if (obj is BO.DroneToList drone)
             {
                 //var selectedDroneStatus = (DroneStatus)StatusSelector.SelectedItem;
                 //var selectedWeightCategories = (WeightCategories)WeightSelector.SelectedItem;
@@ -83,7 +74,7 @@ namespace PL.Drones
 
         private void ViewDrone(object sender, MouseButtonEventArgs e)
         {
-            var selectedDrone = (e.OriginalSource as FrameworkElement).DataContext as IBL.BO.DroneToList;
+            var selectedDrone = (e.OriginalSource as FrameworkElement).DataContext as BO.DroneToList;
             new ViewDrone(ibl, selectedDrone, RefreshDroneList).Show();
         }
 

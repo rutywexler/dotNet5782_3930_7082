@@ -1,17 +1,15 @@
-﻿using BL.Bo;
-using System;
+﻿using Bo;
 
-namespace IBL
-{ 
-  namespace BO
+
+namespace BO
+{
+    public class Location
     {
-        public class Location
-        {
-            public double Longitude { get; set; }
-            public double Lattitude { get; set; }
-            public override string ToString() => this.ToStringProps();
+        public double Longitude { get; set; }
+        public double Lattitude { get; set; }
+        public override string ToString() => this.ToStringProps();
 
 
-        }
     }
 }
+

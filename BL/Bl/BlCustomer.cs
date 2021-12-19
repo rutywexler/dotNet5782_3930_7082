@@ -1,18 +1,11 @@
-﻿using BL.BO;
-using IBL;
-using IBL.BO;
-using DalApi;
-using DalObject;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static BL.BO.Enums;
-using BL.Bl;
+using BO;
+using BlApi;
+using static BO.Enums;
 
-
-namespace IBL
+namespace Bl
 {
     public partial class BL : IblCustomer
     {
@@ -29,7 +22,7 @@ namespace IBL
             {
                 dal.AddCustomer(id, phoneNumber, name, location.Longitude, location.Lattitude);
             }
-            catch (DalApi.DO.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            catch (DalObject.Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
 
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
@@ -76,7 +69,7 @@ namespace IBL
             return dal.GetCustomers().Select(customer => CustomerToList(customer));
         }
 
-        private CustomerForList CustomerToList(DalApi.DO.Customer customer)
+        private CustomerForList CustomerToList(DO.Customer customer)
         {
             var parcels = dal.GetParcels();
             return new CustomerForList()
@@ -102,7 +95,7 @@ namespace IBL
             if (name.Equals(string.Empty) && PhoneNumber.Equals(string.Empty))
                 throw new ArgumentNullException("There is not field to update");
 
-            DalApi.DO.Customer customer = dal.GetCustomer(id);
+            DO.Customer customer = dal.GetCustomer(id);
             try
             {
                 dal.RemoveCustomer(customer);
@@ -112,7 +105,7 @@ namespace IBL
                     PhoneNumber = customer.Phone;
                 dal.AddCustomer(id, PhoneNumber, name, customer.Longitude, customer.Lattitude);
             }
-            catch (DalApi.DO.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            catch (Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
             }

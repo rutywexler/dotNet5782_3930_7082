@@ -1,19 +1,12 @@
-﻿using BL.Bl;
-using BL.BO;
-using DalObject;
-using IBL;
-using IBL.BO;
+﻿using BO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Device.Location;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using static BL.BO.Enums;
+using BlApi;
+using static BO.Enums;
 
-namespace IBL
+namespace Bl
 {
     public partial class BL : IblParcel
     {
@@ -32,11 +25,11 @@ namespace IBL
                 dal.AddParcel(
                     parcel.CustomerSendsFrom.Id,
                     parcel.CustomerReceivesTo.Id,
-                   (DalApi.DO.WeightCategories)parcel.WeightParcel,
-                  (DalApi.DO.Priorities)parcel.Priority
+                   (DO.WeightCategories)parcel.WeightParcel,
+                  (DO.Priorities)parcel.Priority
                 );
             }
-            catch (DalApi.DO.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            catch (DalObject.Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
 
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
@@ -131,10 +124,10 @@ namespace IBL
         public void DeliveryParcelByDrone(int droneId)
         {
             DroneToList droneToList = drones.Find(drone => drone.DroneId == droneId);
-            
-            DalApi.DO.Parcel parcel = dal.GetParcel((int)droneToList.DroneId);
+
+            DO.Parcel parcel = dal.GetParcel((int)droneToList.DroneId);
             drones.Remove(droneToList);
-            DalApi.DO.Customer customer = dal.GetCustomer(parcel.TargetId);
+            DO.Customer customer = dal.GetCustomer(parcel.TargetId);
             Location receiverLocation = new() { Longitude = customer.Longitude, Lattitude = customer.Lattitude };
             droneToList.BatteryDrone -= Distance(droneToList.Location, receiverLocation) * dal.GetPowerConsumptionByDrone()[1 + (int)parcel.Weight];
             droneToList.Location = receiverLocation;
@@ -149,7 +142,7 @@ namespace IBL
         /// <param name="parcelId">the parcel id</param>
         private void ParcelDeliveredDrone(int parcelId)
         {
-            DalApi.DO.Parcel parcel = dal.GetParcel(parcelId);
+            DO.Parcel parcel = dal.GetParcel(parcelId);
             dal.RemoveParcel(parcel);
             parcel.Delivered = DateTime.Now;
             dal.AddParcel(parcel.SenderId, parcel.TargetId, parcel.Weight, parcel.Priority, parcel.Id);
@@ -162,7 +155,8 @@ namespace IBL
         /// <returns></returns>
         public Parcel GetParcel(int id)
         {
-            try {
+            try
+            {
                 var parcel = dal.GetParcel(id);
                 var Drone = drones.FirstOrDefault(drone => drone.DroneId == parcel.DroneId);
                 return new Parcel()
@@ -203,7 +197,7 @@ namespace IBL
         }
 
 
-        private CustomerInParcel CustomerToCustomerInParcel(DalApi.DO.Customer customer)
+        private CustomerInParcel CustomerToCustomerInParcel(DO.Customer customer)
         {
             return new CustomerInParcel()
             {
@@ -233,13 +227,13 @@ namespace IBL
             if (droneToList.ParcelId == null)
                 throw new ArgumentNullException("No parcel has been associated yet");
             drones.Remove(droneToList);
-            DalApi.DO.Parcel parcel = default;
+            DO.Parcel parcel = default;
             try
             {
                 parcel = dal.GetParcel((int)droneToList.ParcelId);
                 //if (parcel.PickedUp != default)
                 //    throw new ArgumentNullException("The package has already been collected");
-                DalApi.DO.Customer customer = dal.GetCustomer(parcel.SenderId);
+                DO.Customer customer = dal.GetCustomer(parcel.SenderId);
                 Location senderLocation = new() { Longitude = customer.Longitude, Lattitude = customer.Lattitude };
                 droneToList.BatteryDrone -= Distance(droneToList.Location, senderLocation) * Available;
                 droneToList.Location = senderLocation;
@@ -256,7 +250,7 @@ namespace IBL
             finally
             {
                 drones.Add(droneToList);
-             
+
             }
         }
 
@@ -267,21 +261,21 @@ namespace IBL
         /// <returns>parcel for list</returns>
         public ParcelList ParcelToParcelForList(int id)
         {
-            
-                var parcel = GetParcel(id);
 
-                return new ParcelList()
-                {
-                    Id = parcel.Id,
-                    Priority = parcel.Priority,
-                    Weight = parcel.WeightParcel,
-                    SendCustomer = parcel.CustomerSendsFrom.Name,
-                    ReceivesCustomer = parcel.CustomerReceivesTo.Name,
-                }; 
-            }
-            
+            var parcel = GetParcel(id);
+
+            return new ParcelList()
+            {
+                Id = parcel.Id,
+                Priority = parcel.Priority,
+                Weight = parcel.WeightParcel,
+                SendCustomer = parcel.CustomerSendsFrom.Name,
+                ReceivesCustomer = parcel.CustomerReceivesTo.Name,
+            };
         }
+
     }
+}
 
 
 

@@ -1,18 +1,16 @@
-﻿namespace DalApi
+﻿
+namespace DO
 {
-    namespace DO
+    public enum WeightCategories
     {
-        public enum WeightCategories
-        {
-            Light,
-            medium,
-            weighty
-        }
-        public enum Priorities
-        {
-            Regular,
-            Fast,
-            Emergency
-        }
+        Light,
+        medium,
+        weighty
+    }
+    public enum Priorities
+    {
+        Regular,
+        Fast,
+        Emergency
     }
 }

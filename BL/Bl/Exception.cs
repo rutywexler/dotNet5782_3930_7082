@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BL.Bl
+namespace Bl
 {
     [Serializable]
     public class Exception_NotExistCloseStationForTheDrone : Exception

@@ -1,4 +1,4 @@
-﻿using IBL.BO;
+﻿using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using static BL.BO.Enums;
+using static BO.Enums;
 using System.Text.RegularExpressions;
 
 namespace PL.Drones
@@ -23,7 +23,7 @@ namespace PL.Drones
     public partial class AddsNewDrone : Window
 
     {
-        private IBL.IBL bl;
+        private BlApi.IBL bl;
          Action refreshDroneList;
 
         public AddsNewDrone()
@@ -32,7 +32,7 @@ namespace PL.Drones
             NewDrone.DataContext = new Drone();
         }
 
-        public AddsNewDrone(IBL.IBL ibl, Action refreshDroneList) :this()
+        public AddsNewDrone(BlApi.IBL ibl, Action refreshDroneList) :this()
         {
             bl = ibl;
             this.refreshDroneList = refreshDroneList;
@@ -48,7 +48,7 @@ namespace PL.Drones
                 BaseStation baseStation = bl.GetStation(int.Parse(ID_Station.Text));
                 try
                 {
-                    bl.AddDrone(int.Parse(ID_Drone.Text), (DalApi.DO.WeightCategories)(WeightCategories)WeightSelector.SelectedItem, Drone_model.Text, int.Parse(ID_Station.Text));
+                    bl.AddDrone(int.Parse(ID_Drone.Text), (DO.WeightCategories)(WeightCategories)WeightSelector.SelectedItem, Drone_model.Text, int.Parse(ID_Station.Text));
                     refreshDroneList();
                     if (MessageBox.Show("the drone succeeded to add ", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                     {

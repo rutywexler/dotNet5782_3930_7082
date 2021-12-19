@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using IBL.BO;
 using System.ComponentModel;
-using BL.Bl;
+using Bl;
 
 namespace ConsoleUI_BL
 {
@@ -13,10 +12,10 @@ namespace ConsoleUI_BL
         enum Update { DroneName, StationDetails, CustomerDedails, SendDroneForCharg, RealsDroneFromChargh, AssingParcelToDrone, CollectParcelByDrone, SupplyParcelToDestination ,False }
         enum DisplayList { Sations, Drones, Customers, Parcels, ParcelNotAssignToDrone, AvailableChargingSations ,False}
         enum Display { Station, Drone, Customer, Parcel ,False}
+        private static readonly BlApi.IBL bal = BlApi.BlFactory.GetBL();
 
         static void Main()
         {
-            IBL.IBL bal = new IBL.BL();
             Menu option;
             do
             {
@@ -33,7 +32,7 @@ namespace ConsoleUI_BL
                         case Menu.Add:
                             {
                                 DisplayMenus(typeof(Add));
-                                SwitchAdd( bal);
+                                SwitchAdd(bal);
                                 break;
                             }
 
