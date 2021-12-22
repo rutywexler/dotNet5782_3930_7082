@@ -25,11 +25,12 @@ namespace PL.Drones
         public DroneListView(BlApi.IBL bl) : this()
         {
             ibl = bl;
-            var droneToLists = new ObservableCollection<BO.DroneToList>(ibl.GetDrones());
-            droneCollectionView = new ListCollectionView(droneToLists);
-            droneCollectionView.Filter = FilterDrone;
 
-            DronesListView.DataContext = droneCollectionView;
+            //var droneToLists = new ObservableCollection<BO.DroneToList>(ibl.GetDrones());
+            //droneCollectionView = new ListCollectionView(droneToLists);
+            //droneCollectionView.Filter = FilterDrone;
+            //DronesListView.DataContext = droneCollectionView;
+            RefreshDroneList();
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
         }
@@ -50,7 +51,10 @@ namespace PL.Drones
 
         private void RefreshDroneList()
         {
-            DronesListView.DataContext = ibl.GetDrones();
+            var droneToLists = new ObservableCollection<BO.DroneToList>(ibl.GetDrones());
+            droneCollectionView = new ListCollectionView(droneToLists);
+            droneCollectionView.Filter = FilterDrone;
+            DronesListView.DataContext = droneCollectionView;
         }
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -80,6 +84,8 @@ namespace PL.Drones
 
         private void Cancel_filtering(object sender, RoutedEventArgs e)
         {
+            WeightSelector.SelectedItem = null;
+            StatusSelector.SelectedItem = null;
             RefreshDroneList();
 
         }
