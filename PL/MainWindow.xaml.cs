@@ -39,7 +39,8 @@ namespace PL
 
         private void Customer_Click(object sender, RoutedEventArgs e)
         {
-            new CustomerListView(bl).Show();
+            new CustomerListView().Show();
+
         }
 
         private void Station_Click(object sender, RoutedEventArgs e)
