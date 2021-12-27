@@ -69,6 +69,7 @@ namespace Bl
             return dal.GetCustomers().Select(customer => CustomerToList(customer));
         }
 
+
         private CustomerForList CustomerToList(DO.Customer customer)
         {
             var parcels = dal.GetParcels();

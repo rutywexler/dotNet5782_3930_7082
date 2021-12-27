@@ -20,25 +20,20 @@ namespace PL.Customers
     /// </summary>
     public partial class CustomerListView : Window
     {
-        private BlApi.IBL ibl;
+       
+        public  BlApi.IBL bl{ get; set; }
 
         public CustomerListView()
         {
             InitializeComponent();
+            bl = BlApi.BlFactory.GetBL();
+            DataContext = bl.GetCustomers();
         }
-        public CustomerListView(BlApi.IBL bl) : this()
-        {
-            ibl = bl;
-
-
-            //RefreshDroneList();
-           // StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
-           // WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-        }
+   
 
         private void OpenAddCustomr(object sender, RoutedEventArgs e)
         {
-            new AddCustomers(ibl).Show();
+            new AddCustomers(bl).Show();
         }
     }
 }
