@@ -58,10 +58,15 @@ namespace Bl
                 Location location;
                 Location targetLocation = null;
                 Location senderLocation = null;
+                var availableStations = GetStaionsWithEmptyChargeSlots()
+                                           .Select(station => GetStation(station.IdStation))
+                                           .ToList();
 
                 //status
                 if (parcel.Equals(default(DO.Parcel)))
                 {
+                    if (availableStations.Count == 0)
+                        status = DroneStatus.Available;
                     status = (DroneStatus)rand.Next(0, 2);
                 }
                 else

@@ -36,7 +36,7 @@ namespace PL.Drones
         {
             bl = ibl;
             this.refreshDroneList = refreshDroneList;
-            NewDrone.DataContext = ibl.GetDrones();
+            //NewDrone.DataContext = ibl.GetDrones();
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
         }
 

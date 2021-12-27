@@ -25,11 +25,6 @@ namespace PL.Drones
         public DroneListView(BlApi.IBL bl) : this()
         {
             ibl = bl;
-
-            //var droneToLists = new ObservableCollection<BO.DroneToList>(ibl.GetDrones());
-            //droneCollectionView = new ListCollectionView(droneToLists);
-            //droneCollectionView.Filter = FilterDrone;
-            //DronesListView.DataContext = droneCollectionView;
             RefreshDroneList();
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
@@ -41,7 +36,7 @@ namespace PL.Drones
             {
                 //var selectedDroneStatus = (DroneStatus)StatusSelector.SelectedItem;
                 //var selectedWeightCategories = (WeightCategories)WeightSelector.SelectedItem;
-             
+
                 return (WeightSelector.SelectedItem == null ||drone.DroneWeight == (WeightCategories)WeightSelector.SelectedItem)
                     &&(StatusSelector.SelectedItem == null||drone.DroneStatus== (DroneStatus)StatusSelector.SelectedItem );
             }

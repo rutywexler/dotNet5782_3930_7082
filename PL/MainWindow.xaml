@@ -9,5 +9,6 @@
     <Grid Name="MainGrid">
         <Button Content="For all Drone-Option:)" HorizontalAlignment="Left" Margin="50,100,0,0" VerticalAlignment="Top" Click="Drone_Click"/>
         <Button Content="For all Customer-Option:)" HorizontalAlignment="Left" Margin="50,150,0,0" VerticalAlignment="Top" Click="Customer_Click"/>
+        <Button Content="For all station-Option:)" HorizontalAlignment="Left" Margin="50,200,0,0" VerticalAlignment="Top" Click="Station_Click"/>
     </Grid>
 </Window>

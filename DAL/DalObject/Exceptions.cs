@@ -16,9 +16,9 @@ namespace DalObject
         protected ThereIsAnotherObjectWithThisUniqueID(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 
-    public class DalException : Exception
+    public class DalConfigException : Exception
     {
-        public DalException(string message) : base(message) { }
-        public DalException(string message, Exception inner) : base(message, inner) { }
+        public DalConfigException(string message) : base(message) { }
+        public DalConfigException(string message, Exception inner) : base(message, inner) { }
     }
 }

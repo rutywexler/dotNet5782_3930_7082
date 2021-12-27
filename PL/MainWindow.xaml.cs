@@ -1,25 +1,13 @@
-﻿using Bl;
-using PL.Customers;
+﻿using PL.Customers;
 using PL.Drones;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PL.Stations;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace PL
 {
-    
-   
+
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -52,6 +40,11 @@ namespace PL
         private void Customer_Click(object sender, RoutedEventArgs e)
         {
             new CustomerListView(bl).Show();
+        }
+
+        private void Station_Click(object sender, RoutedEventArgs e)
+        {
+            new StationsListView().Show();
         }
     }
 }
