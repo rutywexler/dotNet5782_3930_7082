@@ -7,6 +7,20 @@
         mc:Ignorable="d"
         Title="CustomerListView" Height="450" Width="800">
     <Grid>
-        
+        <ListView Grid.Row="1" Margin="0,5,0,-5" x:Name="DronesListView" ItemsSource="{Binding}"  >
+            <!--MouseDoubleClick="ViewDrone"-->>
+            <ListView.ItemTemplate >
+                <DataTemplate>
+                    <Border BorderBrush="Red">
+                        <StackPanel >
+                            <TextBlock Text="{Binding }"></TextBlock>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Content="Add new customer" HorizontalAlignment="Left" Margin="580,268,0,0" Grid.Row="1" VerticalAlignment="Top" Height="90" Width="158" Click="OpenAddCustomr"/>
+        <!--<Button Content="Cancel filtering" HorizontalAlignment="Left" Margin="600,42,0,0" Grid.Row="1" VerticalAlignment="Top" Height="60" Width="120" Click="Cancel_filtering"/>-->
+
     </Grid>
 </Window>

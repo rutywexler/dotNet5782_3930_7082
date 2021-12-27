@@ -6,19 +6,19 @@
         xmlns:local="clr-namespace:PL.Customers"
         mc:Ignorable="d"
         Title="AddCustomers" Height="450" Width="800">
-    <Grid x:Name="NewDrone">
+    <Grid x:Name="NewCustomer">
 
 
-        <TextBox x:Name="ID_Customer" HorizontalAlignment="Center" Margin="0,50,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewTextInput="NumberValidationTextBox" />
-        <TextBlock  HorizontalAlignment="Left" Margin="240,50,0,0" Text="Enter customer ID:" TextWrapping="Wrap" VerticalAlignment="Top" />
-        <TextBox x:Name="Customer_Name" HorizontalAlignment="Center" Margin="0,90,0,0"   TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
-        <TextBlock HorizontalAlignment="Left" Margin="200,90,0,0" Text="Enter customer name:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox x:Name="Customer_Phone_Number" HorizontalAlignment="Center" Margin="0,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewTextInput="NumberValidationTextBox"/>
-        <TextBlock HorizontalAlignment="Left" Margin="200,130,0,0" Text="Enter customer phone:"  TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox x:Name="ID_Parcel_Was_Send_From_Customer" HorizontalAlignment="Center" Margin="0,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewTextInput="NumberValidationTextBox"/>
-        <TextBlock HorizontalAlignment="Left" Margin="125,170,0,0" Text="Enter Parcel was send from customer:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox x:Name="ID_Parcel_Was_Send_To_Customer" HorizontalAlignment="Center" Margin="0,210,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewTextInput="NumberValidationTextBox"/>
-        <TextBlock HorizontalAlignment="Left" Margin="125,210,0,0" Text="Enter Parcel was send to the customer:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="ID_Customer" HorizontalAlignment="Center" Margin="0,50,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewTextInput="NumberValidationTextBox"  />
+        <TextBlock  HorizontalAlignment="Left" Margin="215,55,0,0" Text="Enter customer ID:" TextWrapping="Wrap" VerticalAlignment="Top" />
+        <TextBox x:Name="Customer_Name" HorizontalAlignment="Center" Margin="0,90,0,0"   TextWrapping="Wrap" VerticalAlignment="Top" Width="120"  />
+        <TextBlock HorizontalAlignment="Left" Margin="200,95,0,0" Text="Enter customer name:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="Customer_Phone_Number" HorizontalAlignment="Center" Margin="0,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewTextInput="NumberValidationTextBox" />
+        <TextBlock HorizontalAlignment="Left" Margin="200,135,0,0" Text="Enter customer phone:"  TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="Longitude_Customer" HorizontalAlignment="Center" Margin="0,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewTextInput="NumberValidationTextBox"/>
+        <TextBlock HorizontalAlignment="Left" Margin="200,175,0,0" Text="Enter Parcel longitude:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="Latitude_Customer" HorizontalAlignment="Center" Margin="0,210,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewTextInput="NumberValidationTextBox" Text=""/>
+        <TextBlock HorizontalAlignment="Left" Margin="200,215,0,0" Text="Enter Parcel latitude:" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
         <Button Content="OK" Margin="0,350,0,0" Click="AddingDrone" Height="30"></Button>
         <Grid>

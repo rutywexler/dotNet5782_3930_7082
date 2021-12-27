@@ -109,7 +109,7 @@ namespace ConsoleUI_BL
                                 Console.WriteLine("invalid phone");
                                 break;
                             }
-                            bl.AddCustomer(id,name,phone,location);
+                            bl.AddCustomer(id,name,phone,longitude, latitude);
                         }
                         else
                             Console.WriteLine("There were errors in the data entry and the addition was not made");

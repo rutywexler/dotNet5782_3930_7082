@@ -1,4 +1,5 @@
 ﻿using Bl;
+using PL.Customers;
 using PL.Drones;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,7 @@ namespace PL
             bl = BlApi.BlFactory.GetBL();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Drone_Click(object sender, RoutedEventArgs e)
         {
 
             new DroneListView(bl).Show();
@@ -46,6 +47,11 @@ namespace PL
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void Customer_Click(object sender, RoutedEventArgs e)
+        {
+            new CustomerListView(bl).Show();
         }
     }
 }
