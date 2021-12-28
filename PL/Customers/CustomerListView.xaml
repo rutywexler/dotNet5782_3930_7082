@@ -8,7 +8,7 @@
         Title="CustomerListView" Height="450" Width="800">
     <Grid>
         <ListView Grid.Row="1" Margin="0,5,0,-5" x:Name="CustomersListView" ItemsSource="{Binding}"  >
-            <!--MouseDoubleClick="ViewDrone"-->>
+            <!--MouseDoubleClick="ViewDrone"--><!-->-->
             <ListView.ItemTemplate >
                 <DataTemplate>
                     <Border BorderBrush="Red">
