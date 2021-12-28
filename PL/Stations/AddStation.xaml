@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="AddStation" Height="450" Width="800">
     <Grid x:Name="AddBaseStation">
-        <TextBox x:Name="ID_Drone" HorizontalAlignment="Center" Margin="0,50,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewTextInput="NumberValidationTextBox" />
+        <!--<TextBox x:Name="ID_Drone" HorizontalAlignment="Center" Margin="0,50,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewTextInput="NumberValidationTextBox" />-->
         <TextBlock ></TextBlock>
         <Button Content="OK" Margin="0,350,0,0" Click="AddingStation" Height="30"></Button>
     </Grid>

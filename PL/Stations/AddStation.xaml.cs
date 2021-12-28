@@ -28,7 +28,7 @@ namespace PL.Stations
 
         private void AddingStation(object sender, RoutedEventArgs e)
         {
-            bl.AddStation()
+           // bl.AddStation();
         }
     }
 }
