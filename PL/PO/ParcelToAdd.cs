@@ -1,23 +1,24 @@
-﻿using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PL.Model;
+using System.ComponentModel;
 using static PL.Model.Enums;
 
-namespace PL.Model
+namespace PL.PO
 {
-    public class ParcelToCustomer:INotifyPropertyChanged
+    public class ParcelToAdd : INotifyPropertyChanged
     {
-        private int id;
-        public int Id
+       
+        private CustomerInParcel sender;
+        public CustomerInParcel Sender
         {
-            get { return id; }
-            set
-            {
-                id = value;
-                OnPropertyChanged(nameof(Id));
-            }
+            get { return sender; }
+            set { sender = value; OnPropertyChanged(nameof(Sender)); }
+        }
+
+        private CustomerInParcel target;
+        public CustomerInParcel Target
+        {
+            get { return target; }
+            set { target = value; OnPropertyChanged(nameof(Target)); }
         }
 
         private WeightCategories weight;
@@ -42,21 +43,15 @@ namespace PL.Model
             }
         }
 
-        private DeliveryStatus status;
-        public DeliveryStatus Status
+        private int id;
+        public int Id
         {
-            get { return status; }
+            get { return id; }
             set
             {
-                status = value;
-                OnPropertyChanged(nameof(Status));
+                id = value;
+                OnPropertyChanged(nameof(Id));
             }
-        }
-
-        private CustomerInParcel partner;
-        public CustomerInParcel Partner {
-            get { return partner; }
-            set { partner = value; OnPropertyChanged(nameof(Partner)); } 
         }
 
         #region INotifyPropertyChanged Members  
@@ -72,4 +67,3 @@ namespace PL.Model
         #endregion
     }
 }
-

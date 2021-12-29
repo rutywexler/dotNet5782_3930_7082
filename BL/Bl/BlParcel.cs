@@ -16,9 +16,9 @@ namespace Bl
         /// <param name="parcel">the parcel the user add</param>
         public void AddParcel(Parcel parcel)
         {
-            if (ExistsIDCheck(dal.GetCustomers(), parcel.CustomerSendsFrom.Id))
+            if (!ExistsIDCheck(dal.GetCustomers(), parcel.CustomerSendsFrom.Id))
                 throw new KeyNotFoundException("Sender not exist");
-            if (ExistsIDCheck(dal.GetCustomers(), parcel.CustomerReceivesTo.Id))
+            if (!ExistsIDCheck(dal.GetCustomers(), parcel.CustomerReceivesTo.Id))
                 throw new KeyNotFoundException("Target not exist");
             try
             {

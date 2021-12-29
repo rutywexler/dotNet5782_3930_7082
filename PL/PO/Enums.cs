@@ -2,13 +2,13 @@
 
 namespace PL.Model
 {
-    public class Enum
+    public class Enums
     {
-        public enum WeightCategories { LIGHT, INTERMEDIATE, HEAVY }
+        public enum WeightCategories { LIGHT = 1, INTERMEDIATE, HEAVY }
 
         public enum DroneStatuses { AVAILABLE, MAINTENANCE, TRANSPORT }
 
-        public enum Priorities { REGULAR, FAST, EMERGENCY }
+        public enum Priorities { REGULAR = 1, FAST, EMERGENCY }
 
         public enum Menu { ADD, UPDATE, DISPLAY, VIEW_LIST, EXIT }
 
