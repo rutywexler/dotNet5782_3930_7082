@@ -1,4 +1,6 @@
 ﻿
+using BO;
+using PL.Model;
 using PL.PO;
 using System;
 using System.Collections.Generic;
@@ -40,6 +42,11 @@ namespace PL.UsingBl
             //    CustomerReceivesTo = CustomerInParcelUseBl.ConvertBackCustomerInParcel(new() { Id = parcel.Target.Id }),
             //    CustomerSendsFrom = CustomerInParcelUseBl.ConvertBackCustomerInParcel(new() { Id = parcel.Sender.Id })
             //};
+        }
+
+        private ParcelForList ConvertParcelForListBoToPo(ParcelList parcel)
+        {
+
         }
     }
 }

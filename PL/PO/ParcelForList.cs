@@ -9,7 +9,7 @@ using static PL.Model.Enums;
 
 namespace PL.Model
 {
-    class ParcelForList :INotifyPropertyChanged
+    public class ParcelForList :INotifyPropertyChanged
     {
         private int id;
         public int Id

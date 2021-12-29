@@ -9,7 +9,7 @@ using static PL.Model.Enums;
 
 namespace PL.Model
 {
-    class DroneForList:ILocate,INotifyPropertyChanged
+    public class DroneForList:ILocate,INotifyPropertyChanged
     {
         private int id;
         public int Id { 
