@@ -1,6 +1,6 @@
 ﻿using PL.Model;
 using System.ComponentModel;
-using static PL.Model.Enum;
+using static PL.Model.Enums;
 
 namespace PL.PO
 {

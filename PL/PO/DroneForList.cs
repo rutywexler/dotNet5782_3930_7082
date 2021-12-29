@@ -5,7 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using static PL.Model.Enum;
+using static PL.Model.Enums;
 
 namespace PL.Model
 {
