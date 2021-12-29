@@ -1,36 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Input;
+﻿using System.Windows.Input;
+using System;
 
-namespace WpfApp1.ViewModels
+public class RelayCommand : ICommand
 {
-    public class RelayCommand<T> : ICommand
+    private Action<object> execute;
+    private Func<object, bool> canExecute;
+
+    public event EventHandler CanExecuteChanged
     {
-        public event EventHandler CanExecuteChanged;
+        add { CommandManager.RequerySuggested += value; }
+        remove { CommandManager.RequerySuggested -= value; }
+    }
 
-        private Action<T> execute;
-        private Predicate<T> canExecute;
+    public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
+    {
+        this.execute = execute;
+        this.canExecute = canExecute;
+    }
 
-        public bool CanExecute(object parameter)
-        {
-            return canExecute == null || canExecute((T)parameter);
-        }
+    public bool CanExecute(object parameter)
+    {
+        return this.canExecute == null || this.canExecute(parameter);
+    }
 
-        public void Execute(object parameter)
-        {
-            execute((T)parameter);
-        }
-
-        public RelayCommand(Action<T> action)
-        {
-            execute = action;
-        }
-
-        public RelayCommand(Action<T> action, Predicate<T> predicate)
-        {
-            execute = action;
-            canExecute = predicate;
-        }
+    public void Execute(object parameter)
+    {
+        this.execute(parameter);
     }
 }
