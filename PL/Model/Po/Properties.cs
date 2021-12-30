@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Text;
 
 
 namespace PL.Model.Po
@@ -12,86 +11,41 @@ namespace PL.Model.Po
     {
         public static string ToStringProperties<T>(this T obj)
         {
-            Type type = obj.GetType();
-            StringBuilder description = new($"<{type.Name}> {{");
-
-            foreach (var prop in type.GetProperties())
+            Type t = obj.GetType();
+            string s = "";
+            foreach (var item in t.GetProperties())
             {
-                description.Append($"{prop.Name} = ");
-
-                var propValue = prop.GetValue(obj);
-                var countProperty = propValue?.GetType()?.GetProperty("Count");
-
-                // Is the property a list?
-                if (countProperty != null)
+                if (item.GetValue(obj) != null && !(item.PropertyType.IsGenericType && (item.PropertyType.GetGenericTypeDefinition() == typeof(List<>))))
                 {
-                    var listCount = countProperty.GetValue(propValue);
-                    var listType = propValue.GetType().GetGenericArguments()[0].Name;
+                    s += FormatString(item.Name) + $": {item.GetValue(obj)}" +
+                                        '\n';
+                }
+            }
+            string str = "";
+            for (int i = 0; i < s.Length; ++i)
+            {
+                if (s[i] != '\n')
+                    str += s[i];
+                else if (i + 1 < s.Length && s[i + 1] != '\n')
+                    str += s[i];
+            }
+            str += '\n';
+            return str;
+        }
 
-                    description.Append($"<List[{listType}](Count = {listCount})");
-                }
-                else if (Attribute.IsDefined(prop, typeof(SexadecimalLatitudeAttribute)))
-                {
-                    description.Append(Sexadecimal.Latitude((double)propValue));
-                }
-                else if (Attribute.IsDefined(prop, typeof(SexadecimalLongitudeAttribute)))
-                {
-                    description.Append(Sexadecimal.Longitde((double)propValue));
-                }
+        static string FormatString(string str)
+        {
+            string s = str[0].ToString();
+
+            for (int i = 1; i < str.Length; i++)
+            {
+                if (char.IsUpper(str[i]))
+                    s += " " + str[i].ToString().ToLower();
                 else
-                {
-                    description.Append(propValue?.ToString() ?? "null");
-                }
-                description.Append(", ");
+                    s += str[i].ToString();
             }
-
-            string result = description.ToString();
-
-            // Remove the last comma
-            return result[..result.LastIndexOf(',')] + '}';
-        }
-
-        [AttributeUsage(AttributeTargets.Property)]
-        public class SexadecimalLongitudeAttribute : Attribute
-        {
-        }
-
-        [AttributeUsage(AttributeTargets.Property)]
-        public class SexadecimalLatitudeAttribute : Attribute
-        {
-        }
-
-        public static class Sexadecimal
-        {
-            public static string Longitde(double longitude)
-            {
-                string ch = "E";
-                if (longitude < 0)
-                {
-                    ch = "W";
-                    longitude = -longitude;
-                }
-
-                int deg = (int)longitude;
-                int min = (int)(60 * (longitude - deg));
-                double sec = (longitude - deg) * 3600 - min * 60;
-                return $"{deg}° {min}′ {sec}″ {ch}";
-
-            }
-
-            public static string Latitude(double latitude)
-            {
-                string ch = "N";
-                if (latitude < 0)
-                {
-                    ch = "S";
-                    latitude = -latitude;
-                }
-                int deg = (int)latitude;
-                int min = (int)(60 * (latitude - deg));
-                double sec = (latitude - deg) * 3600 - min * 60;
-                return $"{deg}° {min}′ {sec}″ {ch}";
-            }
+            return s;
         }
     }
 }
+
