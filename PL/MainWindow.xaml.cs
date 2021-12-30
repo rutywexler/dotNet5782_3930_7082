@@ -48,9 +48,9 @@ namespace PL
             new StationsListView().Show();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Parcel_Click(object sender, RoutedEventArgs e)
         {
-            new AddParcels().Show();
+            new ParcelsList().Show();
         }
     }
 }

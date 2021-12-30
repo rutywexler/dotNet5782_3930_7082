@@ -3,11 +3,26 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL.View.Parcel"
+        xmlns:local="clr-namespace:PL.ViewModel.Parcel"
         mc:Ignorable="d"
         Title="ParcelsList" Height="450" Width="800">
+    <Window.DataContext>
+        <local:ViewParcelList/>
+    </Window.DataContext>
     <Grid>
-        
+        <ListView 
+            ItemsSource="{Binding ViewParcels}">
+        </ListView>
+        <Button Command="{Binding OpenAddParcelWindow}" 
+                Content="Add new parcel"
+                HorizontalAlignment="Left"
+                Margin="622,268,0,0"
+                Grid.Row="1"
+                VerticalAlignment="Top"
+                Height="90"
+                Width="148">
+            
+        </Button>
         
     </Grid>
 </Window>

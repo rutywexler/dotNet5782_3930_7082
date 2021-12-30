@@ -44,9 +44,18 @@ namespace PL.UsingBl
             //};
         }
 
-        private ParcelForList ConvertParcelForListBoToPo(ParcelList parcel)
+        public static ParcelForList ConvertParcelForListBoToPo(ParcelList parcel)
         {
+            return new()
+            {
+                Id = parcel.Id,
+                TargetName = parcel.ReceivesCustomer,
+                SenderName = parcel.SendCustomer,
+                Weight = (Model.Enums.WeightCategories)parcel.Weight,
+                Priority = (Model.Enums.Priorities)parcel.Priority,
+                Status = (Model.Enums.DeliveryStatus)parcel.Priority
 
+            };
         }
     }
 }

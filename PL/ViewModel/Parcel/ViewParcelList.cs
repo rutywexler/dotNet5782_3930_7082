@@ -1,10 +1,8 @@
-﻿using BO;
-using PL.Model;
-using System;
+﻿using PL.Model;
+using PL.UsingBl;
+using PL.View.Parcel;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PL.ViewModel.Parcel
 {
@@ -19,14 +17,20 @@ namespace PL.ViewModel.Parcel
         {
             bl = BlApi.BlFactory.GetBL();
             ViewParcels = GetParcels();
+            OpenAddParcelWindow = new(OpenAddWindow, null);
         }
 
         public IEnumerable<ParcelForList> GetParcels()
         {
-            return bl.GetParcels().Select(parcel => ConvertParcelForListBoToPo(parcel)).ToList();
+            return bl.GetParcels().Select(parcel => ParcelConverter.ConvertParcelForListBoToPo(parcel)).ToList();
         }
 
-       
+        public static void OpenAddWindow(object param)
+        {
+            new AddParcels().Show();
+        }
+
+
     }
-       
+
 }
