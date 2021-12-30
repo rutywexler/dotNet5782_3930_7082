@@ -18,10 +18,11 @@ namespace PL.UsingBl
             {
                 Id = station.IdStation,
                 Name = station.StationName,
-                NumOfAvailableChargingStations = station.NumOfBusyChargingStations,
-                NumOfBusyChargingStations = station.NumOfAvailableChargingStations,
+                NumOfAvailableChargingStations = station.NumOfAvailableChargingStations,
+                NumOfBusyChargingStations = station.NumOfBusyChargingStations,
             };
         }
+        
 
         internal static BO.BaseStation ConvertPoBaseStationToBO(BaseStationToAdd baseStation)
         {
