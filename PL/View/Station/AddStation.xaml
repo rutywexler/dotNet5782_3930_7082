@@ -18,5 +18,6 @@
             <TextBox Text="{Binding BaseStation.Location.Latitude, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Latitude" Margin="5"/>
             <TextBox Text="{Binding BaseStation.Location.Longitude,  UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Longitude" Margin="5"/>
         </StackPanel>
+        <Button Content="OK" Margin="0,350,0,0" Command="{Binding AddStationCommand}" Height="30"></Button>
     </Grid>
 </Window>
