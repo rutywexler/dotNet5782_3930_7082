@@ -11,5 +11,16 @@
     </Window.DataContext>
     <Grid>
         <ListView  ItemsSource="{Binding ViewStations}"></ListView>
+        <Button Command="{Binding  OpenAddStationWindow}" 
+                Content="Add new station"
+                HorizontalAlignment="Left"
+                Margin="622,268,0,0"
+                Grid.Row="1"
+                VerticalAlignment="Top"
+                Height="90"
+                Width="148">
+
+        </Button>
+
     </Grid>
 </Window>

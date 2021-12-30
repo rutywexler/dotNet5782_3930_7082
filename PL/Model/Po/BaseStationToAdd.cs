@@ -53,20 +53,6 @@ namespace PL.Model.Po
             }
         }
 
-        private int availableChargeSlots;
-        public int AvailableChargeSlots
-        {
-            get { return availableChargeSlots; }
-            set { availableChargeSlots = value; OnPropertyChanged(nameof(AvailableChargeSlots)); }
-        }
-
-        private List<DroneInCharging> dronesInCharching = new List<DroneInCharging>();
-        public List<DroneInCharging> DronesInCharching
-        {
-            get { return dronesInCharching; }
-            set { dronesInCharching = value; OnPropertyChanged(nameof(DronesInCharching)); }
-        }
-
         #region INotifyPropertyChanged Members  
 
         public event PropertyChangedEventHandler PropertyChanged;

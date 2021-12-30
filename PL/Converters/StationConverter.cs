@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PL.Converters;
 using PL.Model;
+using PL.Model.Po;
 using PL.PO;
 
 namespace PL.UsingBl
@@ -18,6 +20,17 @@ namespace PL.UsingBl
                 Name = station.StationName,
                 NumOfAvailableChargingStations = station.NumOfBusyChargingStations,
                 NumOfBusyChargingStations = station.NumOfAvailableChargingStations,
+            };
+        }
+
+        internal static BO.BaseStation ConvertPoBaseStationToBO(BaseStationToAdd baseStation)
+        {
+            return new()
+            {
+                Id = baseStation.Id,
+                Name = baseStation.Name,
+                NumberOfChargingStations = baseStation.ChargeSlots,
+                Location = LocationConverter.ConvertBackLocation(baseStation.Location),
             };
         }
     }
