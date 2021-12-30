@@ -2,6 +2,7 @@
 using PL.Drones;
 using PL.Stations;
 using PL.View.Parcel;
+using PL.View.Station;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -45,7 +46,7 @@ namespace PL
 
         private void Station_Click(object sender, RoutedEventArgs e)
         {
-            new StationsListView().Show();
+            new StationList().Show();
         }
 
         private void Parcel_Click(object sender, RoutedEventArgs e)

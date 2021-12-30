@@ -6,7 +6,7 @@ namespace BO
     {
 
         public int IdStation { get; set; }
-        public string NameStation { get; set; }
+        public string StationName { get; set; }
         public int NumOfAvailableChargingStations { get; set; }
         public int NumOfBusyChargingStations { get; set; }
         public override string ToString() => this.ToStringProps();

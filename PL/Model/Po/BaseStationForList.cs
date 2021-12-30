@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PL.Model.Po;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -33,29 +34,30 @@ namespace PL.Model
             }
         }
       
-        private int availableChargeSlots;
-        public int AvailableChargeSlots
+        private int numOfAvailableChargingStations;
+        public int NumOfAvailableChargingStations
         {
-            get { return availableChargeSlots; }
+            get { return numOfAvailableChargingStations; }
             set
             {
-                availableChargeSlots = value;
-                OnPropertyChanged(nameof(AvailableChargeSlots));
+                numOfAvailableChargingStations = value;
+                OnPropertyChanged(nameof(NumOfAvailableChargingStations));
             }
         }
 
       
-        private int catchChargeSlots;
-        public int CatchChargeSlots
+        private int numOfBusyChargingStations;
+        public int NumOfBusyChargingStations
         {
-            get { return catchChargeSlots; }
+            get { return numOfBusyChargingStations; }
             set
             {
-                catchChargeSlots = value;
-                OnPropertyChanged(nameof(CatchChargeSlots));
+                numOfBusyChargingStations = value;
+                OnPropertyChanged(nameof(numOfBusyChargingStations));
             }
         }
 
+        public override string ToString() => this.ToStringProperties();
         #region INotifyPropertyChanged Members  
 
         public event PropertyChangedEventHandler PropertyChanged;

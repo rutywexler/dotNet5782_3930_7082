@@ -108,7 +108,7 @@ namespace Bl
             return new BaseStationToList()
             {
                 IdStation = station.Id,
-                NameStation = station.Name,
+                StationName = station.Name,
                 NumOfAvailableChargingStations = station.ChargeSlots - dal.NotAvailableChargingPorts(station.Id),
                 NumOfBusyChargingStations = dal.NotAvailableChargingPorts(station.Id)
             };

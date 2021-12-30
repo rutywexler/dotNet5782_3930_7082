@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using PL.Model.Po;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 
@@ -35,6 +36,8 @@ namespace PL.Model
             get { return dronesInCharching; }
             set { dronesInCharching = value; OnPropertyChanged(nameof(DronesInCharching)); } 
         }
+
+        public override string ToString() => this.ToStringProperties();
 
         #region INotifyPropertyChanged Members  
 
