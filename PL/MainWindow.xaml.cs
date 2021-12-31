@@ -1,5 +1,5 @@
-﻿using PL.Customers;
-using PL.Drones;
+﻿using PL.Drones;
+using PL.View.Customer;
 using PL.View.Parcel;
 using PL.View.Station;
 using System.Windows;
@@ -40,7 +40,7 @@ namespace PL
 
         private void Customer_Click(object sender, RoutedEventArgs e)
         {
-            new CustomerListView().Show();
+            new CustomersList().Show();
         }
 
         private void Station_Click(object sender, RoutedEventArgs e)

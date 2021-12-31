@@ -23,8 +23,8 @@ namespace PL.Model
             var thetaRad = Math.PI * theta / 180;
 
             double dist =
-                Math.Sin(baseRad) * Math.Sin(targetRad) + Math.Cos(baseRad) *
-                Math.Cos(targetRad) * Math.Cos(thetaRad);
+                Math.Sin((double)baseRad) * Math.Sin((double)targetRad) + Math.Cos((double)baseRad) *
+                Math.Cos((double)targetRad) * Math.Cos((double)thetaRad);
             dist = Math.Acos(dist);
 
             dist = dist * 180 / Math.PI;

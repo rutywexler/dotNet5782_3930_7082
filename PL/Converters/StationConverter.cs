@@ -28,9 +28,9 @@ namespace PL.UsingBl
         {
             return new()
             {
-                Id = baseStation.Id,
+                Id = (int)baseStation.Id,
                 Name = baseStation.Name,
-                NumberOfChargingStations = baseStation.ChargeSlots,
+                NumberOfChargingStations = (int)baseStation.ChargeSlots,
                 Location = LocationConverter.ConvertBackLocation(baseStation.Location),
             };
         }

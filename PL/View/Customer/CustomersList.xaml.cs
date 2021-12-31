@@ -11,29 +11,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using static BO.Enums;
 
-namespace PL.Customers
+namespace PL.View.Customer
 {
     /// <summary>
-    /// Interaction logic for CustomerListView.xaml
+    /// Interaction logic for CustomersList.xaml
     /// </summary>
-    public partial class CustomerListView : Window
+    public partial class CustomersList : Window
     {
-       
-        public  BlApi.IBL bl{ get; set; }
-
-        public CustomerListView()
+        public CustomersList()
         {
             InitializeComponent();
-            bl = BlApi.BlFactory.GetBL();
-            DataContext = bl.GetCustomers();
-        }
-   
-
-        private void OpenAddCustomr(object sender, RoutedEventArgs e)
-        {
-            new AddCustomers(bl).Show();
         }
     }
 }

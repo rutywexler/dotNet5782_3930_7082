@@ -7,6 +7,8 @@ using System.Linq;
 using System.Windows;
 using static PL.Model.Enums;
 
+
+
 namespace PL.ViewModel.Parcel
 {
     public class AddParcelViewModel
@@ -17,7 +19,7 @@ namespace PL.ViewModel.Parcel
             //Custom control
             bl = BlApi.BlFactory.GetBL();
             Parcel = new();
-            AddParcelCommand = new(ToAddParcel, /*param => Parcel.Error==*/null);
+            AddParcelCommand = new(ToAddParcel,null/* CheckValidAddParcel(Parcel)*//* param => Parcel.Error==null*/);
             CustomersId = new CustomerUseBl().GetCustomers();
             Priorities = Enum.GetValues(typeof(Priorities));
             Weight = Enum.GetValues(typeof(WeightCategories));

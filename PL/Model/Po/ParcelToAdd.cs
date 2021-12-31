@@ -43,8 +43,8 @@ namespace PL.PO
             }
         }
 
-        private int id;
-        public int Id
+        private int? id;
+        public int? Id
         {
             get { return id; }
             set
