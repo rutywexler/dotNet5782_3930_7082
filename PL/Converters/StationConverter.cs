@@ -34,5 +34,16 @@ namespace PL.UsingBl
                 Location = LocationConverter.ConvertBackLocation(baseStation.Location),
             };
         }
+        public static BaseStation ConvertStationBlToPo(BO.BaseStation station)
+        {
+            return new BaseStation()
+            {
+                Id = station.Id,
+                Name = station.Name,
+                Location = LocationConverter.ConvertLocation(station.Location),
+                AvailableChargeSlots = station.NumberOfChargingStations,
+                DronesInCharching = station.DronesInCharge.Select(item => DroneConverter.ConvertDroneCharging(item)).ToList()
+            };
+        }
     }
 }
