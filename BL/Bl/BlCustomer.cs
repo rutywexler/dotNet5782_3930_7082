@@ -16,11 +16,11 @@ namespace Bl
         /// <param name="name">the customer name</param>
         /// <param name="phoneNumber"> the customer phoner number</param>
         /// <param name="location">the customer location</param>
-        public void AddCustomer(int id, string name, string phoneNumber, double longitude, double lattitude)
+        public void AddCustomer(Customer customerBL)
         {
             try
             {
-                dal.AddCustomer(id, phoneNumber, name, longitude, lattitude);
+                dal.AddCustomer(customerBL.Id, customerBL.PhoneNumber, customerBL.Name, customerBL.Location.Longitude, customerBL.Location.Lattitude);
             }
             catch (DalObject.Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {

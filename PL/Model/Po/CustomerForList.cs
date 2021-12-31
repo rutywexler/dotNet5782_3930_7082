@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PL.Model.Po;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -88,6 +89,7 @@ namespace PL.Model
                 OnPropertyChanged(nameof(PackagesInWay));
             }
         }
+        public override string ToString() => this.ToStringProperties();
 
         #region INotifyPropertyChanged Members  
 

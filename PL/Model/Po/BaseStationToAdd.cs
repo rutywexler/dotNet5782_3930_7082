@@ -9,8 +9,8 @@ namespace PL.Model.Po
 {
     public class BaseStationToAdd : ILocate, INotifyPropertyChanged
     {
-        private int id;
-        public int Id
+        private int? id;
+        public int? Id
         {
             get { return id; }
             set
@@ -42,8 +42,8 @@ namespace PL.Model.Po
             }
         }
 
-        private int chargeSlots;
-        public int ChargeSlots
+        private int? chargeSlots;
+        public int? ChargeSlots
         {
             get => chargeSlots;
             set

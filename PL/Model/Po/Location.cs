@@ -10,14 +10,14 @@ namespace PL.Model
 {
     public class Location: INotifyPropertyChanged
     {
-        private double longitude;
-        public double Longitude { 
+        private double? longitude;
+        public double? Longitude { 
             get { return longitude; } 
             set { longitude = value; 
                 OnPropertyChanged(nameof(Longitude)); } }
 
-        private double latitude { get; set; }
-        public double Latitude {
+        private double? latitude { get; set; }
+        public double? Latitude {
             get { return latitude; }
             set { latitude = value;
                 OnPropertyChanged(nameof(Latitude));} }
