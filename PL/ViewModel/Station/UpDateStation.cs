@@ -9,9 +9,10 @@ using System.Windows;
 
 namespace PL.ViewModel.Station
 {
-    class UpDateStation : DependencyObject
+    public class UpDateStation : DependencyObject
     {
         BlApi.IBL bl;
+        public BaseStationForList BaseStation { get; set; }
         public RelayCommand UpdateStationCommand { get; set; }
         public BaseStation Station
         {
@@ -42,8 +43,11 @@ namespace PL.ViewModel.Station
         public UpDateStation()
         {
             bl = BlApi.BlFactory.GetBL();
+        }
+        public UpDateStation(BaseStationForList station) : this()
+        {
             //לשנות שיקבל רחפן מסוים
-            Station = GetStation(1);
+            Station = GetStation(station.Id);
             Name = Station.Name;
             NumOfChargeSlote = Station.AvailableChargeSlots;
             UpdateStationCommand = new(UpdateStation, null);
@@ -54,7 +58,7 @@ namespace PL.ViewModel.Station
             return StationConverter.ConvertStationBlToPo(bl.GetStation(id));
         }
 
-        private void UpdateStation(object parameter)
+        public void UpdateStation(object parameter)
         {
             if(Station.Name!=Name|| Station.AvailableChargeSlots!= NumOfChargeSlote)
             {
