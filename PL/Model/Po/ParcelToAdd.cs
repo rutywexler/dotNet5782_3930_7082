@@ -21,8 +21,8 @@ namespace PL.PO
             set { target = value; OnPropertyChanged(nameof(Target)); }
         }
 
-        private WeightCategories weight;
-        public WeightCategories Weight
+        private WeightCategories? weight;
+        public WeightCategories? Weight
         {
             get { return weight; }
             set
@@ -32,8 +32,8 @@ namespace PL.PO
             }
         }
 
-        private Priorities priority;
-        public Priorities Priority
+        private Priorities? priority;
+        public Priorities? Priority
         {
             get { return priority; }
             set
