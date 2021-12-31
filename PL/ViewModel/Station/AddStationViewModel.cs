@@ -18,7 +18,7 @@ namespace PL.ViewModel.Station
         {
             bl = BlApi.BlFactory.GetBL();
             BaseStation = new();
-            AddStationCommand = new(AddStation, null /*CheckValidAddStation(BaseStation)*/);
+            AddStationCommand = new(AddStation, new CheckValid().CheckValidAddStation);
         }
 
         private void AddStation(object parameter)
