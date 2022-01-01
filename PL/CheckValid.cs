@@ -3,6 +3,7 @@ using PL.Model.Po;
 using PL.PO;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,53 +42,70 @@ namespace PL
             }
             return true;
         }
+        public static bool valid(object obj)
+        {
+            foreach (var prop in obj.GetType().GetProperties())
+            {
+                if (prop.GetCustomAttributes(typeof(object), false).Length == 0)
+                    return false;
+
+            }
+            return true;
+        }
 
         public static bool CheckValidAddStation(object obj)
         {
-            if (obj is BaseStationToAdd baseStation)
+            if(valid(obj))
             {
-                if (baseStation.Id == null)
+                if (obj is BaseStationToAdd baseStation)
                 {
-                    NotEnter("station Id");
-                    return false;
-                }
-                if (baseStation.Location == null)
-                {
-                    NotEnter("location");
-                    return false;
-                }
-                if (baseStation.Location.Latitude > 90 || baseStation.Location.Latitude < 0)
-                {
-                    EnterdWrongDetail("latitude");
-                    return false;
 
-                }
-                if (baseStation.Location.Longitude > 90 || baseStation.Location.Longitude < 0)
-                {
-                    EnterdWrongDetail("Longitude");
-                    return false;
+                    if (baseStation.Id == null)
+                    {
+                        NotEnter("station Id");
+                        return false;
+                    }
+                    if (baseStation.Location == null)
+                    {
+                        NotEnter("location");
+                        return false;
+                    }
+                    if (baseStation.Location.Latitude > 90 || baseStation.Location.Latitude < 0)
+                    {
+                        EnterdWrongDetail("latitude");
+                        return false;
 
+                    }
+                    if (baseStation.Location.Longitude > 90 || baseStation.Location.Longitude < 0)
+                    {
+                        EnterdWrongDetail("Longitude");
+                        return false;
+
+                    }
+                    if (baseStation.Name == null)
+                    {
+                        NotEnter("Name");
+                        return false;
+                    }
+                    if (baseStation.ChargeSlots == null)
+                    {
+                        NotEnter("charge slots");
+                        return false;
+                    }
+                    if (baseStation.ChargeSlots < 0)
+                    {
+                        EnterdWrongDetail("num of charge slote");
+                        return false;
+                    }
                 }
-                if (baseStation.Name == null)
-                {
-                    NotEnter("Name");
-                    return false;
-                }
-                if (baseStation.ChargeSlots == null)
-                {
-                    NotEnter("charge slots");
-                    return false;
-                }
-                if (baseStation.ChargeSlots < 0)
-                {
-                    EnterdWrongDetail("num of charge slote");
-                    return false;
-                }
+ 
                 return true;
             }
             else
                 return false;
+
         }
+
 
         public static bool CheckValidAddCustomer(CustomerToAdd customer)
         {

@@ -14,6 +14,7 @@ namespace PL.ViewModel.Station
         BlApi.IBL bl;
         public BaseStationForList BaseStation { get; set; }
         public RelayCommand UpdateStationCommand { get; set; }
+        public RelayCommand DeleteStationCommand { get; set; }
         public BaseStation Station
         {
             get { return (BaseStation)GetValue(StationDP); }
@@ -50,8 +51,21 @@ namespace PL.ViewModel.Station
             Name = Station.Name;
             NumOfChargeSlote = Station.AvailableChargeSlots;
             UpdateStationCommand = new(UpdateStation, null);
+            DeleteStationCommand = new(DeleteStation, null);
         }
 
+        private void DeleteStation(object param)
+        {
+            try
+            {
+                bl.RemoveStation(Station.Id);
+            }
+            catch (Exception)//למצוא שגיאה מתאימה 
+            {
+                throw;
+            }
+            MessageBox.Show("Succeed to delete station");
+        }
         private BaseStation GetStation(int id)
         {
             return StationConverter.ConvertStationBlToPo(bl.GetStation(id));
@@ -65,8 +79,6 @@ namespace PL.ViewModel.Station
                 MessageBox.Show("Succeed to Update station");
             }
         }
-
-
     }
 }
 

@@ -96,7 +96,13 @@ namespace Bl
             }
         }
 
-    
+        public void RemoveStation(int id)
+        {
+            var station = dal.GetStation(id);
+            dal.RemoveStation(station);
+        }
+
+
 
         /// <summary>
         /// Convert a DAL station to BLStationToList satation

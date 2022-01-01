@@ -32,7 +32,7 @@ namespace ConsoleUI_BL
                         case Menu.Add:
                             {
                                 DisplayMenus(typeof(Add));
-                                SwitchAdd(bal);
+                                //SwitchAdd(bal);
                                 break;
                             }
 

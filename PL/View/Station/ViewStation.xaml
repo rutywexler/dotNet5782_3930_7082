@@ -23,8 +23,9 @@
             <TextBlock Text="Longitude: "/>
             <TextBlock  Text ="{Binding Station.Location.Longitude,  UpdateSourceTrigger=PropertyChanged}" />
             <Button Content="close station"/>
-            <Button Content="update station" Command="{Binding UpdateStationCommand}">
-                <!--<Button.Visibility>
+            <Button Content="update station" Command="{Binding UpdateStationCommand}"/>
+            <Button Content="Delete station" Command="{Binding DeleteStationCommand}">
+            <!--<Button.Visibility>
                     <MultiBinding Converter="{StaticResource ConverterUpdateStation}">
                         <Binding Path="station.Name" />
                         <Binding Path="stationName" />
