@@ -94,39 +94,37 @@ namespace PL
                 return false;
         }
 
-        public static bool CheckValidAddCustomer(object obj)
+        public bool CheckValidAddCustomer(CustomerToAdd customer)
         {
-            if (obj is CustomerToAdd customer)
+            if (customer.Id == null)
             {
-                if (customer.Id == null)
-                {
-                    NotEnter("station Id");
-                    return false;
-                }
-                if (customer.Name == null)
-                {
-                    NotEnter("Name");
-                    return false;
-                }
-                if (customer.Phone == null)
-                {
-                    NotEnter("Phone");
-                    return false;
-                }
-                if (customer.Location.Latitude == null)
-                {
-                    NotEnter("Latitude");
-                    return false;
-                }
-                if (customer.Location.Longitude == null)
-                {
-                    NotEnter("Longitude");
-                    return false;
-                }
-                if (customer.Location.Latitude > 90 || customer.Location.Latitude < 0)
-                {
-                    EnterdWrongDetail("latitude");
-                    return false;
+                NotEnter("station Id");
+                return false;
+            }
+            if (customer.Name == null)
+            {
+                NotEnter("Name");
+                return false;
+            }
+            if (customer.Phone == null)
+            {
+                NotEnter("Phone");
+                return false;
+            }
+            if (customer.Location.Latitude == null)
+            {
+                NotEnter("Latitude");
+                return false;
+            }
+            if (customer.Location.Longitude == null)
+            {
+                NotEnter("Longitude");
+                return false;
+            }
+            if (customer.Location.Latitude > 90 || customer.Location.Latitude < 0)
+            {
+                EnterdWrongDetail("latitude");
+                return false;
 
                 }
                 if (customer.Location.Longitude > 90 || customer.Location.Longitude < 0)

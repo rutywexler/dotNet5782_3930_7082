@@ -46,7 +46,6 @@ namespace PL.ViewModel.Station
         }
         public UpDateStation(BaseStationForList station) : this()
         {
-            //לשנות שיקבל רחפן מסוים
             Station = GetStation(station.Id);
             Name = Station.Name;
             NumOfChargeSlote = Station.AvailableChargeSlots;
@@ -62,7 +61,7 @@ namespace PL.ViewModel.Station
         {
             if(Station.Name!=Name|| Station.AvailableChargeSlots!= NumOfChargeSlote)
             {
-                bl.UpdateStation(Station.Id, Name, NumOfChargeSlote);
+                bl.UpdateStation(Station.Id, Station.Name, Station.AvailableChargeSlots);
                 MessageBox.Show("Succeed to Update station");
             }
         }
