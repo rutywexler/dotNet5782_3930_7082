@@ -10,39 +10,44 @@ using System.Windows;
 
 namespace PL
 {
-    public class CheckValid
+    public static class CheckValid
     {
-        public bool CheckValidAddParcel(ParcelToAdd parcel)
+        public static bool CheckValidAddParcel(object obj)
         {
-            if (parcel.Id == null)
+            if (obj is ParcelToAdd parcel)
             {
-                NotEnter("parcel");
-                return false;
+                if (parcel.Id == null)
+                {
+                    NotEnter("parcel");
+                    return false;
+                }
+                if (parcel.Priority == null)
+                {
+                    NotEnter("priority");
+                    return false;
+                }
+                if (parcel.Sender == null)
+                {
+                    NotEnter("sender Id");
+                    return false;
+                }
+                if (parcel.Target == null)
+                {
+                    NotEnter("target Id");
+                    return false;
+                }
+                if (parcel.Weight == null)
+                {
+                    NotEnter("weight");
+                    return false;
+                }
+                return true;
             }
-            if (parcel.Priority == null)
-            {
-                NotEnter("priority");
-                return false;
-            }
-            if (parcel.Sender == null)
-            {
-                NotEnter("sender Id");
-                return false;
-            }
-            if (parcel.Target == null)
-            {
-                NotEnter("target Id");
-                return false;
-            }
-            if (parcel.Weight == null)
-            {
-                NotEnter("weight");
-                return false;
-            }
-            return true;
+            else
+                 return true;
         }
 
-        public bool CheckValidAddStation(object obj)
+        public static bool CheckValidAddStation(object obj)
         {
             if (obj is BaseStationToAdd baseStation)
             {
@@ -89,55 +94,59 @@ namespace PL
                 return false;
         }
 
-        public bool CheckValidAddCustomer(CustomerToAdd customer)
+        public static bool CheckValidAddCustomer(object obj)
         {
-            if (customer.Id == null)
+            if (obj is CustomerToAdd customer)
             {
-                NotEnter("station Id");
-                return false;
-            }
-            if (customer.Name == null)
-            {
-                NotEnter("Name");
-                return false;
-            }
-            if (customer.Phone == null)
-            {
-                NotEnter("Phone");
-                return false;
-            }
-            if (customer.Location.Latitude == null)
-            {
-                NotEnter("Latitude");
-                return false;
-            }
-            if (customer.Location.Longitude == null)
-            {
-                NotEnter("Longitude");
-                return false;
-            }
-            if (customer.Location.Latitude > 90 || customer.Location.Latitude < 0)
-            {
-                EnterdWrongDetail("latitude");
-                return false;
+                if (customer.Id == null)
+                {
+                    NotEnter("station Id");
+                    return false;
+                }
+                if (customer.Name == null)
+                {
+                    NotEnter("Name");
+                    return false;
+                }
+                if (customer.Phone == null)
+                {
+                    NotEnter("Phone");
+                    return false;
+                }
+                if (customer.Location.Latitude == null)
+                {
+                    NotEnter("Latitude");
+                    return false;
+                }
+                if (customer.Location.Longitude == null)
+                {
+                    NotEnter("Longitude");
+                    return false;
+                }
+                if (customer.Location.Latitude > 90 || customer.Location.Latitude < 0)
+                {
+                    EnterdWrongDetail("latitude");
+                    return false;
 
-            }
-            if (customer.Location.Longitude > 90 || customer.Location.Longitude < 0)
-            {
-                EnterdWrongDetail("Longitude");
-                return false;
+                }
+                if (customer.Location.Longitude > 90 || customer.Location.Longitude < 0)
+                {
+                    EnterdWrongDetail("Longitude");
+                    return false;
 
+                }
+                return true;
             }
-
-            return true;
+            else
+                return true;
         }
 
-        private void EnterdWrongDetail(string v)
+        private static void EnterdWrongDetail(string v)
         {
             MessageBox.Show("$ You Enterd error {v}, please enter again!");
         }
 
-        private void NotEnter(string v)
+        private static void NotEnter(string v)
         {
             MessageBox.Show("$ You didnt Enter {v}, please enter!");
         }
