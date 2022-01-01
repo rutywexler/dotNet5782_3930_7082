@@ -10,9 +10,9 @@ using System.Windows;
 
 namespace PL
 {
-    public class CheckValid
+    public static class CheckValid
     {
-        public bool CheckValidAddParcel(ParcelToAdd parcel)
+        public static bool CheckValidAddParcel(ParcelToAdd parcel)
         {
             if (parcel.Id == null)
             {
@@ -42,7 +42,7 @@ namespace PL
             return true;
         }
 
-        public bool CheckValidAddStation(object obj)
+        public static bool CheckValidAddStation(object obj)
         {
             if (obj is BaseStationToAdd baseStation)
             {
@@ -89,7 +89,7 @@ namespace PL
                 return false;
         }
 
-        public bool CheckValidAddCustomer(CustomerToAdd customer)
+        public static bool CheckValidAddCustomer(CustomerToAdd customer)
         {
             if (customer.Id == null)
             {
@@ -132,12 +132,12 @@ namespace PL
             return true;
         }
 
-        private void EnterdWrongDetail(string v)
+        private static void EnterdWrongDetail(string v)
         {
             MessageBox.Show("$ You Enterd error {v}, please enter again!");
         }
 
-        private void NotEnter(string v)
+        private static void NotEnter(string v)
         {
             MessageBox.Show("$ You didnt Enter {v}, please enter!");
         }
