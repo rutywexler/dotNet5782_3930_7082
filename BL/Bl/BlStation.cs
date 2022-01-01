@@ -84,7 +84,7 @@ namespace Bl
             {
                 var station = dal.GetStation(id);
                 dal.RemoveStation(station);
-                dal.AddStation(id, name.Equals(string.Empty) ? station.Name : name, station.Longitude, station.Lattitude, chargeSlots == 0 ? station.ChargeSlots : chargeSlots);
+                dal.AddStation(id, name.Equals(string.Empty) ? station.Name : name, station.Longitude, station.Lattitude, chargeSlots);
             }
             catch (KeyNotFoundException ex)
             {

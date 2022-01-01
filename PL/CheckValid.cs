@@ -139,15 +139,17 @@ namespace PL
                 EnterdWrongDetail("latitude");
                 return false;
 
-            }
-            if (customer.Location.Longitude > 90 || customer.Location.Longitude < 0)
-            {
-                EnterdWrongDetail("Longitude");
-                return false;
+                }
+                if (customer.Location.Longitude > 90 || customer.Location.Longitude < 0)
+                {
+                    EnterdWrongDetail("Longitude");
+                    return false;
 
+                }
+                return true;
             }
-
-            return true;
+            else
+                return true;
         }
 
         private static void EnterdWrongDetail(string v)
