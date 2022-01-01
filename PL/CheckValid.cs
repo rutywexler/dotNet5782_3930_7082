@@ -55,7 +55,7 @@ namespace PL
 
         public static bool CheckValidAddStation(object obj)
         {
-            if(valid(obj))
+            if (valid(obj))
             {
                 if (obj is BaseStationToAdd baseStation)
                 {
@@ -98,7 +98,7 @@ namespace PL
                         return false;
                     }
                 }
- 
+
                 return true;
             }
             else
@@ -139,27 +139,27 @@ namespace PL
                 EnterdWrongDetail("latitude");
                 return false;
 
-                }
-                if (customer.Location.Longitude > 90 || customer.Location.Longitude < 0)
-                {
-                    EnterdWrongDetail("Longitude");
-                    return false;
-
-                }
-                return true;
             }
+            if (customer.Location.Longitude > 90 || customer.Location.Longitude < 0)
+            {
+                EnterdWrongDetail("Longitude");
+                return false;
+
+            }
+          
+      
             else
                 return true;
         }
 
-        private static void EnterdWrongDetail(string v)
-        {
-            MessageBox.Show("$ You Enterd error {v}, please enter again!");
-        }
-
-        private static void NotEnter(string v)
-        {
-            MessageBox.Show("$ You didnt Enter {v}, please enter!");
-        }
+    private static void EnterdWrongDetail(string v)
+    {
+        MessageBox.Show("$ You Enterd error {v}, please enter again!");
     }
+
+    private static void NotEnter(string v)
+    {
+        MessageBox.Show("$ You didnt Enter {v}, please enter!");
+    }
+}
 }
