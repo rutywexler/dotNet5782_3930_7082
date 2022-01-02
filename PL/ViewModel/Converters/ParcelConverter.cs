@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace PL.UsingBl
 {
@@ -21,16 +22,17 @@ namespace PL.UsingBl
         //{
         //    bl.AddParcel(ConvertParcel(parcel));
         //}
-
+        //לתקן בדחיפות!!!
         public static BO.Parcel ConvertToBO(ParcelToAdd parcel)
         {
             return new()
             {
+
                 Priority = (BO.Enums.Priorities)parcel.Priority,
                 WeightParcel = (BO.Enums.WeightCategories)parcel.Weight,
                 CustomerReceivesTo = CustomerInParcelUseBl.ConvertBackCustomerInParcel(new() { Id = parcel.Target.Id }),
                 CustomerSendsFrom = CustomerInParcelUseBl.ConvertBackCustomerInParcel(new() { Id = parcel.Sender.Id })
-            };
+            };       
         }
         public static ParcelToAdd ConvertToPO(BO.Parcel parcel)
         {
