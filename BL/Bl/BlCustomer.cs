@@ -24,7 +24,6 @@ namespace Bl
             }
             catch (DalObject.Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
-
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
             }
         }
@@ -37,7 +36,6 @@ namespace Bl
         {
             try
             {
-
                 var customer = dal.GetCustomer(id);
                 return new Customer()
                 {

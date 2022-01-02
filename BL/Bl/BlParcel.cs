@@ -274,6 +274,12 @@ namespace Bl
             };
         }
 
+        public void DeleteParcel(int id)
+        {
+            var parcel = dal.GetParcel(id);
+            dal.RemoveParcel(parcel);
+        }
+
     }
 }
 

@@ -3,6 +3,7 @@ using PL.Model.Po;
 using PL.PO;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace PL
 {
     public static class CheckValid
     {
-        public static bool CheckValidAddParcel(object obj)
+        public static bool CheckValidAddParcel(ParcelToAdd parcel)
         {
             if (obj is ParcelToAdd parcel)
             {
@@ -44,112 +45,116 @@ namespace PL
                 return true;
             }
             else
-                return true;
+                 return true;
         }
 
         public static bool CheckValidAddStation(object obj)
         {
-            if (obj is BaseStationToAdd baseStation)
+            if (valid(obj))
             {
-                if (baseStation.Id == null)
+                if (obj is BaseStationToAdd baseStation)
                 {
-                    NotEnter("station Id");
-                    return false;
-                }
-                if (baseStation.Location == null)
-                {
-                    NotEnter("location");
-                    return false;
-                }
-                if (baseStation.Location.Latitude > 90 || baseStation.Location.Latitude < 0)
-                {
-                    EnterdWrongDetail("latitude");
-                    return false;
 
-                }
-                if (baseStation.Location.Longitude > 90 || baseStation.Location.Longitude < 0)
-                {
-                    EnterdWrongDetail("Longitude");
-                    return false;
+                    if (baseStation.Id == null)
+                    {
+                        NotEnter("station Id");
+                        return false;
+                    }
+                    if (baseStation.Location == null)
+                    {
+                        NotEnter("location");
+                        return false;
+                    }
+                    if (baseStation.Location.Latitude > 90 || baseStation.Location.Latitude < 0)
+                    {
+                        EnterdWrongDetail("latitude");
+                        return false;
 
+                    }
+                    if (baseStation.Location.Longitude > 90 || baseStation.Location.Longitude < 0)
+                    {
+                        EnterdWrongDetail("Longitude");
+                        return false;
+
+                    }
+                    if (baseStation.Name == null)
+                    {
+                        NotEnter("Name");
+                        return false;
+                    }
+                    if (baseStation.ChargeSlots == null)
+                    {
+                        NotEnter("charge slots");
+                        return false;
+                    }
+                    if (baseStation.ChargeSlots < 0)
+                    {
+                        EnterdWrongDetail("num of charge slote");
+                        return false;
+                    }
                 }
-                if (baseStation.Name == null)
-                {
-                    NotEnter("Name");
-                    return false;
-                }
-                if (baseStation.ChargeSlots == null)
-                {
-                    NotEnter("charge slots");
-                    return false;
-                }
-                if (baseStation.ChargeSlots < 0)
-                {
-                    EnterdWrongDetail("num of charge slote");
-                    return false;
-                }
+
                 return true;
             }
             else
                 return false;
+
         }
 
-        public static bool CheckValidAddCustomer(object obj)
+        public bool CheckValidAddCustomer(CustomerToAdd customer)
         {
-            if (obj is CustomerToAdd customer)
+            if (customer.Id == null)
             {
-                if (customer.Id == null)
-                {
-                    NotEnter("station Id");
-                    return false;
-                }
-                if (customer.Name == null)
-                {
-                    NotEnter("Name");
-                    return false;
-                }
-                if (customer.Phone == null)
-                {
-                    NotEnter("Phone");
-                    return false;
-                }
-                if (customer.Location.Latitude == null)
-                {
-                    NotEnter("Latitude");
-                    return false;
-                }
-                if (customer.Location.Longitude == null)
-                {
-                    NotEnter("Longitude");
-                    return false;
-                }
-                if (customer.Location.Latitude > 90 || customer.Location.Latitude < 0)
-                {
-                    EnterdWrongDetail("latitude");
-                    return false;
-
-                }
-                if (customer.Location.Longitude > 90 || customer.Location.Longitude < 0)
-                {
-                    EnterdWrongDetail("Longitude");
-                    return false;
-
-                }
-                return true;
+                NotEnter("station Id");
+                return false;
             }
+            if (customer.Name == null)
+            {
+                NotEnter("Name");
+                return false;
+            }
+            if (customer.Phone == null)
+            {
+                NotEnter("Phone");
+                return false;
+            }
+            if (customer.Location.Latitude == null)
+            {
+                NotEnter("Latitude");
+                return false;
+            }
+            if (customer.Location.Longitude == null)
+            {
+                NotEnter("Longitude");
+                return false;
+            }
+            if (customer.Location.Latitude > 90 || customer.Location.Latitude < 0)
+            {
+                EnterdWrongDetail("latitude");
+                return false;
+
+            }
+            if (customer.Location.Longitude > 90 || customer.Location.Longitude < 0)
+            {
+                EnterdWrongDetail("Longitude");
+                return false;
+
+            }
+          
+      
             else
                 return true;
         }
 
-        private static void EnterdWrongDetail(string v)
-        {
-            MessageBox.Show("$ You Enterd error {v}, please enter again!");
-        }
-
-        private static void NotEnter(string v)
-        {
-            MessageBox.Show("$ You didnt Enter {v}, please enter!");
-        }
+    private static void EnterdWrongDetail(string v)
+    {
+        MessageBox.Show("$ You Enterd error {v}, please enter again!");
     }
+
+    private static void NotEnter(string v)
+    {
+        MessageBox.Show("$ You didnt Enter {v}, please enter!");
+    }
+}
 }
 
