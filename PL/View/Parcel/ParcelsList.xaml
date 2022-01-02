@@ -12,6 +12,17 @@
     <Grid>
         <ListView 
             ItemsSource="{Binding ViewParcels}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ContentControl Content="{Binding }">
+                        <ContentControl.InputBindings>
+                            <MouseBinding Gesture="LeftDoubleClick" 
+                                          Command="{Binding DataContext.OpenViewParcelsWindowCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                          CommandParameter="{Binding }"/>
+                        </ContentControl.InputBindings>
+                    </ContentControl>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
         <Button Command="{Binding OpenAddParcelWindow}" 
                 Content="Add new parcel"

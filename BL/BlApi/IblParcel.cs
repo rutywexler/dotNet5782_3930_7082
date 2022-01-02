@@ -10,6 +10,7 @@ namespace BlApi
         public void ParcelCollectionByDrone(int droneId);
         public void DeliveryParcelByDrone(int droneId);
         public Parcel GetParcel(int id);
+        public void DeleteParcel(int id);
         public IEnumerable<ParcelList> GetParcels();
         public IEnumerable<ParcelList> GetParcelsNotAssignedToDrone();
     }
