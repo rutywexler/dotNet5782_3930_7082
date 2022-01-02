@@ -16,7 +16,8 @@ namespace PL.Model
         private string name;
         public string Name {
             get { return name; }
-            set { name = value; OnPropertyChanged(nameof(Name)); } 
+            set { name = value; 
+                OnPropertyChanged(nameof(Name)); } 
         }
 
         private Location location = new Location();

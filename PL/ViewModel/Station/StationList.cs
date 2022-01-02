@@ -5,13 +5,27 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Data;
 
 namespace PL.ViewModel.Station
 {
-    public class StationList
+    public class StationList:DependencyObject
     {
-        public IEnumerable<BaseStationForList> ViewStations { get; set; }
+       // public ObservableCollection<BaseStationForList> ViewStations { get; set; }
+
+
+        public ObservableCollection<BaseStationForList> ViewStations
+        {
+            get { return (ObservableCollection<BaseStationForList>)GetValue(ViewStationsProperty); }
+            set { SetValue(ViewStationsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ViewStations.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ViewStationsProperty =
+            DependencyProperty.Register("ViewStations", typeof(ObservableCollection<BaseStationForList>), typeof(StationList), new PropertyMetadata(null));
+
+
         public RelayCommand OpenAddStationWindow { get; set; }
         public RelayCommand OpenViewStationWindowCommand { get; set; }
         BlApi.IBL bl;
@@ -19,17 +33,18 @@ namespace PL.ViewModel.Station
         public StationList()
         {
             bl = BlApi.BlFactory.GetBL();
-            ViewStations = ViewStationList();
+            ViewStations =new ObservableCollection<BaseStationForList>( ViewStationList());
             OpenAddStationWindow = new(OpenAddWindow, null);
             OpenViewStationWindowCommand = new(OpenStationView);
         }
         private void RefreshList()
         {
-            //
+            ViewStations = new ObservableCollection<BaseStationForList>(ViewStationList());
         }
-        public static void OpenAddWindow(object param)
+        public  void OpenAddWindow(object param)
         {
-            new AddStation().Show();
+            new AddStation().ShowDialog();
+            RefreshList();
         }
         public static void OpenStationView(object param)
         {

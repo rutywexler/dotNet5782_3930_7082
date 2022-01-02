@@ -13,7 +13,7 @@ namespace PL
 {
     public static class CheckValid
     {
-        public static bool CheckValidAddParcel(ParcelToAdd parcel)
+        public static bool CheckValidAddParcel(object obj)
         {
             if (obj is ParcelToAdd parcel)
             {
@@ -50,49 +50,49 @@ namespace PL
 
         public static bool CheckValidAddStation(object obj)
         {
-            if (valid(obj))
-            {
+            //if (valid(obj))
+           // {
                 if (obj is BaseStationToAdd baseStation)
                 {
 
                     if (baseStation.Id == null)
                     {
-                        NotEnter("station Id");
+                      //  NotEnter("station Id");
                         return false;
                     }
                     if (baseStation.Location == null)
                     {
-                        NotEnter("location");
+                      //  NotEnter("location");
                         return false;
                     }
                     if (baseStation.Location.Latitude > 90 || baseStation.Location.Latitude < 0)
                     {
-                        EnterdWrongDetail("latitude");
+                      //  EnterdWrongDetail("latitude");
                         return false;
 
                     }
                     if (baseStation.Location.Longitude > 90 || baseStation.Location.Longitude < 0)
                     {
-                        EnterdWrongDetail("Longitude");
+                     //   EnterdWrongDetail("Longitude");
                         return false;
 
                     }
                     if (baseStation.Name == null)
                     {
-                        NotEnter("Name");
+                     //   NotEnter("Name");
                         return false;
                     }
                     if (baseStation.ChargeSlots == null)
                     {
-                        NotEnter("charge slots");
+//NotEnter("charge slots");
                         return false;
                     }
                     if (baseStation.ChargeSlots < 0)
                     {
-                        EnterdWrongDetail("num of charge slote");
+                       // EnterdWrongDetail("num of charge slote");
                         return false;
                     }
-                }
+               // }
 
                 return true;
             }
@@ -101,50 +101,50 @@ namespace PL
 
         }
 
-        public bool CheckValidAddCustomer(CustomerToAdd customer)
-        {
-            if (customer.Id == null)
-            {
-                NotEnter("station Id");
-                return false;
-            }
-            if (customer.Name == null)
-            {
-                NotEnter("Name");
-                return false;
-            }
-            if (customer.Phone == null)
-            {
-                NotEnter("Phone");
-                return false;
-            }
-            if (customer.Location.Latitude == null)
-            {
-                NotEnter("Latitude");
-                return false;
-            }
-            if (customer.Location.Longitude == null)
-            {
-                NotEnter("Longitude");
-                return false;
-            }
-            if (customer.Location.Latitude > 90 || customer.Location.Latitude < 0)
-            {
-                EnterdWrongDetail("latitude");
-                return false;
+        //public static bool CheckValidAddCustomer(CustomerToAdd customer)
+        //{
+        //    if (customer.Id == null)
+        //    {
+        //        NotEnter("station Id");
+        //        return false;
+        //    }
+        //    if (customer.Name == null)
+        //    {
+        //        NotEnter("Name");
+        //        return false;
+        //    }
+        //    if (customer.Phone == null)
+        //    {
+        //        NotEnter("Phone");
+        //        return false;
+        //    }
+        //    if (customer.Location.Latitude == null)
+        //    {
+        //        NotEnter("Latitude");
+        //        return false;
+        //    }
+        //    if (customer.Location.Longitude == null)
+        //    {
+        //        NotEnter("Longitude");
+        //        return false;
+        //    }
+        //    if (customer.Location.Latitude > 90 || customer.Location.Latitude < 0)
+        //    {
+        //        EnterdWrongDetail("latitude");
+        //        return false;
 
-            }
-            if (customer.Location.Longitude > 90 || customer.Location.Longitude < 0)
-            {
-                EnterdWrongDetail("Longitude");
-                return false;
+        //    }
+        //    if (customer.Location.Longitude > 90 || customer.Location.Longitude < 0)
+        //    {
+        //        EnterdWrongDetail("Longitude");
+        //        return false;
 
-            }
+        //    }
           
       
-            else
-                return true;
-        }
+        //    else
+        //        return true;
+        //}
 
     private static void EnterdWrongDetail(string v)
     {

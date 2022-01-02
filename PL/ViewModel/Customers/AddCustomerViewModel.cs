@@ -18,7 +18,7 @@ namespace PL.ViewModel.Customer
         {
             bl = BlApi.BlFactory.GetBL();
             customer = new();
-            AddCustomerCommand = new(AddStation, CheckValid.CheckValidAddCustomer);
+            AddCustomerCommand = new(AddStation,null)/*checkValid.CheckValidAddCustomer)*/;
         }
 
         private void AddStation(object parameter)

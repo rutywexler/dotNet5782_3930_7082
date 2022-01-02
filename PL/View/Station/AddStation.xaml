@@ -11,6 +11,14 @@
         <local:AddStationViewModel/>
     </Window.DataContext>
     <Grid>
+        <Grid.Resources>
+            <DataTrigger >
+                <DataTrigger.Setters>
+                    <Setter   Property="Text" Value=""></Setter>
+                </DataTrigger.Setters>
+                <Setter Property="BorderColor" Value="Red"></Setter>
+            </DataTrigger>
+        </Grid.Resources>
         <StackPanel>
             <TextBox Text="{Binding BaseStation.Id, UpdateSourceTrigger=LostFocus}" materialDesign:HintAssist.Hint="Id" Margin="5"/>
             <TextBox Text="{Binding BaseStation.Name, UpdateSourceTrigger=LostFocus}" materialDesign:HintAssist.Hint="Name" Margin="5"/>

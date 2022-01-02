@@ -19,7 +19,7 @@ namespace PL.ViewModel.Parcel
             //Custom control
             bl = BlApi.BlFactory.GetBL();
             Parcel = new();
-            AddParcelCommand = new(ToAddParcel, CheckValid.CheckValidAddParcel);
+            AddParcelCommand = new(ToAddParcel, param => CheckValid.CheckValidAddParcel(this));
             CustomersId = new CustomerUseBl().GetCustomers();
             Priorities = Enum.GetValues(typeof(Priorities));
             Weight = Enum.GetValues(typeof(WeightCategories));

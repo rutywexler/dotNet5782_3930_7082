@@ -21,16 +21,16 @@ namespace PL.ViewModel.Station
             set { SetValue(StationDP, value); }
         }
         public static readonly DependencyProperty StationDP =
-        DependencyProperty.Register("Station", typeof(BaseStation), typeof(UpDateStation), new PropertyMetadata(new BaseStation()));
+        DependencyProperty.Register("Station", typeof(BaseStation), typeof(UpDateStation), new PropertyMetadata(null));
 
-        public string Name
+       /* public string Name
         {
             get { return (string)GetValue(nameDP); }
             set { SetValue(nameDP, value); }
         }
 
         public static readonly DependencyProperty nameDP =
-       DependencyProperty.Register("Name", typeof(string), typeof(UpDateStation), new PropertyMetadata(""));
+       DependencyProperty.Register("Name", typeof(string), typeof(UpDateStation), new PropertyMetadata(""));*/
 
         public int NumOfChargeSlote
         {
@@ -48,7 +48,7 @@ namespace PL.ViewModel.Station
         public UpDateStation(BaseStationForList station) : this()
         {
             Station = GetStation(station.Id);
-            Name = Station.Name;
+            //Name = Station.Name;
             NumOfChargeSlote = Station.AvailableChargeSlots;
             UpdateStationCommand = new(UpdateStation, null);
             DeleteStationCommand = new(DeleteStation, null);
@@ -73,7 +73,7 @@ namespace PL.ViewModel.Station
 
         public void UpdateStation(object parameter)
         {
-            if(Station.Name!=Name|| Station.AvailableChargeSlots!= NumOfChargeSlote)
+           // if(Station.Name!=Name|| Station.AvailableChargeSlots!= NumOfChargeSlote)
             {
                 bl.UpdateStation(Station.Id, Station.Name, Station.AvailableChargeSlots);
                 MessageBox.Show("Succeed to Update station");
