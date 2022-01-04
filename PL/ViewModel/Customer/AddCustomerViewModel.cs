@@ -25,7 +25,7 @@ namespace PL.ViewModel.Customer
         {
             try
             {
-                var customerBO = CustomerConverter.ConvertPoCustomerToBO(customer);
+                var customerBO = CustomerInParcelUseBL.ConvertPoCustomerToBO(customer);
                 bl.AddCustomer(customerBO);
                 MessageBox.Show("Success to add customer:)");
 

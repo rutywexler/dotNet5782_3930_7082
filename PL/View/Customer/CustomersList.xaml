@@ -11,6 +11,7 @@
     </Window.DataContext>
     <Grid>
         <ListView  ItemsSource="{Binding ViewCustomers}"></ListView>
+        
         <Button Command="{Binding  OpenAddCustomerWindow}" 
                 Content="Add new customer"
                 HorizontalAlignment="Left"

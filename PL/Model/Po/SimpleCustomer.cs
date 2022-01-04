@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PL.Model
 {
-    public class Customer : ILocate, INotifyPropertyChanged
+    public class SimpleCustomer : ILocate, INotifyPropertyChanged
     {
         private int id;
         public int Id
