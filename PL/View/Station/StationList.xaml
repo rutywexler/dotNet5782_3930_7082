@@ -10,7 +10,7 @@
     <Window.DataContext>
         <local:StationList/>
     </Window.DataContext>
-    <Grid>
+    <StackPanel>
         <ListView  ItemsSource="{Binding ViewStations}">
             <!--<ListBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
@@ -52,11 +52,17 @@
             </ListView.GroupStyle>
         </ListView>
         <ComboBox
+            x:Name="Group"
             Text="choose grouping"
             ItemsSource="{Binding ComboboxItems}"
             SelectedItem="{Binding SelectedItemGrouping}"
-            <!--="{Binding GroupingStation}"-->
-            ></ComboBox>
+            >
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding GroupingStation}" CommandParameter="{Binding Path=SelectedValue, ElementName=Group}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
         <Button Command="{Binding  OpenAddStationWindow}" 
                 Content="Add new station"
                 HorizontalAlignment="Left"
@@ -68,5 +74,5 @@
 
         </Button>
 
-    </Grid>
+    </StackPanel>
 </Window>

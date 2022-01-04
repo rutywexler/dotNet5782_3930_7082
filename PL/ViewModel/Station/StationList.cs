@@ -14,7 +14,7 @@ namespace PL.ViewModel.Station
     {
 
         public RelayCommand GroupingStation { get; set; }
-        public List<string> ComboboxItems { get; set; }= new List<string>();
+        public ObservableCollection<string> ComboboxItems { get; set; }
         public string SelectedItemGrouping { get; set; }
         public ListCollectionView ViewStations
         {
@@ -34,8 +34,7 @@ namespace PL.ViewModel.Station
         public StationList()
         {
             bl = BlApi.BlFactory.GetBL();
-            ComboboxItems.Add("NumOfAvailableChargingStation");
-            ComboboxItems.Add("Name");
+            ComboboxItems =new ObservableCollection<string>(typeof(BaseStationForList).GetProperties().Where(prop => prop.PropertyType.IsValueType || prop.PropertyType == typeof(string)).Select(prop => prop.Name));
             ViewStations = new ListCollectionView(ViewStationList().ToList());
             OpenAddStationWindow = new(OpenAddWindow, null);
             OpenViewStationWindowCommand = new(OpenStationView);
@@ -62,7 +61,11 @@ namespace PL.ViewModel.Station
         }
         public void Grouping (object param)
         {
-            ViewStations.GroupDescriptions.Add(new PropertyGroupDescription(SelectedItemGrouping));
+            for (int i = 0; i < ViewStations.GroupDescriptions.Count; i++)
+            {
+                ViewStations.GroupDescriptions.RemoveAt(i);
+            }
+            ViewStations.GroupDescriptions.Add(new PropertyGroupDescription(param.ToString()));
         }
 
 
