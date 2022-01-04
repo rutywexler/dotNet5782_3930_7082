@@ -49,11 +49,13 @@ namespace PL.ViewModel.Station
             new AddStation().ShowDialog();
             RefreshList();
         }
-        public static void OpenStationView(object param)
+        public  void OpenStationView(object param)
         {
             var station = param as BaseStationForList;
             
-            new ViewStation(station).Show();
+            new ViewStation(station).ShowDialog();
+            RefreshList();
+
         }
         public IEnumerable<BaseStationForList> ViewStationList()
         {

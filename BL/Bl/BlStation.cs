@@ -83,7 +83,7 @@ namespace Bl
             try
             {
                 var station = dal.GetStation(id);
-                dal.RemoveStation(station);
+                dal.RemoveStation(station.Id);
                 dal.AddStation(id, name.Equals(string.Empty) ? station.Name : name, station.Longitude, station.Lattitude, chargeSlots);
             }
             catch (KeyNotFoundException ex)
@@ -99,7 +99,7 @@ namespace Bl
         public void RemoveStation(int id)
         {
             var station = dal.GetStation(id);
-            dal.RemoveStation(station);
+            dal.RemoveStation(station.Id);
         }
 
 

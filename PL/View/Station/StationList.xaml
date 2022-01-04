@@ -51,7 +51,7 @@
                 </GroupStyle>
             </ListView.GroupStyle>
         </ListView>
-        <ComboBox
+        <!--<ComboBox
             x:Name="Group"
             Text="choose grouping"
             ItemsSource="{Binding ComboboxItems}"
@@ -62,7 +62,7 @@
                     <i:InvokeCommandAction Command="{Binding GroupingStation}" CommandParameter="{Binding Path=SelectedValue, ElementName=Group}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-        </ComboBox>
+        </ComboBox>-->
         <Button Command="{Binding  OpenAddStationWindow}" 
                 Content="Add new station"
                 HorizontalAlignment="Left"

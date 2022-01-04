@@ -22,6 +22,8 @@
             <TextBlock  Text ="{Binding Station.Location.Latitude,UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Text="Longitude: "/>
             <TextBlock  Text ="{Binding Station.Location.Longitude,  UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="DronesInCharching: "/>
+            <TextBlock  Text ="{Binding Station.DronesInCharching,  UpdateSourceTrigger=PropertyChanged}" />
             <Button Content="close station"/>
             <Button Content="update station" Command="{Binding UpdateStationCommand}"/>
             <Button Content="Delete station" Command="{Binding DeleteStationCommand}">
