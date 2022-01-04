@@ -10,7 +10,7 @@
     <Window.DataContext>
         <local:StationList/>
     </Window.DataContext>
-    <StackPanel>
+    <Grid>
         <ListView  ItemsSource="{Binding ViewStations}">
             <!--<ListBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
@@ -74,5 +74,5 @@
 
         </Button>
 
-    </StackPanel>
+    </Grid>
 </Window>
