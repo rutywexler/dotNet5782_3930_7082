@@ -83,8 +83,9 @@ namespace DalObject
         /// remove station from ststion list
         /// </summary>
         /// <param name="station">the station i want to delete</param>
-        public void RemoveStation(Station station)
+        public void RemoveStation(int id)
         {
+            Station station = BaseStations.FirstOrDefault(station => station.Id == id);
             BaseStations.Remove(station);
         }
         

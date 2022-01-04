@@ -246,7 +246,7 @@ namespace Bl
             try
             {
                 DO.Parcel parcel = dal.GetParcel(parcelId);
-                dal.RemoveParcel(parcel);
+                dal.RemoveParcel(parcel.Id);
                 parcel.PickedUp = DateTime.Now;
                 dal.AddParcel(parcel.SenderId, parcel.TargetId, parcel.Weight, parcel.Priority, parcel.Id, parcel.DroneId, parcel.Requested, parcel.Scheduled, (DateTime)parcel.PickedUp, (DateTime)parcel.Delivered);
             }

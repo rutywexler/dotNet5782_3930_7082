@@ -143,7 +143,7 @@ namespace Bl
         private void ParcelDeliveredDrone(int parcelId)
         {
             DO.Parcel parcel = dal.GetParcel(parcelId);
-            dal.RemoveParcel(parcel);
+            dal.RemoveParcel(parcel.Id);
             parcel.Delivered = DateTime.Now;
             dal.AddParcel(parcel.SenderId, parcel.TargetId, parcel.Weight, parcel.Priority, parcel.Id);
         }
@@ -277,7 +277,7 @@ namespace Bl
         public void DeleteParcel(int id)
         {
             var parcel = dal.GetParcel(id);
-            dal.RemoveParcel(parcel);
+            dal.RemoveParcel(parcel.Id);
         }
 
     }

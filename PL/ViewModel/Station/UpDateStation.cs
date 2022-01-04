@@ -12,34 +12,20 @@ namespace PL.ViewModel.Station
     public class UpDateStation : DependencyObject
     {
         BlApi.IBL bl;
-        public BaseStationForList BaseStation { get; set; }
         public RelayCommand UpdateStationCommand { get; set; }
         public RelayCommand DeleteStationCommand { get; set; }
+
+
+
         public BaseStation Station
         {
-            get { return (BaseStation)GetValue(StationDP); }
-            set { SetValue(StationDP, value); }
-        }
-        public static readonly DependencyProperty StationDP =
-        DependencyProperty.Register("Station", typeof(BaseStation), typeof(UpDateStation), new PropertyMetadata(null));
-
-       /* public string Name
-        {
-            get { return (string)GetValue(nameDP); }
-            set { SetValue(nameDP, value); }
+            get { return (BaseStation)GetValue(StationProperty); }
+            set { SetValue(StationProperty, value); }
         }
 
-        public static readonly DependencyProperty nameDP =
-       DependencyProperty.Register("Name", typeof(string), typeof(UpDateStation), new PropertyMetadata(""));*/
-
-        public int NumOfChargeSlote
-        {
-            get { return (int)GetValue(numOfChargeSloteDP); }
-            set { SetValue(numOfChargeSloteDP, value); }
-        }
-
-        public static readonly DependencyProperty numOfChargeSloteDP =
-       DependencyProperty.Register("NumOfChargeSlote", typeof(int), typeof(UpDateStation), new PropertyMetadata(0));
+        // Using a DependencyProperty as the backing store for Station.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty StationProperty =
+            DependencyProperty.Register("Station", typeof(BaseStation), typeof(UpDateStation), new PropertyMetadata(null));
 
         public UpDateStation()
         {
@@ -48,8 +34,6 @@ namespace PL.ViewModel.Station
         public UpDateStation(BaseStationForList station) : this()
         {
             Station = GetStation(station.Id);
-            //Name = Station.Name;
-            NumOfChargeSlote = Station.AvailableChargeSlots;
             UpdateStationCommand = new(UpdateStation, null);
             DeleteStationCommand = new(DeleteStation, null);
         }

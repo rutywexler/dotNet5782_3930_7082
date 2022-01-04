@@ -105,8 +105,9 @@ namespace DalObject
         /// Removing a Parcel from the list
         /// </summary>
         /// <param name="station"></param>
-        public void RemoveParcel(Parcel parcel)
+        public void RemoveParcel(int id)
         {
+            Parcel parcel =Parcels.FirstOrDefault(item => item.Id == id);
             Parcels.Remove(parcel);
         }
 

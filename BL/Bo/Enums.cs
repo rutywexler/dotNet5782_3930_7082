@@ -5,14 +5,14 @@
     {
         public enum WeightCategories
         {
-            Light,
+            Light = 1,
             Medium,
             Heavy
         }
 
         public enum Priorities
         {
-            Regular,
+            Regular = 1,
             Fast,
             Emergency
         }

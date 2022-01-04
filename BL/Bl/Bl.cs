@@ -67,7 +67,8 @@ namespace Bl
                 {
                     if (availableStations.Count == 0)
                         status = DroneStatus.Available;
-                    status = (DroneStatus)rand.Next(0, 2);
+                    else
+                        status = (DroneStatus)rand.Next(0, 2);
                 }
                 else
                 {
