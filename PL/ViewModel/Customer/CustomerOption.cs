@@ -1,5 +1,6 @@
 ﻿using PL.Converters;
 using PL.Model;
+using PL.View.Customer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace PL.ViewModel.Customer
         public CustomerForList CustomerToList { get; set; }
         public RelayCommand UpdateCustomerCommand { get; set; }
         public RelayCommand DeleteCustomerCommand { get; set; }
+  
         public SimpleCustomer Customer
         {
             get { return (SimpleCustomer)GetValue(CustomerDP); }
@@ -54,7 +56,9 @@ namespace PL.ViewModel.Customer
             PhoneNumber = Customer.PhoneNumber;
             UpdateCustomerCommand = new(UpdateCustomer, null);
             DeleteCustomerCommand = new(DeleteCustomer, null);
+     
         }
+
 
         private void DeleteCustomer(object param)
         {

@@ -11,7 +11,24 @@
         <local:StationList/>
     </Window.DataContext>
     <Grid>
-        <ListView  ItemsSource="{Binding ViewStations}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ComboBox Grid.Row="0"
+            x:Name="Group"
+            Text="choose grouping"
+            ItemsSource="{Binding ComboboxItems}"
+            SelectedItem="{Binding SelectedItemGrouping}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding GroupingStation}" CommandParameter="{Binding Path=SelectedValue, ElementName=Group}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
+        <ListView Grid.Row="1"
+            ItemsSource="{Binding ViewStations}">
             <!--<ListBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
                     <EventSetter Event="MouseDoubleClick"  Handler="ListBoxItem_MouseDoubleClick"/>
@@ -51,23 +68,11 @@
                 </GroupStyle>
             </ListView.GroupStyle>
         </ListView>
-        <!--<ComboBox
-            x:Name="Group"
-            Text="choose grouping"
-            ItemsSource="{Binding ComboboxItems}"
-            SelectedItem="{Binding SelectedItemGrouping}"
-            >
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{Binding GroupingStation}" CommandParameter="{Binding Path=SelectedValue, ElementName=Group}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </ComboBox>-->
-        <Button Command="{Binding  OpenAddStationWindow}" 
+
+        <Button Grid.Row="2"
+            Command="{Binding  OpenAddStationWindow}" 
                 Content="Add new station"
                 HorizontalAlignment="Left"
-                Margin="622,268,0,0"
-                Grid.Row="1"
                 VerticalAlignment="Top"
                 Height="90"
                 Width="148">

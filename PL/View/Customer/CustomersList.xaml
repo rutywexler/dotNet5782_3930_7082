@@ -10,19 +10,19 @@
         <local:ViewCustomerList/>
     </Window.DataContext>
     <Grid>
-        <ListView  ItemsSource="{Binding ViewCustomers}"></ListView>
+        <ListView  ItemsSource="{Binding ViewCustomers}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ContentControl Content="{Binding }">
                         <ContentControl.InputBindings>
                             <MouseBinding Gesture="LeftDoubleClick" 
-                                                  Command="{Binding DataContext.OpenViewStationWindowCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                                  Command="{Binding DataContext.OpenViewCustomerWindowCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
                                                   CommandParameter="{Binding }"/>
                         </ContentControl.InputBindings>
                     </ContentControl>
                 </DataTemplate>
-            </ListView.ItemTemplate>    
-        
+            </ListView.ItemTemplate>
+        </ListView>
         <Button Command="{Binding  OpenAddCustomerWindow}" 
                 Content="Add new customer"
                 HorizontalAlignment="Left"

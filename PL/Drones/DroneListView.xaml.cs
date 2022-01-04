@@ -54,14 +54,14 @@ namespace PL.Drones
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-            droneCollectionView.Filter = FilterDrone;
+            droneCollectionView.Refresh();
             //DroneStatus droneStatus = (DroneStatus)StatusSelector.SelectedItem;
             //DronesListView.DataContext = ibl.GetSomeDronesByStatus(droneStatus);
         }
 
         private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            droneCollectionView.Filter = FilterDrone;
+            droneCollectionView.Refresh();
             //WeightCategories weightCategories = (WeightCategories)WeightSelector.SelectedItem;
             //DronesListView.DataContext = ibl.GetSomeDronesByWeight(weightCategories);
         }

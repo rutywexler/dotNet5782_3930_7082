@@ -11,8 +11,16 @@
         <local:ViewParcelList/>
     </Window.DataContext>
     <Grid>
-        <ListView 
-            ItemsSource="{Binding ViewParcels}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ComboBox Grid.Row="0"
+                  ItemsSource="{Binding StatusList}"
+                  SelectedItem="{Binding SelectedFilterByStatus}"></ComboBox>
+        <ListView Grid.Row="1"
+                  ItemsSource="{Binding ViewParcels}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ContentControl Content="{Binding }">
@@ -59,11 +67,10 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ComboBox>-->
-        <Button Command="{Binding OpenAddParcelWindow}" 
+        <Button Grid.Row="2"
+                Command="{Binding OpenAddParcelWindow}" 
                 Content="Add new parcel"
                 HorizontalAlignment="Left"
-                Margin="622,268,0,0"
-                Grid.Row="1"
                 VerticalAlignment="Top"
                 Height="90"
                 Width="148">

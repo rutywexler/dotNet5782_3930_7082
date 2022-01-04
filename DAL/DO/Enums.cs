@@ -3,13 +3,13 @@ namespace DO
 {
     public enum WeightCategories
     {
-        Light,
+        Light = 1,
         medium,
         weighty
     }
     public enum Priorities
     {
-        Regular,
+        Regular = 1,
         Fast,
         Emergency
     }

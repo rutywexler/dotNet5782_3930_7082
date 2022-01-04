@@ -31,6 +31,7 @@ namespace PL.ViewModel.Customer
 
 
         public RelayCommand OpenAddCustomerWindow { get; set; }
+        public RelayCommand OpenViewCustomerWindowCommand { get; set; }
         BlApi.IBL bl;
 
         public ViewCustomerList()
@@ -38,6 +39,7 @@ namespace PL.ViewModel.Customer
             bl = BlApi.BlFactory.GetBL();
             ViewCustomers = new ListCollectionView(ViewCustomersList().ToList());
             OpenAddCustomerWindow = new(OpenAddWindow, null);
+            OpenViewCustomerWindowCommand = new(OpenViewCustomerWindow, null);
         }
 
         private void RefreshList()
@@ -54,6 +56,11 @@ namespace PL.ViewModel.Customer
         public IEnumerable<CustomerForList> ViewCustomersList()
         {
             return bl.GetCustomers().Select(customer => CustomerInParcelUseBL.ConvertBoCustomerForListToPo(customer));
+        }
+
+        private void OpenViewCustomerWindow(object param)
+        {
+            new ViewCustomer().Show();
         }
 
     }

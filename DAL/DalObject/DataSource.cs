@@ -83,8 +83,9 @@ namespace DalObject
                 {
                     tempParcel.TargetId = Customers[rand.Next(Customers.Count)].Id;
                 } while (tempParcel.TargetId == tempParcel.SenderId);
-                tempParcel.Weight = (WeightCategories)(rand.Next(3));
-                tempParcel.Priority = (Priorities)(rand.Next(3));
+                
+                tempParcel.Weight = (WeightCategories)rand.Next((int)Enum.GetValues<WeightCategories>().Min(), (int)Enum.GetValues<WeightCategories>().Max());
+                tempParcel.Priority = (Priorities)rand.Next((int)Enum.GetValues<Priorities>().Min(), (int)Enum.GetValues<Priorities>().Max());
                 tempParcel.Requested = DateTime.Now;
                 if(i<3)
                 {
