@@ -22,6 +22,7 @@
                     </ContentControl>
                 </DataTemplate>
             </ListView.ItemTemplate>    
+        
         <Button Command="{Binding  OpenAddCustomerWindow}" 
                 Content="Add new customer"
                 HorizontalAlignment="Left"

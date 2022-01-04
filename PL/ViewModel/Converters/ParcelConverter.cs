@@ -1,5 +1,5 @@
 ﻿
-using BO;
+using PL.Converters;
 using PL.Model;
 using PL.PO;
 using System;
@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using static PL.Model.Enums;
 
 namespace PL.UsingBl
 {
@@ -45,7 +46,7 @@ namespace PL.UsingBl
             };
         }
 
-        public static ParcelForList ConvertParcelForListBoToPo(ParcelList parcel)
+        public static ParcelForList ConvertParcelForListBoToPo(BO.ParcelList parcel)
         {
             return new()
             {
@@ -72,5 +73,38 @@ namespace PL.UsingBl
 
             };
         }
+
+        public static ParcelToCustomer ConvertParcelAtCustomer(BO.ParcelInCustomer parcelAtCustomer)
+        {
+            return new ParcelToCustomer()
+            {
+                Id = parcelAtCustomer.Id,
+                Weight = (WeightCategories)parcelAtCustomer.Weight,
+                Priority = (Priorities)parcelAtCustomer.Priority,
+                Status = (DeliveryStatus)parcelAtCustomer.Status,
+                Partner = CustomerInParcelUseBl.ConvertCustomerInParcel(parcelAtCustomer.CustomerInDelivery)
+            };
+        }
+        public static BO.CustomerInParcel ConvertBackCustomerInParcel(CustomerInParcel customerInParcel)
+        {
+            return new BO.CustomerInParcel()
+            {
+                Id = customerInParcel.Id,
+                Name = customerInParcel.Name
+            };
+        }
+
+        public static BO.ParcelInCustomer ConvertBackParcelAtCustomer(ParcelToCustomer parcelAtCustomer)
+        {
+            return new BO.ParcelInCustomer()
+            {
+                Id = parcelAtCustomer.Id,
+                Weight = (BO.Enums.WeightCategories)parcelAtCustomer.Weight,
+                Priority = (BO.Enums.Priorities)parcelAtCustomer.Priority,
+                Status = (BO.Enums.PackageStatuses)parcelAtCustomer.Status,
+                CustomerInDelivery = CustomerInParcelUseBl.ConvertBackCustomerInParcel(parcelAtCustomer.Partner)
+            };
+        }
+  
     }
 }

@@ -1,5 +1,6 @@
 ﻿using PL.Model;
 using PL.Model.Po;
+using PL.UsingBl;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PL.Converters
 {
-    public class CustomerConverter
+    public class CustomerInParcelUseBL
     {
         public static CustomerForList ConvertBoCustomerForListToPo(BO.CustomerForList customer)
         {
@@ -33,6 +34,31 @@ namespace PL.Converters
                 PhoneNumber=customer.Phone,
                 Location = LocationConverter.ConvertBackLocation(customer.Location)
 
+            };
+        }
+       
+        public static SimpleCustomer ConvertCustomer(BO.Customer customer)
+        {
+            return new SimpleCustomer
+            {
+                Id = customer.Id,
+                Name = customer.Name,
+                PhoneNumber = customer.PhoneNumber,
+                Location = LocationConverter.ConvertLocation(customer.Location),
+                FromCustomer = customer.GetCustomerSendParcels.Select(item => ParcelConverter.ConvertParcelAtCustomer(item)).ToList(),
+                ToCustomer = customer.GetCustomerReceivedParcels.Select(item => ParcelConverter.ConvertParcelAtCustomer(item)).ToList()
+            };
+        }
+        public BO.Customer ConvertCustomerBlToPo(SimpleCustomer customer)
+        {
+            return new BO.Customer
+            {
+                Id = customer.Id,
+                Name = customer.Name,
+                PhoneNumber = customer.PhoneNumber,
+                Location = LocationConverter.ConvertBackLocation(customer.Location),
+                GetCustomerSendParcels = customer.FromCustomer.Select(item => ParcelConverter.ConvertBackParcelAtCustomer(item)).ToList(),
+                GetCustomerReceivedParcels = customer.ToCustomer.Select(item => ParcelConverter.ConvertBackParcelAtCustomer(item)).ToList()
             };
         }
     }
