@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:PL.ViewModel.Parcel"
         mc:Ignorable="d"
         Title="ParcelsList" Height="450" Width="800">
@@ -23,7 +24,41 @@
                     </ContentControl>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Expander>
+                                            <Expander.Header>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" Foreground="Gray" FontSize="22" VerticalAlignment="Bottom" />
+                                                </StackPanel>
+                                            </Expander.Header>
+                                            <ItemsPresenter />
+                                        </Expander>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                </GroupStyle>
+            </ListView.GroupStyle>
         </ListView>
+        <!--<ComboBox
+            x:Name="Group"
+            Text="choose grouping"
+            ItemsSource="{Binding ComboboxItems}"
+            SelectedItem="{Binding SelectedItemGrouping}"
+            >
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding GroupingParcelList}" CommandParameter="{Binding Path=SelectedValue, ElementName=Group}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>-->
         <Button Command="{Binding OpenAddParcelWindow}" 
                 Content="Add new parcel"
                 HorizontalAlignment="Left"
