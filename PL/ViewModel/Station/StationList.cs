@@ -63,10 +63,11 @@ namespace PL.ViewModel.Station
         }
         public void Grouping (object param)
         {
-            for (int i = 0; i < ViewStations.GroupDescriptions.Count; i++)
-            {
-                ViewStations.GroupDescriptions.RemoveAt(i);
-            }
+            //for (int i = 0; i < ViewStations.GroupDescriptions.Count; i++)
+            //{
+            //    ViewStations.GroupDescriptions.RemoveAt(i);
+            //}
+            ViewStations.GroupDescriptions.Clear();
             ViewStations.GroupDescriptions.Add(new PropertyGroupDescription(param.ToString()));
         }
 
