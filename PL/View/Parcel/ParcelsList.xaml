@@ -47,7 +47,7 @@
                 </GroupStyle>
             </ListView.GroupStyle>
         </ListView>
-        <ComboBox
+        <!--<ComboBox
             x:Name="Group"
             Text="choose grouping"
             ItemsSource="{Binding ComboboxItems}"
@@ -58,7 +58,7 @@
                     <i:InvokeCommandAction Command="{Binding GroupingParcelList}" CommandParameter="{Binding Path=SelectedValue, ElementName=Group}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-        </ComboBox>
+        </ComboBox>-->
         <Button Command="{Binding OpenAddParcelWindow}" 
                 Content="Add new parcel"
                 HorizontalAlignment="Left"

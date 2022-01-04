@@ -22,7 +22,7 @@ namespace PL.ViewModel.Parcel
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ViewParcelsProperty =
-            DependencyProperty.Register("MyProperty", typeof(ListCollectionView), typeof(ViewParcelList), new PropertyMetadata(null));
+            DependencyProperty.Register("ViewParcels", typeof(ListCollectionView), typeof(ViewParcelList), new PropertyMetadata(null));
 
 
         //public IEnumerable<ParcelForList> ViewParcels { get; set; }
@@ -43,7 +43,10 @@ namespace PL.ViewModel.Parcel
             GroupingParcelList = new(Grouping, null);
             ComboboxItems = new ObservableCollection<string>(typeof(ParcelForList).GetProperties().Where(prop => prop.PropertyType.IsValueType || prop.PropertyType == typeof(string)).Select(prop => prop.Name));
         }
-
+        private void RefreshList()
+        {
+            ViewParcels = new ListCollectionView(GetParcels().ToList());
+        }
         public static void OpenParcelView(object param)
         {
             var parcel = param as ParcelForList;
@@ -55,9 +58,10 @@ namespace PL.ViewModel.Parcel
             return bl.GetParcels().Select(parcel => ParcelConverter.ConvertParcelForListBoToPo(parcel)).ToList();
         }
 
-        public static void OpenAddWindow(object param)
+        public void OpenAddWindow(object param)
         {
-            new AddParcels().Show();
+            new AddParcels().ShowDialog();
+            RefreshList();
         }
 
         public void Grouping(object param)
