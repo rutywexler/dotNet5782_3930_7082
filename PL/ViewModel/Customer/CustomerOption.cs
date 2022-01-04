@@ -16,7 +16,11 @@ namespace PL.ViewModel.Customer
         public CustomerForList CustomerToList { get; set; }
         public RelayCommand UpdateCustomerCommand { get; set; }
         public RelayCommand DeleteCustomerCommand { get; set; }
-  
+
+
+
+
+
         public SimpleCustomer Customer
         {
             get { return (SimpleCustomer)GetValue(CustomerDP); }
@@ -25,7 +29,7 @@ namespace PL.ViewModel.Customer
         public static readonly DependencyProperty CustomerDP =
         DependencyProperty.Register("Customer", typeof(SimpleCustomer), typeof(CustomerOption), new PropertyMetadata(null));
 
-    
+
         public string Name
         {
             get { return (string)GetValue(NameDP); }
@@ -33,7 +37,7 @@ namespace PL.ViewModel.Customer
         }
 
         public static readonly DependencyProperty NameDP =
-       DependencyProperty.Register("Name", typeof(string), typeof(CustomerOption), new PropertyMetadata(0));
+       DependencyProperty.Register("Name", typeof(string), typeof(CustomerOption), new PropertyMetadata(""));
 
         public string PhoneNumber
         {
@@ -42,15 +46,15 @@ namespace PL.ViewModel.Customer
         }
 
         public static readonly DependencyProperty PhoneNumberDP =
-       DependencyProperty.Register("PhoneNumber", typeof(string), typeof(CustomerOption), new PropertyMetadata(0));
+       DependencyProperty.Register("PhoneNumber", typeof(string), typeof(CustomerOption), new PropertyMetadata(""));
 
         public CustomerOption()
         {
             bl = BlApi.BlFactory.GetBL();
         }
-        public CustomerOption(SimpleCustomer customer) : this()
+        public CustomerOption(CustomerForList customer) : this()
         {
-            customer = GetCustomer(customer.Id);
+            Customer = GetCustomer(customer.Id);
             //Name = Station.Name;
             Name = Customer.Name;
             PhoneNumber = Customer.PhoneNumber;

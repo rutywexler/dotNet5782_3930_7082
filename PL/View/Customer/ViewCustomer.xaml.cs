@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PL.Model;
+using PL.ViewModel.Customer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,10 @@ namespace PL.View.Customer
     /// </summary>
     public partial class ViewCustomer : Window
     {
-        public ViewCustomer()
+        public ViewCustomer(CustomerForList customer )
         {
             InitializeComponent();
+            DataContext =new  CustomerOption(customer);
         }
     }
 }

@@ -60,7 +60,9 @@ namespace PL.ViewModel.Customer
 
         private void OpenViewCustomerWindow(object param)
         {
-            new ViewCustomer().Show();
+            var customer = param as CustomerForList;
+            new ViewCustomer(customer).ShowDialog();
+            RefreshList();
         }
 
     }
