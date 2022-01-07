@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using PL.Model.Po;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -58,6 +59,9 @@ namespace PL.Model
             get { return partner; }
             set { partner = value; OnPropertyChanged(nameof(Partner)); } 
         }
+
+        public override string ToString() => this.ToStringProperties();
+
 
         #region INotifyPropertyChanged Members  
 
