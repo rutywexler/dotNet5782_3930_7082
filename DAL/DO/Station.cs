@@ -13,6 +13,7 @@ namespace DO
         public double Longitude { get; set; }
         public double Lattitude { get; set; }
         public int ChargeSlots { get; set; }
+        public bool IsDeleted { get; set; } 
         /// <summary>
         /// the method override ToString method
         /// </summary>

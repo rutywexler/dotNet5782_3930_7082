@@ -105,6 +105,14 @@ namespace PL.UsingBl
                 CustomerInDelivery = CustomerInParcelUseBl.ConvertBackCustomerInParcel(parcelAtCustomer.Partner)
             };
         }
+
+        public static ParcelForList ConvertParcelInCustomerToParcelForList(ParcelToCustomer ParcelToCustomer)
+        {
+            return new ParcelForList()
+            {
+                Id= ParcelToCustomer.Id,
+            };
+        }
   
     }
 }

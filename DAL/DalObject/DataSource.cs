@@ -40,6 +40,7 @@ namespace DalObject
                 tempStation.Longitude = rand.Next(91);
                 tempStation.Lattitude = rand.Next(181);
                 tempStation.ChargeSlots = rand.Next() + 1;
+                tempStation.IsDeleted = false;
                 BaseStations.Add(tempStation);
 
             }

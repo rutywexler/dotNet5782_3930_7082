@@ -50,7 +50,10 @@ namespace DalObject
         ///  Prepares the list of Sations for display
         /// </summary>
         /// <returns>A list of stations</returns>
-        public IEnumerable<Station> GetStations() => BaseStations;
+        public IEnumerable<Station> GetStations()
+        {
+            return BaseStations.Where(station => station.IsDeleted == false);
+        }
 
         /// <summary>
         /// Find the satation that have empty charging slots
@@ -87,6 +90,8 @@ namespace DalObject
         {
             Station station = BaseStations.FirstOrDefault(station => station.Id == id);
             BaseStations.Remove(station);
+            station.IsDeleted = true;
+            BaseStations.Add(station);
         }
         
     }

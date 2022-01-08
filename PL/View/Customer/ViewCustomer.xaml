@@ -10,27 +10,7 @@
         <local:CustomerOption/>
     </Window.DataContext>
     <Grid>
-        <!--<StackPanel>
-            <TextBlock Text="Id: "/>
-            <TextBlock x:Name="Id" Text ="{Binding CustomerToList.Id, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBlock Text="Name: "/>
-            <TextBlock x:Name="Name" Text ="{Binding CustomerToList.Name, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBlock Text="PhoneNumber: "/>
-            <TextBlock x:Name="PhoneNumber" Text ="{Binding CustomerToList.PhoneNumber, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBlock Text="DeliveredPackages: "/>
-            <TextBlock x:Name="DeliveredPackages" Text ="{Binding CustomerToList.DeliveredPackages, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBlock Text="SendedPackages: "/>
-            <TextBlock x:Name="SendedPackages" Text ="{Binding CustomerToList.SendedPackages, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBlock Text="UpdateSourceTrigger: "/>
-            <TextBlock x:Name="UpdateSourceTrigger" Text ="{Binding CustomerToList.AcceptedPackages, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBlock Text="PackagesInWay: "/>
-            <TextBlock x:Name="PackagesInWay" Text ="{Binding CustomerToList.PackagesInWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Button Content="update station" Command="{Binding UpdateCustomerCommand}"/>
-
-            <Button Command="{Binding DeleteParcelCommand}"
-                 Content="Delete Parcel"></Button>
-        </StackPanel>-->
-            <StackPanel >
+        <StackPanel >
                 <TextBlock Text="Id: "/>
             <TextBlock x:Name="Id" Text ="{Binding Customer.Id, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Text="Name: "/>
@@ -42,12 +22,25 @@
             <TextBlock Text="Longitude: "/>
             <TextBlock  Text ="{Binding Customer.Location.Longitude,  UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Text="Parcel to customer: "/>
-            <ListBox  ItemsSource ="{Binding Customer.ToCustomer}" />
+            <ListView  ItemsSource ="{Binding Customer.ToCustomer}" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ContentControl Content="{Binding }">
+                                <ContentControl.InputBindings>
+                                <MouseBinding Gesture="LeftDoubleClick" 
+                                                          Command="{Binding DataContext.OpenViewParcelrWindowCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                                          CommandParameter="{Binding }"/>
+                                </ContentControl.InputBindings>
+                        </ContentControl>
+                    </DataTemplate>
+                    </ListView.ItemTemplate>
+             </ListView>
             <TextBlock Text="Parcel from customer: "/>
-            <ListBox  ItemsSource ="{Binding Customer.FromCustomer}" />
+            <ListView  ItemsSource ="{Binding Customer.FromCustomer}" />
             <Button Content="close customer option"/>
             <Button Content="update customer" Command="{Binding UpdateCustomerCommand}"/>
-                <!--<Button Content="Delete station" Command="{Binding DeleteStationCommand}">-->
+
+            <!--<Button Content="Delete station" Command="{Binding DeleteStationCommand}">-->
                     <!--<Button.Visibility>
                     <MultiBinding Converter="{StaticResource ConverterUpdateStation}">
                         <Binding Path="station.Name" />

@@ -1,6 +1,7 @@
 ﻿using PL.Converters;
 using PL.Model;
 using PL.View.Customer;
+using PL.View.Parcel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace PL.ViewModel.Customer
         public CustomerForList CustomerToList { get; set; }
         public RelayCommand UpdateCustomerCommand { get; set; }
         public RelayCommand DeleteCustomerCommand { get; set; }
+        public RelayCommand OpenViewParcelrWindowCommand { get; set; }
 
 
 
@@ -55,15 +57,18 @@ namespace PL.ViewModel.Customer
         public CustomerOption(CustomerForList customer) : this()
         {
             Customer = GetCustomer(customer.Id);
-            //Name = Station.Name;
             Name = Customer.Name;
             PhoneNumber = Customer.PhoneNumber;
             UpdateCustomerCommand = new(UpdateCustomer, null);
             DeleteCustomerCommand = new(DeleteCustomer, null);
-     
+            OpenViewParcelrWindowCommand = new(OpenViewParcelrWindow, null);
         }
 
-
+        private void OpenViewParcelrWindow(object param)
+        {
+            //var parcel = param as ParcelToCustomer;
+            //new ViewParcel(parcel).Show();
+        }
         private void DeleteCustomer(object param)
         {
             try
