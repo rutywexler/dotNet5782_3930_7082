@@ -1,10 +1,12 @@
 ﻿using PL.Model;
 using PL.UsingBl;
+using PL.View.Parcel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace PL.ViewModel.Parcel
 {
@@ -30,7 +32,15 @@ namespace PL.ViewModel.Parcel
 
         public void DeleteParcel(object obj)
         {
-            bl.DeleteParcel(Parcel.Id);
+            try
+            {
+                bl.DeleteParcel(Parcel.Id);
+            }            
+            catch (Exception)//למצוא שגיאה מתאימה 
+            {
+                throw;
+            }
+            MessageBox.Show("Succeed to delete Parcel");
         }
 
     }

@@ -61,11 +61,12 @@ namespace PL.ViewModel.Parcel
             ViewParcels = new ListCollectionView(GetParcels().ToList());
             ViewParcels.Filter = ParcelFilter;
         }
-        public static void OpenParcelView(object param)
+        public void OpenParcelView(object param)
         {
             var parcel = param as ParcelForList;
 
-            new ViewParcel(parcel).Show();
+            new ViewParcel(parcel).ShowDialog();
+            InitializeList();
         }
         public IEnumerable<ParcelForList> GetParcels()
         {

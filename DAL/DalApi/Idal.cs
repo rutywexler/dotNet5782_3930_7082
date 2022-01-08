@@ -32,7 +32,7 @@ namespace DalApi
         public int NotAvailableChargingPorts(int baseStationId);
         public List<int> GetDronechargingInStation(int id);
         public IEnumerable<Station> GetAvailableChargingStations();
-        public void RemoveCustomer(Customer customer);
+        //public void RemoveCustomer(Customer customer);
         public void RemoveParcel(int id);
         public void RemoveStation(int id);
         public double[] GetPowerConsumptionByDrone();

@@ -48,9 +48,12 @@ namespace DalObject
             return Customers.FirstOrDefault(item => item.Id == id);
         }
 
-        public void RemoveCustomer(Customer customer)
+        public void RemoveCustomer(int id)
         {
+            Customer customer = Customers.FirstOrDefault(customer => customer.Id == id);
             Customers.Remove(customer);
+            customer.IsDeleted = true;
+            Customers.Add(customer);
         }
     }
 }

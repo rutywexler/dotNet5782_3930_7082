@@ -14,6 +14,8 @@ namespace DO
         public string Phone { get; set; }
         public double Longitude { get; set; }
         public double Lattitude { get; set; }
+        public bool IsDeleted { get; set; }
+
         /// <summary>
         /// the method override ToString method
         /// </summary>
