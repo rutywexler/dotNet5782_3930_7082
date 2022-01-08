@@ -84,7 +84,11 @@ namespace DalObject
         /// Prepares the list of Parcels for display
         /// </summary>
         /// <returns>A list of parcel</returns>
-        public IEnumerable<Parcel> GetParcels() => Parcels;
+
+        public IEnumerable<Parcel> GetParcels()
+        {
+            return Parcels.Where(parcel => parcel.IsDeleted == false);
+        }
 
         /// <summary>
         /// Assign parcel to drone 

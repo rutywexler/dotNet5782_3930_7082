@@ -34,7 +34,11 @@ namespace DalObject
         /// Prepares the list of customer for display
         /// </summary>
         /// <returns>A list of customer</returns>
-        public IEnumerable<Customer> GetCustomers() => Customers;
+     
+        public IEnumerable<Customer> GetCustomers()
+        {
+            return Customers.Where(customer => customer.IsDeleted == false);
+        }
 
         /// <summary>
         /// Find a customer that has tha same id number as the parameter

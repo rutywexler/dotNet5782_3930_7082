@@ -37,5 +37,7 @@ namespace DalApi
         public void RemoveStation(int id);
         public double[] GetPowerConsumptionByDrone();
         public void RemoveDrone(Drone drone);
+        public void RemoveCustomer(int id);
+
     }
 }

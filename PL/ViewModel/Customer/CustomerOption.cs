@@ -74,7 +74,7 @@ namespace PL.ViewModel.Customer
         {
             try
             {
-                bl.RemoveStation(Customer.Id);
+                bl.DeleteCustomer(Customer.Id);
             }
             catch (Exception)//למצוא שגיאה מתאימה 
             {
