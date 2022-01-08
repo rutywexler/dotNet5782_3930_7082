@@ -34,7 +34,7 @@ namespace PL.ViewModel.Station
         public StationList()
         {
             bl = BlApi.BlFactory.GetBL();
-            ComboboxItems =new ObservableCollection<string>(typeof(BaseStationForList).GetProperties().Where(prop => prop.PropertyType.IsValueType || prop.PropertyType == typeof(string)).Select(prop => prop.Name));
+            ComboboxItems = new ObservableCollection<string>(typeof(BaseStationForList).GetProperties().Where(prop => prop.PropertyType.IsValueType || prop.PropertyType == typeof(string)).Select(prop => prop.Name));
             ViewStations = new ListCollectionView(ViewStationList().ToList());
             OpenAddStationWindow = new(OpenAddWindow, null);
             OpenViewStationWindowCommand = new(OpenStationView);
@@ -44,24 +44,22 @@ namespace PL.ViewModel.Station
         {
             ViewStations = new ListCollectionView(ViewStationList().ToList());
         }
-        public  void OpenAddWindow(object param)
+        public void OpenAddWindow(object param)
         {
             new AddStation().ShowDialog();
             RefreshList();
         }
-        public  void OpenStationView(object param)
+        public void OpenStationView(object param)
         {
             var station = param as BaseStationForList;
-            
             new ViewStation(station).ShowDialog();
             RefreshList();
-
         }
         public IEnumerable<BaseStationForList> ViewStationList()
         {
             return bl.GetStations().Select(station => StationConverter.ConvertBoStationForListToPo(station));
         }
-        public void Grouping (object param)
+        public void Grouping(object param)
         {
             //for (int i = 0; i < ViewStations.GroupDescriptions.Count; i++)
             //{
@@ -70,7 +68,5 @@ namespace PL.ViewModel.Station
             ViewStations.GroupDescriptions.Clear();
             ViewStations.GroupDescriptions.Add(new PropertyGroupDescription(param.ToString()));
         }
-
-
     }
 }

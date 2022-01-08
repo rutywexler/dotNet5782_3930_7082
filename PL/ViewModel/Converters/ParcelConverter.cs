@@ -106,11 +106,16 @@ namespace PL.UsingBl
             };
         }
 
-        public static ParcelForList ConvertParcelInCustomerToParcelForList(ParcelToCustomer ParcelToCustomer)
+        public static ParcelForList ConvertParcelInCustomerToParcelForList(ParcelToCustomer ParcelToCustomer,SimpleCustomer customer)
         {
             return new ParcelForList()
             {
-                Id= ParcelToCustomer.Id,
+                Id = ParcelToCustomer.Id,
+                SenderName = customer.Name,
+                TargetName = ParcelToCustomer.Partner.Name,
+                Priority= ParcelToCustomer.Priority,
+                Status= ParcelToCustomer.Status,
+                Weight= ParcelToCustomer.Weight
             };
         }
   

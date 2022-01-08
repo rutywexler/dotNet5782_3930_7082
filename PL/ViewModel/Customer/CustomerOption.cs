@@ -1,5 +1,6 @@
 ﻿using PL.Converters;
 using PL.Model;
+using PL.UsingBl;
 using PL.View.Customer;
 using PL.View.Parcel;
 using System;
@@ -66,8 +67,8 @@ namespace PL.ViewModel.Customer
 
         private void OpenViewParcelrWindow(object param)
         {
-            //var parcel = param as ParcelToCustomer;
-            //new ViewParcel(parcel).Show();
+            var parcel = param as ParcelToCustomer;
+            new ViewParcel(ParcelConverter.ConvertParcelInCustomerToParcelForList(parcel,Customer)).Show();
         }
         private void DeleteCustomer(object param)
         {

@@ -36,8 +36,20 @@
                     </ListView.ItemTemplate>
              </ListView>
             <TextBlock Text="Parcel from customer: "/>
-            <ListView  ItemsSource ="{Binding Customer.FromCustomer}" />
-            <Button Content="close customer option"/>
+            <ListView  ItemsSource ="{Binding Customer.FromCustomer}" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ContentControl Content="{Binding }">
+                            <ContentControl.InputBindings>
+                                <MouseBinding Gesture="LeftDoubleClick" 
+                                                          Command="{Binding DataContext.OpenViewParcelrWindowCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                                          CommandParameter="{Binding }"/>
+                            </ContentControl.InputBindings>
+                        </ContentControl>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+                <Button Content="close customer option"/>
             <Button Content="update customer" Command="{Binding UpdateCustomerCommand}"/>
 
             <!--<Button Content="Delete station" Command="{Binding DeleteStationCommand}">-->
