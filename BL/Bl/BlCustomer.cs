@@ -97,7 +97,7 @@ namespace Bl
             DO.Customer customer = dal.GetCustomer(id);
             try
             {
-                dal.RemoveCustomer(customer);
+                dal.RemoveCustomer(customer.Id);
                 if (name.Equals(default))
                     name = customer.Name;
                 else if (PhoneNumber.Equals(default))
@@ -149,6 +149,11 @@ namespace Bl
             }
 
             return newParcel;
+        }
+        public void DeleteCustomer(int id)
+        {
+            var customer = dal.GetCustomer(id);
+            dal.RemoveCustomer(customer.Id);
         }
     }
 }

@@ -84,7 +84,11 @@ namespace DalObject
         /// Prepares the list of Parcels for display
         /// </summary>
         /// <returns>A list of parcel</returns>
-        public IEnumerable<Parcel> GetParcels() => Parcels;
+
+        public IEnumerable<Parcel> GetParcels()
+        {
+            return Parcels.Where(parcel => parcel.IsDeleted == false);
+        }
 
         /// <summary>
         /// Assign parcel to drone 
@@ -107,8 +111,10 @@ namespace DalObject
         /// <param name="station"></param>
         public void RemoveParcel(int id)
         {
-            Parcel parcel =Parcels.FirstOrDefault(item => item.Id == id);
+            Parcel parcel = Parcels.FirstOrDefault(parcel => parcel.Id == id);
             Parcels.Remove(parcel);
+            parcel.IsDeleted = true;
+            Parcels.Add(parcel);
         }
 
         /// <summary>
@@ -118,7 +124,7 @@ namespace DalObject
         //public IEnumerable<Parcel> GetUnAssignmentParcels()
         //{
         //    return DataSource.Parcels.Where(parcel => parcel.DroneId == 0);
-       // }
+        // }
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate)
         {
             return DataSource.Parcels.Where(parcel => predicate(parcel));
