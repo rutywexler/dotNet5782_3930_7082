@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PL.Converters
 {
-    public class CustomerInParcelUseBL
+    public static class CustomerInParcelUseBL
     {
         public static CustomerForList ConvertBoCustomerForListToPo(BO.CustomerForList customer)
         {
@@ -49,7 +49,7 @@ namespace PL.Converters
                 ToCustomer = customer.GetCustomerReceivedParcels.Select(item => ParcelConverter.ConvertParcelAtCustomer(item)).ToList()
             };
         }
-        public BO.Customer ConvertCustomerBlToPo(SimpleCustomer customer)
+        public static BO.Customer ConvertCustomerBlToPo(SimpleCustomer customer)
         {
             return new BO.Customer
             {

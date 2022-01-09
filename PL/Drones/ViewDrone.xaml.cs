@@ -1,4 +1,5 @@
 ﻿using BO;
+using PL.Model;
 using System;
 using System.Windows;
 
@@ -11,6 +12,8 @@ namespace PL.Drones
     {
         BlApi.IBL MyIbl;
         Action RefreshDroneList;
+        private DroneForList drone;
+
         public ViewDrone()
         {
             InitializeComponent();
@@ -23,6 +26,11 @@ namespace PL.Drones
             SelectedDrone = selectedDrone;
             this.DataContext = selectedDrone;
             RefreshDroneList = refreshDroneList;
+        }
+
+        public ViewDrone(DroneForList drone): this()
+        {
+            this.drone = drone;
         }
 
         public DroneToList SelectedDrone { get; }

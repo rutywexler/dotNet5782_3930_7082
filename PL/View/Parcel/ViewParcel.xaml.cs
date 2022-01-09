@@ -1,5 +1,5 @@
 ﻿using PL.Model;
-using PL.ViewModel.Parcel;
+using PL.ViewModel.Parcels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

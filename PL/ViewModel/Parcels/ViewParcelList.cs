@@ -8,13 +8,10 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 
-namespace PL.ViewModel.Parcel
+namespace PL.ViewModel.Parcels
 {
     public class ViewParcelList : DependencyObject
     {
-
-
-
         public ListCollectionView ViewParcels
         {
             get { return (ListCollectionView)GetValue(ViewParcelsProperty); }
@@ -64,7 +61,6 @@ namespace PL.ViewModel.Parcel
         public static void OpenParcelView(object param)
         {
             var parcel = param as ParcelForList;
-
             new ViewParcel(parcel).Show();
         }
         public IEnumerable<ParcelForList> GetParcels()

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PL.Model.Po;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -8,19 +9,31 @@ using System.Threading.Tasks;
 
 namespace PL.Model
 {
-    public class Location: INotifyPropertyChanged
+    public class Location : INotifyPropertyChanged
     {
         private double? longitude;
-        public double? Longitude { 
-            get { return longitude; } 
-            set { longitude = value; 
-                OnPropertyChanged(nameof(Longitude)); } }
+        public double? Longitude
+        {
+            get { return longitude; }
+            set
+            {
+                longitude = value;
+                OnPropertyChanged(nameof(Longitude));
+            }
+        }
 
         private double? latitude { get; set; }
-        public double? Latitude {
+        public double? Latitude
+        {
             get { return latitude; }
-            set { latitude = value;
-                OnPropertyChanged(nameof(Latitude));} }
+            set
+            {
+                latitude = value;
+                OnPropertyChanged(nameof(Latitude));
+            }
+        }
+
+        public override string ToString() => this.ToStringProperties();
 
         #region INotifyPropertyChanged Members  
 

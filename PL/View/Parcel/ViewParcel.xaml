@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL.ViewModel.Parcel"
+        xmlns:local="clr-namespace:PL.ViewModel.Parcels"
         mc:Ignorable="d"
         Title="ViewParcel" Height="450" Width="800">
     <!--<Window.DataContext>
@@ -16,13 +16,20 @@
             <TextBlock Text="Priority: "/>
             <TextBlock x:Name="Priority" Text ="{Binding Parcel.Priority, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Text="Sender Name: "/>
-            <TextBlock x:Name="SenderName" Text ="{Binding Parcel.SenderName, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock x:Name="SenderName" Text ="{Binding Parcel.Sender, UpdateSourceTrigger=PropertyChanged}" />
+            <Button Command="{Binding OpenCustomerWindowCommand}" CommandParameter="Parcel.sender" Content="Open customer details"></Button>
+
             <TextBlock Text="Target Name: "/>
-            <TextBlock x:Name="TargetName" Text ="{Binding Parcel.TargetName, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock x:Name="TargetName" Text ="{Binding Parcel.Target, UpdateSourceTrigger=PropertyChanged}" />
+            <Button Command="{Binding OpenCustomerWindowCommand}" CommandParameter="Parcel.Target" Content="Open customer details"></Button>
+
             <TextBlock Text="Status: "/>
             <TextBlock x:Name="Status" Text ="{Binding Parcel.Status, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Text="Weight: "/>
             <TextBlock x:Name="Weight" Text ="{Binding Parcel.Weight, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="Drone:"/>
+            <TextBlock x:Name="Drone1" Text ="{Binding Parcel.Drone1, UpdateSourceTrigger=PropertyChanged}" />
+            <Button Command="{Binding OpenDroneWindowCommand}" CommandParameter="Parcel.Drone1" Content="Open drone details"></Button>
 
             <Button Command="{Binding DeleteParcelCommand}"
                  Content="Delete Parcel"></Button>

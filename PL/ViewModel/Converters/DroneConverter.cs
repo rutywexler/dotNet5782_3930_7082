@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PL.Model.Po;
 
 namespace PL.Converters
 {
@@ -26,5 +27,43 @@ namespace PL.Converters
                 BatteryStatus = (int)droneInCharging.BatteryStatus
             };
         }
+
+        public static DroneInParcel ConvertDroneInParcel(BO.DroneInPackage drone)
+        {
+            return new()
+            {
+                Id = drone.ID,
+                BatteryStatus = drone.BatteryStatus,
+                CurrentLocation = LocationConverter.ConvertLocation(drone.Location)
+            };
+        }
+
+        public static DroneForList ConvertDroneToList(BO.DroneToList drone)
+        {
+            return new DroneForList
+            {
+                Id = drone.DroneId,
+                Model = drone.ModelDrone,
+                Battery = (int)drone.BatteryDrone,
+                Status = (Enums.DroneStatuses)drone.DroneStatus,
+                Weight = (Enums.WeightCategories)drone.DroneWeight,
+                Location = LocationConverter.ConvertLocation(drone.Location),
+                DeliveryId = (int)drone.ParcelId
+            };
+        }
+
+        //internal static DroneForList ConvertDroneToList(DroneInParcel droneInParcel)
+        //{
+        //    return new DroneForList
+        //    {
+        //        Id = droneInParcel.Id,
+        //        Model = droneInParcel.mo,
+        //        Battery = (int)droneInParcel.BatteryStatus,
+        //        Status = (Enums.DroneStatuses)droneInParcel.DroneStatus,
+        //        Weight = (Enums.WeightCategories)drone.DroneWeight,
+        //        Location = LocationConverter.ConvertLocation(drone.Location),
+        //        DeliveryId = (int)drone.ParcelId
+        //    };
+        //}
     }
 }

@@ -9,7 +9,7 @@ using static PL.Model.Enums;
 
 
 
-namespace PL.ViewModel.Parcel
+namespace PL.ViewModel.Parcels
 {
     public class AddParcelViewModel
     {

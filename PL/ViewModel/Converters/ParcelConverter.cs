@@ -60,6 +60,17 @@ namespace PL.UsingBl
             };
         }
 
+        //public static Parcel ConvertParcelForListToParcel(BO.ParcelList parcel)
+        //{
+        //    return new()
+        //    {
+        //        Id=parcel.Id,
+        //        Sender = parcel.SendCustomer,
+        //        Target=parcel.ReceivesCustomer,
+
+        //    };
+        //}
+
         public static ParcelForList ConvertParcelForListBoToPo(BO.Parcel parcel)
         {
             return new()
@@ -71,6 +82,26 @@ namespace PL.UsingBl
                 Priority = (Model.Enums.Priorities)parcel.Priority,
                 Status = (Model.Enums.DeliveryStatus)parcel.Priority
 
+            };
+        }
+
+        public static Parcel ConvertParcelBoToPo(BO.Parcel parcel)
+        {
+            DroneInParcel drone=new DroneInParcel();
+           if (parcel.DroneParcel!=null)
+                drone = DroneConverter.ConvertDroneInParcel(parcel.DroneParcel);
+            return new()
+            {
+                Id = parcel.Id,
+                Target = CustomerInParcelUseBl.ConvertCustomerInParcel(parcel.CustomerReceivesTo),
+                Sender = CustomerInParcelUseBl.ConvertCustomerInParcel(parcel.CustomerSendsFrom),
+                Weight = (WeightCategories)parcel.WeightParcel,
+                Priority = (Priorities)parcel.Priority,
+                Drone1 = drone,
+                Created= parcel.TimeCreatedTheParcel,
+                Delivered=parcel.DeliveryTime,
+                PickedUp=parcel.CollectionTime,
+                Scheduled=parcel.AssignmentTime
             };
         }
 
@@ -93,6 +124,8 @@ namespace PL.UsingBl
                 Name = customerInParcel.Name
             };
         }
+
+
 
         public static BO.ParcelInCustomer ConvertBackParcelAtCustomer(ParcelToCustomer parcelAtCustomer)
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PL.Model.Po;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -22,8 +23,8 @@ namespace PL.Model
             }
         }
 
-        private int batteryStatus;
-        public int BatteryStatus
+        private double batteryStatus;
+        public double BatteryStatus
         {
             get { return batteryStatus; }
             set
@@ -34,15 +35,17 @@ namespace PL.Model
         }
 
         private Location current = new Location();
-        public Location Current
+        public Location CurrentLocation
         {
             get { return current; }
             set
             {
                 current = value;
-                OnPropertyChanged(nameof(Current));
+                OnPropertyChanged(nameof(CurrentLocation));
             }
         }
+
+        public override string ToString() => this.ToStringProperties();
 
         #region INotifyPropertyChanged Members  
 

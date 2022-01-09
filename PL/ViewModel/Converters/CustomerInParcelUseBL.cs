@@ -8,28 +8,28 @@ using System.Threading.Tasks;
 namespace PL.UsingBl
 {
 
-        public static class CustomerInParcelUseBl
+    public static class CustomerInParcelUseBl
+    {
+        public static CustomerInParcel ConvertCustomerInParcel(BO.CustomerInParcel customerInParcel)
         {
-            public static CustomerInParcel ConvertCustomerInParcel(BO.CustomerInParcel customerInParcel)
+            return new CustomerInParcel()
             {
-                return new CustomerInParcel()
-                {
-                    Id = customerInParcel.Id,
-                    Name = customerInParcel.Name
-                };
-            }
-            public static BO.CustomerInParcel ConvertBackCustomerInParcel(CustomerInParcel customerInParcel)
+                Id = customerInParcel.Id,
+                Name = customerInParcel.Name
+            };
+        }
+        public static BO.CustomerInParcel ConvertBackCustomerInParcel(CustomerInParcel customerInParcel)
+        {
+            return new BO.CustomerInParcel()
             {
-                return new BO.CustomerInParcel()
-                {
-                    Id = customerInParcel.Id,
-                    Name = customerInParcel.Name
-                };
-            }
-  
+                Id = customerInParcel.Id,
+                Name = customerInParcel.Name
+            };
+        }
+
 
 
 
     }
- 
+
 }

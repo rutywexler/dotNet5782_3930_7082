@@ -82,7 +82,7 @@ namespace PL.ViewModel.Customer
             }
             MessageBox.Show("Succeed to delete station");
         }
-        private SimpleCustomer GetCustomer(int id)
+        public  SimpleCustomer GetCustomer(int id)
         {
             return CustomerInParcelUseBL.ConvertCustomer(bl.GetCustomer(id));
         }
