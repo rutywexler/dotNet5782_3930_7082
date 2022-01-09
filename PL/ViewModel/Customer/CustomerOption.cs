@@ -55,9 +55,9 @@ namespace PL.ViewModel.Customer
         {
             bl = BlApi.BlFactory.GetBL();
         }
-        public CustomerOption(CustomerForList customer) : this()
+        public CustomerOption(int customerID) : this()
         {
-            Customer = GetCustomer(customer.Id);
+            Customer = GetCustomer(customerID);
             Name = Customer.Name;
             PhoneNumber = Customer.PhoneNumber;
             UpdateCustomerCommand = new(UpdateCustomer, null);
@@ -68,7 +68,7 @@ namespace PL.ViewModel.Customer
         private void OpenViewParcelrWindow(object param)
         {
             var parcel = param as ParcelToCustomer;
-            new ViewParcel(ParcelConverter.ConvertParcelInCustomerToParcelForList(parcel,Customer)).Show();
+            new ViewParcel(ParcelConverter.ConvertParcelInCustomerToParcelForList(parcel, Customer)).Show();
         }
         private void DeleteCustomer(object param)
         {
@@ -82,7 +82,7 @@ namespace PL.ViewModel.Customer
             }
             MessageBox.Show("Succeed to delete station");
         }
-        public  SimpleCustomer GetCustomer(int id)
+        public SimpleCustomer GetCustomer(int id)
         {
             return CustomerInParcelUseBL.ConvertCustomer(bl.GetCustomer(id));
         }

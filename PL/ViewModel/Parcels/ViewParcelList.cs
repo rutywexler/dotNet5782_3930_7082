@@ -61,8 +61,6 @@ namespace PL.ViewModel.Parcels
         public void OpenParcelView(object param)
         {
             var parcel = param as ParcelForList;
-            new ViewParcel(parcel).Show();
-
             new ViewParcel(parcel).ShowDialog();
             InitializeList();
         }

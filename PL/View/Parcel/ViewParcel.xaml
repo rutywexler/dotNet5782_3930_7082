@@ -17,11 +17,11 @@
             <TextBlock x:Name="Priority" Text ="{Binding Parcel.Priority, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Text="Sender Name: "/>
             <TextBlock x:Name="SenderName" Text ="{Binding Parcel.Sender, UpdateSourceTrigger=PropertyChanged}" />
-            <Button Command="{Binding OpenCustomerWindowCommand}" CommandParameter="Parcel.sender" Content="Open customer details"></Button>
+            <Button Command="{Binding OpenCustomerWindowCommand}" CommandParameter="{Binding Parcel.Sender}" Content="Open customer details"></Button>
 
             <TextBlock Text="Target Name: "/>
             <TextBlock x:Name="TargetName" Text ="{Binding Parcel.Target, UpdateSourceTrigger=PropertyChanged}" />
-            <Button Command="{Binding OpenCustomerWindowCommand}" CommandParameter="Parcel.Target" Content="Open customer details"></Button>
+            <Button Command="{Binding OpenCustomerWindowCommand}" CommandParameter="{Binding Parcel.Target}" Content="Open customer details"></Button>
 
             <TextBlock Text="Status: "/>
             <TextBlock x:Name="Status" Text ="{Binding Parcel.Status, UpdateSourceTrigger=PropertyChanged}" />

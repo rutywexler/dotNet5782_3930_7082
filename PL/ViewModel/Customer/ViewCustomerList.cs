@@ -61,7 +61,7 @@ namespace PL.ViewModel.Customer
         private void OpenViewCustomerWindow(object param)
         {
             var customer = param as CustomerForList;
-            new ViewCustomer(customer).ShowDialog();
+            new ViewCustomer(customer.Id).ShowDialog();
             RefreshList();
         }
 

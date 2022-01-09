@@ -21,10 +21,10 @@ namespace PL.View.Customer
     /// </summary>
     public partial class ViewCustomer : Window
     {
-        public ViewCustomer(CustomerForList customer )
+        public ViewCustomer(int customerId)
         {
             InitializeComponent();
-            DataContext =new  CustomerOption(customer);
+            DataContext = new CustomerOption(customerId);
         }
     }
 }

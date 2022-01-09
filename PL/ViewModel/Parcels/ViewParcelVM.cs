@@ -39,9 +39,8 @@ namespace PL.ViewModel.Parcels
 
         public void OpenCustomerWindow(object param)
         {
-            //int n = (param as CustomerInParcel).Id;
-            //var customer = CustomerInParcelUseBL.ConvertBoCustomerForListToPo(bl.GetCustomer(n));
-            //new ViewCustomer(customer).Show();
+            var Customer = param as CustomerInParcel;
+            new ViewCustomer(Customer.Id).Show();
         }
         public void DeleteParcel(object obj)
         {
