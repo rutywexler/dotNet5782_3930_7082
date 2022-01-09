@@ -10,7 +10,8 @@
         <local:ViewParcelVM/>
     </Window.DataContext>-->
     <Grid>
-        <StackPanel>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
             <TextBlock Text="Id: "/>
             <TextBlock x:Name="Id" Text ="{Binding Parcel.Id, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Text="Priority: "/>
@@ -34,6 +35,6 @@
             <Button Command="{Binding DeleteParcelCommand}"
                  Content="Delete Parcel"></Button>
         </StackPanel>
-       
+       </ScrollViewer>
     </Grid>
 </Window>

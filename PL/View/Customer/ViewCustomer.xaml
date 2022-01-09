@@ -10,6 +10,7 @@
         <local:CustomerOption/>
     </Window.DataContext>
     <Grid>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <StackPanel >
                 <TextBlock Text="Id: "/>
             <TextBlock x:Name="Id" Text ="{Binding Customer.Id, UpdateSourceTrigger=PropertyChanged}" />
@@ -64,5 +65,6 @@
                     </MultiBinding>
                 </Button.Visibility>-->
             </StackPanel>
+            </ScrollViewer>
         </Grid>
 </Window>

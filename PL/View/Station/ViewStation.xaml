@@ -10,6 +10,7 @@
         <local:UpDateStation/>
     </Window.DataContext>
     <Grid>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <StackPanel >
             <TextBlock Text="Id: "/>
             <TextBlock x:Name="Id" Text ="{Binding Station.Id, UpdateSourceTrigger=PropertyChanged}" />
@@ -37,5 +38,6 @@
                 </Button.Visibility>-->
             </Button>
         </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Window>
