@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<ArrayOfBaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <BaseStation>
+    <Id>1</Id>
+    <Name>Campus Lev</Name>
+    <ChargingPorts>10</ChargingPorts>
+    <Longitude>35.189938</Longitude>
+    <Latitude>31.785664</Latitude>
+  </BaseStation>
+  <BaseStation>
+    <Id>2</Id>
+    <Name>Campus Tal</Name>
+    <ChargingPorts>10</ChargingPorts>
+    <Longitude>35.191523</Longitude>
+    <Latitude>31.766043</Latitude>
+  </BaseStation>
+  <BaseStation>
+    <Id>3</Id>
+    <Name>Base Station 3</Name>
+    <ChargingPorts>10</ChargingPorts>
+    <Longitude>35.241510567675114</Longitude>
+    <Latitude>31.79856935724084</Latitude>
+  </BaseStation>
+  <BaseStation>
+    <Id>4</Id>
+    <Name>Base Station 4</Name>
+    <ChargingPorts>10</ChargingPorts>
+    <Longitude>35.20459766623778</Longitude>
+    <Latitude>31.72040543648899</Latitude>
+  </BaseStation>
+  <BaseStation>
+    <Id>5</Id>
+    <Name>Base Station 5</Name>
+    <ChargingPorts>10</ChargingPorts>
+    <Longitude>35.20938877270994</Longitude>
+    <Latitude>31.801536637671077</Latitude>
+  </BaseStation>
+  <BaseStation>
+    <Id>6</Id>
+    <Name>Base Station 6</Name>
+    <ChargingPorts>10</ChargingPorts>
+    <Longitude>35.269852124820396</Longitude>
+    <Latitude>31.803041514089816</Latitude>
+  </BaseStation>
+  <BaseStation>
+    <Id>7</Id>
+    <Name>Base Station 7</Name>
+    <ChargingPorts>10</ChargingPorts>
+    <Longitude>35.260781528344744</Longitude>
+    <Latitude>31.712640513564757</Latitude>
+  </BaseStation>
+  <BaseStation>
+    <Id>8</Id>
+    <Name>Base Station 8</Name>
+    <ChargingPorts>10</ChargingPorts>
+    <Longitude>35.273336128347246</Longitude>
+    <Latitude>31.75070766435038</Latitude>
+  </BaseStation>
+  <BaseStation>
+    <Id>9</Id>
+    <Name>Base Station 9</Name>
+    <ChargingPorts>10</ChargingPorts>
+    <Longitude>35.24701413289039</Longitude>
+    <Latitude>31.770927471500322</Latitude>
+  </BaseStation>
+  <BaseStation>
+    <Id>10</Id>
+    <Name>Base Station 10</Name>
+    <ChargingPorts>10</ChargingPorts>
+    <Longitude>35.26753238552601</Longitude>
+    <Latitude>31.74627896385094</Latitude>
+  </BaseStation>
+  <BaseStation>
+    <Id>11</Id>
+    <Name>Campus Lev</Name>
+    <ChargingPorts>10</ChargingPorts>
+    <Longitude>35.189938</Longitude>
+    <Latitude>31.785664</Latitude>
+  </BaseStation>
+  <BaseStation>
+    <Id>12</Id>
+    <Name>Campus Tal</Name>
+    <ChargingPorts>10</ChargingPorts>
+    <Longitude>35.191523</Longitude>
+    <Latitude>31.766043</Latitude>
+  </BaseStation>
+  <BaseStation>
+    <Id>13</Id>
+    <Name>Base Station 13</Name>
+    <ChargingPorts>10</ChargingPorts>
+    <Longitude>35.23210861519543</Longitude>
+    <Latitude>31.809188306834173</Latitude>
+  </BaseStation>
+  <BaseStation>
+    <Id>14</Id>
+    <Name>Base Station 14</Name>
+    <ChargingPorts>10</ChargingPorts>
+    <Longitude>35.24719359646886</Longitude>
+    <Latitude>31.799041438553967</Latitude>
+  </BaseStation>
+  <BaseStation>
+    <Id>15</Id>
+    <Name>Base Station 15</Name>
+    <ChargingPorts>10</ChargingPorts>
+    <Longitude>35.18683253258785</Longitude>
+    <Latitude>31.808549728700218</Latitude>
+  </BaseStation>
+  <BaseStation>
+    <Id>16</Id>
+    <Name>Base Station 16</Name>
+    <ChargingPorts>10</ChargingPorts>
+    <Longitude>35.27977415762831</Longitude>
+    <Latitude>31.778582353307208</Latitude>
+  </BaseStation>
+  <BaseStation>
+    <Id>17</Id>
+    <Name>Base Station 17</Name>
+    <ChargingPorts>10</ChargingPorts>
+    <Longitude>35.23167841070875</Longitude>
+    <Latitude>31.795111203596512</Latitude>
+  </BaseStation>
+  <BaseStation>
+    <Id>18</Id>
+    <Name>Base Station 18</Name>
+    <ChargingPorts>10</ChargingPorts>
+    <Longitude>35.232849084489445</Longitude>
+    <Latitude>31.748034333725478</Latitude>
+  </BaseStation>
+  <BaseStation>
+    <Id>19</Id>
+    <Name>Base Station 19</Name>
+    <ChargingPorts>10</ChargingPorts>
+    <Longitude>35.19484966874814</Longitude>
+    <Latitude>31.73535548788745</Latitude>
+  </BaseStation>
+  <BaseStation>
+    <Id>20</Id>
+    <Name>Base Station 20</Name>
+    <ChargingPorts>10</ChargingPorts>
+    <Longitude>35.270766643355955</Longitude>
+    <Latitude>31.712445405070877</Latitude>
+  </BaseStation>
+</ArrayOfBaseStation>
