@@ -1,15 +1,16 @@
-﻿using DO;
+﻿using Dal;
+using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static DalObject.DataSource;
 
-namespace DalObject
+namespace DalXml
 {
-    public partial class DalObject
+    public partial class DalXml
     {
+        private readonly string parcelsPath = "Parcels.xml";
         /// <summary>
         /// Gets parameters and create new parcel 
         /// </summary>
@@ -45,7 +46,7 @@ namespace DalObject
         /// <returns>A parcel for display</returns>
         public Parcel GetParcel(int id)
         {
-            Parcel parcel = DataSource.Parcels.FirstOrDefault(item => item.Id == id);
+            Parcel parcel = XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath).FirstOrDefault(item => item.Id == id);
             if (parcel.Equals(default(Parcel)))
                 throw new KeyNotFoundException("There isnt suitable parcel in the data!");
             return parcel;
@@ -58,7 +59,7 @@ namespace DalObject
 
         public IEnumerable<Parcel> GetParcels()
         {
-            return Parcels.Where(parcel => parcel.IsDeleted == false);
+            return XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath);
         }
 
         /// <summary>
@@ -69,10 +70,11 @@ namespace DalObject
         //{
         //    return DataSource.Parcels.Where(parcel => parcel.DroneId == 0);
         // }
-        public IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate)
-        {
-            return DataSource.Parcels.Where(parcel => predicate(parcel));
-        }
+        public IEnumerable<Parcel?> GetParcels(Func<Parcel?, bool> predicate = null) =>
+           predicate == null ?
+               XMLTools.LoadListFromXmlSerializer<Parcel?>(parcelsPath) :
+               XMLTools.LoadListFromXmlSerializer<Parcel?>(parcelsPath).Where(predicate);
+
 
         /// <summary>
         /// Assign parcel to drone 
@@ -95,12 +97,14 @@ namespace DalObject
         /// <param name="station"></param>
         public void RemoveParcel(int id)
         {
-            Parcel parcel = Parcels.FirstOrDefault(parcel => parcel.Id == id);
-            Parcels.Remove(parcel);
+            List<Parcel> parcels=XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath);
+            Parcel parcel = parcels.FirstOrDefault(parcel => parcel.Id == id);
+            parcels.Remove(parcel);
+            XMLTools.SaveListToXmlSerializer(parcels, parcelsPath);
             parcel.IsDeleted = true;
             Parcels.Add(parcel);
         }
 
-        
+
     }
 }

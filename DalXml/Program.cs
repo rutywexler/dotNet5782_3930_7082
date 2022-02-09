@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Dal
 {
-    internal sealed class DalXml : Idal
+    internal sealed partial class DalXml : Idal
     {
         static void Main(string[] args)
         {
@@ -72,21 +72,7 @@ namespace Dal
             throw new NotImplementedException();
         }
 
-        public Parcel GetParcel(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Parcel> GetParcels()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
+      
         public double[] GetPowerConsumptionByDrone()
         {
             throw new NotImplementedException();
