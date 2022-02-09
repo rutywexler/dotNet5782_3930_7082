@@ -11,6 +11,7 @@ namespace DalXml
     public partial class DalXml
     {
         private readonly string parcelsPath = "Parcels.xml";
+        private readonly string ConfigPath = "Config.xml";
         /// <summary>
         /// Gets parameters and create new parcel 
         /// </summary>
@@ -20,12 +21,14 @@ namespace DalXml
         /// <param name="Priority"> The priority of send the parcel (regular - 0,fast - 1,emergency - 2)</param>
         public void AddParcel(int SenderId, int TargetId, WeightCategories Weigth, Priorities Priority, int id = 0, int droneId = 0, DateTime requested = default, DateTime sceduled = default, DateTime pickedUp = default, DateTime delivered = default)
         {
-            if (!ExistsIDCheck(GetCustomers(), SenderId))
+            List<Parcel> parcels = XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath);
+            if (!DalObject.DalObject.ExistsIDCheck(GetCustomers(), SenderId))
                 throw new KeyNotFoundException("Sender not exist");
-            if (!ExistsIDCheck(GetCustomers(), TargetId))
+            if (!DalObject.DalObject.ExistsIDCheck(GetCustomers(), TargetId))
                 throw new KeyNotFoundException("Target not exist");
             Parcel newParcel = new();
-            newParcel.Id = id == 0 ? ++DataSource.Config.IdParcel : id;
+            //XMLTools.LoadListFromXmlSerializer<Parcel>(ConfigPath).;
+            //newParcel.Id = id == 0 ? ++DataSource.Config.IdParcel : id;
             newParcel.SenderId = SenderId;
             newParcel.TargetId = TargetId;
             newParcel.Weight = Weigth;
@@ -35,7 +38,8 @@ namespace DalXml
             newParcel.PickedUp = pickedUp;
             newParcel.Delivered = delivered;
             newParcel.DroneId = droneId;
-            DataSource.Parcels.Add(newParcel);
+            parcels.Add(newParcel);
+            XMLTools.SaveListToXmlSerializer(parcels, parcelsPath);
         }
 
 
@@ -83,11 +87,13 @@ namespace DalXml
         /// <param name="droneId">droneId</param>
         public void AssignParcelToDrone(int parcelId, int droneId)
         {
+            List<Parcel> parcels = XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath);
             Parcel parcel = GetParcel(parcelId);
-            Parcels.Remove(parcel);
+            parcels.Remove(parcel);
             parcel.DroneId = droneId;
             parcel.Scheduled = DateTime.Now;
-            Parcels.Add(parcel);
+            parcels.Add(parcel);
+            XMLTools.SaveListToXmlSerializer(parcels, parcelsPath);
         }
 
 
@@ -100,9 +106,9 @@ namespace DalXml
             List<Parcel> parcels=XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath);
             Parcel parcel = parcels.FirstOrDefault(parcel => parcel.Id == id);
             parcels.Remove(parcel);
-            XMLTools.SaveListToXmlSerializer(parcels, parcelsPath);
             parcel.IsDeleted = true;
-            Parcels.Add(parcel);
+            parcels.Add(parcel);
+            XMLTools.SaveListToXmlSerializer(parcels, parcelsPath);
         }
 
 

@@ -24,7 +24,7 @@ namespace DalObject
         /// <typeparam name="T">type of list</typeparam>
         /// <param name="lst">The list </param>
         /// <param name="id">The id for checking</param>
-        static bool ExistsIDCheck<T>(IEnumerable<T> list, int id)
+        public static bool ExistsIDCheck<T>(IEnumerable<T> list, int id)
         {
             if (!list.Any())
                 return false;
