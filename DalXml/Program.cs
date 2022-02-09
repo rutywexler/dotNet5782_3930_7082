@@ -32,11 +32,6 @@ namespace Dal
             throw new NotImplementedException();
         }
 
-        public void AddStation(int id, string name, double longitude, double latitude, int chargeSlots)
-        {
-            throw new NotImplementedException();
-        }
-
         public void AssignParcelToDrone(int parcelId, int droneId)
         {
             throw new NotImplementedException();
@@ -78,16 +73,8 @@ namespace Dal
             throw new NotImplementedException();
         }
 
-        public Station GetStation(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Station> GetStations()
-        {
-            throw new NotImplementedException();
-        }
-
+     
+      
         public int NotAvailableChargingPorts(int baseStationId)
         {
             throw new NotImplementedException();
@@ -113,9 +100,6 @@ namespace Dal
             throw new NotImplementedException();
         }
 
-        public void RemoveStation(int id)
-        {
-            throw new NotImplementedException();
-        }
+    
     }
 }

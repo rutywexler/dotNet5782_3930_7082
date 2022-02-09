@@ -28,7 +28,7 @@ namespace DalXml
                 throw new KeyNotFoundException("Target not exist");
             Parcel newParcel = new();
             //XMLTools.LoadListFromXmlSerializer<Parcel>(ConfigPath).;
-            //newParcel.Id = id == 0 ? ++DataSource.Config.IdParcel : id;
+            newParcel.Id = id == 0 ? ++DataSource.Config.IdParcel : id;
             newParcel.SenderId = SenderId;
             newParcel.TargetId = TargetId;
             newParcel.Weight = Weigth;
