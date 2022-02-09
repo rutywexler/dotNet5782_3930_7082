@@ -1,12 +1,14 @@
 ﻿using Dal;
+using DalXml;
 using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
-namespace DalXml
+namespace Dal
 {
     public partial class DalXml
     {
@@ -27,8 +29,11 @@ namespace DalXml
             if (!DalObject.DalObject.ExistsIDCheck(GetCustomers(), TargetId))
                 throw new KeyNotFoundException("Target not exist");
             Parcel newParcel = new();
-            //XMLTools.LoadListFromXmlSerializer<Parcel>(ConfigPath).;
-            //newParcel.Id = id == 0 ? ++DataSource.Config.IdParcel : id;
+            XElement config = LoadConfigToXML(ConfigPath);
+            XElement parcelId = config.Elements().Single(elem => elem.Name.ToString().Contains("Parcel"));
+            newParcel.Id = id == 0 ? int.Parse(parcelId.Value) + 1 : id;
+            config.SetElementValue(parcelId.Name, newParcel.Id);
+            DalXml.SaveConfigToXML(config, ConfigPath);
             newParcel.SenderId = SenderId;
             newParcel.TargetId = TargetId;
             newParcel.Weight = Weigth;

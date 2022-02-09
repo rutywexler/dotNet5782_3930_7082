@@ -1,23 +1,27 @@
-﻿using DO;
+﻿using Dal;
+using DalObject;
+using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static DalObject.DataSource;
 
-namespace DalObject
+namespace DalXml
 {
-    public partial class DalObject
+    public partial class DalXml
     {
+        private readonly string dronesPath = "Drones.xml";
+
         /// <summary>
         ///  Gets parameters and create new drone 
         /// </summary>
         /// <param name="model"> Grone's model</param>
         /// <param name="MaxWeight"> The max weight that the drone can swipe (light- 0,medium - 1,heavy - 2)</param>
-        public void AddDrone(int id, string model, WeightCategories MaxWeight)
+        public void AddDrone(int id, string model, DO.WeightCategories MaxWeight)
         {
-            if (ExistsIDCheck(DataSource.Drones, id))
+            List<Drone> drones = XMLTools.LoadListFromXmlSerializer<Drone>(dronesPath);
+            if (DalObject.DalObject.ExistsIDCheck(drones, id))
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue();
             Drone newDrone = new()
             {
@@ -25,21 +29,9 @@ namespace DalObject
                 Model = model,
                 MaxWeight = MaxWeight
             };
-            Drones.Add(newDrone);
+            drones.Add(newDrone);
+            XMLTools.SaveListToXmlSerializer(drones, dronesPath);
         }
-
-        /// <summary>
-        /// DisplayDrone is a method in the DalObject class.
-        /// the method allows drone display
-        /// </summary>
-        public void DisplayDrone()
-        {
-            Console.WriteLine("enter drone id:");
-            int input = int.Parse(Console.ReadLine());
-            Console.WriteLine(Drones[input - 1]);
-        }
-
-
 
         /// <summary>
         /// RemoveDrone is a method in the DalObject class.
@@ -47,12 +39,14 @@ namespace DalObject
         /// </summary>
         public void RemoveDrone(Drone drone)
         {
-
-            Drones.Remove(drone);
+            List<Drone> drones = XMLTools.LoadListFromXmlSerializer<Drone>(dronesPath);
+            drones.Remove(drone);
+            XMLTools.SaveListToXmlSerializer(drones, dronesPath);
         }
 
         public double[] GetPowerConsumptionByDrone()
         {
+
             return new double[] { Config.Available, Config.LightWeightCarrier, Config.MediumWeightBearing, Config.CarryingHeavyWeight, Config.DroneLoadingRate };
         }
 
@@ -63,16 +57,13 @@ namespace DalObject
         /// <returns>A drone for display</returns>
         public Drone GetDrone(int id)
         {
-            Drone drone = DataSource.Drones.FirstOrDefault(item => item.Id == id);
+            Drone drone = XMLTools.LoadListFromXmlSerializer<Drone>(dronesPath).FirstOrDefault(item => item.Id == id);
             if (drone.Equals(default(Drone)))
                 throw new KeyNotFoundException("This drone doesnt exist in the data!");
             return drone;
         }
 
- 
-
-        public IEnumerable<Drone> GetDrones() => Drones;
-
+        public IEnumerable<Drone> GetDrones() => XMLTools.LoadListFromXmlSerializer<Drone>(dronesPath);
 
 
 

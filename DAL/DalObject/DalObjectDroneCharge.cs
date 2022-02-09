@@ -14,7 +14,7 @@ namespace DalObject
         /// FindChargeSlot is a static method in the DalObject class.
         /// the method finds charge slot to a drone
         /// </summary>
-        /// <param name="id">int value</param>
+        /// <param name = "id" > int value</param>
         /// <returns>if succeed in finding charge slot to a drone</returns>
         //public static bool FindChargeSlot(int id)
         //{
@@ -83,6 +83,18 @@ namespace DalObject
         public void AddDRoneCharge(int droneId, int stationId)
         {
             DroneCharges.Add(new DroneCharge() { DroneId = droneId, StationId = stationId,StartTime=DateTime.Now});
+        }
+
+        /// <summary>
+        /// Find a drone that has tha same id and release him from charging
+        /// </summary>
+        /// <param name="id">The id of the requested drone</param>
+        /// <returns>A drone for display</returns>
+        public void ReleaseDroneFromRecharge(int droneId)
+        {
+            var droneCharge = DataSource.DroneCharges.First(charge => charge.DroneId == droneId);
+
+            DataSource.DroneCharges.Remove(droneCharge);
         }
 
     }
