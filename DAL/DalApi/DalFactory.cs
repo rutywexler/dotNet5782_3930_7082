@@ -1,26 +1,23 @@
-﻿using DalApi;
+﻿using DAL.DalApi;
 using DalObject;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using System.Reflection;
 
 namespace DalApi
 {
     public static class DalFactory
     {
-        public static Idal GetDL(string type)
+        public static Idal GetDL()
         {
-            switch (type)
-            {
-                case object:
-                    return DalObject.DalObject.Instance;
-                default:
-                    throw new DalConfigException("Can't Get Dal Instance");
-            }
+            Assembly.LoadFrom($@"{Directory.GetCurrentDirectory()}\{DalConfig.DalType}.dll");
+            Type type = Type.GetType($"{DalConfig.Namespace}.{DalConfig.DalType}, {DalConfig.DalType}");
+            if (type == null)
+                throw new DAL.DalApi.DalConfigException("Can't find such project");
+            Idal dal = (Idal)type.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy).GetValue(null);
+            if (dal == null)
+                throw new DAL.DalApi.DalConfigException("Can't Get Dal Instance");
+            return dal;
         }
-
-           
     }
 }

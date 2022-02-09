@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:PL.ViewModel.Customer"
         mc:Ignorable="d"
         Title="CustomerOption" Height="450" Width="800">
-    <Window.DataContext>
-        <local:CustomerOption/>
-    </Window.DataContext>
+    <!--<Window.DataContext>
+        --><!--<local:CustomerOption/>--><!--
+    </Window.DataContext>-->
     <Grid>
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <StackPanel >

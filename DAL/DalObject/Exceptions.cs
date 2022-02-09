@@ -25,6 +25,11 @@ namespace DalObject
     public class XMLFileLoadCreateException : Exception
     {
         public string xmlFilePath;
+
+        public XMLFileLoadCreateException()
+        {
+        }
+
         public XMLFileLoadCreateException(string xmlPath) : base() { xmlFilePath = xmlPath; }
         public XMLFileLoadCreateException(string xmlPath, string message) :
             base(message)

@@ -5,6 +5,7 @@ using BO;
 using BlApi;
 using static BO.Enums;
 using Singelton;
+using DalApi;
 
 namespace Bl
 {
@@ -14,7 +15,7 @@ namespace Bl
         public const int MININITBATTARY = 0;
         public const int FULLBATTRY = 100;
         private static readonly Random rand = new();
-        DalApi.Idal dal { get; } = DalObject.DalObject.Instance;
+        DalApi.Idal dal { get; } = DalFactory.GetDL();
         public List<DroneToList> drones = new();
         public double Available { get; set; }
         public double LightWeightCarrier { get; set; }

@@ -23,11 +23,11 @@ namespace Dal
         /// <param name="Priority"> The priority of send the parcel (regular - 0,fast - 1,emergency - 2)</param>
         public void AddParcel(int SenderId, int TargetId, WeightCategories Weigth, Priorities Priority, int id = 0, int droneId = 0, DateTime requested = default, DateTime sceduled = default, DateTime pickedUp = default, DateTime delivered = default)
         {
-            List<Parcel> parcels = XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath);
-            if (!DalObject.DalObject.ExistsIDCheck(GetCustomers(), SenderId))
-                throw new KeyNotFoundException("Sender not exist");
-            if (!DalObject.DalObject.ExistsIDCheck(GetCustomers(), TargetId))
-                throw new KeyNotFoundException("Target not exist");
+            //List<Parcel> parcels = XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath);
+            //if (!DalObject.DalObject.ExistsIDCheck(GetCustomers(), SenderId))
+            //    throw new KeyNotFoundException("Sender not exist");
+            //if (!DalObject.DalObject.ExistsIDCheck(GetCustomers(), TargetId))
+            //    throw new KeyNotFoundException("Target not exist");
             Parcel newParcel = new();
             XElement config = LoadConfigToXML(ConfigPath);
             XElement parcelId = config.Elements().Single(elem => elem.Name.ToString().Contains("Parcel"));
@@ -43,8 +43,8 @@ namespace Dal
             newParcel.PickedUp = pickedUp;
             newParcel.Delivered = delivered;
             newParcel.DroneId = droneId;
-            parcels.Add(newParcel);
-            XMLTools.SaveListToXmlSerializer(parcels, parcelsPath);
+            //parcels.Add(newParcel);
+            //XMLTools.SaveListToXmlSerializer(parcels, parcelsPath);
         }
 
 

@@ -4,6 +4,10 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>../bin/</OutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="IDAL\**" />
     <EmbeddedResource Remove="IDAL\**" />
@@ -15,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DalXml\DalXml.csproj" />
     <ProjectReference Include="..\DAL\DalApi.csproj" />
     <ProjectReference Include="..\Singelton\Singelton.csproj" />
   </ItemGroup>

@@ -1,17 +1,21 @@
 ﻿using Dal;
 using DalObject;
+using DalXml;
 using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
-namespace DalXml
+namespace Dal
 {
     public partial class DalXml
     {
         private readonly string dronesPath = "Drones.xml";
+
+
 
         /// <summary>
         ///  Gets parameters and create new drone 
@@ -46,8 +50,17 @@ namespace DalXml
 
         public double[] GetPowerConsumptionByDrone()
         {
-
-            return new double[] { Config.Available, Config.LightWeightCarrier, Config.MediumWeightBearing, Config.CarryingHeavyWeight, Config.DroneLoadingRate };
+            return new double[] { 1, 2, 3, 4, 5 };
+            try
+            {
+                XElement config = LoadConfigToXML(ConfigPath);
+                var electricity = config.Elements().Select(elem => double.Parse(elem.Value));
+                return new double[] { electricity.ElementAt(1), electricity.ElementAt(2), electricity.ElementAt(3), electricity.ElementAt(4), electricity.ElementAt(5) };
+            }
+            catch (XMLFileLoadCreateException ex)
+            {
+                throw new XMLFileLoadCreateException(ex.Message);
+            }
         }
 
         /// <summary>
