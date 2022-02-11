@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
 
-namespace Dal
+namespace DalXml
 {
     public sealed partial class DalXml : Singleton<DalXml>, Idal
     {
@@ -60,74 +60,5 @@ namespace Dal
             }
         }
 
-        public void AddCustomer(int id, string phone, string name, double longitude, double latitude)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddStation(int id, string name, double longitude, double latitude, int chargeSlots)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddDRoneCharge(int droneId, int stationId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ReleaseDroneFromRecharge(int droneId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Station GetStation(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Customer GetCustomer(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Station> GetStations()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Customer> GetCustomers()
-        {
-            throw new NotImplementedException();
-        }
-
-        public int NotAvailableChargingPorts(int baseStationId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<int> GetDronechargingInStation(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Station> GetAvailableChargingStations()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveStation(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveCustomer(int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
