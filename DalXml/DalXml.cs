@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
 
-namespace DalXml
+namespace Dal
 {
     public sealed partial class DalXml : Singleton<DalXml>, Idal
     {

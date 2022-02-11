@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace DalXml
+namespace Dal
 {
-   public partial class DalXmlCustomer
+   public partial class DalXml
     {
         private readonly string customersPath = "Customers.xml";
 

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace DalXml
+namespace Dal
 {
     public partial class DalXml
     {
@@ -79,10 +79,10 @@ namespace DalXml
         //{
         //    return DataSource.Parcels.Where(parcel => parcel.DroneId == 0);
         // }
-        public IEnumerable<Parcel?> GetParcels(Func<Parcel?, bool> predicate = null) =>
-           predicate == null ?
-               XMLTools.LoadListFromXmlSerializer<Parcel?>(parcelsPath) :
-               XMLTools.LoadListFromXmlSerializer<Parcel?>(parcelsPath).Where(predicate);
+        public IEnumerable<Parcel> GetParcels(Func<Parcel, bool> predicate = null) =>
+           predicate == null?
+               XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath) :
+               XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath).Where(predicate);
 
 
         /// <summary>

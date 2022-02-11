@@ -26,7 +26,7 @@ namespace DalApi
         public IEnumerable<Station> GetStations();
         public IEnumerable<Drone> GetDrones();
         public IEnumerable<Parcel> GetParcels();
-        public IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate);
+        public IEnumerable<Parcel> GetParcels(Func<Parcel, bool> predicate);
         public IEnumerable<Customer> GetCustomers();
        // public IEnumerable<Parcel> GetUnAssignmentParcels();
         public int NotAvailableChargingPorts(int baseStationId);
