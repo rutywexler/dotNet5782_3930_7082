@@ -10,9 +10,10 @@ namespace Bl
     {
         public void AddStation(BaseStation baseStation)
         {
-            try {
-                dal.AddStation(baseStation.Id, baseStation.Name, baseStation.Location.Longitude, baseStation.Location.Longitude, baseStation.NumberOfChargingStations); 
-              }
+            try
+            {
+                dal.AddStation(baseStation.Id, baseStation.Name, baseStation.Location.Longitude, baseStation.Location.Longitude, baseStation.NumberOfChargingStations);
+            }
             catch (DalObject.Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
@@ -83,8 +84,9 @@ namespace Bl
             try
             {
                 var station = dal.GetStation(id);
-                dal.RemoveStation(station.Id);
-                dal.AddStation(id, name.Equals(string.Empty) ? station.Name : name, station.Longitude, station.Lattitude, chargeSlots);
+                station.Name = name;
+                station.ChargeSlots = chargeSlots;
+                dal.UpdateSation(station);
             }
             catch (KeyNotFoundException ex)
             {

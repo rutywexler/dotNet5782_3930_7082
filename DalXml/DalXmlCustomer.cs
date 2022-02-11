@@ -1,5 +1,4 @@
-﻿using DalXml;
-using DO;
+﻿using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -83,5 +82,15 @@ namespace Dal
         //    customer.IsDeleted = true;
         //    Customers.Add(customer);
         //}
+
+        public void AddCustomer(int id, string phone, string name, double longitude, double latitude)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveCustomer(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

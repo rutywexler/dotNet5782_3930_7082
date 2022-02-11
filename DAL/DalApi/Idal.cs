@@ -17,6 +17,8 @@ namespace DalApi
         public void AddStation(int id, string name, double longitude, double latitude, int chargeSlots);
         public void AddDRoneCharge(int droneId, int stationId);
 
+        public void UpdateSation(Station station);
+
         public void AssignParcelToDrone(int parcelId, int droneId);
         public void ReleaseDroneFromRecharge(int droneId);
         public Station GetStation(int id);
@@ -26,13 +28,14 @@ namespace DalApi
         public IEnumerable<Station> GetStations();
         public IEnumerable<Drone> GetDrones();
         public IEnumerable<Parcel> GetParcels();
-        public IEnumerable<Parcel> GetParcels(Func<Parcel, bool> predicate);
+        public IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate);
         public IEnumerable<Customer> GetCustomers();
        // public IEnumerable<Parcel> GetUnAssignmentParcels();
         public int NotAvailableChargingPorts(int baseStationId);
         public List<int> GetDronechargingInStation(int id);
         public IEnumerable<Station> GetAvailableChargingStations();
         //public void RemoveCustomer(Customer customer);
+
         public void RemoveParcel(int id);
         public void RemoveStation(int id);
         public double[] GetPowerConsumptionByDrone();

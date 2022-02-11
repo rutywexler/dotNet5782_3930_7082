@@ -93,6 +93,14 @@ namespace DalObject
             station.IsDeleted = true;
             BaseStations.Add(station);
         }
-        
+
+        public void UpdateSation(Station station)
+        {
+            var s = BaseStations.FirstOrDefault(item => item.Id == station.Id);
+            if (station.Equals(default(Station)))
+                throw new KeyNotFoundException("There isnt suitable Station in the data!");
+            BaseStations.Remove(s);
+            AddStation(station.Id, station.Name, station.Longitude, station.Lattitude, station.ChargeSlots);
+        }
     }
 }

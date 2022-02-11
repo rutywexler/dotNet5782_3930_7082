@@ -59,6 +59,5 @@ namespace Dal
                 throw new XMLFileLoadCreateException($"fail to create xml file: {filePath}");
             }
         }
-
     }
 }

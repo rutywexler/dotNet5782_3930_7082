@@ -99,12 +99,19 @@ namespace Dal
         {
             List<Station> stations = XMLTools.LoadListFromXmlSerializer<Station>(StationPath);
             Station basestation = stations.FirstOrDefault(station => station.Id == id);
-            stations.Remove(basestation);
+            //stations.Remove(basestation);
             basestation.IsDeleted = true;
-            stations.Add(basestation);
+            //stations.Add(basestation);
             XMLTools.SaveListToXmlSerializer(stations, StationPath);
         }
-
+        public void UpdateSation(Station updateStation)
+        {
+            var stations = XMLTools.LoadListFromXmlSerializer<Station>(StationPath);
+            Station basestation = stations.FirstOrDefault(station => station.Id == updateStation.Id);
+            stations.Remove(basestation);
+            XMLTools.SaveListToXmlSerializer(stations, StationPath);
+            AddStation(updateStation.Id, updateStation.Name, updateStation.Longitude, updateStation.Lattitude, updateStation.ChargeSlots);
+        }
     }
 }
 

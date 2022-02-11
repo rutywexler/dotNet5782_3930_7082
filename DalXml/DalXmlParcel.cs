@@ -1,5 +1,4 @@
 ﻿using Dal;
-using DalXml;
 using DO;
 using System;
 using System.Collections.Generic;
@@ -79,10 +78,10 @@ namespace Dal
         //{
         //    return DataSource.Parcels.Where(parcel => parcel.DroneId == 0);
         // }
-        public IEnumerable<Parcel> GetParcels(Func<Parcel, bool> predicate = null) =>
-           predicate == null?
+        public IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate = null) =>
+           predicate == null ?
                XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath) :
-               XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath).Where(predicate);
+               XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath).Where(p => predicate(p));
 
 
         /// <summary>
@@ -100,6 +99,10 @@ namespace Dal
             parcels.Add(parcel);
             XMLTools.SaveListToXmlSerializer(parcels, parcelsPath);
         }
+        public void UpdateParcel(Parcel parcel)
+        {
+
+        }
 
 
         /// <summary>
@@ -108,7 +111,7 @@ namespace Dal
         /// <param name="station"></param>
         public void RemoveParcel(int id)
         {
-            List<Parcel> parcels=XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath);
+            List<Parcel> parcels = XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath);
             Parcel parcel = parcels.FirstOrDefault(parcel => parcel.Id == id);
             parcels.Remove(parcel);
             parcel.IsDeleted = true;
