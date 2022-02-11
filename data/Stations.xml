@@ -21,7 +21,7 @@
     <Name>333</Name>
     <Longitude>3</Longitude>
     <Lattitude>3</Lattitude>
-    <ChargeSlots>333334444</ChargeSlots>
+    <ChargeSlots>25</ChargeSlots>
     <IsDeleted>false</IsDeleted>
   </Station>
 </ArrayOfStation>

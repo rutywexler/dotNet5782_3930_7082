@@ -22,7 +22,7 @@ namespace Dal
         /// <param name="model"> Grone's model</param>
         /// <param name="MaxWeight"> The max weight that the drone can swipe (light- 0,medium - 1,heavy - 2)</param>
         public void AddDrone(int id, string model, DO.WeightCategories MaxWeight)
-        {
+        { 
             List<Drone> drones = XMLTools.LoadListFromXmlSerializer<Drone>(dronesPath);
             if (DalObject.DalObject.ExistsIDCheck(drones, id))
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue();
@@ -46,6 +46,15 @@ namespace Dal
             drones.Remove(drone);
             XMLTools.SaveListToXmlSerializer(drones, dronesPath);
         }
+        public void UpdateDrone(Drone updateDrone)
+        {
+            var drones = XMLTools.LoadListFromXmlSerializer<Drone>(dronesPath);
+            Drone drone = drones.FirstOrDefault(d => d.Id == updateDrone.Id);
+            drones.Remove(drone);
+            XMLTools.SaveListToXmlSerializer(drones, StationPath);
+            AddDrone(updateDrone.Id, updateDrone.Model, updateDrone.MaxWeight);
+        }
+
 
         public double[] GetPowerConsumptionByDrone()
         {
