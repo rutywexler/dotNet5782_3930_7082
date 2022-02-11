@@ -38,6 +38,15 @@ namespace DalObject
             int input = int.Parse(Console.ReadLine());
             Console.WriteLine(Drones[input - 1]);
         }
+        public void UpdateDrone(Drone drone)
+        {
+            var d = Drones.FirstOrDefault(item => item.Id == drone.Id);
+            if (drone.Equals(default(Drone)))
+                throw new KeyNotFoundException("There isnt suitable Drone in the data!");
+            Drones.Remove(d);
+            AddDrone(drone.Id, drone.Model, drone.MaxWeight);
+        }
+
 
 
 

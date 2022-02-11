@@ -174,12 +174,14 @@ namespace Bl
             DO.Drone droneDl = dal.GetDrone(id);
             if (name.Equals(default))
                 throw new ArgumentNullException("For updating, you must enter the name! ");
-            dal.RemoveDrone(droneDl);
-            dal.AddDrone(id, name, droneDl.MaxWeight);
-            DroneToList droneToList = drones.Find(item => item.DroneId == id);
-            drones.Remove(droneToList);
-            droneToList.ModelDrone = name;
-            drones.Add(droneToList);
+                dal.UpdateDrone(droneDl);
+            
+                     //dal.RemoveDrone(droneDl);
+            //dal.AddDrone(id, name, droneDl.MaxWeight);
+            //DroneToList droneToList = drones.Find(item => item.DroneId == id);
+            //drones.Remove(droneToList);
+            //droneToList.ModelDrone = name;
+            //drones.Add(droneToList);
         }
 
         /// <summary>
