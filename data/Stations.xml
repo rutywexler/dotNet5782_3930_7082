@@ -24,4 +24,20 @@
     <ChargeSlots>333334444</ChargeSlots>
     <IsDeleted>false</IsDeleted>
   </Station>
+  <Station>
+    <Id>1234</Id>
+    <Name>gnf</Name>
+    <Longitude>12</Longitude>
+    <Lattitude>12</Lattitude>
+    <ChargeSlots>12</ChargeSlots>
+    <IsDeleted>false</IsDeleted>
+  </Station>
+  <Station>
+    <Id>213</Id>
+    <Name>342</Name>
+    <Longitude>23</Longitude>
+    <Lattitude>23</Lattitude>
+    <ChargeSlots>234</ChargeSlots>
+    <IsDeleted>false</IsDeleted>
+  </Station>
 </ArrayOfStation>
