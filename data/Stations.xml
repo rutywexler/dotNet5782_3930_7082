@@ -17,14 +17,6 @@
     <IsDeleted>true</IsDeleted>
   </Station>
   <Station>
-    <Id>3</Id>
-    <Name>333</Name>
-    <Longitude>3</Longitude>
-    <Lattitude>3</Lattitude>
-    <ChargeSlots>25</ChargeSlots>
-    <IsDeleted>false</IsDeleted>
-  </Station>
-  <Station>
     <Id>1234</Id>
     <Name>gnf</Name>
     <Longitude>12</Longitude>
@@ -38,6 +30,14 @@
     <Longitude>23</Longitude>
     <Lattitude>23</Lattitude>
     <ChargeSlots>234</ChargeSlots>
+    <IsDeleted>false</IsDeleted>
+  </Station>
+  <Station>
+    <Id>3</Id>
+    <Name>333</Name>
+    <Longitude>3</Longitude>
+    <Lattitude>3</Lattitude>
+    <ChargeSlots>250</ChargeSlots>
     <IsDeleted>false</IsDeleted>
   </Station>
 </ArrayOfStation>
