@@ -83,10 +83,16 @@ namespace Dal
         //    Customers.Add(customer);
         //}
 
-        public void AddCustomer(int customerId, string phone, string name, double longitude, double latitude)
+        public void AddCustomer(int customerId, string customerPhone, string customername, double customerLongitude, double customerLatitude)
         {
+            XElement Customer = XMLTools.LoadListFromXmlElement(customersPath);
             XElement id = new XElement("id", customerId);
-
+            XElement name = new XElement("name", customername);
+            XElement phone = new XElement("phone", customerPhone);
+            XElement longitude = new XElement("longitude", customerLongitude);
+            XElement latitude = new XElement("phone", customerLatitude);
+            Customer.Add(new XElement("Customer", id, name, phone, latitude, longitude));
+            XMLTools.SaveListToXmlElement(Customer, customersPath);
         }
 
         public void RemoveCustomer(int id)
