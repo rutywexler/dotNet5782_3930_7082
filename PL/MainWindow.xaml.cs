@@ -14,23 +14,22 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
+        MainWindowViewModel mainWindowViewModel;
 
-        public BlApi.IBL bl { get; set; }
-      
+
         /// <summary>
         /// 
         /// </summary>
         public MainWindow()
         {
+            mainWindowViewModel = new MainWindowViewModel();
+            DataContext = mainWindowViewModel;
             InitializeComponent();
-            bl = BlApi.BlFactory.GetBL();
         }
 
         private void Drone_Click(object sender, RoutedEventArgs e)
         {
-
-            new DroneListView(bl).Show();
-
+            mainWindowViewModel.CurrentView = new DroneListView(mainWindowViewModel.bl);
         }
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -40,17 +39,17 @@ namespace PL
 
         private void Customer_Click(object sender, RoutedEventArgs e)
         {
-            new CustomersList().Show();
+            mainWindowViewModel.CurrentView = new CustomersList();
         }
 
         private void Station_Click(object sender, RoutedEventArgs e)
         {
-            new StationList().Show();
+            mainWindowViewModel.CurrentView = new StationList();
         }
 
         private void Parcel_Click(object sender, RoutedEventArgs e)
         {
-            new ParcelsList().Show();
+            mainWindowViewModel.CurrentView = new ParcelsList();
         }
     }
 }

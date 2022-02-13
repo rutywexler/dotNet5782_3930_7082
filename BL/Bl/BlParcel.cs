@@ -158,18 +158,18 @@ namespace Bl
             try
             {
                 var parcel = dal.GetParcel(id);
-                var Drone = drones.FirstOrDefault(drone => drone.DroneId == parcel.DroneId);
+                var drone = drones.FirstOrDefault(drone => drone.DroneId == parcel.DroneId);
                 return new Parcel()
                 {
                     Id = parcel.Id,
-                    DroneParcel = Drone != default ? DroneToDroneInPackage(Drone) : null,
+                    DroneParcel = drone != default ? DroneToDroneInPackage(drone) : null,
                     CustomerSendsFrom = CustomerToCustomerInParcel(dal.GetCustomer(parcel.SenderId)),
                     CustomerReceivesTo = CustomerToCustomerInParcel(dal.GetCustomer(parcel.TargetId)),
                     WeightParcel = (WeightCategories)parcel.Weight,
                     Priority = (Priorities)parcel.Priority,
                     TimeCreatedTheParcel = parcel.Requested,
                     AssignmentTime = parcel.Scheduled,
-                    CollectionTime = (DateTime)parcel.PickedUp,
+                    CollectionTime = parcel.PickedUp,
                     DeliveryTime = parcel.Delivered,
                 };
             }

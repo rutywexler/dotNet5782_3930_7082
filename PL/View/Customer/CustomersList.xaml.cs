@@ -17,7 +17,7 @@ namespace PL.View.Customer
     /// <summary>
     /// Interaction logic for CustomersList.xaml
     /// </summary>
-    public partial class CustomersList : Window
+    public partial class CustomersList : UserControl
     {
         public CustomersList()
         {

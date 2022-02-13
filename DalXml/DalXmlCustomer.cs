@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace Dal
 {
-   public partial class DalXml
+    public partial class DalXml
     {
         private readonly string customersPath = "Customers.xml";
 
@@ -36,12 +36,12 @@ namespace Dal
         {
             return new Customer()
             {
-                Id = int.Parse(element.Element("Id").Value),
-                Name =element.Element("Name").Value,
-                Phone=element.Element("Phone").Value,
-                Longitude=double.Parse(element.Element("Longitude").Value),
-                Lattitude = double.Parse(element.Element("Latitude").Value),
-                IsDeleted= bool.Parse(element.Element("IsDeleted").Value),
+                Id = int.Parse(element.Element(nameof(Customer.Id)).Value),
+                Name = element.Element(nameof(Customer.Name)).Value,
+                Phone = element.Element(nameof(Customer.Phone)).Value,
+                Longitude = double.Parse(element.Element(nameof(Customer.Longitude)).Value),
+                Lattitude = double.Parse(element.Element(nameof(Customer.Lattitude)).Value),
+                IsDeleted = bool.Parse(element.Element(nameof(Customer.IsDeleted)).Value),
             };
         }
         /// <summary>
@@ -63,11 +63,11 @@ namespace Dal
         public Customer GetCustomer(int id)
         {
             XElement root = XMLTools.LoadListFromXmlElement(customersPath);
-           // try
+            // try
             {
-                XElement customerElement = root.Elements("Customer")
-                            .SingleOrDefault(customer => int.Parse(customer.Element("Id").Value) == id && bool.Parse(customer.Element("IsAvailable").Value) == false);
-                return ConvertXElementToCustomerObject(customerElement);
+                return root.Elements(nameof(Customer))
+                     .Select(customerElement => ConvertXElementToCustomerObject(customerElement))
+                     .SingleOrDefault(customer => customer.Id == id && !customer.IsDeleted);
             }
             //catch (Exception e)
             //{
@@ -86,12 +86,13 @@ namespace Dal
         public void AddCustomer(int customerId, string customerPhone, string customername, double customerLongitude, double customerLatitude)
         {
             XElement Customer = XMLTools.LoadListFromXmlElement(customersPath);
-            XElement id = new XElement("id", customerId);
-            XElement name = new XElement("name", customername);
-            XElement phone = new XElement("phone", customerPhone);
-            XElement longitude = new XElement("longitude", customerLongitude);
-            XElement latitude = new XElement("phone", customerLatitude);
-            Customer.Add(new XElement("Customer", id, name, phone, latitude, longitude));
+            XElement id = new XElement(nameof(DO.Customer.Id), customerId);
+            XElement name = new XElement(nameof(DO.Customer.Name), customername);
+            XElement phone = new XElement(nameof(DO.Customer.Phone), customerPhone);
+            XElement longitude = new XElement(nameof(DO.Customer.Longitude), customerLongitude);
+            XElement latitude = new XElement(nameof(DO.Customer.Lattitude), customerLatitude);
+            XElement isDeleted = new XElement(nameof(DO.Customer.IsDeleted), false);
+            Customer.Add(new XElement(nameof(DO.Customer), id, name, phone, latitude, longitude, isDeleted));
             XMLTools.SaveListToXmlElement(Customer, customersPath);
         }
 

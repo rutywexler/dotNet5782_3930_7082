@@ -11,7 +11,7 @@ namespace PL.Drones
     /// <summary>
     /// Interaction logic for DroneListView.xaml
     /// </summary>
-    public partial class DroneListView : Window
+    public partial class DroneListView : UserControl
     {
         private BlApi.IBL ibl;
         ListCollectionView droneCollectionView;

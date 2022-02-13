@@ -17,7 +17,7 @@ namespace PL.View.Parcel
     /// <summary>
     /// Interaction logic for ParcelsList.xaml
     /// </summary>
-    public partial class ParcelsList : Window
+    public partial class ParcelsList : UserControl
     {
         public ParcelsList()
         {

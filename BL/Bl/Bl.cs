@@ -84,12 +84,14 @@ namespace Bl
 
                 Location RandomSuppliedParcelLocation()
                 {
-                    var DeliveredParcels = parcels.FindAll(p => p.Delivered != null).ToList();
-                    var randomParcel = DeliveredParcels[rand.Next(DeliveredParcels.Count)];
-
-                    var customer = dal.GetCustomer(randomParcel.TargetId);
-
-                    return new Location() { Lattitude = customer.Lattitude, Longitude = customer.Longitude };
+                    var deliveredParcels = parcels.FindAll(p => p.Delivered.HasValue);
+                    if (deliveredParcels.Count > 0)
+                    {
+                        var randomParcel = deliveredParcels[rand.Next(deliveredParcels.Count)];
+                        var customer = dal.GetCustomer(randomParcel.TargetId);
+                        return new Location() { Lattitude = customer.Lattitude, Longitude = customer.Longitude };
+                    }
+                    return new Location();
                 }
                
                 //location

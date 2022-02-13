@@ -7,9 +7,25 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="640" Width="800">
     <Grid Name="MainGrid">
-        <Button Content="For all Drone-Option:)" HorizontalAlignment="Left" Margin="50,100,0,0" VerticalAlignment="Top" Click="Drone_Click"/>
-        <Button Content="For all Customer-Option:)" HorizontalAlignment="Left" Margin="50,150,0,0" VerticalAlignment="Top" Click="Customer_Click"/>
-        <Button Content="For all station-Option:)" HorizontalAlignment="Left" Margin="50,200,0,0" VerticalAlignment="Top" Click="Station_Click"/>
-        <Button Content="For all parcels-option:)" HorizontalAlignment="Left" Margin="50,250,0,0" VerticalAlignment="Top" Click="Parcel_Click"></Button>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Button Grid.Row="0" Grid.Column="0" 
+                Content="For all Drone-Option:)" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="Drone_Click"/>
+        <Button Grid.Row="0" Grid.Column="1" 
+                Content="For all Customer-Option:)" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="Customer_Click"/>
+        <Button Grid.Row="0" Grid.Column="2" 
+                Content="For all station-Option:)" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="Station_Click"/>
+        <Button Grid.Row="0" Grid.Column="3" 
+                Content="For all parcels-option:)" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="Parcel_Click"></Button>
+        <ContentPresenter Grid.Row="1" Grid.ColumnSpan="4" 
+                          Content="{Binding CurrentView}"/>
     </Grid>
 </Window>

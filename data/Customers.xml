@@ -1,2 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Customers />
+<Customers>
+  <Customer>
+    <Id>313397391</Id>
+    <Name>Maraglit Dror</Name>
+    <Phone>0527139693</Phone>
+    <Lattitude>-32</Lattitude>
+    <Longitude>32</Longitude>
+    <IsDeleted>false</IsDeleted>
+  </Customer>
+</Customers>

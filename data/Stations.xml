@@ -1,14 +1,6 @@
 <?xml version="1.0"?>
 <ArrayOfStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Station>
-    <Id>2</Id>
-    <Name>3333</Name>
-    <Longitude>2</Longitude>
-    <Lattitude>2</Lattitude>
-    <ChargeSlots>21</ChargeSlots>
-    <IsDeleted>false</IsDeleted>
-  </Station>
-  <Station>
     <Id>21</Id>
     <Name>fy</Name>
     <Longitude>56</Longitude>
@@ -38,6 +30,14 @@
     <Longitude>3</Longitude>
     <Lattitude>3</Lattitude>
     <ChargeSlots>250</ChargeSlots>
+    <IsDeleted>false</IsDeleted>
+  </Station>
+  <Station>
+    <Id>2</Id>
+    <Name>3333ii</Name>
+    <Longitude>2</Longitude>
+    <Lattitude>2</Lattitude>
+    <ChargeSlots>21</ChargeSlots>
     <IsDeleted>false</IsDeleted>
   </Station>
 </ArrayOfStation>

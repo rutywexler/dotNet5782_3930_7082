@@ -15,7 +15,6 @@ namespace Dal
         private const int STATIONS_INIT = 9;
         private const int CUSTOMERS_INIT = 25;
         private const int PARCELS_INIT = 50;
-        private const int RANGE_ENUM = 3;
         private const int PHONE_MIN = 100000000;
         private const int PHONE_MAX = 1000000000;
         private const int LATITUDE_MAX = 90;
@@ -69,7 +68,7 @@ namespace Dal
         private static void RandomDrone(DalObject dal, int id)
         {
             string model = $"Model_Drone_ {'a' + id}_{id * Rnd.Next()}";
-            WeightCategories maxWeight = (WeightCategories)Rnd.Next(RANGE_ENUM);
+            WeightCategories maxWeight = (WeightCategories)Rnd.Next((int)Enum.GetValues<WeightCategories>().Min(), (int)Enum.GetValues<WeightCategories>().Max());
 
             dal.AddDrone(id, model, maxWeight);
         }
@@ -98,8 +97,8 @@ namespace Dal
             {
                 newParcel.TargetId = Customers[Rnd.Next(1, Customers.Count(customer => !customer.IsDeleted))].Id;
             } while (newParcel.TargetId == newParcel.SenderId);
-            newParcel.Weight = (WeightCategories)Rnd.Next(RANGE_ENUM);
-            newParcel.Priority = (Priorities)Rnd.Next(RANGE_ENUM);
+            newParcel.Weight = (WeightCategories)Rnd.Next((int)Enum.GetValues< WeightCategories>().Min(), (int)Enum.GetValues<WeightCategories>().Max());
+            newParcel.Priority = (Priorities)Rnd.Next((int)Enum.GetValues<Priorities>().Min(), (int)Enum.GetValues<Priorities>().Max());
             newParcel.Requested = DateTime.Now;;
             newParcel.Scheduled =default;
             newParcel.PickedUp = default;

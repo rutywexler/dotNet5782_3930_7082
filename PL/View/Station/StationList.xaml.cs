@@ -17,7 +17,7 @@ namespace PL.View.Station
     /// <summary>
     /// Interaction logic for StationList.xaml
     /// </summary>
-    public partial class StationList : Window
+    public partial class StationList : UserControl
     {
         public StationList()
         {
