@@ -256,7 +256,7 @@ namespace Bl
             {
                 throw new KeyNotFoundException(ex.Message);
             }
-            catch (DalObject.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            catch (Dal.Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
             }

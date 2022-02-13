@@ -1,5 +1,5 @@
 ﻿using DalApi;
-using DalObject;
+using Dal;
 using DO;
 using Singelton;
 using System;

@@ -5,117 +5,137 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DalObject
+namespace Dal
 {
     public class DataSource
     {
-        internal static List<Drone> Drones = new List<Drone>();
-        internal static List<Station> BaseStations = new List<Station>();
-        internal static List<Customer> Customers = new List<Customer>();
-        internal static List<Parcel> Parcels = new List<Parcel>();
-        internal static List<DroneCharge> DroneCharges = new List<DroneCharge>();
+        static readonly Random Rnd = new ();
+
+        private const int DRONE_INIT = 20;
+        private const int STATIONS_INIT = 9;
+        private const int CUSTOMERS_INIT = 25;
+        private const int PARCELS_INIT = 50;
+        private const int RANGE_ENUM = 3;
+        private const int PHONE_MIN = 100000000;
+        private const int PHONE_MAX = 1000000000;
+        private const int LATITUDE_MAX = 90;
+        private const int LATITUDE_MIN = -90;
+        private const int LONGITUDE_MAX = 90;
+        private const int CHARGE_SLOTS_MAX = 100;
+        private const int PARCELS_STATE = 4;
+
+
+        public const string Administrator_Password = "";
+
+        internal static List<Drone> Drones = new();
+        internal static List<Station> Stations = new ();
+        internal static List<Customer> Customers = new ();
+        internal static List<Parcel> Parcels = new ();
+        internal static List<DroneCharge> DroneCharges = new ();
+
+
 
         internal class Config
         {
             internal static int IdParcel = 0;
-            internal static double Available = 2;
-            internal static double LightWeightCarrier = 10;
-            internal static double MediumWeightBearing = 25;
-            internal static double CarryingHeavyWeight = 40;
-            internal static double DroneLoadingRate = 10;
-
+            internal static double Available = 0.001;
+            internal static double LightWeightCarrier =0.002; 
+            internal static double MediumWeightBearing = 0.003;
+            internal static double CarriesHeavyWeight = 0.004;
+            internal static double DroneLoadingRate=3;
         }
 
-        public static Random rand = new Random();
-        public static void Initalize()
+        static internal void Initialize(DalObject dal)
         {
-            //station
-
-
-            for (int i = 0; i < 2; i++)
+            for (int i = 1; i <= DRONE_INIT; ++i)
+                RandomDrone(dal, i);
+            for (int i = 1; i <= STATIONS_INIT; ++i)
+                RandomStation(dal, i);
+            for (int i = 1; i <= CUSTOMERS_INIT; ++i)
+                RandomCustomer(dal, i);
+            for (int i = 1; i <= PARCELS_INIT; ++i)
+                RandParcel();
+        }
+        public static int AssignParcelDrone(WeightCategories weight)
+        {
+            Drone tmpDrone = Drones.FirstOrDefault(item => (weight <= item.MaxWeight));
+            if (!tmpDrone.Equals(default(Drone)))
             {
-                Station tempStation = new Station();
-                tempStation.Id = BaseStations.Count + 1;
-                tempStation.Name = $"station_{'a' + rand.Next()}"; 
-                tempStation.Longitude = rand.Next(91);
-                tempStation.Lattitude = rand.Next(181);
-                tempStation.ChargeSlots = rand.Next() + 1;
-                tempStation.IsDeleted = false;
-                BaseStations.Add(tempStation);
-
+                return tmpDrone.Id;
             }
+            return 0;
 
-            //Drone
-            const int DRONE_NUM = 5;
-            for (int i = 0; i < DRONE_NUM; i++)
+        }
+        private static void RandomDrone(DalObject dal, int id)
+        {
+            string model = $"Model_Drone_ {'a' + id}_{id * Rnd.Next()}";
+            WeightCategories maxWeight = (WeightCategories)Rnd.Next(RANGE_ENUM);
+
+            dal.AddDrone(id, model, maxWeight);
+        }
+        private static void RandomStation(DalObject dal, int id)
+        {
+            string name = $"station_{'a' + id}";
+            double latitude = Rnd.Next(LATITUDE_MIN,LATITUDE_MAX) + Rnd.NextDouble();
+            double longitude = Rnd.Next(LONGITUDE_MAX) + Rnd.NextDouble();
+            int chargeSlots = Rnd.Next(1,CHARGE_SLOTS_MAX);
+            dal.AddStation(id, name, longitude, latitude, chargeSlots);
+        }
+        private static void RandomCustomer(DalObject dal, int id)
+        {
+            string name = $"Customer_ { id}_{id * Rnd.Next()}";
+            string phone = $"0{Rnd.Next(PHONE_MIN, PHONE_MAX)}";
+            double latitude = Rnd.Next(LATITUDE_MIN, LATITUDE_MAX) + Rnd.NextDouble();
+            double longitude = Rnd.Next(LONGITUDE_MAX) + Rnd.NextDouble();
+            dal.AddCustomer(id, phone, name, longitude, latitude);
+        }
+        private static void RandParcel()
+        {
+            Parcel newParcel = new ();
+            newParcel.Id = ++Config.IdParcel;
+            newParcel.SenderId = Customers[Rnd.Next(1, Customers.Count(customer => !customer.IsDeleted))].Id;
+            do
             {
-                Drone tempDrone = new Drone();
-                tempDrone.Id = Drones.Count + 1;
-                tempDrone.Model = rand.Next(100, 1000).ToString();
-                tempDrone.MaxWeight = (WeightCategories)rand.Next(Enum.GetNames(typeof(WeightCategories)).Length);
-                Drones.Add(tempDrone);
-
-            }
-
-            //Customers
-            const int CUSTOMER_NUM = 10;
-
-            string[] tempNames = { "Tamar", "Ruty", "Michal", "Moshe", "Aviad", "Shimon", "Eliether", "Ariel", "Naomi", "Tehila" };
-            for (int i = 0; i < CUSTOMER_NUM; i++)
+                newParcel.TargetId = Customers[Rnd.Next(1, Customers.Count(customer => !customer.IsDeleted))].Id;
+            } while (newParcel.TargetId == newParcel.SenderId);
+            newParcel.Weight = (WeightCategories)Rnd.Next(RANGE_ENUM);
+            newParcel.Priority = (Priorities)Rnd.Next(RANGE_ENUM);
+            newParcel.Requested = DateTime.Now;;
+            newParcel.Scheduled =default;
+            newParcel.PickedUp = default;
+            newParcel.Delivered = default;
+            newParcel.DroneId = 0;
+            newParcel.IsDeleted = false;
+            int state = Rnd.Next(PARCELS_STATE);
+            if (state!=0)
             {
-                Customer tempcustomer = new Customer();
-                tempcustomer.Id = Customers.Count + 1;
-                tempcustomer.Name = tempNames[rand.Next(tempNames.Length)];
-                tempcustomer.Phone = $"05 {rand.Next(100000000)}";
-                tempcustomer.Lattitude = rand.Next(181) + rand.NextDouble();
-                tempcustomer.Longitude = rand.Next(91) + rand.NextDouble();
-                Customers.Add(tempcustomer);
-
-            }
-
-            //parcel
-            const int PARCEL_NUM = 10;
-            for (int i = 0; i < PARCEL_NUM; i++)
-            {
-                Parcel tempParcel = new Parcel();
-                tempParcel.Id = Parcels.Count + 1;
-                tempParcel.SenderId = Customers[rand.Next(Parcels.Count)].Id;
-                do
+                newParcel.DroneId = AssignParcelDrone(newParcel.Weight);
+                if (newParcel.DroneId != 0)
                 {
-                    tempParcel.TargetId = Customers[rand.Next(Customers.Count)].Id;
-                } while (tempParcel.TargetId == tempParcel.SenderId);
-                
-                tempParcel.Weight = (WeightCategories)rand.Next((int)Enum.GetValues<WeightCategories>().Min(), (int)Enum.GetValues<WeightCategories>().Max());
-                tempParcel.Priority = (Priorities)rand.Next((int)Enum.GetValues<Priorities>().Min(), (int)Enum.GetValues<Priorities>().Max());
-                tempParcel.Requested = DateTime.Now;
-                if(i<3)
-                {
-                    foreach (Drone drone in Drones)
+                    Parcel tmp = Parcels.FirstOrDefault(parcel => parcel.DroneId == newParcel.DroneId && parcel.Delivered == null);
+                    if (tmp.DroneId == 0)
                     {
-                        if (drone.MaxWeight >= tempParcel.Weight)
+                        newParcel.Scheduled = DateTime.Now;
+                        if (state==2)
                         {
-                            tempParcel.DroneId = drone.Id;
-                            break;
+                            newParcel.PickedUp = DateTime.Now;
                         }
+                           
                     }
+                    if (state == 3)
+                    {
+                        newParcel.Scheduled = DateTime.Now;
+                        newParcel.PickedUp = DateTime.Now;
+                        newParcel.Delivered = DateTime.Now;
+                    }
+                        
                 }
-                else
-                {
-                    tempParcel.DroneId = 0;
-                }
-             
-               
-                tempParcel.Scheduled = DateTime.Now.AddDays(1);
-                tempParcel.PickedUp = DateTime.Now.AddDays(15);
-                tempParcel.Delivered = DateTime.Now.AddDays(16);
-                Parcels.Add(tempParcel);
 
             }
-
-
+            Parcels.Add(newParcel);
         }
     }
-}
 
+}
 
 

@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static DalObject.DataSource;
+using static Dal.DataSource;
 
-namespace DalObject
+namespace Dal
 {
     public partial class DalObject
     {

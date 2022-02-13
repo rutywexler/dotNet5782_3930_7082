@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static DalObject.DataSource;
+using static Dal.DataSource;
 
-namespace DalObject
+namespace Dal
 {
     public partial class DalObject
     {
@@ -20,7 +20,7 @@ namespace DalObject
         /// <param name="chargeSlots">Number of charging slots at the station</param>
         public void AddStation(int id, string name, double longitude, double latitude, int chargeSlots)
         {
-            if (ExistsIDCheck(DataSource.BaseStations, id))
+            if (ExistsIDCheck(DataSource.Stations, id))
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue();
             Station newStation = new();
             newStation.Id = id;
@@ -28,7 +28,7 @@ namespace DalObject
             newStation.Lattitude = latitude;
             newStation.Longitude = longitude;
             newStation.ChargeSlots = chargeSlots;
-            BaseStations.Add(newStation);
+            Stations.Add(newStation);
         }
 
 
@@ -40,7 +40,7 @@ namespace DalObject
         /// <returns>A station for display</returns>
         public Station GetStation(int id)
         {
-            Station station = BaseStations.FirstOrDefault(item => item.Id == id);
+            Station station = Stations.FirstOrDefault(item => item.Id == id);
             if (station.Equals(default(Station)))
                 throw new KeyNotFoundException("There isnt suitable Station in the data!");
             return station;
@@ -52,7 +52,7 @@ namespace DalObject
         /// <returns>A list of stations</returns>
         public IEnumerable<Station> GetStations()
         {
-            return BaseStations.Where(station => station.IsDeleted == false);
+            return Stations.Where(station => station.IsDeleted == false);
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace DalObject
         /// </summary>
         /// <returns>A list of avaiable satations</returns>
         //private List<Station> getAvailbleStations(Predicate<Station> predicate) => (BaseStations.FindAll(item => item.ChargeSlots > NotAvailableChargingPorts(item.Id)));
-        private List<Station> getAvailbleStations(Predicate<Station> predicate) => (BaseStations.FindAll(predicate));
+        private List<Station> getAvailbleStations(Predicate<Station> predicate) => (Stations.FindAll(predicate));
         public IEnumerable<Station> GetAvailableChargingStations() => getAvailbleStations(item => item.ChargeSlots > NotAvailableChargingPorts(item.Id)).ToList();
 
         /// <summary>
@@ -88,18 +88,18 @@ namespace DalObject
         /// <param name="customer">the station i want to delete</param>
         public void RemoveStation(int id)
         {
-            Station station = BaseStations.FirstOrDefault(station => station.Id == id);
-            BaseStations.Remove(station);
+            Station station = Stations.FirstOrDefault(station => station.Id == id);
+            Stations.Remove(station);
             station.IsDeleted = true;
-            BaseStations.Add(station);
+            Stations.Add(station);
         }
 
         public void UpdateSation(Station station)
         {
-            var s = BaseStations.FirstOrDefault(item => item.Id == station.Id);
+            var s = Stations.FirstOrDefault(item => item.Id == station.Id);
             if (station.Equals(default(Station)))
                 throw new KeyNotFoundException("There isnt suitable Station in the data!");
-            BaseStations.Remove(s);
+            Stations.Remove(s);
             AddStation(station.Id, station.Name, station.Longitude, station.Lattitude, station.ChargeSlots);
         }
     }

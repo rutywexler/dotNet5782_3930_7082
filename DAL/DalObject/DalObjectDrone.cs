@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static DalObject.DataSource;
+using static Dal.DataSource;
 
-namespace DalObject
+namespace Dal
 {
     public partial class DalObject
     {
@@ -62,7 +62,7 @@ namespace DalObject
 
         public double[] GetPowerConsumptionByDrone()
         {
-            return new double[] { Config.Available, Config.LightWeightCarrier, Config.MediumWeightBearing, Config.CarryingHeavyWeight, Config.DroneLoadingRate };
+            return new double[] { Config.Available, Config.LightWeightCarrier, Config.MediumWeightBearing, Config.CarriesHeavyWeight, Config.DroneLoadingRate };
         }
 
         /// <summary>

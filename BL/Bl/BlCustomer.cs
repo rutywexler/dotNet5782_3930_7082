@@ -22,7 +22,7 @@ namespace Bl
             {
                 dal.AddCustomer(customerBL.Id, customerBL.PhoneNumber, customerBL.Name, customerBL.Location.Longitude, customerBL.Location.Lattitude);
             }
-            catch (DalObject.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            catch (Dal.Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
             }

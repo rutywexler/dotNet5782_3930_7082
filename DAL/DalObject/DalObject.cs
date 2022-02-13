@@ -2,9 +2,9 @@
 using Singelton;
 using System.Collections.Generic;
 using System.Linq;
-using static DalObject.DataSource;
+using static Dal.DataSource;
 
-namespace DalObject
+namespace Dal
 {
     public sealed partial class DalObject : Singleton<DalObject>, Idal
     {
@@ -13,7 +13,7 @@ namespace DalObject
         /// </summary>
          DalObject()
         {
-            Initalize();
+            Initialize(this);
         }
 
         static DalObject() { }

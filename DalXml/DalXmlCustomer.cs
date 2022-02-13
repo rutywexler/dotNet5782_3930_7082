@@ -83,14 +83,30 @@ namespace Dal
         //    Customers.Add(customer);
         //}
 
-        public void AddCustomer(int id, string phone, string name, double longitude, double latitude)
+        public void AddCustomer(int customerId, string phone, string name, double longitude, double latitude)
         {
-            throw new NotImplementedException();
+            XElement id = new XElement("id", customerId);
+
         }
 
         public void RemoveCustomer(int id)
         {
             throw new NotImplementedException();
         }
+
+        XElement createStudent(Student item)
+        {
+            XElement id = new XElement("id", item.Id);
+
+            XElement firstName = new XElement("firstName", item.FirstName);
+            XElement lastName = new XElement("lastName", item.LastName);
+
+            XElement name = new XElement("name", firstName, lastName);
+
+            XElement student = new XElement("student", id, name);
+
+            return student;
+        }
+
     }
 }

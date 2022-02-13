@@ -14,7 +14,7 @@ namespace Bl
             {
                 dal.AddStation(baseStation.Id, baseStation.Name, baseStation.Location.Longitude, baseStation.Location.Longitude, baseStation.NumberOfChargingStations);
             }
-            catch (DalObject.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            catch (Dal.Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
             }
@@ -92,7 +92,7 @@ namespace Bl
             {
                 throw new KeyNotFoundException(ex.Message);
             }
-            catch (DalObject.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            catch (Dal.Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
             }

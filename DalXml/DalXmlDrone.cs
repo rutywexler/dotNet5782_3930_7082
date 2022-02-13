@@ -1,5 +1,5 @@
 ﻿using Dal;
-using DalObject;
+using Dal;
 using DO;
 using System;
 using System.Collections.Generic;
@@ -24,7 +24,7 @@ namespace Dal
         public void AddDrone(int id, string model, DO.WeightCategories MaxWeight)
         { 
             List<Drone> drones = XMLTools.LoadListFromXmlSerializer<Drone>(dronesPath);
-            if (DalObject.DalObject.ExistsIDCheck(drones, id))
+            if (Dal.DalObject.ExistsIDCheck(drones, id))
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue();
             Drone newDrone = new()
             {

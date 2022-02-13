@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static DalObject.DataSource;
+using static Dal.DataSource;
 
-namespace DalObject
+namespace Dal
 {
     public partial class DalObject
     {
@@ -43,22 +43,22 @@ namespace DalObject
         /// ViewListAvailableChargeSlots is a method in the DalObject class.
         /// the method  display base stations with available charging stations
         /// </summary>
-        public void ViewListAvailableChargeSlots()
-        {
-            foreach (Station item in BaseStations)
-            {
-                int sum = 0;
-                foreach (DroneCharge droneCharge in DroneCharges)
-                {
-                    if (droneCharge.DroneId == item.Id)
-                        sum++;
-                    if (droneCharge.DroneId > item.Id)
-                        break;
-                }
-                if (sum < item.ChargeSlots)
-                    Console.WriteLine(item);
-            }
-        }
+        //public void ViewListAvailableChargeSlots()
+        //{
+        //    foreach (Station item in BaseStations)
+        //    {
+        //        int sum = 0;
+        //        foreach (DroneCharge droneCharge in DroneCharges)
+        //        {
+        //            if (droneCharge.DroneId == item.Id)
+        //                sum++;
+        //            if (droneCharge.DroneId > item.Id)
+        //                break;
+        //        }
+        //        if (sum < item.ChargeSlots)
+        //            Console.WriteLine(item);
+        //    }
+        //}
         /// <summary>
         /// Finds all the drones that are charged at a particular station
         /// </summary>

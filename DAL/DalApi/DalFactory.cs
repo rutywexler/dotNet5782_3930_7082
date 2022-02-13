@@ -1,5 +1,5 @@
 ﻿using DAL.DalApi;
-using DalObject;
+using Dal;
 using System;
 using System.IO;
 using System.Reflection;

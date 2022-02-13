@@ -27,7 +27,7 @@ namespace Dal
             }
             catch (Exception ex)
             {
-                throw new DalObject.XMLFileLoadCreateException(filePath, $"fail to create xml file: {filePath}", ex);
+                throw new Dal.XMLFileLoadCreateException(filePath, $"fail to create xml file: {filePath}", ex);
             }
         }
 
@@ -41,14 +41,14 @@ namespace Dal
                 }
                 else
                 {
-                    XElement rootElem = new XElement(dirPath + filePath);
+                    XElement rootElem = new XElement("Customers");
                     rootElem.Save(dirPath + filePath);
                     return rootElem;
                 }
             }
             catch (Exception ex)
             {
-                throw new DalObject.XMLFileLoadCreateException(filePath, $"fail to load xml file: {filePath}", ex);
+                throw new Dal.XMLFileLoadCreateException(filePath, $"fail to load xml file: {filePath}", ex);
             }
         }
         #endregion
@@ -66,7 +66,7 @@ namespace Dal
             }
             catch (Exception ex)
             {
-                throw new DalObject.XMLFileLoadCreateException(filePath, $"fail to create xml file: {filePath}", ex);
+                throw new Dal.XMLFileLoadCreateException(filePath, $"fail to create xml file: {filePath}", ex);
             }
         }
         public static List<T> LoadListFromXmlSerializer<T>(string filePath)
@@ -87,7 +87,7 @@ namespace Dal
             }
             catch (Exception ex)
             {
-                throw new DalObject.XMLFileLoadCreateException(filePath, $"fail to load xml file: {filePath}", ex);
+                throw new Dal.XMLFileLoadCreateException(filePath, $"fail to load xml file: {filePath}", ex);
             }
         }
         #endregion
