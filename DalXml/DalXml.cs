@@ -54,7 +54,7 @@ namespace Dal
             {
                 rootElem.Save(dir + filePath);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw new XMLFileLoadCreateException($"fail to create xml file: {filePath}");
             }

@@ -116,9 +116,9 @@ namespace Bl
                     DroneStatus.Meintenence => rand.NextDouble() * 20,
                     DroneStatus.Delivery => rand.Next(Math.Min(
                                               (int)(
-                                                  Distance(location, senderLocation) * Available +
-                                                  Distance(senderLocation, targetLocation) * GetElectricity((WeightCategories)parcel.Weight) +
-                                                  Distance(targetLocation, FindClosest(targetLocation, availableStationsLocations)) * Available
+                                                  LocationExtensions.Distance(location, senderLocation) * Available +
+                                                  LocationExtensions.Distance(senderLocation, targetLocation) * GetElectricity((WeightCategories)parcel.Weight) +
+                                                  LocationExtensions.Distance(targetLocation, FindClosest(targetLocation, availableStationsLocations)) * Available
                                               ), 80)
                                              , 100
                                           ),
@@ -147,7 +147,7 @@ namespace Bl
         /// <returns></returns>
         public Location FindClosest(Location location, IEnumerable<Location> locations)
         {
-            return locations.OrderBy(l => Distance(location, l)).First();
+            return locations.OrderBy(l => LocationExtensions.Distance(location, l)).First();
         }
 
 

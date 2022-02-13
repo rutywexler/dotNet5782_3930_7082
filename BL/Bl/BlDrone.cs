@@ -51,6 +51,7 @@ namespace Bl
 
         }
 
+
         /// <summary>
         /// the function returns the drone with the ID the function gets
         /// </summary>
@@ -92,16 +93,17 @@ namespace Bl
         /// the function release the drone from charging
         /// </summary>
         /// <param name="id">the id of the drone the user wants to release</param>
-        /// <param name="timeOfCharge">how many time takes the charging</param>
-        public void ReleaseDroneFromCharging(int id, double timeOfCharge)
+        /// 
+        public void ReleaseDroneFromCharging(int id)
         {
             DroneToList drone = drones.FirstOrDefault(item => item.DroneId == id);
             if (drone == default)
                 throw new ArgumentNullException("In the charching not exist drone with this ID:(");
             if (drone.DroneStatus != DroneStatus.Meintenence)
-                throw new InvalidEnumArgumentException("becouse that the drone status is not maintence, its not possible to release the srone from charging ");
+                throw new InvalidEnumArgumentException("because that the drone status is not maintence, its not possible to release the srone from charging ");
 
-            drone.BatteryDrone += DroneLoadingRate * timeOfCharge;
+            var timeOfCharge = DateTime.Now - dal.GetDroneCharging(d => d.DroneId == id).FirstOrDefault().StartTime;
+            drone.BatteryDrone += DroneLoadingRate * timeOfCharge.TotalMinutes;
             drone.DroneStatus = DroneStatus.Available;
 
 
@@ -119,12 +121,12 @@ namespace Bl
             {
                 throw new InvalidEnumArgumentException("because the status drone isnt available, isnt possible to sent him for charge:(");
             }
-            DO.Station station = ClosetStationThatPossible(dal.GetStations(), droneToList.Location, droneToList.BatteryDrone, out double minDistanc);
+            BO.BaseStation station = ClosetStationThatPossible(droneToList.Location, droneToList.BatteryDrone, out double minDistanc);
             drones.Remove(droneToList);
             droneToList.DroneStatus = DroneStatus.Meintenence;
-            station.ChargeSlots -= 1;
+            station.NumberOfChargingStations -= 1;
             droneToList.BatteryDrone -= minDistanc * Available;
-            droneToList.Location = new Location() { Longitude = station.Longitude, Lattitude = station.Lattitude }; ;
+            droneToList.Location = new Location() { Longitude = station.Location.Longitude, Lattitude = station.Location.Lattitude }; ;
             dal.AddDRoneCharge(id, station.Id);
             drones.Add(droneToList);
         }
@@ -136,31 +138,67 @@ namespace Bl
         /// <param name="BatteryStatus">the drone battery ststus</param>
         /// <param name="minDistance">the min distabce</param>
         /// <returns></returns>
-        private DO.Station ClosetStationThatPossible(IEnumerable<DO.Station> stations, Location droneToListLocation, double BatteryStatus, out double minDistance)
+        internal BO.BaseStation ClosetStationThatPossible(Location droneToListLocation, double BatteryStatus, out double minDistance)
         {
-            DO.Station station = CloseStation(stations, droneToListLocation);
-            minDistance = Distance(droneToListLocation, new Location() { Longitude = station.Longitude, Lattitude = station.Lattitude });
-            return minDistance * Available <= BatteryStatus ? station : default(DO.Station);
+            BO.BaseStation station = CloseStation(droneToListLocation);
+            minDistance = LocationExtensions.Distance(droneToListLocation, new Location() { Longitude = station.Location.Longitude, Lattitude = station.Location.Lattitude });
+            return minDistance * Available <= BatteryStatus ? station : default(BO.BaseStation);
         }
 
 
-        private DO.Station CloseStation(IEnumerable<DO.Station> stations, Location location)
+        private BO.BaseStation CloseStation(Location location)
         {
             double minDistance = double.MaxValue;
             double curDistance;
-            DO.Station station = default;
-            foreach (var item in stations)
+            BO.BaseStation station = default;
+            foreach (var item in dal.GetStations())
             {
-                curDistance = Distance(location,
+                curDistance = LocationExtensions.Distance(location,
                     new Location() { Lattitude = item.Lattitude, Longitude = item.Longitude });
                 if (curDistance < minDistance)
                 {
                     minDistance = curDistance;
-                    station = item;
+                    station = convert(item);
                 }
             }
+
+
             return station;
         }
+
+        private BaseStation convert(DO.Station station)
+        {
+            return new BaseStation()
+            {
+                Id = station.Id,
+                Name = station.Name,
+                Location = new Location() { Lattitude = station.Lattitude, Longitude = station.Longitude },
+                NumberOfChargingStations = station.ChargeSlots,
+                DronesInCharge = GetDroneInStation(station.Id)
+            };
+        }
+
+        private List<DroneInCharging> GetDroneInStation(int id)
+        {
+            // איך עושים????
+            IEnumerable<DO.DroneCharge> list;
+            lock (dal)
+                list = dal.GetDroneCharging((stationIdOfDrone) => stationIdOfDrone.StationId == id);
+            if (list.Count() == 0)
+                return new List<DroneInCharging>();
+            List<DroneInCharging> droneInChargings = new();
+            DroneToList droneToList;
+            foreach (var droneCharge in list)
+            {
+                droneToList = drones.FirstOrDefault(item => (item.DroneId == droneCharge.DroneId));
+                if (droneToList != default)
+                {
+                    droneInChargings.Add(new DroneInCharging() { ID = droneCharge.DroneId, BatteryStatus = droneToList.BatteryDrone });
+                }
+            }
+            return droneInChargings;
+        }
+
 
         /// <summary>
         /// the function update the drone with theid that was send
@@ -174,9 +212,9 @@ namespace Bl
             DO.Drone droneDl = dal.GetDrone(id);
             if (name.Equals(default))
                 throw new ArgumentNullException("For updating, you must enter the name! ");
-                dal.UpdateDrone(droneDl);
-            
-                     //dal.RemoveDrone(droneDl);
+            dal.UpdateDrone(droneDl);
+
+            //dal.RemoveDrone(droneDl);
             //dal.AddDrone(id, name, droneDl.MaxWeight);
             //DroneToList droneToList = drones.Find(item => item.DroneId == id);
             //drones.Remove(droneToList);
@@ -206,13 +244,12 @@ namespace Bl
                 _ => throw new NotImplementedException()
             };
             double electricity;
-            DO.Station station;
             var electricityUse =
-           electricity = Distance(droneLocation, parcel.CollectParcelLocation) * Available +
-                       Distance(parcel.CollectParcelLocation, parcel.DeliveryDestination) * e;
-            station = ClosetStationThatPossible(dal.GetStations(), droneLocation, battery - electricity, out _);
-            electricity += Distance(parcel.DeliveryDestination,
-                         new Location() { Lattitude = station.Lattitude, Longitude = station.Longitude }) * Available;
+           electricity = LocationExtensions.Distance(droneLocation, parcel.CollectParcelLocation) * Available +
+                       LocationExtensions.Distance(parcel.CollectParcelLocation, parcel.DeliveryDestination) * e;
+            var station = ClosetStationThatPossible(droneLocation, battery - electricity, out _);
+            electricity += LocationExtensions.Distance(parcel.DeliveryDestination,
+                         new Location() { Lattitude = station.Location.Lattitude, Longitude = station.Location.Longitude }) * Available;
             return electricityUse;
         }
         /// <summary>
@@ -223,8 +260,8 @@ namespace Bl
 
         private List<DroneInCharging> ConvertDroneToDroneToDroneInCharging(int droneId)
         {
-            List<int> listDronechargingInStation = dal.GetDronechargingInStation(droneId);
-            if (listDronechargingInStation.Count == 0)
+            var listDronechargingInStation = dal.GetDronechargingInStation(droneId);
+            if (listDronechargingInStation.Count() == 0)
                 return new();
             List<DroneInCharging> droneInChargings = new();
             DroneToList droneToList;
@@ -273,7 +310,10 @@ namespace Bl
             return ((List<DroneToList>)GetDrones()).FindAll(item => item.DroneWeight == weightCategories);
         }
     }
-
-
-
 }
+
+
+
+
+
+

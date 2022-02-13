@@ -3,9 +3,9 @@ using System;
 
 namespace Bl
 {
-    public partial class BL
+    public class LocationExtensions
     {
-        private static double Distance(Location sLocation, Location dLocation)
+        public static double Distance(Location sLocation, Location dLocation)
         {
             int R = 6371 * 1000; // metres
             double phi1 = sLocation.Lattitude * Math.PI / 180; // φ, λ in radians

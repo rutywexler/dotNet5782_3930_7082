@@ -9,7 +9,7 @@ namespace BlApi
         public void AddDrone(int id, DO.WeightCategories MaxWeight, string Model, int stationId);
         public void UpdateDrone(int id, string name);
         public void SendDroneForCharge(int id);
-        public void ReleaseDroneFromCharging(int id,double time);
+        public void ReleaseDroneFromCharging(int id);
         public Drone GetDrone(int id);
         public IEnumerable<DroneToList> GetDrones();
         public IEnumerable<DroneToList> GetSomeDronesByStatus(DroneStatus droneStatus);

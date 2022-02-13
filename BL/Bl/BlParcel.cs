@@ -57,7 +57,7 @@ namespace Bl
                     CollectParcelLocation = new Location { Lattitude = targetCustomer.Lattitude, Longitude = targetCustomer.Longitude },
                     DeliveryDestination = new Location { Lattitude = senderCustomer.Lattitude, Longitude = senderCustomer.Longitude },
                     ParcelStatus = parcel.Delivered != null,
-                    DeliveryDistance = Distance(new Location() { Longitude = senderCustomer.Longitude, Lattitude = senderCustomer.Lattitude }, new Location() { Longitude = targetCustomer.Longitude, Lattitude = targetCustomer.Lattitude }),
+                    DeliveryDistance = LocationExtensions.Distance(new Location() { Longitude = senderCustomer.Longitude, Lattitude = senderCustomer.Lattitude }, new Location() { Longitude = targetCustomer.Longitude, Lattitude = targetCustomer.Lattitude }),
                 };
             }
             catch (KeyNotFoundException ex)
@@ -99,7 +99,7 @@ namespace Bl
                       IsDroneCanTakeTheParcel(drone, GetParcelInTransfer(parcel.Id)))
                  .OrderBy(p => p.Priority)
                  .ThenBy(p => p.WeightParcel)
-                 .ThenBy(p => Distance(GetCustomer(p.CustomerSendsFrom.Id).Location, drone.DroneLocation));
+                 .ThenBy(p => LocationExtensions.Distance(GetCustomer(p.CustomerSendsFrom.Id).Location, drone.DroneLocation));
 
             //if (parcels.Count == 0)
             //{
@@ -129,7 +129,7 @@ namespace Bl
             drones.Remove(droneToList);
             DO.Customer customer = dal.GetCustomer(parcel.TargetId);
             Location receiverLocation = new() { Longitude = customer.Longitude, Lattitude = customer.Lattitude };
-            droneToList.BatteryDrone -= Distance(droneToList.Location, receiverLocation) * dal.GetPowerConsumptionByDrone()[1 + (int)parcel.Weight];
+            droneToList.BatteryDrone -= LocationExtensions.Distance(droneToList.Location, receiverLocation) * dal.GetPowerConsumptionByDrone()[1 + (int)parcel.Weight];
             droneToList.Location = receiverLocation;
             droneToList.DroneStatus = DroneStatus.Available;
             drones.Add(droneToList);
@@ -235,7 +235,7 @@ namespace Bl
                 //    throw new ArgumentNullException("The package has already been collected");
                 DO.Customer customer = dal.GetCustomer(parcel.SenderId);
                 Location senderLocation = new() { Longitude = customer.Longitude, Lattitude = customer.Lattitude };
-                droneToList.BatteryDrone -= Distance(droneToList.Location, senderLocation) * Available;
+                droneToList.BatteryDrone -= LocationExtensions.Distance(droneToList.Location, senderLocation) * Available;
                 droneToList.Location = senderLocation;
                 colloctDalParcel(parcel.Id);
             }

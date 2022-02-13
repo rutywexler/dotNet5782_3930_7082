@@ -80,7 +80,7 @@ namespace ConsoleUI_BL
                     {
                         Console.WriteLine("Enter drone ID");
                         if (int.TryParse(Console.ReadLine(), out id) )
-                            bl.ReleaseDroneFromCharging(id,23.0);
+                            bl.ReleaseDroneFromCharging(id);
                         break;
                     }
                 case Update.AssingParcelToDrone:

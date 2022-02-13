@@ -1,192 +1,259 @@
-﻿using System;
-using BO;
-using System.Threading;
-using DalApi;
+﻿using BO;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using static System.Math;
+using System.Threading;
+using static BO.Enums;
 
 namespace BL
 {
     internal class DroneSimulator
     {
-        enum Maintenance { Starting, Going, Charging }
-        private const double VELOCITY = 1.0;
+        enum Maintenance { Starting, Going }
+        enum Delivery { Starting, Going, Delivery }
+        int? parcelId;
+        int? senderId;
+        int? reciverId;
+        int? stationId;
+        Bl.BL bl { set; get; }
+        Parcel parcel { set; get; }
+        BaseStation Station { set; get; }
+        DroneToList Drone { set; get; }
         private const int DELAY = 500;
+        private Maintenance maintenance = Maintenance.Starting;
+        private Delivery delivery = Delivery.Starting;
         private const double TIME_STEP = DELAY / 1000.0;
+        private const double VELOCITY = 1000;
         private const double STEP = VELOCITY / TIME_STEP;
-
-        public DroneSimulator(Bl.BL blImp, int droneId, Action updateDrone, Func<bool> checkStop)
+        double distance = 0.0;
+        public DroneSimulator(int id, Bl.BL BL, Action<int?, int?, int?, int?> update, Func<bool> checkStop)
         {
-            var bl = blImp;
-            //var dal = bl.Dal;
-            var drone = bl.GetDrone(droneId);
-            int? parcelId = null;
-            int? baseStationId = null;
-            BaseStation bs = null;
-            double distance = 0.0;
-            int batteryUsage = 0;
-            BO.Parcel? parcel = null;
-            bool pickedUp = false;
-            Customer customer = null;
-            Maintenance maintenance = Maintenance.Starting;
-
-            void initDelivery(int id)
+            try
             {
-                parcel = bl.GetParcel(id);
-                batteryUsage = (int)Enum.Parse(typeof(BatteryUsage), parcel?.Weight.ToString());
-                pickedUp = parcel?.PickedUp is not null;
-                customer = bl.GetCustomer((int)(pickedUp ? parcel?.TargetId : parcel?.SenderId));
-            }
-
-            do
-            {
-                //(var next, var id) = drone.nextAction(bl);
-
-                switch (drone)
+                bl = BL;
+                lock (bl)
                 {
-                    case DroneForList { Status: DroneStatuses.Available }:
-                        if (!sleepDelayTime()) break;
-
-                        lock (bl)
+                    Drone = bl.drones.FirstOrDefault(Drone => Drone.DroneId == id);
+                    if (Drone.DroneStatus == DroneStatus.Delivery
+                        && bl.GetParcel((int)Drone.ParcelId).CollectionTime != null)
+                        delivery = Delivery.Delivery;
+                }
+                while (!checkStop())
+                {
+                    parcelId = senderId = reciverId = stationId = null;
+                    if (sleepDelayTime())
+                        switch (Drone.DroneStatus)
                         {
-                            parcelId = bl.Dal.GetParcels(p => p?.Scheduled == null
-                                                              && (WeightCategories)(p?.Weight) <= drone.MaxWeight
-                                                              && drone.RequiredBattery(bl, (int)p?.Id) < drone.Battery)
-                                             .OrderByDescending(p => p?.Priority)
-                                             .ThenByDescending(p => p?.Weight)
-                                             .FirstOrDefault()?.Id;
-                            switch (parcelId, drone.Battery)
-                            {
-                                case (null, 1.0):
-                                    break;
-
-                                case (null, _):
-                                    baseStationId = bl.FindClosestBaseStation(drone, charge: true)?.Id;
-                                    if (baseStationId != null)
-                                    {
-                                        drone.Status = DroneStatuses.Maintenance;
-                                        maintenance = Maintenance.Starting;
-                                        dal.BaseStationDroneIn((int)baseStationId);
-                                        dal.AddDroneCharge(droneId, (int)baseStationId);
-                                    }
-                                    break;
-                                case (_, _):
-                                    try
-                                    {
-                                        dal.ParcelSchedule((int)parcelId, droneId);
-                                        drone.DeliveryId = parcelId;
-                                        initDelivery((int)parcelId);
-                                        drone.Status = DroneStatuses.Delivery;
-                                    }
-                                    catch (DO.ExistIdException ex) { throw new BadStatusException("Internal error getting parcel", ex); }
-                                    break;
-                            }
-                        }
-                        break;
-
-                    case DroneForList { Status: DroneStatuses.Maintenance }:
-                        switch (maintenance)
-                        {
-                            case Maintenance.Starting:
-                                lock (bl)
-                                {
-                                    try { bs = bl.GetBaseStation(baseStationId ?? dal.GetDroneChargeBaseStationId(drone.Id)); }
-                                    catch (DO.ExistIdException ex) { throw new BadStatusException("Internal error base station", ex); }
-                                    distance = drone.Distance(bs);
-                                    maintenance = Maintenance.Going;
-                                }
+                            case DroneStatus.Available:
+                                AvailbleDrone();
                                 break;
-
-                            case Maintenance.Going:
-                                if (distance < 0.01)
-                                    lock (bl)
-                                    {
-                                        drone.Location = bs.Location;
-                                        maintenance = Maintenance.Charging;
-                                    }
-                                else
-                                {
-                                    if (!sleepDelayTime()) break;
-                                    lock (bl)
-                                    {
-                                        double delta = distance < STEP ? distance : STEP;
-                                        distance -= delta;
-                                        drone.Battery = Max(0.0, drone.Battery - delta * bl.BatteryUsages[DRONE_FREE]);
-                                    }
-                                }
+                            //case DroneStatus.WAYTOCHARGE:
+                            //    WayToChargeDrone();
+                            //    break;
+                            case DroneStatus.Meintenence:
+                                MaintenanceDrone();
                                 break;
-
-                            case Maintenance.Charging:
-                                if (drone.Battery == 1.0)
-                                    lock (bl)
-                                    {
-                                        drone.Status = DroneStatuses.Available;
-                                        dal.DeleteDroneCharge(droneId);
-                                        dal.BaseStationDroneOut(bs.Id);
-                                    }
-                                else
-                                {
-                                    if (!sleepDelayTime()) break;
-                                    lock (bl) drone.Battery = Min(1.0, drone.Battery + bl.BatteryUsages[DRONE_CHARGE] * TIME_STEP);
-                                }
+                            case DroneStatus.Delivery:
+                                DeliveryDrone();
                                 break;
                             default:
-                                throw new BadStatusException("Internal error: wrong maintenance substate");
+                                break;
                         }
-                        break;
-
-                    case DroneForList { Status: DroneStatuses.Delivery }:
+                    update(parcelId, senderId, reciverId, stationId);
+                }
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw new KeyNotFoundException("", ex);
+            }
+        }
+        private void WayToChargeDrone()
+        {
+            switch (maintenance)
+            {
+                case Maintenance.Starting:
+                    {
                         lock (bl)
                         {
-                            try { if (parcelId == null) initDelivery((int)drone.DeliveryId); }
-                            catch (DO.ExistIdException ex) { throw new BadStatusException("Internal error getting parcel", ex); }
-                            distance = drone.Distance(customer);
-                        }
-
-                        if (distance < 0.01 || drone.Battery == 0.0)
-                            lock (bl)
+                            try
                             {
-                                drone.Location = customer.Location;
-                                if (pickedUp)
-                                {
-                                    dal.ParcelDelivery((int)parcel?.Id);
-                                    drone.Status = DroneStatuses.Available;
 
-                                }
-                                else
+                                Station = bl.ClosetStationThatPossible(Drone.Location, Drone.BatteryDrone, out double n);
+                                //try { Station = bl.GetStation(stationId ?? bl.GetDroneChargeBaseStationId(Drone.DroneId)); }
+                                //catch (DO.ExistIdException ex) { throw new BadStatusException("Internal error base station", ex); }
+                                //distance = drone.Distance(bs);
+                                //maintenance = Maintenance.Going;
+                                if (Station != null)
                                 {
-                                    dal.ParcelPickup((int)parcel?.Id);
-                                    customer = bl.GetCustomer((int)parcel?.TargetId);
-                                    pickedUp = true;
+
+                                    distance = Bl.LocationExtensions.Distance(Drone.Location, Station.Location);
+                                    maintenance = Maintenance.Going;
                                 }
                             }
-                        else
-                        {
-                            if (!sleepDelayTime()) break;
-                            lock (bl)
+                            catch (Exception)//NotExsistSuitibleStationException)
                             {
-                                double delta = distance < STEP ? distance : STEP;
-                                double proportion = delta / distance;
-                                drone.Battery = Max(0.0, drone.Battery - delta * bl.BatteryUsages[pickedUp ? batteryUsage : DRONE_FREE]);
-                                double lat = drone.Location.Latitude + (customer.Location.Latitude - drone.Location.Latitude) * proportion;
-                                double lon = drone.Location.Longitude + (customer.Location.Longitude - drone.Location.Longitude) * proportion;
-                                drone.Location = new() { Latitude = lat, Longitude = lon };
+
                             }
+
                         }
                         break;
+                    }
+                case Maintenance.Going:
+                    {
+                        if (distance < 0.01)
+                            bl.SendDroneForCharge(Drone.DroneId);
+                        else
+                        {
+                            Drone.Location = UpdateLocationAndBattary(Station.Location, bl.Available);
+                            distance = Bl.LocationExtensions.Distance(Drone.Location, Station.Location);
+                        }
+                        break;
+                    };
+            }
 
-                    default:
-                        throw new BadStatusException("Internal error: not available after Delivery...");
-
+        }
+        private void AvailbleDrone()
+        {
+            lock (bl)
+            {
+                try
+                {
+                    bl.AssignParcelToDrone(Drone.DroneId);
+                    parcelId = Drone.ParcelId;
                 }
-                updateDrone();
-            } while (!checkStop());
+                catch (/*NotExsistSutibleParcelException*/Exception)
+                {
+                    if (Drone.BatteryDrone >= 100)
+                        return;
+                    //Drone.DroneStatus = DroneStatus.WAYTOCHARGE;
+                    maintenance = Maintenance.Starting;
+                }
+            }
+        }
+        private void MaintenanceDrone()
+        {
+            if (Station == null)
+                Station = bl.GetStations().Select(station => bl.GetStation(station.IdStation)).FirstOrDefault(station => station.DronesInCharge.FirstOrDefault(drone => drone.ID == Drone.DroneId) != null);
+            if (Drone.BatteryDrone == 100)
+            {
+                bl.ReleaseDroneFromCharging(Drone.DroneId);
+                delivery = Delivery.Starting;
+            }
+
+            else
+                lock (bl) Drone.BatteryDrone = Math.Min(100, Drone.BatteryDrone + Bl.BL.DroneLoadingRate * TIME_STEP);
+            stationId = Station.Id;
+
         }
 
+        private void DeliveryDrone()
+        {
+            try
+            {
+                lock (bl)
+                {
+                    parcel = bl.GetParcel((int)Drone.ParcelId);
+                }
+                switch (delivery)
+                {
+                    case Delivery.Starting:
+                        {
+                            lock (bl)
+                            {
+                                distance = Bl.LocationExtensions.Distance(Drone.Location, bl.GetCustomer(parcel.CustomerSendsFrom.Id).Location);
+                            }
+                            delivery = Delivery.Going;
+                            break;
+                        }
+                    case Delivery.Going:
+                        {
+                            lock (bl)
+                            {
+                                if (distance > 0.01)
+                                {
+                                    Drone.Location = UpdateLocationAndBattary(bl.GetCustomer(parcel.CustomerSendsFrom.Id).Location, bl.Available);
+                                    distance = Bl.LocationExtensions.Distance(Drone.Location, bl.GetCustomer(parcel.CustomerSendsFrom.Id).Location);
+                                }
+
+                                else
+                                {
+                                    lock (bl)
+                                    {
+                                        try
+                                        {
+                                            delivery = Delivery.Delivery;
+                                            Drone.Location = bl.GetCustomer(parcel.CustomerSendsFrom.Id).Location;
+                                            distance = Bl.LocationExtensions.Distance(Drone.Location, bl.GetCustomer(parcel.CustomerReceivesTo.Id).Location);
+                                            bl.ParcelCollectionByDrone(Drone.DroneId);
+                                            parcelId = Drone.ParcelId;
+                                            delivery = Delivery.Delivery;
+                                        }
+                                        catch (ArgumentNullException)
+                                        {
+                                            delivery = Delivery.Delivery;
+                                        }
+                                    }
+                                }
+                            }
+                            break;
+                        }
+                    case Delivery.Delivery:
+                        {
+                            if (distance < 0.01)
+                            {
+                                lock (bl)
+                                {
+                                    bl.DeliveryParcelByDrone(Drone.DroneId);
+                                    Drone.DroneStatus = DroneStatus.Available;
+                                    parcelId = Drone.ParcelId;
+                                }
+                            }
+                            else
+                            {
+                                lock (bl)
+                                {
+                                    double elect = bl.GetParcel((int)Drone.ParcelId).WeightParcel switch
+                                    {
+                                        WeightCategories.Heavy => bl.CarryingHeavyWeight,
+                                        WeightCategories.Medium => bl.MediumWeightBearing,
+                                        WeightCategories.Light => bl.LightWeightCarrier,
+                                        _ => 0.0
+                                    };
+                                    Drone.Location = UpdateLocationAndBattary(bl.GetCustomer(parcel.CustomerReceivesTo.Id).Location, elect);
+                                    distance = Bl.LocationExtensions.Distance(Drone.Location, bl.GetCustomer(parcel.CustomerReceivesTo.Id).Location);
+                                }
+                            }
+
+                            break;
+                        }
+
+                    default:
+                        break;
+                }
+
+            }
+            catch (KeyNotFoundException)
+            {
+                Drone.DroneStatus = DroneStatus.Available;
+            }
+
+
+
+        }
         private static bool sleepDelayTime()
         {
             try { Thread.Sleep(DELAY); } catch (ThreadInterruptedException) { return false; }
             return true;
         }
+        private Location UpdateLocationAndBattary(Location Target, double elec)
+        {
+            double delta = distance < STEP ? distance : STEP;
+            double proportion = delta / distance;
+            Drone.BatteryDrone = Math.Max(0.0, Drone.BatteryDrone - delta * elec);
+            double lat = Drone.Location.Lattitude + (Target.Lattitude - Drone.Location.Lattitude) * proportion;
+            double lon = Drone.Location.Longitude + (Target.Longitude - Drone.Location.Longitude) * proportion;
+            return new() { Lattitude = lat, Longitude = lon };
+        }
+
     }
 }

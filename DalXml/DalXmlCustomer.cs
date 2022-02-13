@@ -98,7 +98,7 @@ namespace Dal
 
         public void RemoveCustomer(int id)
         {
-            throw new NotImplementedException();
+           // UpdateCustomerrr 
         }
 
 

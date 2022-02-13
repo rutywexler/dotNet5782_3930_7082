@@ -64,7 +64,7 @@ namespace Dal
         /// </summary>
         /// <param name="id">The id of particular station</param>
         /// <returns>A list of DroneCarge</returns>
-        public List<int> GetDronechargingInStation(int id)
+        public IEnumerable<int> GetDronechargingInStation(int id)
         {
             List<int> DronechargingInStation = new();
             foreach (var DroneCharge in DroneCharges)
@@ -74,7 +74,10 @@ namespace Dal
             }
             return DronechargingInStation;
         }
-
+        public IEnumerable<DroneCharge> GetDroneCharging(Predicate<DroneCharge> predicate)
+        {
+            return DroneCharges.Where(d => predicate(d));
+        }
         /// <summary>
         /// Gets parameters and create new DroneCharge 
         /// </summary>
