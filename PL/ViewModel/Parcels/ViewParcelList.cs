@@ -83,6 +83,15 @@ namespace PL.ViewModel.Parcels
             }
             ViewParcels.GroupDescriptions.Add(new PropertyGroupDescription(param.ToString()));
         }
+        //public void Grouping(object param)
+        //{
+        //    //for (int i = 0; i < ViewStations.GroupDescriptions.Count; i++)
+        //    //{
+        //    //    ViewStations.GroupDescriptions.RemoveAt(i);
+        //    //}
+        //    ViewParcels.GroupDescriptions.Clear();
+        //    ViewParcels.GroupDescriptions.Add(new PropertyGroupDescription(param.ToString()));
+        //}
 
         public IEnumerable<Enums.DeliveryStatus> StatusList { get; set; }
         public Enums.DeliveryStatus? SelectedFilterByStatus
@@ -94,6 +103,7 @@ namespace PL.ViewModel.Parcels
                 ViewParcels.Refresh();
             }
         }
+  
     }
 
 }
