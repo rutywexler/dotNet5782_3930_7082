@@ -85,7 +85,7 @@ namespace Bl
                 Location RandomSuppliedParcelLocation()
                 {
                     var DeliveredParcels = parcels.FindAll(p => p.Delivered != null).ToList();
-                    var randomParcel = DeliveredParcels[rand.Next(0,DeliveredParcels.Count())];
+                    var randomParcel = DeliveredParcels[rand.Next(DeliveredParcels.Count)];
 
                     var customer = dal.GetCustomer(randomParcel.TargetId);
 

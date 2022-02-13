@@ -23,10 +23,10 @@ namespace Dal
         public void AddParcel(int SenderId, int TargetId, WeightCategories Weigth, Priorities Priority, int id = 0, int droneId = 0, DateTime requested = default, DateTime sceduled = default, DateTime pickedUp = default, DateTime delivered = default)
         {
             List<Parcel> parcels = XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath);
-            if (!Dal.DalObject.ExistsIDCheck(GetCustomers(), SenderId))
-                throw new KeyNotFoundException("Sender not exist");
-            if (!Dal.DalObject.ExistsIDCheck(GetCustomers(), TargetId))
-                throw new KeyNotFoundException("Target not exist");
+            //if (!Dal.DalObject.ExistsIDCheck(GetCustomers(), SenderId))
+            //    throw new KeyNotFoundException("Sender not exist");
+            //if (!Dal.DalObject.ExistsIDCheck(GetCustomers(), TargetId))
+            //    throw new KeyNotFoundException("Target not exist");
             Parcel newParcel = new();
             XElement config = LoadConfigToXML(ConfigPath);
             XElement parcelId = config.Elements().Single(elem => elem.Name.ToString().Contains("Parcel"));

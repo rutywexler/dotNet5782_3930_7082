@@ -24,8 +24,8 @@ namespace Dal
         public void AddDrone(int id, string model, DO.WeightCategories MaxWeight)
         { 
             List<Drone> drones = XMLTools.LoadListFromXmlSerializer<Drone>(dronesPath);
-            if (Dal.DalObject.ExistsIDCheck(drones, id))
-                throw new Exception_ThereIsInTheListObjectWithTheSameValue();
+            //if (Dal.DalObject.ExistsIDCheck(drones, id))
+            //    throw new Exception_ThereIsInTheListObjectWithTheSameValue();
             Drone newDrone = new()
             {
                 Id = id,

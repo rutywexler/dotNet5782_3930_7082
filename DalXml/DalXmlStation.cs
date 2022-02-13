@@ -22,8 +22,8 @@ namespace Dal
         public void AddStation(int id, string name, double longitude, double latitude, int chargeSlots)
         {
             List<Station> stationList = XMLTools.LoadListFromXmlSerializer<Station>(StationPath);
-            if (Dal.DalObject.ExistsIDCheck(stationList, id))
-                throw new Dal.Exception_ThereIsInTheListObjectWithTheSameValue();
+            //if (Dal.DalObject.ExistsIDCheck(stationList, id))
+            //    throw new Dal.Exception_ThereIsInTheListObjectWithTheSameValue();
             Station newStation = new();
             newStation.Id = id;
             newStation.Name = name;
