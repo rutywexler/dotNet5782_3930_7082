@@ -1,13 +1,13 @@
 ﻿using PL.Model;
 using PL.Model.Po;
-using PL.UsingBl;
+using PL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PL.Converters
+namespace PL
 {
     public static class CustomerInParcelUseBL
     {

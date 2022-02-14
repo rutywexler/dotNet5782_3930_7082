@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PL.Model.Po;
 
-namespace PL.Converters
+namespace PL
 {
     public static class DroneConverter
     {

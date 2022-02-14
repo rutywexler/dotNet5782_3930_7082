@@ -5,6 +5,7 @@ using System.ComponentModel;
 using BlApi;
 using BO;
 using static BO.Enums;
+using BL;
 
 namespace Bl
 {
@@ -287,6 +288,7 @@ namespace Bl
                 DO.Parcel parcel = dal.GetParcel(parcelId);
                 dal.RemoveParcel(parcel.Id);
                 parcel.PickedUp = DateTime.Now;
+                parcel.Delivered = DateTime.Now;
                 dal.AddParcel(parcel.SenderId, parcel.TargetId, parcel.Weight, parcel.Priority, parcel.Id, parcel.DroneId, parcel.Requested, parcel.Scheduled, (DateTime)parcel.PickedUp, (DateTime)parcel.Delivered);
             }
             catch (KeyNotFoundException ex)
@@ -309,6 +311,9 @@ namespace Bl
         {
             return ((List<DroneToList>)GetDrones()).FindAll(item => item.DroneWeight == weightCategories);
         }
+        public void StartSimulator(Action update , int id, Func<bool> stop) => new DroneSimulator(id,this,update,stop );
+
+      
     }
 }
 

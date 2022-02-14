@@ -1,4 +1,5 @@
 ﻿using BO;
+using System;
 using System.Collections.Generic;
 using static BO.Enums;
 
@@ -14,5 +15,6 @@ namespace BlApi
         public IEnumerable<DroneToList> GetDrones();
         public IEnumerable<DroneToList> GetSomeDronesByStatus(DroneStatus droneStatus);
         public IEnumerable<DroneToList> GetSomeDronesByWeight(WeightCategories WeightCategories);
+        public void StartSimulator(Action update, int id, Func<bool> stop);
     }
 }

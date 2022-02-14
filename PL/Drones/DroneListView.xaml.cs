@@ -6,7 +6,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using static BO.Enums;
 
-namespace PL.Drones
+namespace PL
 {
     /// <summary>
     /// Interaction logic for DroneListView.xaml

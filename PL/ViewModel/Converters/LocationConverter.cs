@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PL.Converters
+namespace PL
 {
     public static class LocationConverter
     {

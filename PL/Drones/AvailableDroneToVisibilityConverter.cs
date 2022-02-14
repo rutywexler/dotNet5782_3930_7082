@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
-namespace PL.Drones
+namespace PL
 {
     public class AvailableDroneToVisibilityConverter : IValueConverter
     {
@@ -22,7 +22,7 @@ namespace PL.Drones
         }  
         
     }
-    class MeintenceDroneToVisibilityConverter : IValueConverter
+   public class MeintenceDroneToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -35,7 +35,7 @@ namespace PL.Drones
         }
     }
 
-    class DeliveryDroneToVisibilityConverter : IValueConverter
+ public   class DeliveryDroneToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -48,7 +48,7 @@ namespace PL.Drones
         }
     }
 
-    class CollectedToVisibilityConverter : IValueConverter
+  public  class CollectedToVisibilityConverter : IValueConverter
     {
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -63,7 +63,7 @@ namespace PL.Drones
         }
     }
 
-    class SuppliedToVisibilityConverter : IValueConverter
+  public class SuppliedToVisibilityConverter : IValueConverter
     {
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

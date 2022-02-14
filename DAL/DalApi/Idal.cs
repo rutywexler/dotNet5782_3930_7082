@@ -10,7 +10,7 @@ namespace DalApi
     public interface Idal
     {
         public void AddCustomer(int id, string phone, string name, double longitude, double latitude);
-        public void AddParcel(int SenderId, int TargetId, WeightCategories Weigth, Priorities Priority, int id = 0, int droneId = 0, DateTime requested = default, DateTime sceduled = default, DateTime pickedUp = default, DateTime delivered = default);
+        public void AddParcel(int SenderId, int TargetId, WeightCategories Weigth, Priorities Priority, int id = 0, int droneId = 0, DateTime requested = default, DateTime sceduled = default, DateTime pickedUp = default, DateTime? delivered = default);
         public void AddDrone(int id, string model, WeightCategories MaxWeight);
         public void AddStation(int id, string name, double longitude, double latitude, int chargeSlots);
         public void AddDRoneCharge(int droneId, int stationId);

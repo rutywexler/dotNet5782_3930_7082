@@ -20,7 +20,7 @@ namespace Dal
         /// <param name="TargetId"> Id of target</param>
         /// <param name="Weigth"> The weigth of parcel (light- 0,medium - 1,heavy - 2)</param>
         /// <param name="Priority"> The priority of send the parcel (regular - 0,fast - 1,emergency - 2)</param>
-        public void AddParcel(int SenderId, int TargetId, WeightCategories Weigth, Priorities Priority, int id = 0, int droneId = 0, DateTime requested = default, DateTime sceduled = default, DateTime pickedUp = default, DateTime delivered = default)
+        public void AddParcel(int SenderId, int TargetId, WeightCategories Weigth, Priorities Priority, int id = 0, int droneId = 0, DateTime requested = default, DateTime sceduled = default, DateTime pickedUp = default, DateTime? delivered = default)
         {
             List<Parcel> parcels = XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath);
             //if (!Dal.DalObject.ExistsIDCheck(GetCustomers(), SenderId))

@@ -11,10 +11,6 @@ namespace BL
     {
         enum Maintenance { Starting, Going }
         enum Delivery { Starting, Going, Delivery }
-        int? parcelId;
-        int? senderId;
-        int? reciverId;
-        int? stationId;
         Bl.BL bl { set; get; }
         Parcel parcel { set; get; }
         BaseStation Station { set; get; }
@@ -26,7 +22,7 @@ namespace BL
         private const double VELOCITY = 1000;
         private const double STEP = VELOCITY / TIME_STEP;
         double distance = 0.0;
-        public DroneSimulator(int id, Bl.BL BL, Action<int?, int?, int?, int?> update, Func<bool> checkStop)
+        public DroneSimulator(int id, Bl.BL BL, Action update, Func<bool> checkStop)
         {
             try
             {
@@ -40,16 +36,12 @@ namespace BL
                 }
                 while (!checkStop())
                 {
-                    parcelId = senderId = reciverId = stationId = null;
                     if (sleepDelayTime())
                         switch (Drone.DroneStatus)
                         {
                             case DroneStatus.Available:
                                 AvailbleDrone();
                                 break;
-                            //case DroneStatus.WAYTOCHARGE:
-                            //    WayToChargeDrone();
-                            //    break;
                             case DroneStatus.Meintenence:
                                 MaintenanceDrone();
                                 break;
@@ -59,7 +51,7 @@ namespace BL
                             default:
                                 break;
                         }
-                    update(parcelId, senderId, reciverId, stationId);
+                    update();
                 }
             }
             catch (KeyNotFoundException ex)
@@ -88,6 +80,10 @@ namespace BL
 
                                     distance = Bl.LocationExtensions.Distance(Drone.Location, Station.Location);
                                     maintenance = Maintenance.Going;
+                                }
+                                else
+                                {
+
                                 }
                             }
                             catch (Exception)//NotExsistSuitibleStationException)
@@ -119,7 +115,6 @@ namespace BL
                 try
                 {
                     bl.AssignParcelToDrone(Drone.DroneId);
-                    parcelId = Drone.ParcelId;
                 }
                 catch (/*NotExsistSutibleParcelException*/Exception)
                 {
@@ -142,7 +137,6 @@ namespace BL
 
             else
                 lock (bl) Drone.BatteryDrone = Math.Min(100, Drone.BatteryDrone + Bl.BL.DroneLoadingRate * TIME_STEP);
-            stationId = Station.Id;
 
         }
 
@@ -185,7 +179,6 @@ namespace BL
                                             Drone.Location = bl.GetCustomer(parcel.CustomerSendsFrom.Id).Location;
                                             distance = Bl.LocationExtensions.Distance(Drone.Location, bl.GetCustomer(parcel.CustomerReceivesTo.Id).Location);
                                             bl.ParcelCollectionByDrone(Drone.DroneId);
-                                            parcelId = Drone.ParcelId;
                                             delivery = Delivery.Delivery;
                                         }
                                         catch (ArgumentNullException)
@@ -205,7 +198,6 @@ namespace BL
                                 {
                                     bl.DeliveryParcelByDrone(Drone.DroneId);
                                     Drone.DroneStatus = DroneStatus.Available;
-                                    parcelId = Drone.ParcelId;
                                 }
                             }
                             else

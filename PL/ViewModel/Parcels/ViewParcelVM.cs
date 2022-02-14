@@ -1,7 +1,5 @@
-﻿using PL.Converters;
-using PL.Drones;
+﻿
 using PL.Model;
-using PL.UsingBl;
 using PL.View.Customer;
 using PL.ViewModel.Customer;
 using System;

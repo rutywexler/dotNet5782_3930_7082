@@ -1,5 +1,4 @@
 ﻿
-using PL.Converters;
 using PL.Model;
 using PL.PO;
 using System;
@@ -10,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using static PL.Model.Enums;
 
-namespace PL.UsingBl
+namespace PL
 {
     public static class ParcelConverter
     {

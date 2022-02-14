@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using static BO.Enums;
 using System.Text.RegularExpressions;
 
-namespace PL.Drones
+namespace PL
 {
     /// <summary>
     /// Interaction logic for AddsNewDrone.xaml

@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PL.UsingBl
-{
+namespace PL
+{ 
     public class CustomerUseBl
     {
         public BlApi.IBL bl { get; set; }

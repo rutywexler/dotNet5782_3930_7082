@@ -1,4 +1,5 @@
 ﻿using Bo;
+using System.ComponentModel;
 using static BO.Enums;
 
 namespace BO
@@ -12,6 +13,7 @@ namespace BO
         public DroneStatus DroneStatus { get; set; }
         public Location Location { get; set; }
         public int? ParcelId { get; set; }
+
         public override string ToString() => this.ToStringProps();
 
     }
