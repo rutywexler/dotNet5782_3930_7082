@@ -1,5 +1,4 @@
-﻿using PL.Model;
-using PL.ViewModel.Parcels;
+﻿using PL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL.View.Parcel
+namespace PL
 {
     /// <summary>
     /// Interaction logic for ViewParcel.xaml
@@ -25,6 +24,16 @@ namespace PL.View.Parcel
         {
             InitializeComponent();
             DataContext = new ViewParcelVM(parcel);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

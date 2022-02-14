@@ -1,5 +1,4 @@
-﻿using PL.Model;
-using PL.ViewModel.Station;
+﻿using PL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL.View.Station
+namespace PL
 {
     /// <summary>
     /// Interaction logic for ViewStation.xaml

@@ -1,13 +1,11 @@
-﻿
-using PL.Model;
-using PL.PO;
+﻿using PL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using static PL.Model.Enums;
+using static PL.Enums;
 
 namespace PL
 {
@@ -52,9 +50,9 @@ namespace PL
                 Id = parcel.Id,
                 TargetName = parcel.ReceivesCustomer,
                 SenderName = parcel.SendCustomer,
-                Weight = (Model.Enums.WeightCategories)parcel.Weight,
-                Priority = (Model.Enums.Priorities)parcel.Priority,
-                Status = (Model.Enums.DeliveryStatus)parcel.Priority
+                Weight = (WeightCategories)parcel.Weight,
+                Priority = (Priorities)parcel.Priority,
+                Status = (DeliveryStatus)parcel.Priority
 
             };
         }
@@ -77,9 +75,9 @@ namespace PL
                 Id = parcel.Id,
                 TargetName = parcel.CustomerReceivesTo.Name,
                 SenderName = parcel.CustomerSendsFrom.Name,
-                Weight = (Model.Enums.WeightCategories)parcel.WeightParcel,
-                Priority = (Model.Enums.Priorities)parcel.Priority,
-                Status = (Model.Enums.DeliveryStatus)parcel.Priority
+                Weight = (Enums.WeightCategories)parcel.WeightParcel,
+                Priority = (Enums.Priorities)parcel.Priority,
+                Status = (Enums.DeliveryStatus)parcel.Priority
 
             };
         }

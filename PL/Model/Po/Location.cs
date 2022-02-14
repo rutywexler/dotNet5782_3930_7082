@@ -1,4 +1,4 @@
-﻿using PL.Model.Po;
+﻿using PL;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PL.Model
+namespace PL
 {
     public class Location : INotifyPropertyChanged
     {

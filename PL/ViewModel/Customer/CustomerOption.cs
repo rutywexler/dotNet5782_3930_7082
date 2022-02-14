@@ -1,8 +1,4 @@
-﻿
-using PL.Model;
-using PL;
-using PL.View.Customer;
-using PL.View.Parcel;
+﻿using PL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace PL.ViewModel.Customer
+namespace PL
 {
     public class CustomerOption : DependencyObject
     {

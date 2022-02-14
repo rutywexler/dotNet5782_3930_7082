@@ -1,8 +1,8 @@
-﻿using PL.Model;
+﻿using PL;
 using System.ComponentModel;
-using static PL.Model.Enums;
+using static PL.Enums;
 
-namespace PL.PO
+namespace PL
 {
     public class ParcelToAdd : INotifyPropertyChanged
     {

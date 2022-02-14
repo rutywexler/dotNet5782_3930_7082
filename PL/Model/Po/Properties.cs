@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace PL.Model.Po
+namespace PL
 {
     public static class StringUtilitiesExtension
     {

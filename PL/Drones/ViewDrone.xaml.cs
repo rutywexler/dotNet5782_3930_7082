@@ -1,5 +1,5 @@
 ﻿using BO;
-using PL.Model;
+using PL;
 using System;
 using System.ComponentModel;
 using System.Linq;

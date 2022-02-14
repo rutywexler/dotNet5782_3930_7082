@@ -1,6 +1,4 @@
-﻿using PL.Model;
-using PL;
-using PL.View.Parcel;
+﻿using PL;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,7 +6,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 
-namespace PL.ViewModel.Parcels
+namespace PL
 {
     public class ViewParcelList : DependencyObject
     {
