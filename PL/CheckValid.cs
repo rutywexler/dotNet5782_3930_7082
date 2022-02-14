@@ -1,12 +1,11 @@
-﻿using PL.Model;
-using PL.Model.Po;
-using PL.PO;
+﻿using PL;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static PL.Enums;
 using System.Windows;
 
 namespace PL

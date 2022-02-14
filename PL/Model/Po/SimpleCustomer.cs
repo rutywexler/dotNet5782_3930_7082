@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace PL.Model
+namespace PL
 {
     public class SimpleCustomer : ILocate, INotifyPropertyChanged
     {

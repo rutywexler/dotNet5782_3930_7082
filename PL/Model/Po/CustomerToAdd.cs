@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PL.Model.Po
+namespace PL
 {
     public class CustomerToAdd
     {

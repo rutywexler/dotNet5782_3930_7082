@@ -45,7 +45,7 @@ namespace PL
             try
             {
                 
-                BaseStation baseStation = bl.GetStation(int.Parse(ID_Station.Text));
+                BO.BaseStation baseStation = bl.GetStation(int.Parse(ID_Station.Text));
                 try
                 {
                     bl.AddDrone(int.Parse(ID_Drone.Text), (DO.WeightCategories)(WeightCategories)WeightSelector.SelectedItem, Drone_model.Text, int.Parse(ID_Station.Text));

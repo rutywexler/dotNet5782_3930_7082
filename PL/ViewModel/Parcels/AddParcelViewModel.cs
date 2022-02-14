@@ -1,15 +1,13 @@
-﻿using PL.Model;
-using PL.PO;
-using PL;
+﻿using PL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using static PL.Model.Enums;
+using static PL.Enums;
 
 
 
-namespace PL.ViewModel.Parcels
+namespace PL
 {
     public class AddParcelViewModel
     {

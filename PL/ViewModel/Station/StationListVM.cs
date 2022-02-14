@@ -1,6 +1,4 @@
-﻿using PL.Model;
-using PL;
-using PL.View.Station;
+﻿using PL;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,9 +6,9 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 
-namespace PL.ViewModel.Station
+namespace PL
 {
-    public class StationList : DependencyObject
+    public class StationListVM : DependencyObject
     {
 
         public RelayCommand GroupingStation { get; set; }
@@ -24,14 +22,14 @@ namespace PL.ViewModel.Station
 
         // Using a DependencyProperty as the backing store for ViewStations.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ViewStationsProperty =
-            DependencyProperty.Register("ViewStations", typeof(ListCollectionView), typeof(StationList), new PropertyMetadata(null));
+            DependencyProperty.Register("ViewStations", typeof(ListCollectionView), typeof(StationListVM), new PropertyMetadata(null));
 
 
         public RelayCommand OpenAddStationWindow { get; set; }
         public RelayCommand OpenViewStationWindowCommand { get; set; }
         BlApi.IBL bl;
 
-        public StationList()
+        public StationListVM()
         {
             bl = BlApi.BlFactory.GetBL();
             ComboboxItems = new ObservableCollection<string>(typeof(BaseStationForList).GetProperties().Where(prop => prop.PropertyType.IsValueType || prop.PropertyType == typeof(string)).Select(prop => prop.Name));

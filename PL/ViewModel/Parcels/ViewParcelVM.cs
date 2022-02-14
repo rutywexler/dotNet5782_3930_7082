@@ -1,15 +1,12 @@
-﻿
-using PL.Model;
-using PL.View.Customer;
-using PL.ViewModel.Customer;
+﻿using PL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static PL.Model.Enums;
 
-namespace PL.ViewModel.Parcels
+
+namespace PL
 {
     public class ViewParcelVM
     {

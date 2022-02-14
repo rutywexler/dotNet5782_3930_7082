@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PL.Model
+namespace PL
 {
     public class Enums
     {

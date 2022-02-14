@@ -1,5 +1,4 @@
-﻿using PL.Model;
-using PL;
+﻿using PL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace PL.ViewModel.Station
+namespace PL
 {
     public class UpDateStation : DependencyObject
     {

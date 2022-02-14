@@ -1,7 +1,4 @@
 ﻿using PL;
-using PL.View.Customer;
-using PL.View.Parcel;
-using PL.View.Station;
 using System.Windows;
 using System.Windows.Controls;
 

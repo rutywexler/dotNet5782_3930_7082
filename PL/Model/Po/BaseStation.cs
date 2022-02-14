@@ -1,9 +1,9 @@
-﻿using PL.Model.Po;
+﻿using PL;
 using System.Collections.Generic;
 using System.ComponentModel;
 
 
-namespace PL.Model
+namespace PL
 {
     public class BaseStation : ILocate, INotifyPropertyChanged
     {
