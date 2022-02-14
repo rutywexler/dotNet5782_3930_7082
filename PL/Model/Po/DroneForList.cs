@@ -72,14 +72,14 @@ namespace PL.Model
             }
         }
 
-        private int deliveryId;
-        public int DeliveryId
+        private int parcelId;
+        public int ParcelId
         {
-            get { return deliveryId; }
+            get { return parcelId; }
             set
             {
-                deliveryId = value;
-                OnPropertyChanged(nameof(DeliveryId));
+                parcelId = value;
+                OnPropertyChanged(nameof(ParcelId));
             }
         }
 

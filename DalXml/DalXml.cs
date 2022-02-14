@@ -15,7 +15,8 @@ namespace Dal
         private static string Config = @"XmlConfig.xml";
         private DalXml()
         {
-
+            if (!File.Exists(dir + Config))
+                InitializeConfig();
         }
         internal static void InitializeConfig()
         {
@@ -29,35 +30,35 @@ namespace Dal
                             new XElement("DroneLoadingRate", 10))
                       ).Save(dir + Config);
         }
-        public static XElement LoadConfigToXML(string filePath)
-        {
-            try
-            {
-                if (!File.Exists(dir + filePath))
-                {
-                    throw new XMLFileLoadCreateException($"fail to load xml file: {filePath}");
-                }
-                XDocument document = XDocument.Load(dir + filePath);
-                return document.Root;
-            }
-            catch (Exception)
-            {
+        //public static XElement LoadConfigToXML(string filePath)
+        //{
+        //    try
+        //    {
+        //        if (!File.Exists(dir + filePath))
+        //        {
+        //            throw new XMLFileLoadCreateException($"fail to load xml file: {filePath}");
+        //        }
+        //        XDocument document = XDocument.Load(dir + filePath);
+        //        return document.Root;
+        //    }
+        //    catch (Exception)
+        //    {
 
-                throw new XMLFileLoadCreateException();
-            }
+        //        throw new XMLFileLoadCreateException();
+        //    }
 
-        }
+        //}
 
-        internal static void SaveConfigToXML(XElement rootElem, string filePath)
-        {
-            try
-            {
-                rootElem.Save(dir + filePath);
-            }
-            catch (Exception)
-            {
-                throw new XMLFileLoadCreateException($"fail to create xml file: {filePath}");
-            }
-        }
+        //internal static void SaveConfigToXML(XElement rootElem, string filePath)
+        //{
+        //    try
+        //    {
+        //        rootElem.Save(dir + filePath);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw new XMLFileLoadCreateException($"fail to create xml file: {filePath}");
+        //    }
+        //}
     }
 }

@@ -48,9 +48,11 @@ namespace PL
                 Status = (Enums.DroneStatuses)drone.DroneStatus,
                 Weight = (Enums.WeightCategories)drone.DroneWeight,
                 Location = LocationConverter.ConvertLocation(drone.Location),
-                DeliveryId = (int)drone.ParcelId
+                ParcelId = drone.ParcelId??0
             };
         }
+
+ 
 
         //internal static DroneForList ConvertDroneToList(DroneInParcel droneInParcel)
         //{

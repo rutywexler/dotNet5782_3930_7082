@@ -8,4 +8,12 @@
     <Longitude>32</Longitude>
     <IsDeleted>false</IsDeleted>
   </Customer>
+  <Customer>
+    <Id>325207082</Id>
+    <Name>Tamar Nusbacher</Name>
+    <Phone>0504110239</Phone>
+    <Lattitude>23</Lattitude>
+    <Longitude>-34</Longitude>
+    <IsDeleted>false</IsDeleted>
+  </Customer>
 </Customers>

@@ -12,7 +12,7 @@ namespace Dal
     public partial class DalXml
     {
         private readonly string parcelsPath = "Parcels.xml";
-        private readonly string ConfigPath = "Config.xml";
+        private readonly string ConfigPath = @"XmlConfig.xml";
         /// <summary>
         /// Gets parameters and create new parcel 
         /// </summary>
@@ -28,11 +28,11 @@ namespace Dal
             //if (!Dal.DalObject.ExistsIDCheck(GetCustomers(), TargetId))
             //    throw new KeyNotFoundException("Target not exist");
             Parcel newParcel = new();
-            XElement config = LoadConfigToXML(ConfigPath);
+            XElement config = XMLTools.LoadListFromXmlElement(ConfigPath);
             XElement parcelId = config.Elements().Single(elem => elem.Name.ToString().Contains("Parcel"));
             newParcel.Id = id == 0 ? int.Parse(parcelId.Value) + 1 : id;
             config.SetElementValue(parcelId.Name, newParcel.Id);
-            DalXml.SaveConfigToXML(config, ConfigPath);
+            XMLTools.SaveListToXmlElement(config, ConfigPath);
             newParcel.SenderId = SenderId;
             newParcel.TargetId = TargetId;
             newParcel.Weight = Weigth;

@@ -61,7 +61,7 @@ namespace Dal
             return new double[] { 1, 2, 3, 4, 5 };
             try
             {
-                XElement config = LoadConfigToXML(ConfigPath);
+                XElement config = XMLTools.LoadListFromXmlElement(ConfigPath);
                 var electricity = config.Elements().Select(elem => double.Parse(elem.Value));
                 return new double[] { electricity.ElementAt(1), electricity.ElementAt(2), electricity.ElementAt(3), electricity.ElementAt(4), electricity.ElementAt(5) };
             }

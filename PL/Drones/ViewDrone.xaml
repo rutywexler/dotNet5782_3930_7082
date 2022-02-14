@@ -21,23 +21,23 @@
         <StackPanel Grid.Row="0" Margin="188,0,411,60" Grid.RowSpan="2">
             <DockPanel>
                 <TextBlock  Text="Id"/>
-                <TextBlock  Text="{Binding Path=DroneId}" TextAlignment="Right"/>
+                <TextBlock  Text="{Binding Path=Id}" TextAlignment="Right"/>
             </DockPanel>
             <DockPanel>
                 <TextBlock  Text="ModelDrone"/>
-                <TextBox x:Name="UpdateModelContext"  Text="{Binding Path=ModelDrone}" TextAlignment="Right"/>
+                <TextBox x:Name="UpdateModelContext"  Text="{Binding Path=Model}" TextAlignment="Right"/>
             </DockPanel>
             <DockPanel>
                 <TextBlock  Text="DroneWeight"/>
-                <TextBlock  Text="{Binding Path=DroneWeight}" TextAlignment="Right"/>
+                <TextBlock  Text="{Binding Path=Weight}" TextAlignment="Right"/>
             </DockPanel>
             <DockPanel>
                 <TextBlock  Text="BatteryDrone"/>
-                <TextBlock  Text="{Binding Path=BatteryDrone}" TextAlignment="Right"/>
+                <TextBlock  Text="{Binding Path=Battery}" TextAlignment="Right"/>
             </DockPanel>
             <DockPanel>
                 <TextBlock  Text="DroneStatus"/>
-                <TextBlock  Text="{Binding Path=DroneStatus}" TextAlignment="Right"/>
+                <TextBlock  Text="{Binding Path=Status}" TextAlignment="Right"/>
             </DockPanel>
             <DockPanel>
                 <TextBlock  Text="Location"/>

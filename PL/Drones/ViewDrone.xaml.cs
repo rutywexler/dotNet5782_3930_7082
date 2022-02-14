@@ -22,12 +22,12 @@ namespace PL
             InitializeComponent();
         }
 
-        public ViewDrone(BlApi.IBL ibl, DroneToList selectedDrone, Action refreshDroneList)
+        public ViewDrone(BlApi.IBL ibl, DroneForList selectedDrone, Action refreshDroneList)
             : this()
         {
             MyIbl = ibl;
             SelectedDrone = selectedDrone;
-            this.DataContext = selectedDrone;
+            DataContext = selectedDrone;
             RefreshDroneList = refreshDroneList;
         }
 
@@ -36,9 +36,9 @@ namespace PL
             this.drone = drone;
         }
 
-        private DroneToList selectedDrone;
+        private DroneForList selectedDrone;
 
-        public DroneToList SelectedDrone
+        public DroneForList SelectedDrone
         {
             get { return selectedDrone; }
             set {
@@ -52,7 +52,7 @@ namespace PL
         {
             try
             {
-                MyIbl.SendDroneForCharge(SelectedDrone.DroneId);
+                MyIbl.SendDroneForCharge(SelectedDrone.Id);
                 RefreshDroneList();
                 MessageBox.Show("succees to Send Drone For Charge");
             }
@@ -67,7 +67,7 @@ namespace PL
         {
             try
             {
-                MyIbl.AssignParcelToDrone(SelectedDrone.DroneId);
+                MyIbl.AssignParcelToDrone(SelectedDrone.Id);
                 RefreshDroneList();
                 MessageBox.Show("succees to Sending The Drone For Delivery");
             }
@@ -89,7 +89,7 @@ namespace PL
         {
             try
             {
-                SelectedDrone.ModelDrone = UpdateModelContext.Text;
+                SelectedDrone.Model = UpdateModelContext.Text;
                 RefreshDroneList();
                 MessageBox.Show("the drone succeeded to update ", "success", MessageBoxButton.OK);
             }
@@ -110,7 +110,7 @@ namespace PL
         {
             try
             {
-                MyIbl.ParcelCollectionByDrone(SelectedDrone.DroneId);
+                MyIbl.ParcelCollectionByDrone(SelectedDrone.Id);
                 RefreshDroneList();
                 MessageBox.Show("succees Parcel Collection By Drone");
             }
@@ -125,7 +125,7 @@ namespace PL
         {
             try
             {
-                MyIbl.DeliveryParcelByDrone(SelectedDrone.DroneId);
+                MyIbl.DeliveryParcelByDrone(SelectedDrone.Id);
                 RefreshDroneList();
                 MessageBox.Show("succees Delivery Parcel By Drone");
             }
@@ -157,7 +157,7 @@ namespace PL
             worker.DoWork += (sender, args) => MyIbl.StartSimulator(updateDrone,(int)args.Argument,  checkStop);
             worker.RunWorkerCompleted += (sender, args) => auto = false;
             worker.ProgressChanged += (sender, args) => updateDroneView();
-            worker.RunWorkerAsync(SelectedDrone.DroneId);
+            worker.RunWorkerAsync(SelectedDrone.Id);
             }
             else
             {
@@ -168,7 +168,7 @@ namespace PL
 
         private void updateDroneView()
         {
-          //  SelectedDrone = ConvertDroneToList(MyIbl.GetDrones().FirstOrDefault(Drone => Drone.DroneId == SelectedDrone.DroneId));
+           SelectedDrone = PL.DroneConverter.ConvertDroneToList(MyIbl.GetDrones().FirstOrDefault(Drone => Drone.DroneId == SelectedDrone.Id));
         }
 
        

@@ -21,4 +21,9 @@
     <ProjectReference Include="..\BL\BL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewModel\Drone\" />
+    <Folder Include="View\Drone\" />
+  </ItemGroup>
+
 </Project>
