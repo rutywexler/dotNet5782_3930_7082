@@ -59,5 +59,14 @@ namespace Dal
             customer.IsDeleted = true;
             Customers.Add(customer);
         }
+        public void UpdateCustomer(Customer customer)
+        {
+            var d = Customers.FirstOrDefault(item => item.Id == customer.Id);
+            if (customer.Equals(default(Customer)))
+                throw new KeyNotFoundException("There isnt suitable customer in the data!");
+            Customers.Remove(d);
+            AddCustomer(customer.Id,  customer.Phone,customer.Name, customer.Longitude, customer.Lattitude);
+        }
+
     }
 }
