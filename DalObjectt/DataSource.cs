@@ -36,7 +36,7 @@ namespace Dal
             internal static double LightWeightCarrier = 0.002;
             internal static double MediumWeightBearing = 0.003;
             internal static double CarriesHeavyWeight = 0.004;
-            internal static double DroneLoadingRate = 3;
+            internal static double DroneLoadingRate = 2;
         }
 
         static internal void Initialize(DalObject dal)
@@ -77,8 +77,9 @@ namespace Dal
         }
         private static void RandomCustomer(DalObject dal, int id)
         {
-            string name = $"Customer_ { id}_{id * Rnd.Next()}";
-            string phone = $"0{Rnd.Next(PHONE_MIN, PHONE_MAX)}";
+            string[] tempNames = { "Tamar", "Ruty", "Michal", "Moshe", "Aviad", "Shimon", "Eliether", "Ariel", "Naomi", "Tehila" };
+            string name = tempNames[Rnd.Next(tempNames.Length)]; 
+            string phone = $"05 {Rnd.Next(100000000)}";
             double latitude = Rnd.Next(LATITUDE_MIN, LATITUDE_MAX) + Rnd.NextDouble();
             double longitude = Rnd.Next(LONGITUDE_MAX) + Rnd.NextDouble();
             dal.AddCustomer(id, phone, name, longitude, latitude);

@@ -31,7 +31,35 @@
                 <DataTemplate>
                     <Border BorderBrush="Red">
                         <StackPanel >
-                            <TextBlock Text="{Binding }"></TextBlock>
+                            <TextBlock Text="{Binding }"/>
+                            <!--<TextBlock>
+                                <Run Text="Id: "/>
+                                <Run Text="{Binding Path=DroneId}"/>
+                            </TextBlock>
+                            <TextBlock>
+                                <Run Text="Model: "/>
+                                <Run Text="{Binding Path=ModelDrone}"/>
+                            </TextBlock>
+                            <TextBlock>
+                                <Run Text="Battery: "/>
+                                <Run Text="{Binding Path=BatteryDrone}"/>
+                            </TextBlock>
+                            <TextBlock>
+                                <Run Text="Status: "/>
+                                <Run Text="{Binding Path=DroneStatus}"/>
+                            </TextBlock>
+                            <TextBlock>
+                                <Run Text="Longitude: "/>
+                                <Run Text="{Binding Path=Location.Longitude}"/>
+                            </TextBlock>
+                            <TextBlock>
+                                <Run Text="Lattitude: "/>
+                                <Run Text="{Binding Path=Location.Lattitude}"/>
+                            </TextBlock>
+                            <TextBlock>
+                                <Run Text="ParcelId: "/>
+                                <Run Text="{Binding Path=ParcelId}"/>
+                            </TextBlock>-->
                         </StackPanel>
                     </Border>
                 </DataTemplate>

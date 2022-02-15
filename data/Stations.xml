@@ -1,27 +1,11 @@
 <?xml version="1.0"?>
 <ArrayOfStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Station>
-    <Id>213103930</Id>
-    <Name>2156454</Name>
-    <Longitude>7</Longitude>
-    <Lattitude>7</Lattitude>
-    <ChargeSlots>20</ChargeSlots>
-    <IsDeleted>false</IsDeleted>
-  </Station>
-  <Station>
-    <Id>213103930</Id>
-    <Name>Ruty Wexler</Name>
-    <Longitude>9</Longitude>
-    <Lattitude>9</Lattitude>
-    <ChargeSlots>528</ChargeSlots>
-    <IsDeleted>false</IsDeleted>
-  </Station>
-  <Station>
-    <Id>12</Id>
-    <Name>gf</Name>
-    <Longitude>0</Longitude>
-    <Lattitude>0</Lattitude>
-    <ChargeSlots>1234</ChargeSlots>
+    <Id>1</Id>
+    <Name>station1</Name>
+    <Longitude>32</Longitude>
+    <Lattitude>32</Lattitude>
+    <ChargeSlots>5</ChargeSlots>
     <IsDeleted>false</IsDeleted>
   </Station>
 </ArrayOfStation>

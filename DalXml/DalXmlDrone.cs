@@ -56,9 +56,9 @@ namespace Dal
         {
             var drones = XMLTools.LoadListFromXmlSerializer<Drone>(dronesPath);
             drones.Remove(updateDrone);
-            XMLTools.SaveListToXmlSerializer(drones, StationPath);
+            XMLTools.SaveListToXmlSerializer(drones, dronesPath);
             AddDrone(updateDrone.Id, name, updateDrone.MaxWeight);
-            XMLTools.SaveListToXmlSerializer(drones, StationPath);
+            XMLTools.SaveListToXmlSerializer(drones, dronesPath);
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]

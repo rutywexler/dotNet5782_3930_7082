@@ -131,6 +131,7 @@ namespace BL
         {
             if (Station == null)
                 Station = bl.GetStations().Select(station => bl.GetStation(station.IdStation)).FirstOrDefault(station => station.DronesInCharge.FirstOrDefault(drone => drone.ID == Drone.DroneId) != null);
+            UpdateLocationAndBattary(Station.Location, Drone.BatteryDrone);
             if (Drone.BatteryDrone == 100)
             {
                 bl.ReleaseDroneFromCharging(Drone.DroneId);
@@ -142,6 +143,7 @@ namespace BL
 
         }
 
+  
         private void DeliveryDrone()
         {
             try
