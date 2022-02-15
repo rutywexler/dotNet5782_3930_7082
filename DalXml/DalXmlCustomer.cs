@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.Runtime.CompilerServices;
+
 
 namespace Dal
 {
@@ -19,19 +21,7 @@ namespace Dal
         /// <param name="name">The customer`s name</param>
         /// <param name="longitude">>The position of the customer in relation to the longitude</param>
         /// <param name="latitude">>The position of the customer in relation to the latitude</param>
-        //public void AddCustomer(int id, string phone, string name, double longitude, double latitude)
-        //{
-
-        //    if (DalObject.DalObject.ExistsIDCheck(DataSource.Customers, id))
-        //        throw new Exception_ThereIsInTheListObjectWithTheSameValue();
-        //    Customer newCustomer = new Customer();
-        //    newCustomer.Id = id;
-        //    newCustomer.Name = name;
-        //    newCustomer.Phone = phone;
-        //    newCustomer.Lattitude = latitude;
-        //    newCustomer.Longitude = longitude;
-        //    Customers.Add(newCustomer);
-        //}
+  
         private Customer ConvertXElementToCustomerObject(XElement element)
         {
             return new Customer()
@@ -48,7 +38,7 @@ namespace Dal
         /// Prepares the list of customer for display
         /// </summary>
         /// <returns>A list of customer</returns>
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Customer> GetCustomers()
         {
             XElement customersXML = XMLTools.LoadListFromXmlElement(customersPath);
@@ -60,6 +50,7 @@ namespace Dal
         /// </summary>
         /// <param name="id">The id number of the requested customer</param>
         /// <returns>A customer for display</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Customer GetCustomer(int id)
         {
             XElement root = XMLTools.LoadListFromXmlElement(customersPath);
@@ -83,6 +74,14 @@ namespace Dal
         //    Customers.Add(customer);
         //}
 
+        /// <summary>
+        /// Gets parameters and create new customer 
+        /// </summary>
+        /// <param name="phone">The customer`s number phone</param>
+        /// <param name="name">The customer`s name</param>
+        /// <param name="longitude">>The position of the customer in relation to the longitude</param>
+        /// <param name="latitude">>The position of the customer in relation to the latitude</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomer(int customerId, string customerPhone, string customername, double customerLongitude, double customerLatitude)
         {
             XElement Customer = XMLTools.LoadListFromXmlElement(customersPath);
@@ -96,11 +95,12 @@ namespace Dal
             XMLTools.SaveListToXmlElement(Customer, customersPath);
         }
 
-      
+
         /// <summary>
         /// The function deletes a specific customer
         /// </summary>
         /// <param name="id">customer ID</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveCustomer(int id)
         {
             if (GetCustomer(id).Equals(default(Customer)))
@@ -108,37 +108,24 @@ namespace Dal
 
             UpdateCustomer(GetCustomer(id));
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateCustomer(Customer customer)
         {
             try
             {
                 XElement customers = XMLTools.LoadListFromXmlElement(customersPath);
                 XElement e = (from s in customers.Elements()
-                             where int.Parse(s.Element("Id").Value) == customer.Id
-                             select s).FirstOrDefault(); 
-               
+                              where int.Parse(s.Element("Id").Value) == customer.Id
+                              select s).FirstOrDefault();
+
                 e.Element("Name").Value = customer.Name;
                 e.Element("Phone").Value = customer.Phone;
                 XMLTools.SaveListToXmlElement(customers, customersPath);
 
-              
+
             }
             catch { throw new Exception(); }
-
         }
-     
-
-        //public void UpdateDrone(Drone updateDrone)
-        //{
-        //    var drones = XMLTools.LoadListFromXmlSerializer<Drone>(dronesPath);
-        //    Drone drone = drones.FirstOrDefault(d => d.Id == updateDrone.Id);
-        //    drones.Remove(drone);
-        //    XMLTools.SaveListToXmlSerializer(drones, StationPath);
-        //    AddDrone(updateDrone.Id, updateDrone.Model, updateDrone.MaxWeight);
-        //}
-
-
-
-
     }
 }

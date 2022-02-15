@@ -5,6 +5,8 @@ using System.ComponentModel;
 using System.Linq;
 using BlApi;
 using static BO.Enums;
+using System.Runtime.CompilerServices;
+
 
 namespace BL
 {
@@ -14,26 +16,29 @@ namespace BL
         /// the function adds the parcel to the list in the data
         /// </summary>
         /// <param name="parcel">the parcel the user add</param>
+       ////////
+       ///
         public void AddParcel(Parcel parcel)
         {
             if (!ExistsIDCheck(dal.GetCustomers(), parcel.CustomerSendsFrom.Id))
                 throw new KeyNotFoundException("Sender not exist");
             if (!ExistsIDCheck(dal.GetCustomers(), parcel.CustomerReceivesTo.Id))
                 throw new KeyNotFoundException("Target not exist");
-           // try
+            try
             {
-                dal.AddParcel(
-                    parcel.CustomerSendsFrom.Id,
-                    parcel.CustomerReceivesTo.Id,
-                   (DO.WeightCategories)parcel.WeightParcel,
-                  (DO.Priorities)parcel.Priority
-                );
+                lock(dal)
+                    dal.AddParcel(
+                        parcel.CustomerSendsFrom.Id,
+                        parcel.CustomerReceivesTo.Id,
+                       (DO.WeightCategories)parcel.WeightParcel,
+                      (DO.Priorities)parcel.Priority
+                    );
             }
-            //catch (Dal.Exception_ThereIsInTheListObjectWithTheSameValue ex)
-            //{
+            catch (Dal.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            {
 
-            //    throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
-            //}
+                throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
+            }
         }
 
         /// <summary>
@@ -41,13 +46,19 @@ namespace BL
         /// </summary>
         /// <param name="id">the id of the parcel in transfer</param>
         /// <returns></returns>
+       ////////\
         public ParcelInTransfer GetParcelInTransfer(int id)
         {
+            DO.Parcel parcel;
+            DO.Customer targetCustomer, senderCustomer;
             try
             {
-                var parcel = dal.GetParcel(id);
-                var targetCustomer = dal.GetCustomer(parcel.TargetId);
-                var senderCustomer = dal.GetCustomer(parcel.SenderId);
+                lock(dal)
+                    parcel = dal.GetParcel(id);
+                lock(dal)
+                    targetCustomer = dal.GetCustomer(parcel.TargetId);
+                lock(dal)
+                    senderCustomer = dal.GetCustomer(parcel.SenderId);
 
                 return new ParcelInTransfer()
                 {
@@ -71,6 +82,7 @@ namespace BL
         /// the function assigns parcel to drone
         /// </summary>
         /// <param name="droneId"> the drone id</param>
+       ////////\
         public void AssignParcelToDrone(int droneId)
         {
             Drone drone = GetDrone(droneId);
@@ -112,7 +124,8 @@ namespace BL
             //}
 
             //Parcel parcel = parcels.First();
-            dal.AssignParcelToDrone(4, droneId);
+            lock(dal)
+                dal.AssignParcelToDrone(4, droneId);
 
             drone.DroneStatus = DroneStatus.Delivery;
         }
@@ -121,15 +134,20 @@ namespace BL
         /// the function responsible to make the delivery parcel by the drone id the function get
         /// </summary>
         /// <param name="droneId"> the drone id</param>
+       ////////\
         public void DeliveryParcelByDrone(int droneId)
         {
             DroneToList droneToList = drones.Find(drone => drone.DroneId == droneId);
-
-            DO.Parcel parcel = dal.GetParcel((int)droneToList.DroneId);
+            DO.Parcel parcel;
+            lock (dal)
+                parcel = dal.GetParcel((int)droneToList.DroneId);
             drones.Remove(droneToList);
-            DO.Customer customer = dal.GetCustomer(parcel.TargetId);
+            DO.Customer customer;
+            lock (dal)
+                customer = dal.GetCustomer(parcel.TargetId);
             Location receiverLocation = new() { Longitude = customer.Longitude, Lattitude = customer.Lattitude };
-            droneToList.BatteryDrone -= LocationExtensions.Distance(droneToList.Location, receiverLocation) * dal.GetPowerConsumptionByDrone()[1 + (int)parcel.Weight];
+            lock(dal)
+                droneToList.BatteryDrone -= LocationExtensions.Distance(droneToList.Location, receiverLocation) * dal.GetPowerConsumptionByDrone()[1 + (int)parcel.Weight];
             droneToList.Location = receiverLocation;
             droneToList.DroneStatus = DroneStatus.Available;
             drones.Add(droneToList);
@@ -142,10 +160,14 @@ namespace BL
         /// <param name="parcelId">the parcel id</param>
         private void ParcelDeliveredDrone(int parcelId)
         {
-            DO.Parcel parcel = dal.GetParcel(parcelId);
-            dal.RemoveParcel(parcel.Id);
+            DO.Parcel parcel;
+            lock (dal)
+                parcel = dal.GetParcel(parcelId);
+            lock(dal)
+                dal.RemoveParcel(parcel.Id);
             parcel.Delivered = DateTime.Now;
-            dal.AddParcel(parcel.SenderId, parcel.TargetId, parcel.Weight, parcel.Priority, parcel.Id);
+            lock(dal)
+                dal.AddParcel(parcel.SenderId, parcel.TargetId, parcel.Weight, parcel.Priority, parcel.Id);
         }
 
         /// <summary>
@@ -153,25 +175,29 @@ namespace BL
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+       ////////\
         public Parcel GetParcel(int id)
         {
             try
             {
-                var parcel = dal.GetParcel(id);
-                var drone = drones.FirstOrDefault(drone => drone.DroneId == parcel.DroneId);
-                return new Parcel()
-                {
-                    Id = parcel.Id,
-                    DroneParcel = drone != default ? DroneToDroneInPackage(drone) : null,
-                    CustomerSendsFrom = CustomerToCustomerInParcel(dal.GetCustomer(parcel.SenderId)),
-                    CustomerReceivesTo = CustomerToCustomerInParcel(dal.GetCustomer(parcel.TargetId)),
-                    WeightParcel = (WeightCategories)parcel.Weight,
-                    Priority = (Priorities)parcel.Priority,
-                    TimeCreatedTheParcel = parcel.Requested,
-                    AssignmentTime = parcel.Scheduled,
-                    CollectionTime = parcel.PickedUp,
-                    DeliveryTime = parcel.Delivered,
-                };
+                DO.Parcel parcel;
+                lock(dal)
+                    parcel = dal.GetParcel(id);
+                DroneToList drone = drones.FirstOrDefault(drone => drone.DroneId == parcel.DroneId);
+                    lock(dal)
+                    return new Parcel()
+                    {
+                        Id = parcel.Id,
+                        DroneParcel = drone != default ? DroneToDroneInPackage(drone) : null,
+                        CustomerSendsFrom = CustomerToCustomerInParcel(dal.GetCustomer(parcel.SenderId)),
+                        CustomerReceivesTo = CustomerToCustomerInParcel(dal.GetCustomer(parcel.TargetId)),
+                        WeightParcel = (WeightCategories)parcel.Weight,
+                        Priority = (Priorities)parcel.Priority,
+                        TimeCreatedTheParcel = parcel.Requested,
+                        AssignmentTime = parcel.Scheduled,
+                        CollectionTime = parcel.PickedUp,
+                        DeliveryTime = parcel.Delivered,
+                    };
             }
             catch (KeyNotFoundException ex)
             {
@@ -206,19 +232,24 @@ namespace BL
             };
         }
 
+       ////////\
         public IEnumerable<ParcelList> GetParcels()
         {
-            return dal.GetParcels().Select(parcel => ParcelToParcelForList(parcel.Id));
+            lock(dal)
+                return dal.GetParcels().Select(parcel => ParcelToParcelForList(parcel.Id));
         }
 
+       ////////\
         public IEnumerable<ParcelList> GetParcelsNotAssignedToDrone()
         {
-            return dal.GetParcels(parcel => parcel.DroneId == 0)
-                .Select(parcel => ParcelToParcelForList(parcel.Id));
+            lock(dal)
+                return dal.GetParcels(parcel => parcel.DroneId == 0)
+                    .Select(parcel => ParcelToParcelForList(parcel.Id));
 
             //return dal.GetUnAssignmentParcels().Select(parcel => ParcelToParcelForList(parcel.Id));
         }
 
+       ////////\
         public void ParcelCollectionByDrone(int droneId)
         {
             DroneToList droneToList = drones.FirstOrDefault(item => item.DroneId == droneId);
@@ -230,10 +261,13 @@ namespace BL
             DO.Parcel parcel = default;
             try
             {
-                parcel = dal.GetParcel((int)droneToList.ParcelId);
+                lock(dal)
+                    parcel = dal.GetParcel((int)droneToList.ParcelId);
                 //if (parcel.PickedUp != default)
                 //    throw new ArgumentNullException("The package has already been collected");
-                DO.Customer customer = dal.GetCustomer(parcel.SenderId);
+                DO.Customer customer;
+                lock (dal)
+                    customer = dal.GetCustomer(parcel.SenderId);
                 Location senderLocation = new() { Longitude = customer.Longitude, Lattitude = customer.Lattitude };
                 droneToList.BatteryDrone -= LocationExtensions.Distance(droneToList.Location, senderLocation) * Available;
                 droneToList.Location = senderLocation;
@@ -273,17 +307,18 @@ namespace BL
                 ReceivesCustomer = parcel.CustomerReceivesTo.Name,
             };
         }
-
+       //////
+       ///
         public void DeleteParcel(int id)
         {
-            var parcel = dal.GetParcel(id);
-            dal.RemoveParcel(parcel.Id);
+            DO.Parcel parcel;
+            lock(dal)
+                parcel = dal.GetParcel(id);
+            lock(dal)
+                dal.RemoveParcel(parcel.Id);
         }
 
     }
 }
-
-
-
 
 

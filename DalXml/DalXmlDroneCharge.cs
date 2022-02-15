@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
+
 
 namespace Dal
 {
@@ -17,6 +19,7 @@ namespace Dal
         /// </summary>
         /// <param name="id">The id of particular station</param>
         /// <returns>A list of DroneCarge</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<int> GetDronechargingInStation(int id)
         {
             List<DroneCharge> droneCharges = XMLTools.LoadListFromXmlSerializer<DroneCharge>(droneChargesPath);
@@ -29,6 +32,7 @@ namespace Dal
             return DronechargingInStation;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneCharge> GetDroneCharging(Predicate<DroneCharge> predicate)
         {
             return XMLTools.LoadListFromXmlSerializer<DroneCharge>(droneChargesPath)
@@ -40,6 +44,7 @@ namespace Dal
         /// </summary>
         /// <param name="droneId">The drone to add</param>
         /// <param name="stationId">The station to add the drone</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDRoneCharge(int droneId, int stationId)
         {
             List<DroneCharge> droneCharges = XMLTools.LoadListFromXmlSerializer<DroneCharge>(droneChargesPath);
@@ -52,6 +57,7 @@ namespace Dal
         /// </summary>
         /// <param name="id">The id of the requested drone</param>
         /// <returns>A drone for display</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void ReleaseDroneFromRecharge(int droneId)
         {
             List<DroneCharge> droneCharges = XMLTools.LoadListFromXmlSerializer<DroneCharge>(droneChargesPath);

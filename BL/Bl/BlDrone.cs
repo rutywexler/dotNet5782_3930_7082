@@ -6,6 +6,8 @@ using BlApi;
 using BO;
 using static BO.Enums;
 using BL;
+using System.Runtime.CompilerServices;
+
 
 namespace BL
 {
@@ -21,13 +23,17 @@ namespace BL
         /// </summary>
         /// <param name="drone">the drone the user want to add</param>
         /// <param name="stationId">the statiion id in order to know the location to put the drone</param>
+       // [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDrone(int id, WeightCategories MaxWeight, string Model, int stationId)
         {
             try
             {
                 Drone drone = new() { DroneId = id, Weight = (WeightCategories)MaxWeight, DroneModel = Model };
-                dal.AddDrone(drone.DroneId, drone.DroneModel, (DO.WeightCategories)drone.Weight);
-                DO.Station station = dal.GetStation(stationId);
+                lock(dal)
+                    dal.AddDrone(drone.DroneId, drone.DroneModel, (DO.WeightCategories)drone.Weight);
+                DO.Station station;
+                lock(dal)
+                    station = dal.GetStation(stationId);
                 DroneToList droneToList = new()
                 {
                     DroneId = drone.DroneId,
@@ -58,6 +64,7 @@ namespace BL
         /// </summary>
         /// <param name="id">the id of the drone the user want to get</param>
         /// <returns></returns>
+       // [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone GetDrone(int id)
         {
             try
@@ -88,6 +95,7 @@ namespace BL
         /// the function returns the drone list from the data
         /// </summary>
         /// <returns></returns>
+       // [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneToList> GetDrones() => drones.ToList();
 
         /// <summary>
@@ -95,6 +103,7 @@ namespace BL
         /// </summary>
         /// <param name="id">the id of the drone the user wants to release</param>
         /// 
+        //[MethodImpl(MethodImplOptions.Synchronized)]
         public void ReleaseDroneFromCharging(int id)
         {
             DroneToList drone = drones.FirstOrDefault(item => item.DroneId == id);
@@ -102,19 +111,21 @@ namespace BL
                 throw new ArgumentNullException("In the charching not exist drone with this ID:(");
             if (drone.DroneStatus != DroneStatus.Meintenence)
                 throw new InvalidEnumArgumentException("because that the drone status is not maintence, its not possible to release the srone from charging ");
-
-            var timeOfCharge = DateTime.Now - dal.GetDroneCharging(d => d.DroneId == id).FirstOrDefault().StartTime;
-            drone.BatteryDrone += DroneLoadingRate * timeOfCharge.TotalMinutes;
+            lock(dal)
+            { 
+                var timeOfCharge = DateTime.Now - dal.GetDroneCharging(d => d.DroneId == id).FirstOrDefault().StartTime;
+                drone.BatteryDrone += DroneLoadingRate * timeOfCharge.TotalMinutes;
+            }
             drone.DroneStatus = DroneStatus.Available;
-
-
-            dal.ReleaseDroneFromRecharge(drone.DroneId);
+            lock(dal)
+                dal.ReleaseDroneFromRecharge(drone.DroneId);
         }
 
         /// <summary>
         /// the function send the drone with the id the function get to charge
         /// </summary>
         /// <param name="id">the id of the drone the user want to charge</param>
+       // [MethodImpl(MethodImplOptions.Synchronized)]
         public void SendDroneForCharge(int id)
         {
             DroneToList droneToList = drones.Find(item => item.DroneId == id);
@@ -127,8 +138,9 @@ namespace BL
             droneToList.DroneStatus = DroneStatus.Meintenence;
             station.NumberOfChargingStations -= 1;
             droneToList.BatteryDrone -= minDistanc * Available;
-            droneToList.Location = new Location() { Longitude = station.Location.Longitude, Lattitude = station.Location.Lattitude }; ;
-            dal.AddDRoneCharge(droneToList.DroneId, station.Id);
+            droneToList.Location = new Location() { Longitude = station.Location.Longitude, Lattitude = station.Location.Lattitude }; 
+            lock(dal)
+                dal.AddDRoneCharge(droneToList.DroneId, station.Id);
             drones.Add(droneToList);
         }
         /// <summary>
@@ -206,6 +218,9 @@ namespace BL
         /// </summary>
         /// <param name="id"></param>
         /// <param name="name"></param>
+
+        // [MethodImpl(MethodImplOptions.Synchronized)]
+
         public void UpdateDrone(int id, string name)
         {
             if (!ExistsIDCheck(dal.GetDrones(), id))
@@ -302,15 +317,18 @@ namespace BL
 
         }
 
+       // [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneToList> GetSomeDronesByStatus(DroneStatus droneStatus)
         {
             return ((List<DroneToList>)GetDrones()).FindAll(item => item.DroneStatus == droneStatus);
         }
 
+       // [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneToList> GetSomeDronesByWeight(WeightCategories weightCategories)
         {
             return ((List<DroneToList>)GetDrones()).FindAll(item => item.DroneWeight == weightCategories);
         }
+       // [MethodImpl(MethodImplOptions.Synchronized)]
         public void StartSimulator(Action update , int id, Func<bool> stop) => new DroneSimulator(id,this,update,stop );
 
       

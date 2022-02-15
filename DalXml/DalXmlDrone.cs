@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.Runtime.CompilerServices;
+
 
 namespace Dal
 {
@@ -21,6 +23,7 @@ namespace Dal
         /// </summary>
         /// <param name="model"> Grone's model</param>
         /// <param name="MaxWeight"> The max weight that the drone can swipe (light- 0,medium - 1,heavy - 2)</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDrone(int id, string model, DO.WeightCategories MaxWeight)
         { 
             List<Drone> drones = XMLTools.LoadListFromXmlSerializer<Drone>(dronesPath);
@@ -40,12 +43,15 @@ namespace Dal
         /// RemoveDrone is a method in the DalObject class.
         /// the method remove a drone frpm the drone list.
         /// </summary>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveDrone(Drone drone)
         {
             List<Drone> drones = XMLTools.LoadListFromXmlSerializer<Drone>(dronesPath);
             drones.Remove(drone);
             XMLTools.SaveListToXmlSerializer(drones, dronesPath);
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateDrone(Drone updateDrone,string name)
         {
             var drones = XMLTools.LoadListFromXmlSerializer<Drone>(dronesPath);
@@ -55,7 +61,7 @@ namespace Dal
             XMLTools.SaveListToXmlSerializer(drones, StationPath);
         }
 
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double[] GetPowerConsumptionByDrone()
         {
             return new double[] { 1, 2, 3, 4, 5 };
@@ -76,6 +82,7 @@ namespace Dal
         /// </summary>
         /// <param name="id">The id of the requested drone</param>
         /// <returns>A drone for display</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone GetDrone(int id)
         {
             Drone drone = XMLTools.LoadListFromXmlSerializer<Drone>(dronesPath).FirstOrDefault(item => item.Id == id);
@@ -84,6 +91,7 @@ namespace Dal
             return drone;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Drone> GetDrones() => XMLTools.LoadListFromXmlSerializer<Drone>(dronesPath);
 
 
