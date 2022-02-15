@@ -70,13 +70,13 @@ namespace PL
                       //  NotEnter("location");
                         return false;
                     }
-                    if (baseStation.Location.Latitude > 90 || baseStation.Location.Latitude < 0)
+                    if (baseStation.Location.Latitude > 90 || baseStation.Location.Latitude < -90)
                     {
                       //  EnterdWrongDetail("latitude");
                         return false;
 
                     }
-                    if (baseStation.Location.Longitude > 90 || baseStation.Location.Longitude < 0)
+                    if (baseStation.Location.Longitude > 90 || baseStation.Location.Longitude < -90)
                     {
                      //   EnterdWrongDetail("Longitude");
                         return false;
