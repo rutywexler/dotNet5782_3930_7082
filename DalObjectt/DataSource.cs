@@ -2,14 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dal
 {
     public class DataSource
     {
-        static readonly Random Rnd = new ();
+        static readonly Random Rnd = new();
 
         private const int DRONE_INIT = 20;
         private const int STATIONS_INIT = 9;
@@ -23,14 +21,11 @@ namespace Dal
         private const int CHARGE_SLOTS_MAX = 100;
         private const int PARCELS_STATE = 4;
 
-
-        public const string Administrator_Password = "";
-
         internal static List<Drone> Drones = new();
-        internal static List<Station> Stations = new ();
-        internal static List<Customer> Customers = new ();
-        internal static List<Parcel> Parcels = new ();
-        internal static List<DroneCharge> DroneCharges = new ();
+        internal static List<Station> Stations = new();
+        internal static List<Customer> Customers = new();
+        internal static List<Parcel> Parcels = new();
+        internal static List<DroneCharge> DroneCharges = new();
 
 
 
@@ -38,10 +33,10 @@ namespace Dal
         {
             internal static int IdParcel = 0;
             internal static double Available = 0.001;
-            internal static double LightWeightCarrier =0.002; 
+            internal static double LightWeightCarrier = 0.002;
             internal static double MediumWeightBearing = 0.003;
             internal static double CarriesHeavyWeight = 0.004;
-            internal static double DroneLoadingRate=3;
+            internal static double DroneLoadingRate = 3;
         }
 
         static internal void Initialize(DalObject dal)
@@ -75,9 +70,9 @@ namespace Dal
         private static void RandomStation(DalObject dal, int id)
         {
             string name = $"station_{'a' + id}";
-            double latitude = Rnd.Next(LATITUDE_MIN,LATITUDE_MAX) + Rnd.NextDouble();
+            double latitude = Rnd.Next(LATITUDE_MIN, LATITUDE_MAX) + Rnd.NextDouble();
             double longitude = Rnd.Next(LONGITUDE_MAX) + Rnd.NextDouble();
-            int chargeSlots = Rnd.Next(1,CHARGE_SLOTS_MAX);
+            int chargeSlots = Rnd.Next(1, CHARGE_SLOTS_MAX);
             dal.AddStation(id, name, longitude, latitude, chargeSlots);
         }
         private static void RandomCustomer(DalObject dal, int id)
@@ -90,23 +85,23 @@ namespace Dal
         }
         private static void RandParcel()
         {
-            Parcel newParcel = new ();
+            Parcel newParcel = new();
             newParcel.Id = ++Config.IdParcel;
             newParcel.SenderId = Customers[Rnd.Next(1, Customers.Count(customer => !customer.IsDeleted))].Id;
             do
             {
                 newParcel.TargetId = Customers[Rnd.Next(1, Customers.Count(customer => !customer.IsDeleted))].Id;
             } while (newParcel.TargetId == newParcel.SenderId);
-            newParcel.Weight = (WeightCategories)Rnd.Next((int)Enum.GetValues< WeightCategories>().Min(), (int)Enum.GetValues<WeightCategories>().Max());
+            newParcel.Weight = (WeightCategories)Rnd.Next((int)Enum.GetValues<WeightCategories>().Min(), (int)Enum.GetValues<WeightCategories>().Max());
             newParcel.Priority = (Priorities)Rnd.Next((int)Enum.GetValues<Priorities>().Min(), (int)Enum.GetValues<Priorities>().Max());
-            newParcel.Requested = DateTime.Now;;
-            newParcel.Scheduled =default;
+            newParcel.Requested = DateTime.Now; ;
+            newParcel.Scheduled = default;
             newParcel.PickedUp = default;
             newParcel.Delivered = default;
             newParcel.DroneId = 0;
             newParcel.IsDeleted = false;
-            int state = Rnd.Next(PARCELS_STATE);
-            if (state!=0)
+            int status = Rnd.Next(PARCELS_STATE);
+            if (status != 0)
             {
                 newParcel.DroneId = AssignParcelDrone(newParcel.Weight);
                 if (newParcel.DroneId != 0)
@@ -115,19 +110,19 @@ namespace Dal
                     if (tmp.DroneId == 0)
                     {
                         newParcel.Scheduled = DateTime.Now;
-                        if (state==2)
+                        if (status == 2)
                         {
                             newParcel.PickedUp = DateTime.Now;
                         }
-                           
+
                     }
-                    if (state == 3)
+                    if (status == 3)
                     {
                         newParcel.Scheduled = DateTime.Now;
                         newParcel.PickedUp = DateTime.Now;
                         newParcel.Delivered = DateTime.Now;
                     }
-                        
+
                 }
 
             }
