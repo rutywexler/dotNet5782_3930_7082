@@ -68,7 +68,8 @@ namespace PL
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            new AddsNewDrone(ibl, RefreshDroneList).Show();
+            new AddDrone().ShowDialog();
+            RefreshDroneList();
         }
 
         private void ViewDrone(object sender, MouseButtonEventArgs e)

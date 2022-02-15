@@ -11,6 +11,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ViewModel\Drone\**" />
+    <EmbeddedResource Remove="ViewModel\Drone\**" />
+    <None Remove="ViewModel\Drone\**" />
+    <Page Remove="ViewModel\Drone\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MaterialDesignColors" Version="2.0.4" />
     <PackageReference Include="MaterialDesignThemes" Version="4.3.0" />
     <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.2.0" />
@@ -19,11 +26,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ViewModel\Drone\" />
-    <Folder Include="View\Drone\" />
   </ItemGroup>
 
 </Project>

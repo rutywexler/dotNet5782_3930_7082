@@ -23,8 +23,8 @@
         <TextBlock HorizontalAlignment="Left" Margin="200,90,0,0" Text="Enter drone model" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <ComboBox  HorizontalAlignment="Center" Name="WeightSelector"  Margin="0,130,0,0"  SelectedItem="{Binding Weight }"  VerticalAlignment="Top"></ComboBox>
         <TextBlock HorizontalAlignment="Left" Margin="200,130,0,0" Text="choose weight category"  TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox x:Name="ID_Station" HorizontalAlignment="Center" Margin="0,210,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewTextInput="NumberValidationTextBox"/>
-        <TextBlock HorizontalAlignment="Left" Margin="240,210,0,0" Text="Enter station ID:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="240,200,0,0" Text="Enter station ID:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <ComboBox HorizontalAlignment="Left" Margin="0,210,0,0" Name="StationSelector" Text="Enter station ID:" SelectedItem="{Binding StationId }"   VerticalAlignment="Top"/>
 
         <Button Content="OK" Margin="0,350,0,0" Click="AddingDrone" Height="30"></Button>
             <Grid>

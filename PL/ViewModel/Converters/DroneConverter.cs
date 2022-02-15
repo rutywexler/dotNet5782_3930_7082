@@ -18,6 +18,17 @@ namespace PL
             };
         }
 
+        public static BO.DroneToList ConvertBackDrone(DroneForList drone)
+        {
+            return new()
+            {
+                DroneId = drone.Id,
+                ModelDrone = drone.Model,
+                DroneWeight = (BO.Enums.WeightCategories)drone.Weight,
+                DroneStatus = (BO.Enums.DroneStatus)drone.Status,
+            };
+        }
+
         public static DroneInCharging ConvertDroneCharging(BO.DroneInCharging droneInCharging)
         {
             return new DroneInCharging()

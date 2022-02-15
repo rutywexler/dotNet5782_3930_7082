@@ -49,10 +49,10 @@ namespace Bl
                                        .Select(s => new Location() { Lattitude = s.Lattitude, Longitude = s.Longitude })
                                        .ToList();
 
-            foreach (var Drone in Drones)
+            foreach (var drone in Drones)
             {
 
-                var parcel = parcels.FirstOrDefault(parcel => parcel.DroneId == Drone.Id);
+                var parcel = parcels.FirstOrDefault(parcel => parcel.DroneId == drone.Id);
                 double battery;
                 int? parcelInTransfer = null;
                 DroneStatus status;
@@ -70,6 +70,7 @@ namespace Bl
                         status = DroneStatus.Available;
                     else
                         status = (DroneStatus)rand.Next(0, 2);
+
                 }
                 else
                 {
@@ -93,7 +94,7 @@ namespace Bl
                     }
                     return new Location();
                 }
-               
+
                 //location
                 location = status switch
                 {
@@ -103,6 +104,11 @@ namespace Bl
                                           ? FindClosest(targetLocation, stationsLocations)
                                           : senderLocation,
                 };
+
+                if (status == DroneStatus.Meintenence)
+                {
+                    dal.AddDRoneCharge(drone.Id, dal.GetStations().FirstOrDefault(station => station.Lattitude == location.Lattitude && station.Longitude == location.Longitude).Id);
+                }
 
                 var availableStationsLocations = dal.GetAvailableChargingStations()
                                                    .Select(s => new Location() { Lattitude = s.Lattitude, Longitude = s.Longitude })
@@ -127,9 +133,9 @@ namespace Bl
                 drones.Add(
                         new DroneToList()
                         {
-                            DroneId = Drone.Id,
-                            ModelDrone = Drone.Model,
-                            DroneWeight = (WeightCategories)Drone.MaxWeight,
+                            DroneId = drone.Id,
+                            ModelDrone = drone.Model,
+                            DroneWeight = (WeightCategories)drone.MaxWeight,
                             BatteryDrone = battery,
                             DroneStatus = status,
                             Location = location,

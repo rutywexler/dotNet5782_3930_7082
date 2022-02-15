@@ -6,7 +6,7 @@ namespace PL
     {
         public enum WeightCategories { LIGHT = 1, INTERMEDIATE, HEAVY }
 
-        public enum DroneStatuses { AVAILABLE, MAINTENANCE, TRANSPORT }
+        public enum DroneStatuses { AVAILABLE, MAINTENANCE, DELIVERY }
 
         public enum Priorities { REGULAR = 1, FAST, EMERGENCY }
 

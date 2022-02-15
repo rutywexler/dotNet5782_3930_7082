@@ -48,33 +48,33 @@
                 <TextBlock  Text="{Binding Path=ParcelId}" TextAlignment="Right"/>
             </DockPanel>
         </StackPanel>
-        
+
         <!--available-->
-        <StackPanel Grid.Row="1" Visibility="{Binding DroneStatus, Converter={StaticResource AvailableDroneToVisibilityConverter }}"  >
+        <StackPanel Grid.Row="1" Visibility="{Binding Status , Converter={StaticResource AvailableDroneToVisibilityConverter}}">
             <Button Content="Sending the drone for charging"  HorizontalAlignment="Left"   VerticalAlignment="Top" Click="SendingTheDroneForCharging"/>
             <Button Content="Sending the drone for delivery"  HorizontalAlignment="Left"   VerticalAlignment="Top" Click="SendingTheDroneForDelivery"/>
         </StackPanel>
-        
+
         <!--meintence-->
-        <StackPanel Grid.Row="1" Visibility="{Binding DroneStatus, Converter={StaticResource MeintenceDroneToVisibilityConverter }}"  >
+        <StackPanel Grid.Row="1" Visibility="{Binding Status, Converter={StaticResource MeintenceDroneToVisibilityConverter }}"  >
             <Button Content="Release drone from charging"  HorizontalAlignment="Left"   VerticalAlignment="Top" Click="ReleaseDroneFromCharging"/>
         </StackPanel>
-        
-       <!--delivery-->
-        <StackPanel Grid.Row="1"  Visibility="{Binding DroneStatus, Converter={StaticResource DeliveryDroneToVisibilityConverter }}"  >
+
+        <!--delivery-->
+        <StackPanel Grid.Row="1"  Visibility="{Binding Status, Converter={StaticResource DeliveryDroneToVisibilityConverter}}"  >
             <!--drone in delivery with a package that has not yet been collected-->
             <Button Content="parcel collection"  HorizontalAlignment="Left"   VerticalAlignment="Top" Click="ParcelCollection"/>
             <!--drone in the delivery that has already collected the package-->
             <Button Content="parcel delivery"  HorizontalAlignment="Left"   VerticalAlignment="Top" Click="ParcelDelivery"/>
         </StackPanel>
-    
-        
+
+
         <StackPanel Grid.Row="2" >
             <Button Content="close Window" HorizontalAlignment="Left"   VerticalAlignment="Top" Click="CloseWindow" />
             <Button Content="update" HorizontalAlignment="Left"   VerticalAlignment="Top" Click="UpdateModel"/>
             <Button Content="simulator" Click="Auto_Click"></Button>
         </StackPanel>
-       
+
     </Grid>
 
 

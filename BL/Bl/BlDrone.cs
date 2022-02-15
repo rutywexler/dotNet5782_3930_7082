@@ -21,7 +21,7 @@ namespace Bl
         /// </summary>
         /// <param name="drone">the drone the user want to add</param>
         /// <param name="stationId">the statiion id in order to know the location to put the drone</param>
-        public void AddDrone(int id, DO.WeightCategories MaxWeight, string Model, int stationId)
+        public void AddDrone(int id, WeightCategories MaxWeight, string Model, int stationId)
         {
             try
             {

@@ -17,10 +17,10 @@ namespace PL
         {
             bl = BlApi.BlFactory.GetBL();
             customer = new();
-            AddCustomerCommand = new(AddStation,null)/*checkValid.CheckValidAddCustomer)*/;
+            AddCustomerCommand = new(AddCustomer,null)/*checkValid.CheckValidAddCustomer)*/;
         }
 
-        private void AddStation(object parameter)
+        private void AddCustomer(object parameter)
         {
             try
             {

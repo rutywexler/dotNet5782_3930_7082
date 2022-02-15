@@ -24,7 +24,9 @@ namespace PL
 
     {
         private BlApi.IBL bl;
-         Action refreshDroneList;
+        Action refreshDroneList;
+        public IEnumerable<int> StationsId { get; set; }
+        public int StationId { get; set; }
 
         public AddsNewDrone()
         {
@@ -38,24 +40,22 @@ namespace PL
             this.refreshDroneList = refreshDroneList;
             //NewDrone.DataContext = ibl.GetDrones();
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+            StationSelector.ItemsSource = bl.GetStaionsWithEmptyChargeSlots().Select(station => station.IdStation);
         }
 
         private void AddingDrone(object sender, RoutedEventArgs e)
         {
             try
             {
-                
-                BO.BaseStation baseStation = bl.GetStation(int.Parse(ID_Station.Text));
+                //BO.BaseStation baseStation = bl.GetStation(StationId);
                 try
                 {
-                    bl.AddDrone(int.Parse(ID_Drone.Text), (DO.WeightCategories)(WeightCategories)WeightSelector.SelectedItem, Drone_model.Text, int.Parse(ID_Station.Text));
+                    bl.AddDrone(int.Parse(ID_Drone.Text), (WeightCategories)WeightSelector.SelectedItem, Drone_model.Text, StationId);
                     refreshDroneList();
                     if (MessageBox.Show("the drone succeeded to add ", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                     {
                         this.Close();
                     }
-                    
-
                 }
                 catch
                 {

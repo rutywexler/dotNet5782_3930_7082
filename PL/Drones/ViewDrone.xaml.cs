@@ -80,7 +80,7 @@ namespace PL
 
         private void ReleaseDroneFromCharging(object sender, RoutedEventArgs e)
         {
-            //MyIbl.ReleaseDroneFromCharging(SelectedDrone.DroneId);
+            MyIbl.ReleaseDroneFromCharging(SelectedDrone.Id);
             RefreshDroneList();
         }
 
