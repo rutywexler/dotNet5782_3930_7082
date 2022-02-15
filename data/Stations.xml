@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <ArrayOfStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Station>
-    <Id>12</Id>
-    <Name>Ruty</Name>
-    <Longitude>52</Longitude>
-    <Lattitude>52</Lattitude>
-    <ChargeSlots>3</ChargeSlots>
+    <Id>1</Id>
+    <Name>station1</Name>
+    <Longitude>32</Longitude>
+    <Lattitude>32</Lattitude>
+    <ChargeSlots>5</ChargeSlots>
     <IsDeleted>false</IsDeleted>
   </Station>
 </ArrayOfStation>
