@@ -14,6 +14,7 @@ namespace PL
     {
         BlApi.IBL MyIbl;
         Action RefreshDroneList;
+
         private DroneForList drone;
         
         public bool auto { get; set; }
@@ -98,8 +99,8 @@ namespace PL
         private void UpdateModel(object sender, RoutedEventArgs e)
         {
             try
-            {
-                SelectedDrone.Model = UpdateModelContext.Text;
+            { 
+                MyIbl.UpdateDrone(SelectedDrone.Id, UpdateModelContext.Text);
                 RefreshDroneList();
                 MessageBox.Show("the drone succeeded to update ", "success", MessageBoxButton.OK);
             }

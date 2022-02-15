@@ -75,7 +75,8 @@ namespace PL
         private void ViewDrone(object sender, MouseButtonEventArgs e)
         {
             var selectedDrone = (e.OriginalSource as FrameworkElement).DataContext;
-            new ViewDrone(ibl, DroneConverter.ConvertDroneToList((BO.DroneToList)selectedDrone), RefreshDroneList).Show();
+            new ViewDrone(ibl, DroneConverter.ConvertDroneToList((BO.DroneToList)selectedDrone), RefreshDroneList).ShowDialog();
+            RefreshDroneList();
         }
 
         private void Cancel_filtering(object sender, RoutedEventArgs e)

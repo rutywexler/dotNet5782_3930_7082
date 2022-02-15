@@ -208,12 +208,12 @@ namespace BL
         /// <param name="name"></param>
         public void UpdateDrone(int id, string name)
         {
-            if (ExistsIDCheck(dal.GetDrones(), id))
+            if (!ExistsIDCheck(dal.GetDrones(), id))
                 throw new KeyNotFoundException();
             DO.Drone droneDl = dal.GetDrone(id);
             if (name.Equals(default))
                 throw new ArgumentNullException("For updating, you must enter the name! ");
-            dal.UpdateDrone(droneDl);
+            dal.UpdateDrone(droneDl, name);
 
             //dal.RemoveDrone(droneDl);
             //dal.AddDrone(id, name, droneDl.MaxWeight);
