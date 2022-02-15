@@ -31,6 +31,9 @@
             <TextBlock Text="Drone:"/>
             <TextBlock x:Name="Drone1" Text ="{Binding Parcel.Drone1, UpdateSourceTrigger=PropertyChanged}" />
             <Button Command="{Binding OpenDroneWindowCommand}" CommandParameter="Parcel.Drone1" Content="Open drone details"></Button>
+                <!--delivery-->
+                <!--<StackPanel Grid.Row="1"  Visibility="{Binding Status, Converter={StaticResource DeliveryDroneToVisibilityConverter}}"  >
+                    --><!--drone in delivery with a package that has not yet been collected--><!--
                 <!--delivery--><!--
                 <StackPanel Grid.Row="1"  Visibility="{Binding Status, Converter={StaticResource DeliveryDroneToVisibilityConverter}}"  >
                     --><!--drone in delivery with a package that has not yet been collected--><!--

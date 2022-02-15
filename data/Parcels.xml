@@ -117,4 +117,17 @@
     <Delivered xsi:nil="true" />
     <IsDeleted>true</IsDeleted>
   </Parcel>
+  <Parcel>
+    <Id>11</Id>
+    <SenderId>313397391</SenderId>
+    <TargetId>325207082</TargetId>
+    <Weight>Light</Weight>
+    <Priority>Regular</Priority>
+    <Requested>2022-02-15T18:42:41.2133713+02:00</Requested>
+    <DroneId>0</DroneId>
+    <Scheduled>0001-01-01T00:00:00</Scheduled>
+    <PickedUp>0001-01-01T00:00:00</PickedUp>
+    <Delivered xsi:nil="true" />
+    <IsDeleted>false</IsDeleted>
+  </Parcel>
 </ArrayOfParcel>
