@@ -31,8 +31,15 @@
             <TextBlock Text="Drone:"/>
             <TextBlock x:Name="Drone1" Text ="{Binding Parcel.Drone1, UpdateSourceTrigger=PropertyChanged}" />
             <Button Command="{Binding OpenDroneWindowCommand}" CommandParameter="Parcel.Drone1" Content="Open drone details"></Button>
+                <!--delivery-->
+                <StackPanel Grid.Row="1"  Visibility="{Binding Status, Converter={StaticResource DeliveryDroneToVisibilityConverter}}"  >
+                    <!--drone in delivery with a package that has not yet been collected-->
+                    <Button Content="parcel collection"  HorizontalAlignment="Left"   VerticalAlignment="Top" Click="ParcelCollection"/>
+                    <!--drone in the delivery that has already collected the package-->
+                    <Button Content="parcel delivery"  HorizontalAlignment="Left"   VerticalAlignment="Top" Click="ParcelDelivery"/>
+                </StackPanel>
 
-            <Button Command="{Binding DeleteParcelCommand}"
+                <Button Command="{Binding DeleteParcelCommand}"
                  Content="Delete Parcel"></Button>
         </StackPanel>
        </ScrollViewer>

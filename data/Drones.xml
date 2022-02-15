@@ -25,8 +25,8 @@
     <IsDeleted>false</IsDeleted>
   </Drone>
   <Drone>
-    <Id>1230</Id>
-    <Model>12345</Model>
+    <Id>1111111111</Id>
+    <Model>56</Model>
     <MaxWeight>Light</MaxWeight>
     <IsDeleted>false</IsDeleted>
   </Drone>

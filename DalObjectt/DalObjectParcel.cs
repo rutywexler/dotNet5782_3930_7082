@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Dal.DataSource;
+using System.Runtime.CompilerServices;
 
 namespace Dal
 {
@@ -17,6 +18,7 @@ namespace Dal
         /// <param name="TargetId"> Id of target</param>
         /// <param name="Weigth"> The weigth of parcel (light- 0,medium - 1,heavy - 2)</param>
         /// <param name="Priority"> The priority of send the parcel (regular - 0,fast - 1,emergency - 2)</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddParcel(int SenderId, int TargetId, WeightCategories Weigth, Priorities Priority, int id = 0, int droneId = 0, DateTime requested = default, DateTime sceduled = default, DateTime pickedUp = default, DateTime? delivered = default)
         {
             if (!ExistsIDCheck(GetCustomers(), SenderId))
@@ -43,6 +45,7 @@ namespace Dal
         /// </summary>
         /// <param name="id">The id number of the requested parcel</param>
         /// <returns>A parcel for display</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel GetParcel(int id)
         {
             Parcel parcel = DataSource.Parcels.FirstOrDefault(item => item.Id == id);
@@ -55,7 +58,7 @@ namespace Dal
         /// Prepares the list of Parcels for display
         /// </summary>
         /// <returns>A list of parcel</returns>
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> GetParcels()
         {
             return Parcels.Where(parcel => parcel.IsDeleted == false);
@@ -65,13 +68,10 @@ namespace Dal
         /// the function return parcels that dont assignment
         /// </summary>
         /// <returns></returns>
-        //public IEnumerable<Parcel> GetUnAssignmentParcels()
-        //{
-        //    return DataSource.Parcels.Where(parcel => parcel.DroneId == 0);
-        // }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate)
         {
-            return DataSource.Parcels.Where(parcel => predicate(parcel));
+            return Parcels.Where(parcel => predicate(parcel));
         }
 
         /// <summary>
@@ -79,6 +79,7 @@ namespace Dal
         /// </summary>
         /// <param name="parcelId">parcelId</param>
         /// <param name="droneId">droneId</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AssignParcelToDrone(int parcelId, int droneId)
         {
             Parcel parcel = GetParcel(parcelId);
@@ -93,6 +94,7 @@ namespace Dal
         /// Removing a Parcel from the list
         /// </summary>
         /// <param name="station"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveParcel(int id)
         {
             Parcel parcel = Parcels.FirstOrDefault(parcel => parcel.Id == id);

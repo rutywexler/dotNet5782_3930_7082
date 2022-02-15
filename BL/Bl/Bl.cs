@@ -6,6 +6,8 @@ using BlApi;
 using static BO.Enums;
 using Singelton;
 using DalApi;
+using System.Runtime.CompilerServices;
+
 
 namespace BL
 {

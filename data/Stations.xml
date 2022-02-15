@@ -1,27 +1,19 @@
 <?xml version="1.0"?>
 <ArrayOfStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Station>
-    <Id>1</Id>
-    <Name>1234</Name>
-    <Longitude>32</Longitude>
-    <Lattitude>32</Lattitude>
-    <ChargeSlots>123</ChargeSlots>
+    <Id>213103930</Id>
+    <Name>2156454</Name>
+    <Longitude>7</Longitude>
+    <Lattitude>7</Lattitude>
+    <ChargeSlots>20</ChargeSlots>
     <IsDeleted>false</IsDeleted>
   </Station>
   <Station>
-    <Id>12</Id>
-    <Name>r</Name>
-    <Longitude>34</Longitude>
-    <Lattitude>34</Lattitude>
-    <ChargeSlots>123</ChargeSlots>
-    <IsDeleted>false</IsDeleted>
-  </Station>
-  <Station>
-    <Id>12345</Id>
-    <Name>12</Name>
-    <Longitude>35</Longitude>
-    <Lattitude>35</Lattitude>
-    <ChargeSlots>12</ChargeSlots>
+    <Id>213103930</Id>
+    <Name>Ruty Wexler</Name>
+    <Longitude>9</Longitude>
+    <Lattitude>9</Lattitude>
+    <ChargeSlots>528</ChargeSlots>
     <IsDeleted>false</IsDeleted>
   </Station>
 </ArrayOfStation>

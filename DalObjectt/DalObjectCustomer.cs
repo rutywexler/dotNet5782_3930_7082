@@ -5,11 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Dal.DataSource;
+using System.Runtime.CompilerServices;
 
 namespace Dal
 {
     public partial class DalObject
     {
+
         /// <summary>
         /// Gets parameters and create new customer 
         /// </summary>
@@ -17,6 +19,7 @@ namespace Dal
         /// <param name="name">The customer`s name</param>
         /// <param name="longitude">>The position of the customer in relation to the longitude</param>
         /// <param name="latitude">>The position of the customer in relation to the latitude</param>
+         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomer(int id, string phone, string name, double longitude, double latitude)
         {
             if (ExistsIDCheck(DataSource.Customers, id))
@@ -34,7 +37,8 @@ namespace Dal
         /// Prepares the list of customer for display
         /// </summary>
         /// <returns>A list of customer</returns>
-     
+        [MethodImpl(MethodImplOptions.Synchronized)]
+
         public IEnumerable<Customer> GetCustomers()
         {
             return Customers.Where(customer => customer.IsDeleted == false);
@@ -45,6 +49,7 @@ namespace Dal
         /// </summary>
         /// <param name="id">The id number of the requested customer</param>
         /// <returns>A customer for display</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Customer GetCustomer(int id)
         {
             if (Customers.Equals(default(Customer)))
@@ -52,6 +57,7 @@ namespace Dal
             return Customers.FirstOrDefault(item => item.Id == id);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveCustomer(int id)
         {
             Customer customer = Customers.FirstOrDefault(customer => customer.Id == id);
@@ -59,6 +65,8 @@ namespace Dal
             customer.IsDeleted = true;
             Customers.Add(customer);
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateCustomer(Customer customer)
         {
             var d = Customers.FirstOrDefault(item => item.Id == customer.Id);

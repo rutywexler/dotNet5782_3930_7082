@@ -3,6 +3,7 @@ using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Dal
 {
@@ -19,6 +20,7 @@ namespace Dal
         /// <param name="longitude">The position of the station in relation to the longitude </param>
         /// <param name="latitude">The position of the station in relation to the latitude</param>
         /// <param name="chargeSlots">Number of charging slots at the station</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddStation(int id, string name, double longitude, double latitude, int chargeSlots)
         {
             List<Station> stationList = XMLTools.LoadListFromXmlSerializer<Station>(StationPath);
@@ -41,6 +43,7 @@ namespace Dal
         /// </summary>
         /// <param name="id">The id number of the requested station/param>
         /// <returns>A station for display</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Station GetStation(int id)
         {
             Station station = XMLTools.LoadListFromXmlSerializer<Station>(StationPath).FirstOrDefault(item => item.Id == id);
@@ -53,6 +56,7 @@ namespace Dal
         ///  Prepares the list of Sations for display
         /// </summary>
         /// <returns>A list of stations</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Station> GetStations()
         {
             return XMLTools.LoadListFromXmlSerializer<Station>(StationPath);
@@ -73,6 +77,8 @@ namespace Dal
                     XMLTools.LoadListFromXmlSerializer<Station>(StationPath)
                     : XMLTools.LoadListFromXmlSerializer<Station>(StationPath).Where(predicate);
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Station> GetAvailableChargingStations() => getAvailbleStations(item => item.ChargeSlots > NotAvailableChargingPorts(item.Id));
 
         /// <summary>
@@ -80,6 +86,7 @@ namespace Dal
         /// </summary>
         /// <param name="baseStationId">the ststion ID</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public int NotAvailableChargingPorts(int baseStationId)
         {
             List<DroneCharge> DroneCharges = XMLTools.LoadListFromXmlSerializer<DroneCharge>(DroneChargePath);
@@ -95,6 +102,7 @@ namespace Dal
         /// remove station from ststion list
         /// </summary>
         /// <param name="customer">the station i want to delete</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveStation(int id)
         {
             List<Station> stations = XMLTools.LoadListFromXmlSerializer<Station>(StationPath);
@@ -104,6 +112,8 @@ namespace Dal
             //stations.Add(basestation);
             XMLTools.SaveListToXmlSerializer(stations, StationPath);
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateSation(Station updateStation)
         {
             var stations = XMLTools.LoadListFromXmlSerializer<Station>(StationPath);
