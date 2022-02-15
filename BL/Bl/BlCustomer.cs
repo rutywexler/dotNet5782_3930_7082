@@ -140,7 +140,7 @@ namespace BL
                 Id = parcel.Id,
                 Weight = parcel.WeightParcel,
                 Priority = parcel.Priority,
-                Status = parcel.AssignmentTime == default ? PackageStatuses.DEFINED : parcel.CollectionTime == default ? PackageStatuses.ASSOCIATED : parcel.DeliveryTime == default ? PackageStatuses.COLLECTED : PackageStatuses.PROVIDED
+                Status = parcel.AssignmentTime == default ? PackageStatuses.CREATED : parcel.CollectionTime == default ? PackageStatuses.ASSOCIATED : parcel.DeliveryTime == default ? PackageStatuses.COLLECTED : PackageStatuses.PROVIDED
             };
 
 

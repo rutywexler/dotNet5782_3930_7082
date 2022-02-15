@@ -19,7 +19,7 @@
 
         public enum PackageStatuses
         {
-            DEFINED,
+            CREATED,
             ASSOCIATED,
             COLLECTED,
             PROVIDED

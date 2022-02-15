@@ -271,6 +271,7 @@ namespace BL
                 Id = parcel.Id,
                 Priority = parcel.Priority,
                 Weight = parcel.WeightParcel,
+                ParcelStatus = PackageStatuses.CREATED,
                 SendCustomer = parcel.CustomerSendsFrom.Name,
                 ReceivesCustomer = parcel.CustomerReceivesTo.Name,
             };
