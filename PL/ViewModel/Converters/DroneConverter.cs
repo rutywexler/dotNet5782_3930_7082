@@ -62,7 +62,21 @@ namespace PL
             };
         }
 
- 
+        public static Drone ConvertDrone(BO.Drone drone)
+        {
+            return new Drone
+            {
+                Id = drone.DroneId,
+                Model = drone.DroneModel,
+                Battery = (int)drone.BatteryStatus,
+                Status = (Enums.DroneStatuses)drone.DroneStatus,
+                Weight = (Enums.WeightCategories)drone.Weight,
+                Location =LocationConverter.ConvertLocation(drone.DroneLocation),
+                DeliveryByTransfer = drone.DeliveryTransfer == null ? null : ParcelConverter.ConvertParcelInTransfer(drone.DeliveryTransfer)
+            };
+        }
+
+
 
         //internal static DroneForList ConvertDroneToList(DroneInParcel droneInParcel)
         //{

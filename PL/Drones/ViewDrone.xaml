@@ -44,8 +44,8 @@
                 <TextBlock  Text="{Binding Path=Location}" TextAlignment="Right"/>
             </DockPanel>
             <DockPanel>
-                <TextBlock  Text="ParcelId"/>
-                <TextBlock  Text="{Binding Path=ParcelId}" TextAlignment="Right"/>
+                <TextBlock  Text="Parcel" />
+                <TextBlock   Text="{Binding Path=DeliveryByTransfer}"  />
             </DockPanel>
         </StackPanel>
 
