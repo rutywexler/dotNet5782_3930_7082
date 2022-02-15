@@ -135,6 +135,15 @@ namespace Dal
             XMLTools.SaveListToXmlSerializer(parcels, parcelsPath);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void RemoveParcelAbsolute(int id)
+        {
+            List<Parcel> parcels = XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath);
+            Parcel parcel = parcels.FirstOrDefault(parcel => parcel.Id == id);
+            parcels.Remove(parcel);
+            XMLTools.SaveListToXmlSerializer(parcels, parcelsPath);
+        }
+
 
     }
 }

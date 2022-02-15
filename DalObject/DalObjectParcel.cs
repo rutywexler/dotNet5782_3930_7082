@@ -103,6 +103,14 @@ namespace Dal
             Parcels.Add(parcel);
         }
 
-        
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void RemoveParcelAbsolute(int id)
+        {
+            Parcel parcel = GetParcel(id);
+            Parcels.Remove(parcel);
+        }
+
+
+
     }
 }
