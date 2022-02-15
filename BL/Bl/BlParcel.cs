@@ -47,7 +47,7 @@ namespace BL
         /// <param name="id">the id of the parcel in transfer</param>
         /// <returns></returns>
        ////////\
-        public ParcelInTransfer GetParcelInTransfer(int id)
+        public ParcelInTransfer GetParcelforlist(int id)
         {
             DO.Parcel parcel;
             DO.Customer targetCustomer, senderCustomer;
@@ -110,7 +110,7 @@ namespace BL
                  .Select(parcel => GetParcel(parcel.Id)).ToList()
                  .Where(parcel =>
                       (int)parcel.WeightParcel < (int)drone.Weight &&
-                      IsDroneCanTakeTheParcel(drone, GetParcelInTransfer(parcel.Id)))
+                      IsDroneCanTakeTheParcel(drone, GetParcelforlist(parcel.Id)))
                  .OrderBy(p => p.Priority)
                  .ThenBy(p => p.WeightParcel)
                  .ThenBy(p => LocationExtensions.Distance(GetCustomer(p.CustomerSendsFrom.Id).Location, drone.DroneLocation));
@@ -166,7 +166,7 @@ namespace BL
             lock (dal)
                 parcel = dal.GetParcel(parcelId);
             lock(dal)
-                dal.RemoveParcel(parcel.Id);
+                dal.RemoveParcelAbsolute(parcel.Id);
             parcel.Delivered = DateTime.Now;
             lock(dal)
                 dal.AddParcel(parcel.SenderId, parcel.TargetId, parcel.Weight, parcel.Priority, parcel.Id);
@@ -317,13 +317,13 @@ namespace BL
             DO.Parcel parcel;
             lock(dal)
                 parcel = dal.GetParcel(id);
-            if (GetParcelInTransfer(id).ParcelStatus)
+            ParcelList parcelList=ParcelToParcelForList(id);
+            if (parcelList.ParcelStatus!=PackageStatuses.CREATED)
             { 
-            lock(dal)
-                dal.RemoveParcel(parcel.Id);
+                throw new InValidActionException();
             }
-            throw new InValidActionException();
-
+            lock(dal)
+                      dal.RemoveParcel(parcel.Id);
         }
 
     }

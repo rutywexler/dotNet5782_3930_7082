@@ -136,7 +136,7 @@ namespace PL
         {
             try
             {
-                MyIbl.DeliveryParcelByDrone(SelectedDrone.Id);
+             
                 RefreshDroneList();
                 MessageBox.Show("succees Delivery Parcel By Drone");
             }

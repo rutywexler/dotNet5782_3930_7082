@@ -71,7 +71,7 @@ namespace BL
             {
                 DroneToList drone = drones.Find(d => d.DroneId == id);
                 ParcelInTransfer parcelInDeliver = drone.DroneStatus == DroneStatus.Delivery ?
-                                                  GetParcelInTransfer((int)drone.ParcelId) :
+                                                  GetParcelforlist((int)drone.ParcelId) :
                                                   null;
                 return new Drone()
                 {
