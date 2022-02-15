@@ -22,7 +22,7 @@ namespace PL
         public ViewParcelVM(ParcelForList parcel) : this()
         {
             Parcel = ParcelConverter.ConvertParcelBoToPo(bl.GetParcel(parcel.Id));
-            DeleteParcelCommand = new(DeleteParcel, null);
+            DeleteParcelCommand = new(DeleteParcel,null);
             OpenDroneWindowCommand = new(OpenDroneWindow, null);
             OpenCustomerWindowCommand = new(OpenCustomerWindow, null);
         }
@@ -46,7 +46,8 @@ namespace PL
             }
             catch (Exception)//למצוא שגיאה מתאימה 
             {
-                throw;
+                MessageBox.Show("the parcel cant be deleted because the parcel belong to drone:(");
+                return;
             }
             MessageBox.Show("Succeed to delete Parcel");
             

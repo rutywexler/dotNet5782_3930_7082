@@ -12,6 +12,7 @@ namespace PL
 {
     public static class CheckValid
     {
+        
         public static bool CheckValidAddParcel(object obj)
         {
             if (obj is ParcelToAdd parcel)
@@ -45,6 +46,11 @@ namespace PL
             }
             else
                  return true;
+        }
+
+        internal static object CheckValidDeleteParcel(ViewParcelVM viewParcelVM)
+        {
+            throw new NotImplementedException();
         }
 
         public static bool CheckValidAddStation(object obj)
@@ -154,6 +160,7 @@ namespace PL
     {
         MessageBox.Show("$ You didnt Enter {v}, please enter!");
     }
+    
 }
 }
 

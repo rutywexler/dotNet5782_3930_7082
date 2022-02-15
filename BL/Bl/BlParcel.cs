@@ -316,8 +316,13 @@ namespace BL
             DO.Parcel parcel;
             lock(dal)
                 parcel = dal.GetParcel(id);
+            if (GetParcelInTransfer(id).ParcelStatus)
+            { 
             lock(dal)
                 dal.RemoveParcel(parcel.Id);
+            }
+            throw new InValidActionException();
+
         }
 
     }
