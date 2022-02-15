@@ -96,10 +96,48 @@ namespace Dal
             XMLTools.SaveListToXmlElement(Customer, customersPath);
         }
 
+      
+        /// <summary>
+        /// The function deletes a specific customer
+        /// </summary>
+        /// <param name="id">customer ID</param>
         public void RemoveCustomer(int id)
         {
-           // UpdateCustomerrr 
+            if (GetCustomer(id).Equals(default(Customer)))
+                throw new KeyNotFoundException("Delete customer -DAL: There is no suitable customer in data");
+
+            UpdateCustomer(GetCustomer(id));
         }
+        public void UpdateCustomer(Customer customer)
+        {
+            try
+            {
+                XElement customers = XMLTools.LoadListFromXmlElement(customersPath);
+                XElement e = (from s in customers.Elements()
+                             where int.Parse(s.Element("Id").Value) == customer.Id
+                             select s).FirstOrDefault(); 
+               
+                e.Element("Name").Value = customer.Name;
+                e.Element("Phone").Value = customer.Phone;
+                XMLTools.SaveListToXmlElement(customers, customersPath);
+
+              
+            }
+            catch { throw new Exception(); }
+
+        }
+     
+
+        //public void UpdateDrone(Drone updateDrone)
+        //{
+        //    var drones = XMLTools.LoadListFromXmlSerializer<Drone>(dronesPath);
+        //    Drone drone = drones.FirstOrDefault(d => d.Id == updateDrone.Id);
+        //    drones.Remove(drone);
+        //    XMLTools.SaveListToXmlSerializer(drones, StationPath);
+        //    AddDrone(updateDrone.Id, updateDrone.Model, updateDrone.MaxWeight);
+        //}
+
+
 
 
     }

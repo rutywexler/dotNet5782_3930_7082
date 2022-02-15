@@ -93,16 +93,19 @@ namespace Bl
         {
             if (name.Equals(string.Empty) && PhoneNumber.Equals(string.Empty))
                 throw new ArgumentNullException("There is not field to update");
-
             DO.Customer customer = dal.GetCustomer(id);
             try
             {
-                dal.RemoveCustomer(customer.Id);
+               
                 if (name.Equals(default))
                     name = customer.Name;
-                else if (PhoneNumber.Equals(default))
+                else
+                    customer.Name = name;
+                if (PhoneNumber.Equals(default))
                     PhoneNumber = customer.Phone;
-                dal.AddCustomer(id, PhoneNumber, name, customer.Longitude, customer.Lattitude);
+                else
+                    customer.Phone = PhoneNumber;       
+                dal.UpdateCustomer(customer);
             }
             catch (Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
@@ -113,6 +116,16 @@ namespace Bl
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
             }
         }
+        //public void UpdateDrone(int id, string name)
+        //{
+        //    if (ExistsIDCheck(dal.GetDrones(), id))
+        //        throw new KeyNotFoundException();
+        //    DO.Drone droneDl = dal.GetDrone(id);
+        //    if (name.Equals(default))
+        //        throw new ArgumentNullException("For updating, you must enter the name! ");
+        //    dal.UpdateDrone(droneDl);
+
+        //}
 
         /// <summary>
         /// Convert a BL parcel to Parcel At Customer

@@ -16,4 +16,12 @@
     <Longitude>-34</Longitude>
     <IsDeleted>false</IsDeleted>
   </Customer>
+  <Customer>
+    <Id>213103930</Id>
+    <Name>Ruty Wexler</Name>
+    <Phone>053</Phone>
+    <Lattitude>-25</Lattitude>
+    <Longitude>25</Longitude>
+    <IsDeleted>false</IsDeleted>
+  </Customer>
 </Customers>

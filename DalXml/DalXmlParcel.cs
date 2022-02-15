@@ -54,10 +54,17 @@ namespace Dal
         /// <returns>A parcel for display</returns>
         public Parcel GetParcel(int id)
         {
-            Parcel parcel = XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath).FirstOrDefault(item => item.Id == id);
-            if (parcel.Equals(default(Parcel)))
-                throw new KeyNotFoundException("There isnt suitable parcel in the data!");
-            return parcel;
+            try { 
+            Parcel parcel = XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath).Where(item => item.IsDeleted = false).FirstOrDefault(item => item.Id == id);
+                if (parcel.Equals(default(Parcel)))
+                    throw new KeyNotFoundException("There isnt suitable parcel in the data!");
+                return parcel;
+            }
+            catch
+            {
+                throw new KeyNotFoundException();
+            }
+            
         }
 
         /// <summary>
