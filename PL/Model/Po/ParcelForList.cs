@@ -78,6 +78,7 @@ namespace PL
             }
         }
 
+
         public override string ToString() => this.ToStringProperties();
         #region INotifyPropertyChanged Members  
 

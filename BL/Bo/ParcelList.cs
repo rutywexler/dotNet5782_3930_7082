@@ -9,6 +9,7 @@ namespace BO
         public string ReceivesCustomer { get; set; }
         public WeightCategories Weight { get; set; }
         public Priorities Priority { get; set; }
+        public PackageStatuses ParcelStatus { get; set; }
         public override string ToString() => this.ToStringProps();
 
 
