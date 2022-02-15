@@ -118,11 +118,11 @@ namespace BL
         public void SendDroneForCharge(int id)
         {
             DroneToList droneToList = drones.Find(item => item.DroneId == id);
+            if (droneToList == default)
+                throw new KeyNotFoundException($"The drone id {id} not exsits in data so the updating failed");
             if (droneToList.DroneStatus != DroneStatus.Available)
-            {
-                throw new InvalidEnumArgumentException("because the status drone isnt available, isnt possible to sent him for charge:(");
-            }
-            BO.BaseStation station = ClosetStationThatPossible(droneToList.Location, droneToList.BatteryDrone, out double minDistanc);
+                throw new InvalidDroneStateException($"The drone {id} is {droneToList.DroneStatus} so it is not possible to send it for charging ");
+            BaseStation station = ClosetStationThatPossible(droneToList.Location, droneToList.BatteryDrone, out double minDistanc);
             drones.Remove(droneToList);
             droneToList.DroneStatus = DroneStatus.Meintenence;
             station.NumberOfChargingStations -= 1;
@@ -214,6 +214,8 @@ namespace BL
             if (name.Equals(default))
                 throw new ArgumentNullException("For updating, you must enter the name! ");
             dal.UpdateDrone(droneDl, name);
+            DroneToList droneToList = drones.Find(item => item.DroneId == id);
+            droneToList.ModelDrone = name;
 
             //dal.RemoveDrone(droneDl);
             //dal.AddDrone(id, name, droneDl.MaxWeight);

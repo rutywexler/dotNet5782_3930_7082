@@ -148,6 +148,22 @@ namespace PL
                 Weight= ParcelToCustomer.Weight
             };
         }
-  
+
+        public static ParcelInTransfer ConvertParcelInTransfer(BO.ParcelInTransfer parcel)
+        {
+            return new()
+            {
+                Id = parcel.Id,
+                Priority = (Priorities)parcel.Priority,
+                Status = parcel.ParcelStatus,
+                Location = LocationConverter.ConvertLocation(parcel.CollectParcelLocation),
+                Target = CustomerInParcelUseBl.ConvertCustomerInParcel(parcel.Recipient),
+                Sender = CustomerInParcelUseBl.ConvertCustomerInParcel(parcel.Sender),
+                Destination = LocationConverter.ConvertLocation(parcel.DeliveryDestination),
+                TransportDistance = parcel.DeliveryDistance,
+                Weight = (WeightCategories)parcel.Weight
+            };
+        }
+
     }
 }

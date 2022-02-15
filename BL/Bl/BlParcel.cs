@@ -48,11 +48,13 @@ namespace BL
                 var parcel = dal.GetParcel(id);
                 var targetCustomer = dal.GetCustomer(parcel.TargetId);
                 var senderCustomer = dal.GetCustomer(parcel.SenderId);
-
+          
                 return new ParcelInTransfer()
                 {
                     Id = id,
                     Weight = (WeightCategories)parcel.Weight,
+                    Sender = new CustomerInParcel() { Id = senderCustomer.Id, Name = senderCustomer.Name },
+                    Recipient= new CustomerInParcel() { Id = targetCustomer.Id, Name = targetCustomer.Name },
                     Priority = (Priorities)parcel.Priority,
                     CollectParcelLocation = new Location { Lattitude = targetCustomer.Lattitude, Longitude = targetCustomer.Longitude },
                     DeliveryDestination = new Location { Lattitude = senderCustomer.Lattitude, Longitude = senderCustomer.Longitude },

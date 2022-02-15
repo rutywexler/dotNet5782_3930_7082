@@ -1,50 +1,26 @@
 <?xml version="1.0"?>
 <ArrayOfStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Station>
-    <Id>21</Id>
-    <Name>fy</Name>
-    <Longitude>56</Longitude>
-    <Lattitude>56</Lattitude>
-    <ChargeSlots>54</ChargeSlots>
-    <IsDeleted>true</IsDeleted>
-  </Station>
-  <Station>
-    <Id>1234</Id>
-    <Name>gnf</Name>
-    <Longitude>12</Longitude>
-    <Lattitude>12</Lattitude>
-    <ChargeSlots>12</ChargeSlots>
-    <IsDeleted>false</IsDeleted>
-  </Station>
-  <Station>
-    <Id>213</Id>
-    <Name>342</Name>
-    <Longitude>23</Longitude>
-    <Lattitude>23</Lattitude>
-    <ChargeSlots>234</ChargeSlots>
-    <IsDeleted>false</IsDeleted>
-  </Station>
-  <Station>
-    <Id>3</Id>
-    <Name>333</Name>
-    <Longitude>3</Longitude>
-    <Lattitude>3</Lattitude>
-    <ChargeSlots>250</ChargeSlots>
-    <IsDeleted>false</IsDeleted>
-  </Station>
-  <Station>
-    <Id>2</Id>
-    <Name>3333ii</Name>
-    <Longitude>2</Longitude>
-    <Lattitude>2</Lattitude>
-    <ChargeSlots>21</ChargeSlots>
-    <IsDeleted>false</IsDeleted>
-  </Station>
-  <Station>
-    <Id>111</Id>
+    <Id>1</Id>
     <Name>1234</Name>
-    <Longitude>33</Longitude>
-    <Lattitude>33</Lattitude>
+    <Longitude>32</Longitude>
+    <Lattitude>32</Lattitude>
+    <ChargeSlots>123</ChargeSlots>
+    <IsDeleted>false</IsDeleted>
+  </Station>
+  <Station>
+    <Id>12</Id>
+    <Name>r</Name>
+    <Longitude>34</Longitude>
+    <Lattitude>34</Lattitude>
+    <ChargeSlots>123</ChargeSlots>
+    <IsDeleted>false</IsDeleted>
+  </Station>
+  <Station>
+    <Id>12345</Id>
+    <Name>12</Name>
+    <Longitude>35</Longitude>
+    <Lattitude>35</Lattitude>
     <ChargeSlots>12</ChargeSlots>
     <IsDeleted>false</IsDeleted>
   </Station>

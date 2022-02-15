@@ -24,4 +24,10 @@
     <MaxWeight>Light</MaxWeight>
     <IsDeleted>false</IsDeleted>
   </Drone>
+  <Drone>
+    <Id>1230</Id>
+    <Model>12345</Model>
+    <MaxWeight>Light</MaxWeight>
+    <IsDeleted>false</IsDeleted>
+  </Drone>
 </ArrayOfDrone>

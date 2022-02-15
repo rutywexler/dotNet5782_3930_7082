@@ -91,6 +91,8 @@ namespace PL
             get { return transportDistance; }
             set { transportDistance = value; OnPropertyChanged(nameof(TransportDistance)); } 
         }
+        public override string ToString() => this.ToStringProperties();
+
 
         #region INotifyPropertyChanged Members  
 

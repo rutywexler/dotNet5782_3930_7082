@@ -15,7 +15,7 @@ namespace PL
         BlApi.IBL MyIbl;
         Action RefreshDroneList;
 
-        private DroneForList drone;
+        private Drone drone;
         
         public bool auto { get; set; }
         public ViewDrone()
@@ -23,7 +23,7 @@ namespace PL
             InitializeComponent();
         }
 
-        public ViewDrone(BlApi.IBL ibl, DroneForList selectedDrone, Action refreshDroneList)
+        public ViewDrone(BlApi.IBL ibl, Drone selectedDrone, Action refreshDroneList)
             : this()
         {
             MyIbl = ibl;
@@ -32,14 +32,14 @@ namespace PL
             RefreshDroneList = refreshDroneList;
         }
 
-        public ViewDrone(DroneForList drone) : this()
+        public ViewDrone(Drone drone) : this()
         {
             this.drone = drone;
         }
 
-        private DroneForList selectedDrone;
+        private Drone selectedDrone;
 
-        public DroneForList SelectedDrone
+        public Drone SelectedDrone
         {
             get { return selectedDrone; }
             set {
@@ -179,7 +179,7 @@ namespace PL
 
         private void updateDroneView()
         {
-           SelectedDrone = PL.DroneConverter.ConvertDroneToList(MyIbl.GetDrones().FirstOrDefault(Drone => Drone.DroneId == SelectedDrone.Id));
+           SelectedDrone = PL.DroneConverter.ConvertDrone(MyIbl.GetDrone(SelectedDrone.Id));
         }
 
        
