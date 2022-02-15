@@ -26,7 +26,7 @@ namespace Dal
             if (!ExistsIDCheck(GetCustomers(), TargetId))
                 throw new KeyNotFoundException("Target not exist");
             Parcel newParcel = new();
-            newParcel.Id = id == 0 ? ++DataSource.Config.IdParcel : id;
+            newParcel.Id = id == 0 ? ++Config.IdParcel : id;
             newParcel.SenderId = SenderId;
             newParcel.TargetId = TargetId;
             newParcel.Weight = Weigth;
@@ -36,7 +36,7 @@ namespace Dal
             newParcel.PickedUp = pickedUp;
             newParcel.Delivered = delivered;
             newParcel.DroneId = droneId;
-            DataSource.Parcels.Add(newParcel);
+            Parcels.Add(newParcel);
         }
 
 
@@ -48,7 +48,7 @@ namespace Dal
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel GetParcel(int id)
         {
-            Parcel parcel = DataSource.Parcels.FirstOrDefault(item => item.Id == id);
+            Parcel parcel = Parcels.FirstOrDefault(item => item.Id == id);
             if (parcel.Equals(default(Parcel)))
                 throw new KeyNotFoundException("There isnt suitable parcel in the data!");
             return parcel;

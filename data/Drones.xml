@@ -30,4 +30,22 @@
     <MaxWeight>Light</MaxWeight>
     <IsDeleted>false</IsDeleted>
   </Drone>
+  <Drone>
+    <Id>11</Id>
+    <Model>1111</Model>
+    <MaxWeight>Light</MaxWeight>
+    <IsDeleted>false</IsDeleted>
+  </Drone>
+  <Drone>
+    <Id>11</Id>
+    <Model>250</Model>
+    <MaxWeight>Light</MaxWeight>
+    <IsDeleted>false</IsDeleted>
+  </Drone>
+  <Drone>
+    <Id>85</Id>
+    <Model>5873</Model>
+    <MaxWeight>Light</MaxWeight>
+    <IsDeleted>false</IsDeleted>
+  </Drone>
 </ArrayOfDrone>

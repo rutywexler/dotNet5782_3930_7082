@@ -55,9 +55,9 @@ namespace Dal
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void ReleaseDroneFromRecharge(int droneId)
         {
-            var droneCharge = DataSource.DroneCharges.First(charge => charge.DroneId == droneId);
+            var droneCharge = DroneCharges.First(charge => charge.DroneId == droneId);
 
-            DataSource.DroneCharges.Remove(droneCharge);
+            DroneCharges.Remove(droneCharge);
         }
 
     }

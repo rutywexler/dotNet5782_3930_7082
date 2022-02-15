@@ -36,7 +36,7 @@ namespace Dal
         public IEnumerable<DroneCharge> GetDroneCharging(Predicate<DroneCharge> predicate)
         {
             return XMLTools.LoadListFromXmlSerializer<DroneCharge>(droneChargesPath)
-                .Where(s => predicate(s));
+                .Where(s =>predicate(s));
         }
 
         /// <summary>

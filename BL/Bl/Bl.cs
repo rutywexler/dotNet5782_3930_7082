@@ -109,7 +109,7 @@ namespace BL
 
                 if (status == DroneStatus.Meintenence)
                 {
-                    dal.AddDRoneCharge(drone.Id, dal.GetStations().FirstOrDefault(station => station.Lattitude == location.Lattitude && station.Longitude == location.Longitude).Id);
+                    //dal.AddDRoneCharge(drone.Id, dal.GetStations().FirstOrDefault(station => station.Lattitude == location.Lattitude && station.Longitude == location.Longitude).Id);
                 }
 
                 var availableStationsLocations = dal.GetAvailableChargingStations()
