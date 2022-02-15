@@ -4,20 +4,20 @@ using System.Linq;
 using BlApi;
 using BO;
 
-namespace Bl
+namespace BL
 {
-    public partial class BL : IblStation
+    partial class Bl : IblStation
     {
         public void AddStation(BaseStation baseStation)
         {
-            try
+           // try
             {
                 dal.AddStation(baseStation.Id, baseStation.Name, baseStation.Location.Longitude, baseStation.Location.Longitude, baseStation.NumberOfChargingStations);
             }
-            catch (Dal.Exception_ThereIsInTheListObjectWithTheSameValue ex)
-            {
-                throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
-            }
+            //catch (Dal.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            //{
+            //    throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
+            //}
 
         }
 
@@ -92,10 +92,10 @@ namespace Bl
             {
                 throw new KeyNotFoundException(ex.Message);
             }
-            catch (Dal.Exception_ThereIsInTheListObjectWithTheSameValue ex)
-            {
-                throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
-            }
+            //catch (Dal.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            //{
+            //    throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
+            //}
         }
 
         public void RemoveStation(int id)

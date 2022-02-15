@@ -6,9 +6,9 @@ using System.Linq;
 using BlApi;
 using static BO.Enums;
 
-namespace Bl
+namespace BL
 {
-    public partial class BL : IblParcel
+    partial class Bl : IblParcel
     {
         /// <summary>
         /// the function adds the parcel to the list in the data
@@ -20,7 +20,7 @@ namespace Bl
                 throw new KeyNotFoundException("Sender not exist");
             if (!ExistsIDCheck(dal.GetCustomers(), parcel.CustomerReceivesTo.Id))
                 throw new KeyNotFoundException("Target not exist");
-            try
+           // try
             {
                 dal.AddParcel(
                     parcel.CustomerSendsFrom.Id,
@@ -29,11 +29,11 @@ namespace Bl
                   (DO.Priorities)parcel.Priority
                 );
             }
-            catch (Dal.Exception_ThereIsInTheListObjectWithTheSameValue ex)
-            {
+            //catch (Dal.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            //{
 
-                throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
-            }
+            //    throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
+            //}
         }
 
         /// <summary>

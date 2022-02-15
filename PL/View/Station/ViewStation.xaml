@@ -24,7 +24,7 @@
             <TextBlock Text="Longitude: "/>
             <TextBlock  Text ="{Binding Station.Location.Longitude,  UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Text="DronesInCharching: "/>
-            <ListBox  ItemsSource ="{Binding Station.DronesInCharching}" />
+            <ListView  ItemsSource ="{Binding Station.DronesInCharching}" />
             <Button Content="close station"/>
             <Button Content="update station" Command="{Binding UpdateStationCommand}"/>
             <Button Content="Delete station" Command="{Binding DeleteStationCommand}">

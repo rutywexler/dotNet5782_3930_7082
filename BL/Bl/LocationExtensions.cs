@@ -1,9 +1,9 @@
 ﻿using BO;
 using System;
 
-namespace Bl
+namespace BL
 {
-    public class LocationExtensions
+    class LocationExtensions
     {
         public static double Distance(Location sLocation, Location dLocation)
         {

@@ -19,8 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DalObjectt\DalObject.csproj" />
-    <ProjectReference Include="..\DalXml\DalXml.csproj" />
     <ProjectReference Include="..\DAL\DalApi.csproj" />
     <ProjectReference Include="..\Singelton\Singelton.csproj" />
   </ItemGroup>

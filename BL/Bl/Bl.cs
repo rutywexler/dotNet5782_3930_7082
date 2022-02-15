@@ -7,9 +7,9 @@ using static BO.Enums;
 using Singelton;
 using DalApi;
 
-namespace Bl
+namespace BL
 {
-    public sealed partial class BL : Singleton<BL>, IBL
+    sealed partial class Bl : Singleton<Bl>, IBL
     {
         public const int MAXINITBATTARY = 20;
         public const int MININITBATTARY = 0;
@@ -22,7 +22,7 @@ namespace Bl
         public double MediumWeightBearing { get; set; }
         public double CarryingHeavyWeight { get; set; }
         public static double DroneLoadingRate { get; set; }
-        BL()
+        Bl()
         {
             //dal = new DalObject.DalObject();
             //drones = new List<DroneToList>();
@@ -35,7 +35,7 @@ namespace Bl
             DroneLoadingRate = arr[4];
             Initialize();
         }
-        static BL()
+        static Bl()
         { }
 
         /// <summary>

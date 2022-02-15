@@ -11,7 +11,7 @@ namespace BL
     {
         enum Maintenance { Starting, Going }
         enum Delivery { Starting, Going, Delivery }
-        Bl.BL bl { set; get; }
+        BL.Bl bl { set; get; }
         Parcel parcel { set; get; }
         BaseStation Station { set; get; }
         DroneToList Drone { set; get; }
@@ -22,7 +22,7 @@ namespace BL
         private const double VELOCITY = 1000;
         private const double STEP = VELOCITY / TIME_STEP;
         double distance = 0.0;
-        public DroneSimulator(int id, Bl.BL BL, Action update, Func<bool> checkStop)
+        public DroneSimulator(int id, BL.Bl BL, Action update, Func<bool> checkStop)
         {
             try
             {
@@ -78,7 +78,7 @@ namespace BL
                                 if (Station != null)
                                 {
 
-                                    distance = Bl.LocationExtensions.Distance(Drone.Location, Station.Location);
+                                    distance = BL.LocationExtensions.Distance(Drone.Location, Station.Location);
                                     maintenance = Maintenance.Going;
                                 }
                                 else
@@ -101,7 +101,7 @@ namespace BL
                         else
                         {
                             Drone.Location = UpdateLocationAndBattary(Station.Location, bl.Available);
-                            distance = Bl.LocationExtensions.Distance(Drone.Location, Station.Location);
+                            distance = BL.LocationExtensions.Distance(Drone.Location, Station.Location);
                         }
                         break;
                     };
@@ -136,7 +136,7 @@ namespace BL
             }
 
             else
-                lock (bl) Drone.BatteryDrone = Math.Min(100, Drone.BatteryDrone + Bl.BL.DroneLoadingRate * TIME_STEP);
+                lock (bl) Drone.BatteryDrone = Math.Min(100, Drone.BatteryDrone + BL.Bl.DroneLoadingRate * TIME_STEP);
 
         }
 
@@ -154,7 +154,7 @@ namespace BL
                         {
                             lock (bl)
                             {
-                                distance = Bl.LocationExtensions.Distance(Drone.Location, bl.GetCustomer(parcel.CustomerSendsFrom.Id).Location);
+                                distance = BL.LocationExtensions.Distance(Drone.Location, bl.GetCustomer(parcel.CustomerSendsFrom.Id).Location);
                             }
                             delivery = Delivery.Going;
                             break;
@@ -166,7 +166,7 @@ namespace BL
                                 if (distance > 0.01)
                                 {
                                     Drone.Location = UpdateLocationAndBattary(bl.GetCustomer(parcel.CustomerSendsFrom.Id).Location, bl.Available);
-                                    distance = Bl.LocationExtensions.Distance(Drone.Location, bl.GetCustomer(parcel.CustomerSendsFrom.Id).Location);
+                                    distance = BL.LocationExtensions.Distance(Drone.Location, bl.GetCustomer(parcel.CustomerSendsFrom.Id).Location);
                                 }
 
                                 else
@@ -177,7 +177,7 @@ namespace BL
                                         {
                                             delivery = Delivery.Delivery;
                                             Drone.Location = bl.GetCustomer(parcel.CustomerSendsFrom.Id).Location;
-                                            distance = Bl.LocationExtensions.Distance(Drone.Location, bl.GetCustomer(parcel.CustomerReceivesTo.Id).Location);
+                                            distance = BL.LocationExtensions.Distance(Drone.Location, bl.GetCustomer(parcel.CustomerReceivesTo.Id).Location);
                                             bl.ParcelCollectionByDrone(Drone.DroneId);
                                             delivery = Delivery.Delivery;
                                         }
@@ -212,7 +212,7 @@ namespace BL
                                         _ => 0.0
                                     };
                                     Drone.Location = UpdateLocationAndBattary(bl.GetCustomer(parcel.CustomerReceivesTo.Id).Location, elect);
-                                    distance = Bl.LocationExtensions.Distance(Drone.Location, bl.GetCustomer(parcel.CustomerReceivesTo.Id).Location);
+                                    distance = BL.LocationExtensions.Distance(Drone.Location, bl.GetCustomer(parcel.CustomerReceivesTo.Id).Location);
                                 }
                             }
 

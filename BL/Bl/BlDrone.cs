@@ -7,9 +7,9 @@ using BO;
 using static BO.Enums;
 using BL;
 
-namespace Bl
+namespace BL
 {
-    public partial class BL : IblDrone
+    partial class Bl : IblDrone
     {
 
         private const int NUM_OF_MINUTE_IN_HOUR = 60;
@@ -128,7 +128,7 @@ namespace Bl
             station.NumberOfChargingStations -= 1;
             droneToList.BatteryDrone -= minDistanc * Available;
             droneToList.Location = new Location() { Longitude = station.Location.Longitude, Lattitude = station.Location.Lattitude }; ;
-            dal.AddDRoneCharge(id, station.Id);
+            dal.AddDRoneCharge(droneToList.DroneId, station.Id);
             drones.Add(droneToList);
         }
         /// <summary>
@@ -295,10 +295,10 @@ namespace Bl
             {
                 throw new KeyNotFoundException(ex.Message);
             }
-            catch (Dal.Exception_ThereIsInTheListObjectWithTheSameValue ex)
-            {
-                throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
-            }
+            //catch (Dal.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            //{
+            //    throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
+            //}
 
         }
 

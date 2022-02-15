@@ -55,7 +55,7 @@ namespace Dal
         public Parcel GetParcel(int id)
         {
             try { 
-            Parcel parcel = XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath).Where(item => item.IsDeleted = false).FirstOrDefault(item => item.Id == id);
+            Parcel parcel = XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath).FirstOrDefault(item => item.Id == id);
                 if (parcel.Equals(default(Parcel)))
                     throw new KeyNotFoundException("There isnt suitable parcel in the data!");
                 return parcel;

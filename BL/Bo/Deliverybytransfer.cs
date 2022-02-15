@@ -1,4 +1,4 @@
-﻿using Bo;
+﻿using BO;
 using static BO.Enums;
 
 namespace BO

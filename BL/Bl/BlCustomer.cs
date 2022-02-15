@@ -5,9 +5,9 @@ using BO;
 using BlApi;
 using static BO.Enums;
 
-namespace Bl
+namespace BL
 {
-    public partial class BL : IblCustomer
+    partial class Bl : IblCustomer
     {
         /// <summary>
         /// add customer to the data
@@ -18,14 +18,14 @@ namespace Bl
         /// <param name="location">the customer location</param>
         public void AddCustomer(Customer customerBL)
         {
-            try
+           // try
             {
                 dal.AddCustomer(customerBL.Id, customerBL.PhoneNumber, customerBL.Name, customerBL.Location.Longitude, customerBL.Location.Lattitude);
             }
-            catch (Dal.Exception_ThereIsInTheListObjectWithTheSameValue ex)
-            {
-                throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
-            }
+            //catch (Dal.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            //{
+            //    throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
+            //}
         }
         /// <summary>
         /// the function return the customer that the ID blongs to him

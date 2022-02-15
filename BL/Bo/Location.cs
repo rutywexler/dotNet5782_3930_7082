@@ -1,7 +1,4 @@
-﻿using Bo;
-
-
-namespace BO
+﻿namespace BO
 {
     public class Location
     {

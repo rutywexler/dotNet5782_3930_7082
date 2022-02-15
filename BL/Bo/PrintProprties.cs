@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bo
+namespace BO
 {
     public static class PrintProprties
     {

@@ -5,10 +5,10 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bl
+namespace BL
 {
     [Serializable]
-    public class Exception_NotExistCloseStationForTheDrone : Exception
+    class Exception_NotExistCloseStationForTheDrone : Exception
     {
         public Exception_NotExistCloseStationForTheDrone() : base() { }
         public Exception_NotExistCloseStationForTheDrone(string message) : base(message) { }

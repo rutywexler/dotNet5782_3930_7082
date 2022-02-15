@@ -80,8 +80,18 @@ namespace PL
 
         private void ReleaseDroneFromCharging(object sender, RoutedEventArgs e)
         {
-            MyIbl.ReleaseDroneFromCharging(SelectedDrone.Id);
-            RefreshDroneList();
+            try
+            {
+                MyIbl.ReleaseDroneFromCharging(SelectedDrone.Id);
+                RefreshDroneList();
+                MessageBox.Show("the drone succeeded to release from charging ", "success", MessageBoxButton.OK);
+            }
+            catch 
+            {
+
+                MessageBox.Show("Failed to release from charging");
+            }
+          
         }
 
 

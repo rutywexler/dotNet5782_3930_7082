@@ -2,7 +2,7 @@
 using System.IO;
 using System.Xml.Linq;
 
-namespace DAL.DalApi
+namespace DalApi
 {
     class DalConfig
     {

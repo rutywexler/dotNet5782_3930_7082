@@ -1,4 +1,4 @@
-﻿using DAL.DalApi;
+﻿using DalApi;
 using System;
 using System.IO;
 using System.Reflection;
@@ -12,10 +12,10 @@ namespace DalApi
             Assembly.LoadFrom($@"{Directory.GetCurrentDirectory()}\..\net5.0\{DalConfig.DalType}.dll");
             Type type = Type.GetType($"{DalConfig.Namespace}.{DalConfig.DalType}, {DalConfig.DalType}");
             if (type == null)
-                throw new DAL.DalApi.DalConfigException("Can't find such project");
+                throw new DalApi.DalConfigException("Can't find such project");
             Idal dal = (Idal)type.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy).GetValue(null);
             if (dal == null)
-                throw new DAL.DalApi.DalConfigException("Can't Get Dal Instance");
+                throw new DalApi.DalConfigException("Can't Get Dal Instance");
             return dal;
         }
     }
