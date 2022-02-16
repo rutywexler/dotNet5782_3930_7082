@@ -7,25 +7,30 @@
         Icon="./Images/logo.png"
         mc:Ignorable="d"
         Title="MainWindow" Height="640" Width="800">
-    <Grid Name="MainGrid">
    
+    <Grid Name="MainGrid">
 
-
+ <Grid>
+        <Grid.Background >
+            <ImageBrush Stretch="Fill" ImageSource="./Images/background2png-01.png"></ImageBrush>
+        </Grid.Background>
+    </Grid>
+        <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="200"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="300"/>
        
 
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="300"/>
 
         </Grid.ColumnDefinitions>
         <Button Grid.Row="1" Grid.Column="1" 
@@ -38,16 +43,14 @@
                 Content="For all parcels-option:)" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="Parcel_Click"></Button>
         <ContentPresenter Grid.Row="2" Grid.ColumnSpan="5" 
                           Content="{Binding CurrentView}"/>
-        <Grid Grid.RowSpan="5"  Grid.ColumnSpan="5" >
-            <!--<Grid.Background >
-                <ImageBrush Stretch="Fill" ImageSource="./Images/background2png-01.png"></ImageBrush>
-            </Grid.Background>-->
-        </Grid>
+   
         <Grid Grid.Row="0" Grid.Column="0">
             <Grid.Background >
                 <ImageBrush Stretch="Fill" ImageSource="./Images/logo.png"></ImageBrush>
             </Grid.Background>
         </Grid>
+        </Grid>
+
     </Grid>
 
 </Window>
