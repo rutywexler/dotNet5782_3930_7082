@@ -10,7 +10,7 @@
   </Customer>
   <Customer>
     <Id>325207082</Id>
-    <Name>Tamar Nusbacher</Name>
+    <Name>Nusbacher</Name>
     <Phone>0504110239</Phone>
     <Lattitude>23</Lattitude>
     <Longitude>-34</Longitude>
@@ -43,7 +43,7 @@
   <Customer>
     <Id>213</Id>
     <Name>4545</Name>
-    <Phone>632</Phone>
+    <Phone>0527657477</Phone>
     <Lattitude>369</Lattitude>
     <Longitude>789</Longitude>
     <IsDeleted>false</IsDeleted>

@@ -79,7 +79,7 @@ namespace Dal
         {
             string[] tempNames = { "Tamar", "Ruty", "Michal", "Moshe", "Aviad", "Shimon", "Eliether", "Ariel", "Naomi", "Tehila" };
             string name = tempNames[Rnd.Next(tempNames.Length)]; 
-            string phone = $"05 {Rnd.Next(100000000)}";
+            string phone = $"05{Rnd.Next(100000000)}";
             double latitude = Rnd.Next(LATITUDE_MIN, LATITUDE_MAX) + Rnd.NextDouble();
             double longitude = Rnd.Next(LONGITUDE_MAX) + Rnd.NextDouble();
             dal.AddCustomer(id, phone, name, longitude, latitude);

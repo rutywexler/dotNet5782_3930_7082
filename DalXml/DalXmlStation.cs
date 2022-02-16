@@ -98,20 +98,7 @@ namespace Dal
             }
             return count;
         }
-        /// <summary>
-        /// remove station from ststion list
-        /// </summary>
-        /// <param name="customer">the station i want to delete</param>
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        public void RemoveStation(int id)
-        {
-            List<Station> stations = XMLTools.LoadListFromXmlSerializer<Station>(StationPath);
-            Station basestation = stations.FirstOrDefault(station => station.Id == id);
-            //stations.Remove(basestation);
-            basestation.IsDeleted = true;
-            //stations.Add(basestation);
-            XMLTools.SaveListToXmlSerializer(stations, StationPath);
-        }
+
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateSation(Station updateStation)

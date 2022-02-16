@@ -57,14 +57,14 @@ namespace Dal
             return Customers.FirstOrDefault(item => item.Id == id);
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        public void RemoveCustomer(int id)
-        {
-            Customer customer = Customers.FirstOrDefault(customer => customer.Id == id);
-            Customers.Remove(customer);
-            customer.IsDeleted = true;
-            Customers.Add(customer);
-        }
+        //[MethodImpl(MethodImplOptions.Synchronized)]
+        //public void RemoveCustomer(int id)
+        //{
+        //    Customer customer = Customers.FirstOrDefault(customer => customer.Id == id);
+        //    Customers.Remove(customer);
+        //    //customer.IsDeleted = true;
+        //    //Customers.Add(customer);
+        //}
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateCustomer(Customer customer)

@@ -12,7 +12,6 @@ namespace PL
     {
         BlApi.IBL bl;
         public RelayCommand UpdateStationCommand { get; set; }
-        public RelayCommand DeleteStationCommand { get; set; }
 
 
 
@@ -34,21 +33,9 @@ namespace PL
         {
             Station = GetStation(station.Id);
             UpdateStationCommand = new(UpdateStation, param=>CheckValid.CheckValidUpdateStation(this.Station));
-            DeleteStationCommand = new(DeleteStation, null);
         }
 
-        private void DeleteStation(object param)
-        {
-            try
-            {
-                bl.RemoveStation(Station.Id);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                MessageBox.Show($"failed to delete station:( ,{ex.Message}");
-            }
-            MessageBox.Show("Succeed to delete station");
-        }
+
         private BaseStation GetStation(int id)
         {
             return StationConverter.ConvertStationBlToPo(bl.GetStation(id));

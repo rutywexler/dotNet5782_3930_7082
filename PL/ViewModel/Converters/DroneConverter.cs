@@ -18,14 +18,14 @@ namespace PL
             };
         }
 
-        public static BO.DroneToList ConvertBackDrone(DroneForList drone)
+        public static BO.DroneToList ConvertBackDrone(DroneToAdd drone)
         {
             return new()
             {
-                DroneId = drone.Id,
+                DroneId = (int)drone.Id,
                 ModelDrone = drone.Model,
                 DroneWeight = (BO.Enums.WeightCategories)drone.Weight,
-                DroneStatus = (BO.Enums.DroneStatus)drone.Status,
+                DroneStatus = BO.Enums.DroneStatus.Meintenence,
             };
         }
 

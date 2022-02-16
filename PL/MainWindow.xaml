@@ -4,28 +4,50 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
+        Icon="./Images/logo.png"
         mc:Ignorable="d"
         Title="MainWindow" Height="640" Width="800">
     <Grid Name="MainGrid">
+   
+
+
         <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
+       
+
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="100"/>
+
         </Grid.ColumnDefinitions>
-        <Button Grid.Row="0" Grid.Column="0" 
+        <Button Grid.Row="1" Grid.Column="1" 
                 Content="For all Drone-Option:)" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="Drone_Click"/>
-        <Button Grid.Row="0" Grid.Column="1" 
+        <Button Grid.Row="1" Grid.Column="2" 
                 Content="For all Customer-Option:)" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="Customer_Click"/>
-        <Button Grid.Row="0" Grid.Column="2" 
+        <Button Grid.Row="1" Grid.Column="3" 
                 Content="For all station-Option:)" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="Station_Click"/>
-        <Button Grid.Row="0" Grid.Column="3" 
+        <Button Grid.Row="1" Grid.Column="4" 
                 Content="For all parcels-option:)" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="Parcel_Click"></Button>
-        <ContentPresenter Grid.Row="1" Grid.ColumnSpan="4" 
+        <ContentPresenter Grid.Row="2" Grid.ColumnSpan="5" 
                           Content="{Binding CurrentView}"/>
+        <Grid Grid.RowSpan="5"  Grid.ColumnSpan="5" >
+            <Grid.Background >
+                <ImageBrush Stretch="Fill" ImageSource="./Images/background2png-01.png"></ImageBrush>
+            </Grid.Background>
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Grid.Background >
+                <ImageBrush Stretch="Fill" ImageSource="./Images/logo.png"></ImageBrush>
+            </Grid.Background>
+        </Grid>
     </Grid>
+
 </Window>

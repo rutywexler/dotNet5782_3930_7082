@@ -52,8 +52,6 @@
             </ListView>
                 <Button Content="close customer option"/>
             <Button Content="update customer" Command="{Binding UpdateCustomerCommand}"/>
-            <Button Command="{Binding DeleteCustomerCommand}"
-                 Content="Delete Parcel"></Button>
 
             <!--<Button Content="Delete station" Command="{Binding DeleteStationCommand}">-->
                     <!--<Button.Visibility>

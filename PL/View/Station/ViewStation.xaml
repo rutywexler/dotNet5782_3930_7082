@@ -27,7 +27,6 @@
             <ListView  ItemsSource ="{Binding Station.DronesInCharching}" />
             <Button Content="close station"/>
             <Button Content="update station" Command="{Binding UpdateStationCommand}"/>
-            <Button Content="Delete station" Command="{Binding DeleteStationCommand}">
             <!--<Button.Visibility>
                     <MultiBinding Converter="{StaticResource ConverterUpdateStation}">
                         <Binding Path="station.Name" />
@@ -36,7 +35,7 @@
                         <Binding Path="stationEmptyChargeSlots" />
                     </MultiBinding>
                 </Button.Visibility>-->
-            </Button>
+           
         </StackPanel>
         </ScrollViewer>
     </Grid>

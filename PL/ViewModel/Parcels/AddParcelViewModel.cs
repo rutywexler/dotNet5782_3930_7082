@@ -17,7 +17,7 @@ namespace PL
             //Custom control
             bl = BlApi.BlFactory.GetBL();
             Parcel = new();
-            AddParcelCommand = new(ToAddParcel, param => CheckValid.CheckValidAddParcel(this));
+            AddParcelCommand = new(ToAddParcel, param => CheckValid.CheckValidAddParcel(this.Parcel));
             CustomersId = new CustomerUseBl().GetCustomers();
             Priorities = Enum.GetValues(typeof(Priorities));
             Weight = Enum.GetValues(typeof(WeightCategories));

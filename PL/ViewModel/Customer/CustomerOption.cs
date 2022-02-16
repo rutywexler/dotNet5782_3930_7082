@@ -13,7 +13,6 @@ namespace PL
         BlApi.IBL bl;
         public CustomerForList CustomerToList { get; set; }
         public RelayCommand UpdateCustomerCommand { get; set; }
-        public RelayCommand DeleteCustomerCommand { get; set; }
         public RelayCommand OpenViewParcelrWindowCommand { get; set; }
 
 
@@ -57,7 +56,6 @@ namespace PL
             Name = Customer.Name;
             PhoneNumber = Customer.PhoneNumber;
             UpdateCustomerCommand = new(UpdateCustomer, param=> CheckValid.CheckValidUpdateCustomer(this.Customer));
-            DeleteCustomerCommand = new(DeleteCustomer, null);
             OpenViewParcelrWindowCommand = new(OpenViewParcelrWindow, null);
         }
 
@@ -66,18 +64,7 @@ namespace PL
             var parcel = param as ParcelToCustomer;
             new ViewParcel(ParcelConverter.ConvertParcelInCustomerToParcelForList(parcel, Customer)).Show();
         }
-        private void DeleteCustomer(object param)
-        {
-            try
-            {
-                bl.DeleteCustomer(Customer.Id);
-            }
-            catch (KeyNotFoundException ex)//למצוא שגיאה מתאימה 
-            {
-                MessageBox.Show($"didnt succeed to delete,{ex.Message}");
-            }
-            MessageBox.Show("Succeed to delete station");
-        }
+
         public SimpleCustomer GetCustomer(int id)
         {
             return CustomerInParcelUseBL.ConvertCustomer(bl.GetCustomer(id));

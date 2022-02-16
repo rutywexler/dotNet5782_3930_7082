@@ -9,7 +9,6 @@ namespace BlApi
         public Customer GetCustomer(int id);
         public IEnumerable<CustomerForList> GetCustomers();
         public void UpdateCustomer(int id, string name, string PhoneNumber);
-        public void DeleteCustomer(int id);
 
 
     }

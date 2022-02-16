@@ -13,7 +13,7 @@ namespace PL
         BlApi.IBL bl;
         public int StationId { get; set; }
         public Array Weight { get; set; }
-        public DroneForList drone { get; set; }
+        public DroneToAdd drone { get; set; }
         public IEnumerable<int> StationsId { get; set; }
         public RelayCommand AddDroneCommand { get; set; }
  
@@ -21,7 +21,7 @@ namespace PL
         {
             bl = BlApi.BlFactory.GetBL();
             drone = new();
-            AddDroneCommand = new(AddDrone, null)/*checkValid.CheckValidAddCustomer)*/;
+            AddDroneCommand = new(AddDrone,null /*param => CheckValid.CheckValidAddDrone(this.drone)*/);
             Weight = Enum.GetValues(typeof(WeightCategories));
             StationsId= bl.GetStaionsWithEmptyChargeSlots().Select(station => station.IdStation);
         }

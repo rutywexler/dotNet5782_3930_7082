@@ -39,10 +39,10 @@ namespace DalApi
         //public void RemoveCustomer(Customer customer);
 
         public void RemoveParcel(int id);
-        public void RemoveStation(int id);
+        //public void RemoveStation(int id);
         public double[] GetPowerConsumptionByDrone();
         public void RemoveDrone(Drone drone);
-        public void RemoveCustomer(int id);
+        //public void RemoveCustomer(int id);
         public void RemoveParcelAbsolute(int id);
     }
 }

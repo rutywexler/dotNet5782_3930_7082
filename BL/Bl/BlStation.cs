@@ -120,16 +120,6 @@ namespace BL
             }
         }
 
-       //////\
-        public void RemoveStation(int id)
-        {
-            DO.Station station;
-            lock(dal)
-                station = dal.GetStation(id);
-            lock(dal)
-                dal.RemoveStation(station.Id);
-        }
-
 
 
         /// <summary>

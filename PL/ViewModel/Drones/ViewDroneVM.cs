@@ -18,13 +18,13 @@ namespace PL.ViewModel.Drones
             bl = ibl;
             SelectedDrone = selectedDrone;
             this.refreshDroneList = refreshDroneList;
-            SendingTheDroneForChargingCommand = new RelayCommand(SendingTheDroneForCharging);
-            SendingTheDroneForDeliveryCommand = new RelayCommand(SendingTheDroneForDelivery);
-            ReleaseDroneFromChargingCommand = new RelayCommand(ReleaseDroneFromCharging);
-            UpdateModelCommand = new RelayCommand(UpdateModel);
-            ParcelCollectionCommand = new RelayCommand(ParcelCollection);
-            ParcelDeliveryCommand = new RelayCommand(ParcelDelivery);
-            StartSimulatorCommand = new RelayCommand(Auto_Click);
+            SendingTheDroneForChargingCommand = new RelayCommand(SendingTheDroneForCharging, null);
+            SendingTheDroneForDeliveryCommand = new RelayCommand(SendingTheDroneForDelivery, null);
+            ReleaseDroneFromChargingCommand = new RelayCommand(ReleaseDroneFromCharging, null);
+            UpdateModelCommand = new RelayCommand(UpdateModel, param=> CheckValid.CheckValidUpdateDrone(this.SelectedDrone));
+            ParcelCollectionCommand = new RelayCommand(ParcelCollection, null);
+            ParcelDeliveryCommand = new RelayCommand(ParcelDelivery, null);
+            StartSimulatorCommand = new RelayCommand(Auto_Click, null);
         }
         private void Refresh()
         {
@@ -60,6 +60,10 @@ namespace PL.ViewModel.Drones
                 MessageBox.Show("succees to Sending The Drone For Delivery");
             }
             catch(InvalidEnumArgumentException ex)
+            {
+                MessageBox.Show($"failed to Sending The Drone For Delivery, {ex.Message}");
+            }
+            catch(BL.InValidActionException ex)
             {
                 MessageBox.Show($"failed to Sending The Drone For Delivery, {ex.Message}");
             }

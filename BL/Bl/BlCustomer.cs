@@ -177,14 +177,7 @@ namespace BL
 
    
 
-    public void DeleteCustomer(int id)
-        {
-            DO.Customer customer;
-            lock(dal) 
-                customer = dal.GetCustomer(id);
-            lock(dal)
-                dal.RemoveCustomer(customer.Id);
-        }
+
 
     }
 }

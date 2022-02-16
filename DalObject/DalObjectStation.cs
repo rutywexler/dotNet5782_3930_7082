@@ -89,18 +89,18 @@ namespace Dal
             }
             return count;
         }
-        /// <summary>
-        /// remove station from ststion list
-        /// </summary>
-        /// <param name="customer">the station i want to delete</param>
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        public void RemoveStation(int id)
-        {
-            Station station = Stations.FirstOrDefault(station => station.Id == id);
-            Stations.Remove(station);
-            station.IsDeleted = true;
-            Stations.Add(station);
-        }
+        ///// <summary>
+        ///// remove station from ststion list
+        ///// </summary>
+        ///// <param name="customer">the station i want to delete</param>
+        //[MethodImpl(MethodImplOptions.Synchronized)]
+        //public void RemoveStation(int id)
+        //{
+        //    Station station = Stations.FirstOrDefault(station => station.Id == id);
+        //    Stations.Remove(station);
+        //    //station.IsDeleted = true;
+        //    //Stations.Add(station);
+        //}
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateSation(Station station)

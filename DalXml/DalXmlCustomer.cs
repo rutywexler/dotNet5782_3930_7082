@@ -66,13 +66,6 @@ namespace Dal
             //}
         }
 
-        //public void RemoveCustomer(int id)
-        //{
-        //    Customer customer = Customers.FirstOrDefault(customer => customer.Id == id);
-        //    Customers.Remove(customer);
-        //    customer.IsDeleted = true;
-        //    Customers.Add(customer);
-        //}
 
         /// <summary>
         /// Gets parameters and create new customer 
@@ -96,18 +89,7 @@ namespace Dal
         }
 
 
-        /// <summary>
-        /// The function deletes a specific customer
-        /// </summary>
-        /// <param name="id">customer ID</param>
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        public void RemoveCustomer(int id)
-        {
-            if (GetCustomer(id).Equals(default(Customer)))
-                throw new KeyNotFoundException("Delete customer -DAL: There is no suitable customer in data");
 
-            UpdateCustomer(GetCustomer(id));
-        }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateCustomer(Customer customer)

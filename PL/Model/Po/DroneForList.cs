@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -11,14 +12,15 @@ namespace PL
 {
     public class DroneForList:ILocate,INotifyPropertyChanged
     {
-        private int id;
-        public int Id { 
+        private int? id;
+      
+        public int? Id { 
             get{ return id; } 
             set{ id = value;
                 OnPropertyChanged(nameof(Id)); } }
+        private string? model;
 
-        private string model;
-        public string Model
+        public string? Model
         {
             get { return model; }
             set
@@ -28,8 +30,8 @@ namespace PL
             }
         }
 
-        private WeightCategories weight;
-        public WeightCategories Weight
+        private WeightCategories? weight;
+        public WeightCategories? Weight
         {
             get { return weight; }
             set
@@ -72,10 +74,10 @@ namespace PL
             }
         }
 
-        private int parcelId;
-        public int ParcelId
+        private int? parcelId;
+        public int? ParcelId
         {
-            get { return parcelId; }
+            get { return ParcelId; }
             set
             {
                 parcelId = value;

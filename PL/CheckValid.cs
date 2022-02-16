@@ -13,15 +13,12 @@ namespace PL
 {
     public static class CheckValid
     {
-        
+
         public static bool CheckValidAddParcel(object obj)
         {
             if (obj is ParcelToAdd parcel)
             {
-                if (parcel.Id == null)
-                {
-                    return false;
-                }
+
                 if (parcel.Priority == null)
                 {
                     return false;
@@ -41,46 +38,46 @@ namespace PL
                 return true;
             }
             else
-                 return true;
+                return false;
         }
 
 
         public static bool CheckValidAddStation(object obj)
         {
 
-                if (obj is BaseStationToAdd baseStation)
+            if (obj is BaseStationToAdd baseStation)
+            {
+
+                if (baseStation.Id == null)
                 {
+                    return false;
+                }
+                if (baseStation.Location == null)
+                {
+                    return false;
+                }
+                if (baseStation.Location.Latitude > 90 || baseStation.Location.Latitude < -90)
+                {
+                    return false;
 
-                    if (baseStation.Id == null)
-                    {
-                        return false;
-                    }
-                    if (baseStation.Location == null)
-                    {
-                        return false;
-                    }
-                    if (baseStation.Location.Latitude > 90 || baseStation.Location.Latitude < -90)
-                    {
-                        return false;
+                }
+                if (baseStation.Location.Longitude > 90 || baseStation.Location.Longitude < -90)
+                {
+                    return false;
 
-                    }
-                    if (baseStation.Location.Longitude > 90 || baseStation.Location.Longitude < -90)
-                    {
-                        return false;
-
-                    }
-                    if (baseStation.Name == null)
-                    {
-                        return false;
-                    }
-                    if (baseStation.ChargeSlots == null)
-                    {
-                        return false;
-                    }
-                    if (baseStation.ChargeSlots < 0)
-                    {
-                        return false;
-                    }
+                }
+                if (baseStation.Name == null)
+                {
+                    return false;
+                }
+                if (baseStation.ChargeSlots == null)
+                {
+                    return false;
+                }
+                if (baseStation.ChargeSlots < 0)
+                {
+                    return false;
+                }
 
                 return true;
             }
@@ -134,10 +131,23 @@ namespace PL
         {
             if (obj is SimpleCustomer customer)
             {
-                if (customer.Name == null || customer.PhoneNumber == null || customer.PhoneNumber.Length != 10||customer.Name=="")
+                if (customer.Name == null || customer.PhoneNumber == null || customer.PhoneNumber.Length != 10 || customer.Name == "")
                 {
                     return false;
                 }
+                return true;
+            }
+            else return false;
+        }
+        public static bool CheckValidAddDrone(object obj)
+        {
+            if (obj is DroneToAdd drone)
+            {
+                if (drone.Model == null || drone.Weight == null || drone.Id == null || drone.StationId == null)
+                {
+                    return false;
+                }
+
                 return true;
             }
             else return false;
@@ -146,7 +156,7 @@ namespace PL
         {
             if (obj is BaseStation baseStation)
             {
-                if (baseStation.Name == null || baseStation.AvailableChargeSlots == null || baseStation.AvailableChargeSlots <0 || baseStation.Name == "")
+                if (baseStation.Name == null || baseStation.AvailableChargeSlots == null || baseStation.AvailableChargeSlots < 0 || baseStation.Name == "")
                 {
                     return false;
                 }
@@ -156,9 +166,9 @@ namespace PL
         }
         public static bool CheckValidUpdateDrone(object obj)
         {
-            if (obj is SimpleCustomer customer)
+            if (obj is Drone drone)
             {
-                if (customer.Name == null || customer.PhoneNumber == null || customer.PhoneNumber.Length != 10 || customer.Name == "")
+                if (drone.Model == null || drone.Model == "")
                 {
                     return false;
                 }
@@ -166,7 +176,6 @@ namespace PL
             }
             else return false;
         }
-
 
 
     }
