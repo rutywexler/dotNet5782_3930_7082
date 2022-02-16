@@ -37,6 +37,7 @@ namespace PL
             OpenAddStationWindow = new(OpenAddWindow, null);
             OpenViewStationWindowCommand = new(OpenStationView);
             GroupingStation = new(Grouping, null);
+            RefreshList();
         }
         private void RefreshList()
         {

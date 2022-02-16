@@ -10,7 +10,7 @@ namespace Dal
     public partial class DalXml
     {
         private readonly string StationPath = "Stations.xml";
-        private readonly string DroneChargePath = "DroneCharge.xml";
+        private readonly string DroneChargePath = "DroneCharges.xml";
 
 
         /// <summary>

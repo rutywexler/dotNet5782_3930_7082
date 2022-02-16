@@ -44,6 +44,8 @@ namespace BL
                     Location = new Location() { Lattitude = station.Lattitude, Longitude = station.Longitude }
                 };
                 drones.Add(droneToList);
+                lock (dal)
+                    dal.AddDRoneCharge(id, stationId);
             }
             catch (Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
@@ -136,7 +138,6 @@ namespace BL
             BaseStation station = ClosetStationThatPossible(droneToList.Location, droneToList.BatteryDrone, out double minDistance);
             drones.Remove(droneToList);
             droneToList.DroneStatus = DroneStatus.Meintenence;
-            station.NumberOfChargingStations -= 1;
             droneToList.BatteryDrone -= minDistance * Available;
             droneToList.Location = new Location() { Longitude = station.Location.Longitude, Lattitude = station.Location.Lattitude }; 
             lock(dal)
@@ -278,12 +279,12 @@ namespace BL
         /// <summary>
         /// made the changes between drone to drone to list
         /// </summary>
-        /// <param name="droneId"> the id of the drone that needs to change to drone to list</param>
+        /// <param name="stationId"> the id of the drone that needs to change to drone to list</param>
         /// <returns></returns>
 
-        private List<DroneInCharging> ConvertDroneToDroneToDroneInCharging(int droneId)
+        private List<DroneInCharging> ConvertDroneToDroneToDroneInCharging(int stationId)
         {
-            var listDronechargingInStation = dal.GetDronechargingInStation(droneId);
+            var listDronechargingInStation = dal.GetDronechargingInStation(stationId);
             if (listDronechargingInStation.Count() == 0)
                 return new();
             List<DroneInCharging> droneInChargings = new();

@@ -45,7 +45,7 @@ namespace BL
 
     }
     [Serializable]
-    class NotExsistSutibleParcelException : Exception
+    public class NotExsistSutibleParcelException : Exception
     {
         public NotExsistSutibleParcelException() : base() { }
         public NotExsistSutibleParcelException(string message) : base(message) { }

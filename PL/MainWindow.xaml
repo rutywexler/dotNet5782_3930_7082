@@ -39,9 +39,9 @@
         <ContentPresenter Grid.Row="2" Grid.ColumnSpan="5" 
                           Content="{Binding CurrentView}"/>
         <Grid Grid.RowSpan="5"  Grid.ColumnSpan="5" >
-            <Grid.Background >
+            <!--<Grid.Background >
                 <ImageBrush Stretch="Fill" ImageSource="./Images/background2png-01.png"></ImageBrush>
-            </Grid.Background>
+            </Grid.Background>-->
         </Grid>
         <Grid Grid.Row="0" Grid.Column="0">
             <Grid.Background >

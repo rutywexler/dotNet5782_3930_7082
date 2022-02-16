@@ -75,7 +75,7 @@ namespace Dal
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void ReleaseDroneFromRecharge(int droneId)
         {
-            var droneCharge = DroneCharges.First(charge => charge.DroneId == droneId);
+            var droneCharge = DroneCharges.Find(charge => charge.DroneId == droneId);
 
             DroneCharges.Remove(droneCharge);
            // BaseStationDroneOut(droneCharge.StationId);
