@@ -107,7 +107,7 @@ namespace BL
 
             if (!parcels.Any())
             {
-                throw new InValidActionException("Couldn't assign any parcel to the drone.");
+                throw new NotExsistSutibleParcelException("Couldn't assign any parcel to the drone.");
             }
 
             Parcel parcel = parcels.First();
@@ -155,7 +155,7 @@ namespace BL
                 dal.RemoveParcelAbsolute(parcel.Id);
             parcel.Delivered = DateTime.Now;
             lock (dal)
-                dal.AddParcel(parcel.SenderId, parcel.TargetId, parcel.Weight, parcel.Priority, parcel.Id, parcel.DroneId, parcel.Created, parcel.Associated, (DateTime)parcel.Collected, parcel.Delivered);
+                dal.AddParcel(parcel.SenderId, parcel.TargetId, parcel.Weight, parcel.Priority, parcel.Id, parcel.DroneId, parcel.Created, parcel.Associated, parcel.Collected, parcel.Delivered);
         }
 
         /// <summary>

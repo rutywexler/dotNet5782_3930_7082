@@ -44,8 +44,28 @@ namespace Dal
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDRoneCharge(int droneId, int stationId)
         {
-            DroneCharges.Add(new DroneCharge() { DroneId = droneId, StationId = stationId,StartTime=DateTime.Now});
+            // DroneCharges.Add(new DroneCharge() { DroneId = droneId, StationId = stationId,StartTime=DateTime.Now});
+            if (DataSource.DroneCharges.Exists(dc => dc.DroneId == droneId))
+                throw new Exception_ThereIsInTheListObjectWithTheSameValue("This drone is already being charged");
+            DroneCharges.Add(new DroneCharge()
+            {
+                DroneId = droneId,
+                StationId = stationId,
+                StartTime = DateTime.Now
+            });
+           // BaseStationDroneIn(stationId);
         }
+
+        private void BaseStationDroneIn(int baseStationId)
+        {
+            int index = Stations.FindIndex(bs => bs.Id == baseStationId);
+            if (index == -1)
+                throw new Exception_ThereIsInTheListObjectWithTheSameValue("This drone is already being charged");
+            Station station = Stations[index];
+            --station.ChargeSlots;
+            Stations[index] = station;
+        }
+
 
         /// <summary>
         /// Find a drone that has tha same id and release him from charging
@@ -58,6 +78,17 @@ namespace Dal
             var droneCharge = DroneCharges.First(charge => charge.DroneId == droneId);
 
             DroneCharges.Remove(droneCharge);
+           // BaseStationDroneOut(droneCharge.StationId);
+        }
+
+        public void BaseStationDroneOut(int baseStationId)
+        {
+            int index = DataSource.Stations.FindIndex(bs => bs.Id == baseStationId);
+            if (index == -1)
+                throw new Exception_ThereIsInTheListObjectWithTheSameValue("Base station does not exist");
+            Station station = Stations[index];
+            ++station.ChargeSlots;
+            Stations[index] = station;
         }
 
     }

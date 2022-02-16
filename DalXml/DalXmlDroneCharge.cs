@@ -13,6 +13,7 @@ namespace Dal
     public partial class DalXml
     {
         private readonly string droneChargesPath = "DroneCharges.xml";
+        
 
         /// <summary>
         /// Finds all the drones that are charged at a particular station
@@ -64,6 +65,20 @@ namespace Dal
             var droneCharge = droneCharges.First(charge => charge.DroneId == droneId);
             droneCharges.Remove(droneCharge);
             XMLTools.SaveListToXmlSerializer(droneCharges, droneChargesPath);
+          //  BaseStationDroneOut(droneCharge.StationId);
+        }
+
+        public void BaseStationDroneOut(int baseStationId)
+        {
+            List< Station> stations=XMLTools.LoadListFromXmlSerializer<DO.Station>(StationPath);
+            int index = stations.FindIndex(bs => bs.Id == baseStationId);
+         //   if (index == -1)
+               // throw new exception_("Base station does not exist");
+            Station station = stations[index];
+            ++station.ChargeSlots;
+            stations[index] = station;
+            XMLTools.SaveListToXmlSerializer(stations, StationPath);
+
         }
 
     }
