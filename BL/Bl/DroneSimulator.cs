@@ -73,10 +73,7 @@ namespace BL
                             {
 
                                 Station = bl.ClosetStationThatPossible(Drone.Location, Drone.BatteryDrone, out double n);
-                                //try { Station = bl.GetStation(stationId ?? bl.GetDroneChargeBaseStationId(Drone.DroneId)); }
-                                //catch (DO.ExistIdException ex) { throw new BadStatusException("Internal error base station", ex); }
-                                //distance = drone.Distance(bs);
-                                //maintenance = Maintenance.Going;
+                       
                                 if (Station != null)
                                 {
 
@@ -88,9 +85,9 @@ namespace BL
 
                                 }
                             }
-                            catch (Exception)//NotExsistSuitibleStationException)
+                            catch (Exception_NotExistCloseStationForTheDrone)
                             {
-
+                                throw new Exception_NotExistCloseStationForTheDrone();
                             }
 
                         }
@@ -118,7 +115,7 @@ namespace BL
                 {
                     bl.AssignParcelToDrone(Drone.DroneId);
                 }
-                catch (/*NotExsistSutibleParcelException*/Exception)
+                catch (NotExsistSutibleParcelException)
                 {
                     if (Drone.BatteryDrone >= 100)
                         return;

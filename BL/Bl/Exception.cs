@@ -33,7 +33,7 @@ namespace BL
     }
 
     [Serializable]
-    internal class InValidActionException : Exception
+    public class InValidActionException : Exception
     {
         public InValidActionException()
         {
@@ -41,6 +41,18 @@ namespace BL
 
         public InValidActionException(string message) : base(message)
         {
+        }
+
+    }
+    [Serializable]
+    class NotExsistSutibleParcelException : Exception
+    {
+        public NotExsistSutibleParcelException() : base() { }
+        public NotExsistSutibleParcelException(string message) : base(message) { }
+
+        public override string ToString()
+        {
+            return Message + "Exception! Not Exsist Sutible Parcel Exception";
         }
 
     }

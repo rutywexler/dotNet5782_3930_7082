@@ -35,10 +35,10 @@ namespace PL
                 MessageBox.Show("Success to add drone:)");
 
             }
-            catch (KeyNotFoundException)
+            catch (KeyNotFoundException ex)
             {
 
-                MessageBox.Show("Didnt succeed to add the drone:( Enter details Again");
+                MessageBox.Show($"Didnt succeed to add the drone:( Enter details Again,{ex.Message}");
             }
         }
     }

@@ -137,10 +137,6 @@ namespace BL
             
         }
         
-         
-        
-
-
         /// <summary>
         /// Convert a BL parcel to Parcel At Customer
         /// </summary>

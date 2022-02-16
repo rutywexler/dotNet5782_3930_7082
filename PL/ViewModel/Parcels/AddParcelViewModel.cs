@@ -37,10 +37,10 @@ namespace PL
                 MessageBox.Show("Success to add parcel:)");
 
             }
-            catch (KeyNotFoundException)
+            catch (KeyNotFoundException ex)
             {
 
-                MessageBox.Show("Didnt succeed to add the parcel:( Enter details Again");
+                MessageBox.Show($"Didnt succeed to add the parcel:( Enter details Again, {ex.Message}");
             }
         }
 
