@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace BL
 {
     [Serializable]
-    internal class InvalidDroneStateException : Exception
+    public class InvalidDroneStateException : Exception
     {
         public InvalidDroneStateException()
         {

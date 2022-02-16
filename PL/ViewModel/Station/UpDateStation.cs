@@ -43,9 +43,9 @@ namespace PL
             {
                 bl.RemoveStation(Station.Id);
             }
-            catch (Exception)//למצוא שגיאה מתאימה 
+            catch (KeyNotFoundException ex)//למצוא שגיאה מתאימה 
             {
-                throw;
+                MessageBox.Show($"failed to delete station:( ,{ex.Message}");
             }
             MessageBox.Show("Succeed to delete station");
         }

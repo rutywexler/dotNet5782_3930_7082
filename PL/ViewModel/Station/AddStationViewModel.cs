@@ -30,10 +30,10 @@ namespace PL
                 MessageBox.Show("Success to add Station:)");
 
             }
-            catch (KeyNotFoundException)
+            catch (BL.Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
 
-                MessageBox.Show("Didnt succeed to add the parcel:( Enter details Again");
+                MessageBox.Show($"Didnt succeed to add the parcel:( Enter details Again ,{ex.Message}");
             }
         }
     }

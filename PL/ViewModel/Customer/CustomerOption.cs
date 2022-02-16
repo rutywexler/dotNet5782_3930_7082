@@ -72,9 +72,9 @@ namespace PL
             {
                 bl.DeleteCustomer(Customer.Id);
             }
-            catch (Exception)//למצוא שגיאה מתאימה 
+            catch (KeyNotFoundException ex)//למצוא שגיאה מתאימה 
             {
-                throw;
+                MessageBox.Show($"didnt succeed to delete,{ex.Message}");
             }
             MessageBox.Show("Succeed to delete station");
         }

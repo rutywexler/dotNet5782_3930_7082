@@ -40,9 +40,13 @@ namespace PL.ViewModel.Drones
                 Refresh();
                 MessageBox.Show("succees to Send Drone For Charge");
             }
-            catch
+            catch(BL.InvalidDroneStateException ex)
             {
-                MessageBox.Show("failed to Send Drone For Charge");
+                MessageBox.Show($"failed to Send Drone For Charge,{ex.Message}");
+            }
+            catch(KeyNotFoundException ex)
+            {
+                MessageBox.Show($"failed to Send Drone For Charge,{ex.Message}");
             }
         }
         public RelayCommand SendingTheDroneForDeliveryCommand { get; set; }
@@ -55,9 +59,9 @@ namespace PL.ViewModel.Drones
                 Refresh();
                 MessageBox.Show("succees to Sending The Drone For Delivery");
             }
-            catch
+            catch(InvalidEnumArgumentException ex)
             {
-                MessageBox.Show("failed to Sending The Drone For Delivery");
+                MessageBox.Show($"failed to Sending The Drone For Delivery, {ex.Message}");
             }
         }
 
@@ -70,9 +74,13 @@ namespace PL.ViewModel.Drones
                 Refresh();
                 MessageBox.Show("the drone succeeded to release from charging ", "success", MessageBoxButton.OK);
             }
-            catch
+            catch(ArgumentNullException ex)
             {
-                MessageBox.Show("Failed to release from charging");
+                MessageBox.Show($"Failed to release from charging, {ex.Message}");
+            }
+            catch(InvalidEnumArgumentException ex)
+            {
+                MessageBox.Show($"Failed to release from charging, {ex.Message}");
             }
         }
 
@@ -85,9 +93,13 @@ namespace PL.ViewModel.Drones
                 Refresh();
                 MessageBox.Show("the drone succeeded to update ", "success", MessageBoxButton.OK);
             }
-            catch
+            catch(KeyNotFoundException ex)
             {
-                MessageBox.Show("Failed to update the drone");
+                MessageBox.Show($"Failed to update the drone, {ex.Message}");
+            }
+            catch(ArgumentNullException ex)
+            {
+                MessageBox.Show($"Failed to update the drone, {ex.Message}");
             }
         }
 
@@ -100,9 +112,19 @@ namespace PL.ViewModel.Drones
                 Refresh();
                 MessageBox.Show("succees Parcel Collection By Drone");
             }
-            catch
+            catch(ArgumentNullException ex)
             {
-                MessageBox.Show("Failed to Parcel Collection By Dronee");
+                MessageBox.Show($"Failed to Parcel Collection By Dronee,{ex.Message}");
+            }
+            catch(KeyNotFoundException ex)
+            {
+                MessageBox.Show($"Failed to Parcel Collection By Dronee,{ex.Message}");
+
+            }
+            catch (BL.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            {
+                MessageBox.Show($"Failed to Parcel Collection By Dronee,{ex.Message}");
+
             }
         }
 

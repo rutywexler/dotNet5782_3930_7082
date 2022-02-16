@@ -44,9 +44,9 @@ namespace PL
             {
                 bl.DeleteParcel(Parcel.Id);
             }
-            catch (Exception)//למצוא שגיאה מתאימה 
+            catch (BL.InValidActionException ex) 
             {
-                MessageBox.Show("the parcel cant be deleted because the parcel belong to drone:(");
+                MessageBox.Show($"the parcel cant be deleted because the parcel belong to drone:( ,{ex.Message} ");
                 return;
             }
             MessageBox.Show("Succeed to delete Parcel");

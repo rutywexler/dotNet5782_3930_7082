@@ -25,6 +25,14 @@
     <IsDeleted>false</IsDeleted>
   </Customer>
   <Customer>
+    <Id>4</Id>
+    <Name>ruty</Name>
+    <Phone>05</Phone>
+    <Lattitude>24564</Lattitude>
+    <Longitude>546631</Longitude>
+    <IsDeleted>false</IsDeleted>
+  </Customer>
+  <Customer>
     <Id>367345632</Id>
     <Name>shalom</Name>
     <Phone>0504122958</Phone>
