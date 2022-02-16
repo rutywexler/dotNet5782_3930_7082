@@ -56,7 +56,7 @@ namespace PL
             Customer = GetCustomer(customerID);
             Name = Customer.Name;
             PhoneNumber = Customer.PhoneNumber;
-            UpdateCustomerCommand = new(UpdateCustomer, null);
+            UpdateCustomerCommand = new(UpdateCustomer, param=> CheckValid.CheckValidUpdateCustomer(this.Customer));
             DeleteCustomerCommand = new(DeleteCustomer, null);
             OpenViewParcelrWindowCommand = new(OpenViewParcelrWindow, null);
         }

@@ -309,7 +309,7 @@ namespace BL
             lock (dal)
                 parcel = dal.GetParcel(id);
             ParcelList parcelList = ParcelToParcelForList(id);
-            if (parcelList.ParcelStatus != PackageStatuses.CREATED)
+            if (parcelList.ParcelStatus == PackageStatuses.COLLECTED|| parcelList.ParcelStatus == PackageStatuses.ASSOCIATED)
             {
                 throw new InValidActionException();
             }

@@ -33,7 +33,7 @@ namespace PL
         public UpDateStation(BaseStationForList station) : this()
         {
             Station = GetStation(station.Id);
-            UpdateStationCommand = new(UpdateStation, null);
+            UpdateStationCommand = new(UpdateStation, param=>CheckValid.CheckValidUpdateStation(this.Station));
             DeleteStationCommand = new(DeleteStation, null);
         }
 

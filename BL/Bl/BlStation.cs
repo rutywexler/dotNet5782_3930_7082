@@ -96,9 +96,9 @@ namespace BL
         /// <param name="name">The new name</param>
         /// <param name="chargeSlots">A nwe number for charging slots</param>
        ////\
-        public void UpdateStation(int id, string name, int chargeSlots)
+        public void UpdateStation(int id, string name, int? chargeSlots)
         {
-            if (name.Equals(string.Empty) && chargeSlots == 0)
+            if (name.Equals(string.Empty) && chargeSlots == null)
                 throw new ArgumentNullException("You must enter all the details!");
             try
             {
@@ -106,7 +106,7 @@ namespace BL
                 lock(dal)
                     station = dal.GetStation(id);
                 station.Name = name;
-                station.ChargeSlots = chargeSlots;
+                station.ChargeSlots = (int)chargeSlots;
                 lock(dal)
                     dal.UpdateSation(station);
             }

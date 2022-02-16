@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using static PL.Enums;
 using System.Windows;
 
+
 namespace PL
 {
     public static class CheckValid
@@ -19,27 +20,22 @@ namespace PL
             {
                 if (parcel.Id == null)
                 {
-                    NotEnter("parcel");
                     return false;
                 }
                 if (parcel.Priority == null)
                 {
-                    NotEnter("priority");
                     return false;
                 }
                 if (parcel.Sender == null)
                 {
-                    NotEnter("sender Id");
                     return false;
                 }
                 if (parcel.Target == null)
                 {
-                    NotEnter("target Id");
                     return false;
                 }
                 if (parcel.Weight == null)
                 {
-                    NotEnter("weight");
                     return false;
                 }
                 return true;
@@ -48,56 +44,43 @@ namespace PL
                  return true;
         }
 
-        internal static object CheckValidDeleteParcel(ViewParcelVM viewParcelVM)
-        {
-            throw new NotImplementedException();
-        }
 
         public static bool CheckValidAddStation(object obj)
         {
-            //if (valid(obj))
-           // {
+
                 if (obj is BaseStationToAdd baseStation)
                 {
 
                     if (baseStation.Id == null)
                     {
-                      //  NotEnter("station Id");
                         return false;
                     }
                     if (baseStation.Location == null)
                     {
-                      //  NotEnter("location");
                         return false;
                     }
                     if (baseStation.Location.Latitude > 90 || baseStation.Location.Latitude < -90)
                     {
-                      //  EnterdWrongDetail("latitude");
                         return false;
 
                     }
                     if (baseStation.Location.Longitude > 90 || baseStation.Location.Longitude < -90)
                     {
-                     //   EnterdWrongDetail("Longitude");
                         return false;
 
                     }
                     if (baseStation.Name == null)
                     {
-                     //   NotEnter("Name");
                         return false;
                     }
                     if (baseStation.ChargeSlots == null)
                     {
-//NotEnter("charge slots");
                         return false;
                     }
                     if (baseStation.ChargeSlots < 0)
                     {
-                       // EnterdWrongDetail("num of charge slote");
                         return false;
                     }
-               // }
 
                 return true;
             }
@@ -106,61 +89,86 @@ namespace PL
 
         }
 
-        //public static bool CheckValidAddCustomer(CustomerToAdd customer)
-        //{
-        //    if (customer.Id == null)
-        //    {
-        //        NotEnter("station Id");
-        //        return false;
-        //    }
-        //    if (customer.Name == null)
-        //    {
-        //        NotEnter("Name");
-        //        return false;
-        //    }
-        //    if (customer.Phone == null)
-        //    {
-        //        NotEnter("Phone");
-        //        return false;
-        //    }
-        //    if (customer.Location.Latitude == null)
-        //    {
-        //        NotEnter("Latitude");
-        //        return false;
-        //    }
-        //    if (customer.Location.Longitude == null)
-        //    {
-        //        NotEnter("Longitude");
-        //        return false;
-        //    }
-        //    if (customer.Location.Latitude > 90 || customer.Location.Latitude < 0)
-        //    {
-        //        EnterdWrongDetail("latitude");
-        //        return false;
+        public static bool CheckValidAddCustomer(Object obj)
+        {
+            if (obj is CustomerToAdd customer)
+            {
+                if (customer.Id == null)
+                {
+                    return false;
+                }
+                if (customer.Name == null)
+                {
+                    return false;
+                }
+                if (customer.Phone == null || customer.Phone.Length != 10)
+                {
 
-        //    }
-        //    if (customer.Location.Longitude > 90 || customer.Location.Longitude < 0)
-        //    {
-        //        EnterdWrongDetail("Longitude");
-        //        return false;
+                    return false;
+                }
+                if (customer.Location.Latitude == null)
+                {
+                    return false;
+                }
+                if (customer.Location.Longitude == null)
+                {
+                    return false;
+                }
+                if (customer.Location.Latitude > 90 || customer.Location.Latitude < 0)
+                {
+                    return false;
 
-        //    }
-          
-      
-        //    else
-        //        return true;
-        //}
+                }
+                if (customer.Location.Longitude > 90 || customer.Location.Longitude < 0)
+                {
+                    return false;
+                }
+                return true;
 
-    private static void EnterdWrongDetail(string v)
-    {
-        MessageBox.Show("$ You Enterd error {v}, please enter again!");
+
+
+            }
+            else return false;
+        }
+        public static bool CheckValidUpdateCustomer(object obj)
+        {
+            if (obj is SimpleCustomer customer)
+            {
+                if (customer.Name == null || customer.PhoneNumber == null || customer.PhoneNumber.Length != 10||customer.Name=="")
+                {
+                    return false;
+                }
+                return true;
+            }
+            else return false;
+        }
+        public static bool CheckValidUpdateStation(object obj)
+        {
+            if (obj is BaseStation baseStation)
+            {
+                if (baseStation.Name == null || baseStation.AvailableChargeSlots == null || baseStation.AvailableChargeSlots <0 || baseStation.Name == "")
+                {
+                    return false;
+                }
+                return true;
+            }
+            else return false;
+        }
+        public static bool CheckValidUpdateDrone(object obj)
+        {
+            if (obj is SimpleCustomer customer)
+            {
+                if (customer.Name == null || customer.PhoneNumber == null || customer.PhoneNumber.Length != 10 || customer.Name == "")
+                {
+                    return false;
+                }
+                return true;
+            }
+            else return false;
+        }
+
+
+
     }
-
-    private static void NotEnter(string v)
-    {
-        MessageBox.Show("$ You didnt Enter {v}, please enter!");
-    }
-    
-}
 }
 
