@@ -33,7 +33,7 @@ namespace PL
         public UpDateStation(BaseStationForList station) : this()
         {
             Station = GetStation(station.Id);
-            UpdateStationCommand = new(UpdateStation, null);
+            UpdateStationCommand = new(UpdateStation, param=>CheckValid.CheckValidUpdateStation(this.Station));
             DeleteStationCommand = new(DeleteStation, null);
         }
 
@@ -43,7 +43,7 @@ namespace PL
             {
                 bl.RemoveStation(Station.Id);
             }
-            catch (KeyNotFoundException ex)//למצוא שגיאה מתאימה 
+            catch (KeyNotFoundException ex)
             {
                 MessageBox.Show($"failed to delete station:( ,{ex.Message}");
             }

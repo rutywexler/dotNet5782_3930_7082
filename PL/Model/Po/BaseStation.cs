@@ -26,8 +26,8 @@ namespace PL
             set { location = value; OnPropertyChanged(nameof(Location)); } 
         }
 
-        private int availableChargeSlots;
-        public int AvailableChargeSlots {
+        private int? availableChargeSlots;
+        public int? AvailableChargeSlots {
             get { return availableChargeSlots; }
             set { availableChargeSlots = value; OnPropertyChanged(nameof(AvailableChargeSlots)); } 
         }

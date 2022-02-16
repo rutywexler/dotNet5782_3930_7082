@@ -17,7 +17,7 @@ namespace PL
         {
             bl = BlApi.BlFactory.GetBL();
             customer = new();
-            AddCustomerCommand = new(AddCustomer,null)/*checkValid.CheckValidAddCustomer)*/;
+            AddCustomerCommand = new(AddCustomer,param=>CheckValid.CheckValidAddCustomer(this.customer));
         }
 
         private void AddCustomer(object parameter)
