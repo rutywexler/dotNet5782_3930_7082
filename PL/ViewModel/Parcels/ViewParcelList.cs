@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace PL
 {
-    public class ViewParcelList : DependencyObject
+    public  class ViewParcelList : DependencyObject
     {
         public ListCollectionView ViewParcels
         {

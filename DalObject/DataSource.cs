@@ -95,9 +95,9 @@ namespace Dal
             } while (newParcel.TargetId == newParcel.SenderId);
             newParcel.Weight = (WeightCategories)Rnd.Next((int)Enum.GetValues<WeightCategories>().Min(), (int)Enum.GetValues<WeightCategories>().Max());
             newParcel.Priority = (Priorities)Rnd.Next((int)Enum.GetValues<Priorities>().Min(), (int)Enum.GetValues<Priorities>().Max());
-            newParcel.Requested = DateTime.Now; ;
-            newParcel.Scheduled = default;
-            newParcel.PickedUp = default;
+            newParcel.Created = DateTime.Now; ;
+            newParcel.Associated = default;
+            newParcel.Collected = default;
             newParcel.Delivered = default;
             newParcel.DroneId = 0;
             newParcel.IsDeleted = false;
@@ -110,17 +110,17 @@ namespace Dal
                     Parcel tmp = Parcels.FirstOrDefault(parcel => parcel.DroneId == newParcel.DroneId && parcel.Delivered == null);
                     if (tmp.DroneId == 0)
                     {
-                        newParcel.Scheduled = DateTime.Now;
+                        newParcel.Associated = DateTime.Now;
                         if (status == 2)
                         {
-                            newParcel.PickedUp = DateTime.Now;
+                            newParcel.Collected = DateTime.Now;
                         }
 
                     }
                     if (status == 3)
                     {
-                        newParcel.Scheduled = DateTime.Now;
-                        newParcel.PickedUp = DateTime.Now;
+                        newParcel.Associated = DateTime.Now;
+                        newParcel.Collected = DateTime.Now;
                         newParcel.Delivered = DateTime.Now;
                     }
 

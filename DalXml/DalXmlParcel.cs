@@ -23,7 +23,7 @@ namespace Dal
         /// <param name="Weigth"> The weigth of parcel (light- 0,medium - 1,heavy - 2)</param>
         /// <param name="Priority"> The priority of send the parcel (regular - 0,fast - 1,emergency - 2)</param>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void AddParcel(int SenderId, int TargetId, WeightCategories Weigth, Priorities Priority, int id = 0, int droneId = 0, DateTime requested = default, DateTime sceduled = default, DateTime pickedUp = default, DateTime? delivered = default)
+        public void AddParcel(int SenderId, int TargetId, WeightCategories Weigth, Priorities Priority, int id = 0, int droneId = 0, DateTime? created = default, DateTime? accociated = default, DateTime? collected = default, DateTime? delivered = default)
         {
             List<Parcel> parcels = XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath);
             //if (!Dal.DalObject.ExistsIDCheck(GetCustomers(), SenderId))
@@ -40,9 +40,9 @@ namespace Dal
             newParcel.TargetId = TargetId;
             newParcel.Weight = Weigth;
             newParcel.Priority = Priority;
-            newParcel.Requested = requested == default ? DateTime.Now : requested;
-            newParcel.Scheduled = sceduled;
-            newParcel.PickedUp = pickedUp;
+            newParcel.Created = created == default ? DateTime.Now : created;
+            newParcel.Associated = accociated;
+            newParcel.Collected = collected;
             newParcel.Delivered = delivered;
             newParcel.DroneId = droneId;
             parcels.Add(newParcel);
@@ -108,7 +108,7 @@ namespace Dal
             Parcel parcel = GetParcel(parcelId);
             parcels.Remove(parcel);
             parcel.DroneId = droneId;
-            parcel.Scheduled = DateTime.Now;
+            parcel.Associated = DateTime.Now;
             parcels.Add(parcel);
             XMLTools.SaveListToXmlSerializer(parcels, parcelsPath);
         }

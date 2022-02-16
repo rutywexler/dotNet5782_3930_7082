@@ -31,7 +31,10 @@ namespace BL
                         parcel.CustomerSendsFrom.Id,
                         parcel.CustomerReceivesTo.Id,
                        (DO.WeightCategories)parcel.WeightParcel,
-                      (DO.Priorities)parcel.Priority
+                      (DO.Priorities)parcel.Priority,
+                      parcel.Id,
+                      0,
+                      DateTime.Now
                     );
             }
             catch (Dal.Exception_ThereIsInTheListObjectWithTheSameValue ex)
@@ -152,7 +155,7 @@ namespace BL
                 dal.RemoveParcelAbsolute(parcel.Id);
             parcel.Delivered = DateTime.Now;
             lock (dal)
-                dal.AddParcel(parcel.SenderId, parcel.TargetId, parcel.Weight, parcel.Priority, parcel.Id, parcel.DroneId, parcel.Requested, parcel.Scheduled, (DateTime)parcel.PickedUp, parcel.Delivered);
+                dal.AddParcel(parcel.SenderId, parcel.TargetId, parcel.Weight, parcel.Priority, parcel.Id, parcel.DroneId, parcel.Created, parcel.Associated, (DateTime)parcel.Collected, parcel.Delivered);
         }
 
         /// <summary>
@@ -178,9 +181,9 @@ namespace BL
                         CustomerReceivesTo = CustomerToCustomerInParcel(dal.GetCustomer(parcel.TargetId)),
                         WeightParcel = (WeightCategories)parcel.Weight,
                         Priority = (Priorities)parcel.Priority,
-                        TimeCreatedTheParcel = parcel.Requested,
-                        AssignmentTime = parcel.Scheduled,
-                        CollectionTime = parcel.PickedUp,
+                        TimeCreatedTheParcel = parcel.Created,
+                        AssignmentTime = parcel.Associated,
+                        CollectionTime = parcel.Collected,
                         DeliveryTime = parcel.Delivered,
                     };
             }

@@ -24,8 +24,14 @@
             <TextBlock x:Name="TargetName" Text ="{Binding Parcel.Target, UpdateSourceTrigger=PropertyChanged}" />
             <Button Command="{Binding OpenCustomerWindowCommand}" CommandParameter="{Binding Parcel.Target}" Content="Open customer details" Click="Button_Click_1"></Button>
 
-            <TextBlock Text="Status: "/>
-            <TextBlock x:Name="Status" Text ="{Binding Parcel.StatusParcel, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="time of created the parcel: "/>
+            <TextBlock  Text ="{Binding Parcel.Created, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="time of accociated the parcel: "/>
+            <TextBlock  Text ="{Binding Parcel.Scheduled, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="time of collect the parcel: "/>
+            <TextBlock  Text ="{Binding Parcel.PickedUp, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="time of delivery the parcel: "/>
+            <TextBlock  Text ="{Binding Parcel.Delivered, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Text="Weight: "/>
             <TextBlock x:Name="Weight" Text ="{Binding Parcel.Weight, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Text="Drone:"/>

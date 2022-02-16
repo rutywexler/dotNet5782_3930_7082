@@ -66,10 +66,10 @@ namespace ConsoleUI
             Console.WriteLine("Enter The DroneId Of The Parcel:");
             tempParcel.DroneId= int.Parse(Console.ReadLine());
 
-            tempParcel.Scheduled = DateTime.Now;
-            tempParcel.PickedUp = new DateTime();
+            tempParcel.Associated = DateTime.Now;
+            tempParcel.Collected = new DateTime();
             tempParcel.Delivered= new DateTime();
-            tempParcel.Requested = new DateTime();
+            tempParcel.Created = new DateTime();
             return tempParcel;
         }
 

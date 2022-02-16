@@ -4,7 +4,7 @@ using System.Reflection;
 namespace Singelton
 {
     [Serializable]
-    public class SingletonException : Exception
+    public class SingletonException : Exception//אם לא צריך לא נוצר lazy 
     {
         public SingletonException(string message) : base(message) { }
         public SingletonException(string message, Exception exception) : base(message, exception) { }
@@ -18,7 +18,7 @@ namespace Singelton
         class Nested
         {
             internal static volatile T _instatnce = null;
-            internal static readonly object _lock = new object();
+            internal static readonly object _lock = new object();//threadsafe שתיים נגשים ביחד 
         }
         public static T Instance
         {
@@ -28,7 +28,7 @@ namespace Singelton
                 {
                     lock (Nested._lock)
                     {
-                        if (Nested._instatnce == null)
+                        if (Nested._instatnce == null)//אם זה כבר קיים 
                         {
                             Type type = typeof(T);
 

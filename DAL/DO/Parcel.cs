@@ -13,10 +13,10 @@ namespace DO
         public int TargetId { get; set; }
         public WeightCategories Weight { get; set; }
         public Priorities Priority { get; set; }
-        public DateTime Requested { get; set; }
         public int DroneId { get; set; }
-        public DateTime Scheduled { get; set; }
-        public DateTime? PickedUp { get; set; }
+        public DateTime? Created { get; set; }
+        public DateTime? Associated { get; set; }
+        public DateTime? Collected { get; set; }
         public DateTime? Delivered { get; set; }
         public bool IsDeleted { get; set; }
 
@@ -27,8 +27,8 @@ namespace DO
         {
             return $"ParcelId: {Id } SenderId: {SenderId} GetterId:" +
                 $" {TargetId} Weight: {Weight} Status: {Priority} DroneId: {DroneId}" +
-                $" Scheduled: {Scheduled}  Requested:{Requested} " +
-                $"PickedUp:{PickedUp} Delivered:{Delivered}";
+                $" Scheduled: {Associated}  Requested:{Created} " +
+                $"PickedUp:{Collected} Delivered:{Delivered}";
         }
     }
 }

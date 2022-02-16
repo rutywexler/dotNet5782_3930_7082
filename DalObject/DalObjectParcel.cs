@@ -19,7 +19,7 @@ namespace Dal
         /// <param name="Weigth"> The weigth of parcel (light- 0,medium - 1,heavy - 2)</param>
         /// <param name="Priority"> The priority of send the parcel (regular - 0,fast - 1,emergency - 2)</param>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void AddParcel(int SenderId, int TargetId, WeightCategories Weigth, Priorities Priority, int id = 0, int droneId = 0, DateTime requested = default, DateTime sceduled = default, DateTime pickedUp = default, DateTime? delivered = default)
+        public void AddParcel(int SenderId, int TargetId, WeightCategories Weigth, Priorities Priority, int id = 0, int droneId = 0, DateTime? created=null , DateTime? accosiated = null, DateTime? collected = null, DateTime? delivered = null)
         {
             if (!ExistsIDCheck(GetCustomers(), SenderId))
                 throw new KeyNotFoundException("Sender not exist");
@@ -31,9 +31,9 @@ namespace Dal
             newParcel.TargetId = TargetId;
             newParcel.Weight = Weigth;
             newParcel.Priority = Priority;
-            newParcel.Requested = requested == default ? DateTime.Now : requested;
-            newParcel.Scheduled = sceduled;
-            newParcel.PickedUp = pickedUp;
+            newParcel.Created = created;
+            newParcel.Associated = accosiated;
+            newParcel.Collected = collected;
             newParcel.Delivered = delivered;
             newParcel.DroneId = droneId;
             Parcels.Add(newParcel);
@@ -85,7 +85,7 @@ namespace Dal
             Parcel parcel = GetParcel(parcelId);
             Parcels.Remove(parcel);
             parcel.DroneId = droneId;
-            parcel.Scheduled = DateTime.Now;
+            parcel.Associated = DateTime.Now;
             Parcels.Add(parcel);
         }
 
