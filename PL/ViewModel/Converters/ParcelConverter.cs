@@ -25,7 +25,6 @@ namespace PL
         {
             return new()
             {
-                
                 Priority = (BO.Enums.Priorities)parcel.Priority,
                 WeightParcel = (BO.Enums.WeightCategories)parcel.Weight,
                 CustomerReceivesTo = CustomerInParcelUseBl.ConvertBackCustomerInParcel(new() { Id = parcel.Target.Id }),

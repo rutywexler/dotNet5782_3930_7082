@@ -23,14 +23,14 @@ namespace Dal
         internal static void InitializeConfig()
         {
             new XDocument(
-            new XElement("Config",
-                            new XElement("IdParcel", 0),
-                            new XElement("Available", 2),
-                            new XElement("LightWeightCarrier", 2),
-                            new XElement("MediumWeightBearing", 25),
-                            new XElement("CarriesHeavyWeight", 40),
-                            new XElement("DroneLoadingRate", 10))
-                      ).Save(dir + Config);
+               new XElement("Config",
+                               new XElement("IdParcel", 0),
+                               new XElement("Available", 0.001),
+                               new XElement("LightWeightCarrier", 0.002),
+                               new XElement("MediumWeightBearing", 0.003),
+                               new XElement("CarriesHeavyWeight", 0.004),
+                               new XElement("DroneLoadingRate", 2))
+                         ).Save(dir + Config);
         }
         //public static XElement LoadConfigToXML(string filePath)
         //{

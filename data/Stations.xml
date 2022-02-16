@@ -8,4 +8,12 @@
     <ChargeSlots>5</ChargeSlots>
     <IsDeleted>false</IsDeleted>
   </Station>
+  <Station>
+    <Id>12345</Id>
+    <Name>12</Name>
+    <Longitude>-32</Longitude>
+    <Lattitude>-32</Lattitude>
+    <ChargeSlots>123</ChargeSlots>
+    <IsDeleted>false</IsDeleted>
+  </Station>
 </ArrayOfStation>

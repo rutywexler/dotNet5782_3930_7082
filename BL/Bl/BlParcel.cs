@@ -93,43 +93,26 @@ namespace BL
             {
                 throw new InvalidEnumArgumentException("Because that The drone is not available  its not possible to send it for charging ");
             }
-
-            // var parcels = (dal.GetUnAssignmentParcels() as List<IDAL.DO.Parcel>)
-            //var parcels = (dal.GetParcels(parcel => parcel.DroneId==0) as List<IDAL.DO.Parcel>)
-            //   .FindAll(parcel =>
-            //                   IsDroneCanTakeTheParcel(drone, GetParcelInTransfer(parcel.Id)) &&
-            //                   (int)parcel.Weight < (int)drone.Weight)
-            //              .OrderBy(parcel => parcel.Priority)
-            //              .ThenBy(parcel => parcel.Priority)
-            //              .ThenBy(parcel => parcel.Weight)
-            //              .ThenBy(parcel => Distance(GetCustomer(parcel.SenderId).Location, drone.DroneLocation))
-            //              .ThenBy(parcel => Distance(GetCustomer(parcel.SenderId).Location, drone.DroneLocation))
-            //              .ToList();
-
             var parcels = GetParcelsNotAssignedToDrone()
-                 .Select(parcel => GetParcel(parcel.Id)).ToList()
+                 .Select(parcel => GetParcel(parcel.Id))
                  .Where(parcel =>
-                      (int)parcel.WeightParcel < (int)drone.Weight &&
+                      (int)parcel.WeightParcel <= (int)drone.Weight &&
                       IsDroneCanTakeTheParcel(drone, GetParcelforlist(parcel.Id)))
                  .OrderBy(p => p.Priority)
                  .ThenBy(p => p.WeightParcel)
-                 .ThenBy(p => LocationExtensions.Distance(GetCustomer(p.CustomerSendsFrom.Id).Location, drone.DroneLocation));
+                 .ThenBy(p => LocationExtensions.Distance(GetCustomer(p.CustomerSendsFrom.Id).Location, drone.DroneLocation)).ToList();
 
-            //if (parcels.Count == 0)
-            //{
-            //    throw new InvalidEnumArgumentException();
-            //}
+            if (!parcels.Any())
+            {
+                throw new InValidActionException("Couldn't assign any parcel to the drone.");
+            }
 
-            //if (!parcels.Any())
-            //{
-            //    throw new InValidActionException("Couldn't assign any parcel to the drone.");
-            //}
-
-            //Parcel parcel = parcels.First();
-            lock(dal)
-                dal.AssignParcelToDrone(4, droneId);
-
-            drone.DroneStatus = DroneStatus.Delivery;
+            Parcel parcel = parcels.First();
+            lock (dal)
+                dal.AssignParcelToDrone(parcel.Id, droneId);
+            DroneToList droneToList = drones.FirstOrDefault(item => item.DroneId == droneId);
+            droneToList.ParcelId = parcel.Id;
+            droneToList.DroneStatus = DroneStatus.Delivery;
         }
 
         /// <summary>
@@ -142,7 +125,7 @@ namespace BL
             DroneToList droneToList = drones.Find(drone => drone.DroneId == droneId);
             DO.Parcel parcel;
             lock (dal)
-                parcel = dal.GetParcel((int)droneToList.DroneId);
+                parcel = dal.GetParcel((int)droneToList.ParcelId);
             drones.Remove(droneToList);
             DO.Customer customer;
             lock (dal)

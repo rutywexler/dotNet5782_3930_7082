@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Config>
-  <IdParcel>12</IdParcel>
-  <Available>2</Available>
-  <LightWeightCarrier>2</LightWeightCarrier>
-  <MediumWeightBearing>25</MediumWeightBearing>
-  <CarriesHeavyWeight>40</CarriesHeavyWeight>
-  <DroneLoadingRate>10</DroneLoadingRate>
+  <IdParcel>2</IdParcel>
+  <Available>0.001</Available>
+  <LightWeightCarrier>0.002</LightWeightCarrier>
+  <MediumWeightBearing>0.003</MediumWeightBearing>
+  <CarriesHeavyWeight>0.004</CarriesHeavyWeight>
+  <DroneLoadingRate>2</DroneLoadingRate>
 </Config>

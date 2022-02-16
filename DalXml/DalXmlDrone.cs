@@ -64,7 +64,6 @@ namespace Dal
         [MethodImpl(MethodImplOptions.Synchronized)]
         public double[] GetPowerConsumptionByDrone()
         {
-            return new double[] { 1, 2, 3, 4, 5 };
             try
             {
                 XElement config = XMLTools.LoadListFromXmlElement(ConfigPath);

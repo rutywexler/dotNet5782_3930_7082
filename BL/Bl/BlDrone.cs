@@ -155,7 +155,7 @@ namespace BL
         {
             BO.BaseStation station = CloseStation(droneToListLocation);
             minDistance = LocationExtensions.Distance(droneToListLocation, new Location() { Longitude = station.Location.Longitude, Lattitude = station.Location.Lattitude });
-            return minDistance * Available <= BatteryStatus ? station : default(BO.BaseStation);
+            return minDistance * Available <= BatteryStatus ? station : null;
         }
 
 
