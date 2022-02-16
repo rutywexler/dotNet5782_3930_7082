@@ -43,7 +43,7 @@ namespace PL
             {
                 bl.RemoveStation(Station.Id);
             }
-            catch (KeyNotFoundException ex)//למצוא שגיאה מתאימה 
+            catch (KeyNotFoundException ex)
             {
                 MessageBox.Show($"failed to delete station:( ,{ex.Message}");
             }
