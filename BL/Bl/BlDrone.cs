@@ -133,11 +133,11 @@ namespace BL
                 throw new KeyNotFoundException($"The drone id {id} not exsits in data so the updating failed");
             if (droneToList.DroneStatus != DroneStatus.Available)
                 throw new InvalidDroneStateException($"The drone {id} is {droneToList.DroneStatus} so it is not possible to send it for charging ");
-            BaseStation station = ClosetStationThatPossible(droneToList.Location, droneToList.BatteryDrone, out double minDistanc);
+            BaseStation station = ClosetStationThatPossible(droneToList.Location, droneToList.BatteryDrone, out double minDistance);
             drones.Remove(droneToList);
             droneToList.DroneStatus = DroneStatus.Meintenence;
             station.NumberOfChargingStations -= 1;
-            droneToList.BatteryDrone -= minDistanc * Available;
+            droneToList.BatteryDrone -= minDistance * Available;
             droneToList.Location = new Location() { Longitude = station.Location.Longitude, Lattitude = station.Location.Lattitude }; 
             lock(dal)
                 dal.AddDRoneCharge(droneToList.DroneId, station.Id);
@@ -151,7 +151,7 @@ namespace BL
         /// <param name="BatteryStatus">the drone battery ststus</param>
         /// <param name="minDistance">the min distabce</param>
         /// <returns></returns>
-        internal BO.BaseStation ClosetStationThatPossible(Location droneToListLocation, double BatteryStatus, out double minDistance)
+        public BO.BaseStation ClosetStationThatPossible(Location droneToListLocation, double BatteryStatus, out double minDistance)
         {
             BO.BaseStation station = CloseStation(droneToListLocation);
             minDistance = LocationExtensions.Distance(droneToListLocation, new Location() { Longitude = station.Location.Longitude, Lattitude = station.Location.Lattitude });

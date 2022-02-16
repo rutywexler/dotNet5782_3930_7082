@@ -76,7 +76,7 @@ namespace PL
         {
             var selectedDrone = (e.OriginalSource as FrameworkElement).DataContext;
             BO.DroneToList drone = (BO.DroneToList)selectedDrone;
-            new ViewDrone(ibl, DroneConverter.ConvertDrone(ibl.GetDrone(drone.DroneId)), RefreshDroneList).ShowDialog();
+            new ViewDrone(ibl, DroneConverter.ConvertDrone(ibl.GetDrone(drone.DroneId)), RefreshDroneList).Show();
       
             RefreshDroneList();
         }

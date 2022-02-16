@@ -107,7 +107,7 @@ namespace BL
 
             if (!parcels.Any())
             {
-                throw new InValidActionException("Couldn't assign any parcel to the drone.");
+                throw new NotExsistSutibleParcelException("Couldn't assign any parcel to the drone.");
             }
 
             Parcel parcel = parcels.First();

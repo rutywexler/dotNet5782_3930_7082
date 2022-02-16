@@ -7,12 +7,6 @@
     <IsDeleted>false</IsDeleted>
   </Drone>
   <Drone>
-    <Id>1110</Id>
-    <Model>11111</Model>
-    <MaxWeight>Light</MaxWeight>
-    <IsDeleted>false</IsDeleted>
-  </Drone>
-  <Drone>
     <Id>1111111111</Id>
     <Model>1111</Model>
     <MaxWeight>Light</MaxWeight>
@@ -51,6 +45,12 @@
   <Drone>
     <Id>123</Id>
     <Model>1234</Model>
+    <MaxWeight>Light</MaxWeight>
+    <IsDeleted>false</IsDeleted>
+  </Drone>
+  <Drone>
+    <Id>1234</Id>
+    <Model>12</Model>
     <MaxWeight>Light</MaxWeight>
     <IsDeleted>false</IsDeleted>
   </Drone>
