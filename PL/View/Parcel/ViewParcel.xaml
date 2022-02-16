@@ -25,7 +25,7 @@
             <Button Command="{Binding OpenCustomerWindowCommand}" CommandParameter="{Binding Parcel.Target}" Content="Open customer details" Click="Button_Click_1"></Button>
 
             <TextBlock Text="Status: "/>
-            <TextBlock x:Name="Status" Text ="{Binding Parcel.Status, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock x:Name="Status" Text ="{Binding Parcel.StatusParcel, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Text="Weight: "/>
             <TextBlock x:Name="Weight" Text ="{Binding Parcel.Weight, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Text="Drone:"/>

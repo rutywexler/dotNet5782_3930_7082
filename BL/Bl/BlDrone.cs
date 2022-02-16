@@ -249,6 +249,13 @@ namespace BL
         private bool IsDroneCanTakeTheParcel(Drone drone, ParcelInTransfer parcel)
         {
             var electricityUse = ElectricityUse(drone.DroneLocation, drone.BatteryStatus, parcel);
+            var station = ClosetStationThatPossible(drone.DroneLocation, drone.BatteryStatus - electricityUse, out _);
+            if(station==null)
+            {
+                return false;
+            }
+            electricityUse += LocationExtensions.Distance(parcel.DeliveryDestination,
+                         new Location() { Lattitude = station.Location.Lattitude, Longitude = station.Location.Longitude }) * Available;
             return drone.BatteryStatus >= electricityUse;
         }
 
@@ -265,9 +272,7 @@ namespace BL
             var electricityUse =
            electricity = LocationExtensions.Distance(droneLocation, parcel.CollectParcelLocation) * Available +
                        LocationExtensions.Distance(parcel.CollectParcelLocation, parcel.DeliveryDestination) * e;
-            var station = ClosetStationThatPossible(droneLocation, battery - electricity, out _);
-            electricity += LocationExtensions.Distance(parcel.DeliveryDestination,
-                         new Location() { Lattitude = station.Location.Lattitude, Longitude = station.Location.Longitude }) * Available;
+  
             return electricityUse;
         }
         /// <summary>
@@ -305,8 +310,7 @@ namespace BL
                 DO.Parcel parcel = dal.GetParcel(parcelId);
                 dal.RemoveParcel(parcel.Id);
                 parcel.PickedUp = DateTime.Now;
-                parcel.Delivered = DateTime.Now;
-                dal.AddParcel(parcel.SenderId, parcel.TargetId, parcel.Weight, parcel.Priority, parcel.Id, parcel.DroneId, parcel.Requested, parcel.Scheduled, (DateTime)parcel.PickedUp, (DateTime)parcel.Delivered);
+                dal.AddParcel(parcel.SenderId, parcel.TargetId, parcel.Weight, parcel.Priority, parcel.Id, parcel.DroneId, parcel.Requested, parcel.Scheduled, (DateTime)parcel.PickedUp);
             }
             catch (KeyNotFoundException ex)
             {

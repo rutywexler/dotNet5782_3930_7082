@@ -16,8 +16,8 @@ namespace BL
         /// the function adds the parcel to the list in the data
         /// </summary>
         /// <param name="parcel">the parcel the user add</param>
-       ////////
-       ///
+        ////////
+        ///
         public void AddParcel(Parcel parcel)
         {
             if (!ExistsIDCheck(dal.GetCustomers(), parcel.CustomerSendsFrom.Id))
@@ -26,7 +26,7 @@ namespace BL
                 throw new KeyNotFoundException("Target not exist");
             try
             {
-                lock(dal)
+                lock (dal)
                     dal.AddParcel(
                         parcel.CustomerSendsFrom.Id,
                         parcel.CustomerReceivesTo.Id,
@@ -53,11 +53,11 @@ namespace BL
             DO.Customer targetCustomer, senderCustomer;
             try
             {
-                lock(dal)
+                lock (dal)
                     parcel = dal.GetParcel(id);
-                lock(dal)
+                lock (dal)
                     targetCustomer = dal.GetCustomer(parcel.TargetId);
-                lock(dal)
+                lock (dal)
                     senderCustomer = dal.GetCustomer(parcel.SenderId);
 
                 return new ParcelInTransfer()
@@ -65,7 +65,7 @@ namespace BL
                     Id = id,
                     Weight = (WeightCategories)parcel.Weight,
                     Sender = new CustomerInParcel() { Id = senderCustomer.Id, Name = senderCustomer.Name },
-                    Recipient= new CustomerInParcel() { Id = targetCustomer.Id, Name = targetCustomer.Name },
+                    Recipient = new CustomerInParcel() { Id = targetCustomer.Id, Name = targetCustomer.Name },
                     Priority = (Priorities)parcel.Priority,
                     CollectParcelLocation = new Location { Lattitude = targetCustomer.Lattitude, Longitude = targetCustomer.Longitude },
                     DeliveryDestination = new Location { Lattitude = senderCustomer.Lattitude, Longitude = senderCustomer.Longitude },
@@ -131,7 +131,7 @@ namespace BL
             lock (dal)
                 customer = dal.GetCustomer(parcel.TargetId);
             Location receiverLocation = new() { Longitude = customer.Longitude, Lattitude = customer.Lattitude };
-            lock(dal)
+            lock (dal)
                 droneToList.BatteryDrone -= LocationExtensions.Distance(droneToList.Location, receiverLocation) * dal.GetPowerConsumptionByDrone()[1 + (int)parcel.Weight];
             droneToList.Location = receiverLocation;
             droneToList.DroneStatus = DroneStatus.Available;
@@ -148,11 +148,11 @@ namespace BL
             DO.Parcel parcel;
             lock (dal)
                 parcel = dal.GetParcel(parcelId);
-            lock(dal)
+            lock (dal)
                 dal.RemoveParcelAbsolute(parcel.Id);
             parcel.Delivered = DateTime.Now;
-            lock(dal)
-                dal.AddParcel(parcel.SenderId, parcel.TargetId, parcel.Weight, parcel.Priority, parcel.Id);
+            lock (dal)
+                dal.AddParcel(parcel.SenderId, parcel.TargetId, parcel.Weight, parcel.Priority, parcel.Id, parcel.DroneId, parcel.Requested, parcel.Scheduled, (DateTime)parcel.PickedUp, parcel.Delivered);
         }
 
         /// <summary>
@@ -160,16 +160,16 @@ namespace BL
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-       ////////\
+        ////////\
         public Parcel GetParcel(int id)
         {
             try
             {
                 DO.Parcel parcel;
-                lock(dal)
+                lock (dal)
                     parcel = dal.GetParcel(id);
                 DroneToList drone = drones.FirstOrDefault(drone => drone.DroneId == parcel.DroneId);
-                    lock(dal)
+                lock (dal)
                     return new Parcel()
                     {
                         Id = parcel.Id,
@@ -217,24 +217,24 @@ namespace BL
             };
         }
 
-       ////////\
+        ////////\
         public IEnumerable<ParcelList> GetParcels()
         {
-            lock(dal)
+            lock (dal)
                 return dal.GetParcels().Select(parcel => ParcelToParcelForList(parcel.Id));
         }
 
-       ////////\
+        ////////\
         public IEnumerable<ParcelList> GetParcelsNotAssignedToDrone()
         {
-            lock(dal)
+            lock (dal)
                 return dal.GetParcels(parcel => parcel.DroneId == 0)
                     .Select(parcel => ParcelToParcelForList(parcel.Id));
 
             //return dal.GetUnAssignmentParcels().Select(parcel => ParcelToParcelForList(parcel.Id));
         }
 
-       ////////\
+        ////////\
         public void ParcelCollectionByDrone(int droneId)
         {
             DroneToList droneToList = drones.FirstOrDefault(item => item.DroneId == droneId);
@@ -246,7 +246,7 @@ namespace BL
             DO.Parcel parcel = default;
             try
             {
-                lock(dal)
+                lock (dal)
                     parcel = dal.GetParcel((int)droneToList.ParcelId);
                 //if (parcel.PickedUp != default)
                 //    throw new ArgumentNullException("The package has already been collected");
@@ -280,33 +280,41 @@ namespace BL
         /// <returns>parcel for list</returns>
         public ParcelList ParcelToParcelForList(int id)
         {
-
+            PackageStatuses status;
             var parcel = GetParcel(id);
+            if (parcel.DeliveryTime != null)
+                status = PackageStatuses.PROVIDED;
+            else if (parcel.CollectionTime != null)
+                status = PackageStatuses.COLLECTED;
+            else if (parcel.AssignmentTime != null)
+                status = PackageStatuses.ASSOCIATED;
+            else
+                status = PackageStatuses.CREATED;
 
             return new ParcelList()
             {
                 Id = parcel.Id,
                 Priority = parcel.Priority,
                 Weight = parcel.WeightParcel,
-                ParcelStatus = PackageStatuses.CREATED,
+                ParcelStatus = status,
                 SendCustomer = parcel.CustomerSendsFrom.Name,
                 ReceivesCustomer = parcel.CustomerReceivesTo.Name,
             };
         }
-       //////
-       ///
+        //////
+        ///
         public void DeleteParcel(int id)
         {
             DO.Parcel parcel;
-            lock(dal)
+            lock (dal)
                 parcel = dal.GetParcel(id);
-            ParcelList parcelList=ParcelToParcelForList(id);
-            if (parcelList.ParcelStatus!=PackageStatuses.CREATED)
-            { 
+            ParcelList parcelList = ParcelToParcelForList(id);
+            if (parcelList.ParcelStatus != PackageStatuses.CREATED)
+            {
                 throw new InValidActionException();
             }
-            lock(dal)
-                      dal.RemoveParcel(parcel.Id);
+            lock (dal)
+                dal.RemoveParcel(parcel.Id);
         }
 
     }
