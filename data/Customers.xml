@@ -1,67 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Customers>
   <Customer>
-    <Id>313397391</Id>
-    <Name>Maraglit Dror</Name>
-    <Phone>0527139693</Phone>
-    <Lattitude>-32</Lattitude>
-    <Longitude>32</Longitude>
-    <IsDeleted>false</IsDeleted>
-  </Customer>
-  <Customer>
     <Id>325207082</Id>
-    <Name>Nusbacher</Name>
+    <Name>Tamar Nusbacher</Name>
     <Phone>0504110239</Phone>
-    <Lattitude>23</Lattitude>
-    <Longitude>-34</Longitude>
-    <IsDeleted>false</IsDeleted>
-  </Customer>
-  <Customer>
-    <Id>213103930</Id>
-    <Name>Ruty Wexler</Name>
-    <Phone>0533180825</Phone>
-    <Lattitude>-25</Lattitude>
-    <Longitude>25</Longitude>
-    <IsDeleted>false</IsDeleted>
-  </Customer>
-  <Customer>
-    <Id>367345632</Id>
-    <Name>shalom</Name>
-    <Phone>0504122958</Phone>
-    <Lattitude>0</Lattitude>
-    <Longitude>0</Longitude>
-    <IsDeleted>false</IsDeleted>
-  </Customer>
-  <Customer>
-    <Id>33120650</Id>
-    <Name>Michal Wexler</Name>
-    <Phone>0527657476</Phone>
-    <Lattitude>65</Lattitude>
-    <Longitude>25</Longitude>
-    <IsDeleted>false</IsDeleted>
-  </Customer>
-  <Customer>
-    <Id>213103935</Id>
-    <Name>Rachel</Name>
-    <Phone>0557658596</Phone>
-    <Lattitude>65</Lattitude>
-    <Longitude>85</Longitude>
-    <IsDeleted>false</IsDeleted>
-  </Customer>
-  <Customer>
-    <Id>4</Id>
-    <Name>ruty</Name>
-    <Phone>0527657477</Phone>
-    <Lattitude>24564</Lattitude>
-    <Longitude>546631</Longitude>
-    <IsDeleted>false</IsDeleted>
-  </Customer>
-  <Customer>
-    <Id>213</Id>
-    <Name>4545</Name>
-    <Phone>0527657477</Phone>
-    <Lattitude>369</Lattitude>
-    <Longitude>789</Longitude>
+    <Lattitude>10</Lattitude>
+    <Longitude>12</Longitude>
     <IsDeleted>false</IsDeleted>
   </Customer>
 </Customers>

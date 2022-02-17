@@ -82,7 +82,7 @@ namespace Dal
         public int NotAvailableChargingPorts(int baseStationId)
         {
             int count = 0;
-            foreach (DroneCharge item in DroneCharges)
+            foreach (var item in DroneCharges)
             {
                 if (item.StationId == baseStationId)
                     ++count;

@@ -1,42 +1,42 @@
 <?xml version="1.0"?>
 <ArrayOfParcel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Parcel>
-    <Id>15</Id>
+    <Id>1</Id>
     <SenderId>325207082</SenderId>
-    <TargetId>213103935</TargetId>
-    <Weight>weighty</Weight>
+    <TargetId>325207082</TargetId>
+    <Weight>Light</Weight>
     <Priority>Regular</Priority>
-    <DroneId>0</DroneId>
-    <Created>2022-02-17T03:03:53.9423149+02:00</Created>
-    <Associated xsi:nil="true" />
-    <Collected xsi:nil="true" />
+    <DroneId>1</DroneId>
+    <Created>2022-02-17T01:29:00.1034016+02:00</Created>
+    <Associated>2022-02-17T01:29:01.4404485+02:00</Associated>
+    <Collected>2022-02-17T01:29:05.4882661+02:00</Collected>
     <Delivered xsi:nil="true" />
     <IsDeleted>false</IsDeleted>
   </Parcel>
   <Parcel>
-    <Id>14</Id>
-    <SenderId>313397391</SenderId>
-    <TargetId>33120650</TargetId>
+    <Id>1</Id>
+    <SenderId>325207082</SenderId>
+    <TargetId>325207082</TargetId>
     <Weight>Light</Weight>
     <Priority>Regular</Priority>
-    <DroneId>1230</DroneId>
-    <Created>2022-02-17T02:51:30.8833236+02:00</Created>
-    <Associated>2022-02-17T03:04:25.6083225+02:00</Associated>
+    <DroneId>1</DroneId>
+    <Created>2022-02-17T01:29:00.1034016+02:00</Created>
+    <Associated>2022-02-17T01:29:01.4404485+02:00</Associated>
     <Collected xsi:nil="true" />
-    <Delivered xsi:nil="true" />
+    <Delivered>2022-02-17T01:29:06.5012131+02:00</Delivered>
     <IsDeleted>false</IsDeleted>
   </Parcel>
   <Parcel>
-    <Id>16</Id>
+    <Id>2</Id>
     <SenderId>325207082</SenderId>
-    <TargetId>33120650</TargetId>
+    <TargetId>325207082</TargetId>
     <Weight>Light</Weight>
-    <Priority>Fast</Priority>
-    <DroneId>11</DroneId>
-    <Created>2022-02-17T03:14:20.5474543+02:00</Created>
-    <Associated>2022-02-17T03:14:34.9264778+02:00</Associated>
+    <Priority>Regular</Priority>
+    <DroneId>1</DroneId>
+    <Created>2022-02-17T01:29:04.9699904+02:00</Created>
+    <Associated>2022-02-17T01:29:07.5247401+02:00</Associated>
     <Collected xsi:nil="true" />
-    <Delivered xsi:nil="true" />
-    <IsDeleted>false</IsDeleted>
+    <Delivered>2022-02-17T01:29:08.5399631+02:00</Delivered>
+    <IsDeleted>true</IsDeleted>
   </Parcel>
 </ArrayOfParcel>

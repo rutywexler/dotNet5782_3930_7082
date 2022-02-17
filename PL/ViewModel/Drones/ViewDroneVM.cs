@@ -59,7 +59,7 @@ namespace PL.ViewModel.Drones
                 Refresh();
                 MessageBox.Show("succees to Sending The Drone For Delivery");
             }
-            catch(InvalidEnumArgumentException ex)
+            catch(BL.NotExsistSutibleParcelException ex)
             {
                 MessageBox.Show($"failed to Sending The Drone For Delivery, {ex.Message}");
             }
