@@ -21,17 +21,23 @@ namespace PL.ViewModel.Drones
             SendingTheDroneForChargingCommand = new RelayCommand(SendingTheDroneForCharging, null);
             SendingTheDroneForDeliveryCommand = new RelayCommand(SendingTheDroneForDelivery, null);
             ReleaseDroneFromChargingCommand = new RelayCommand(ReleaseDroneFromCharging, null);
-            UpdateModelCommand = new RelayCommand(UpdateModel, param=> CheckValid.CheckValidUpdateDrone(this.SelectedDrone));
+            UpdateModelCommand = new RelayCommand(UpdateModel, param => CheckValid.CheckValidUpdateDrone(this.SelectedDrone));
             ParcelCollectionCommand = new RelayCommand(ParcelCollection, null);
             ParcelDeliveryCommand = new RelayCommand(ParcelDelivery, null);
             StartSimulatorCommand = new RelayCommand(Auto_Click, null);
+            StopTheAuto = new RelayCommand(Manual, null);
         }
+
+        private void Manual(object obj)=> worker?.CancelAsync();
+     
+
         private void Refresh()
         {
             SelectedDrone = PL.DroneConverter.ConvertDrone(bl.GetDrone(SelectedDrone.Id));
             refreshDroneList();
         }
         public RelayCommand SendingTheDroneForChargingCommand { get; set; }
+        public RelayCommand StopTheAuto { get; set; }
         private void SendingTheDroneForCharging(object obj)
         {
             try
@@ -40,11 +46,11 @@ namespace PL.ViewModel.Drones
                 Refresh();
                 MessageBox.Show("succees to Send Drone For Charge");
             }
-            catch(BL.InvalidDroneStateException ex)
+            catch (BL.InvalidDroneStateException ex)
             {
                 MessageBox.Show($"failed to Send Drone For Charge,{ex.Message}");
             }
-            catch(KeyNotFoundException ex)
+            catch (KeyNotFoundException ex)
             {
                 MessageBox.Show($"failed to Send Drone For Charge,{ex.Message}");
             }
@@ -59,11 +65,11 @@ namespace PL.ViewModel.Drones
                 Refresh();
                 MessageBox.Show("succees to Sending The Drone For Delivery");
             }
-            catch(BL.NotExsistSutibleParcelException ex)
+            catch (BL.NotExsistSutibleParcelException ex)
             {
                 MessageBox.Show($"failed to Sending The Drone For Delivery, {ex.Message}");
             }
-            catch(BL.InValidActionException ex)
+            catch (BL.InValidActionException ex)
             {
                 MessageBox.Show($"failed to Sending The Drone For Delivery, {ex.Message}");
             }
@@ -78,11 +84,11 @@ namespace PL.ViewModel.Drones
                 Refresh();
                 MessageBox.Show("the drone succeeded to release from charging ", "success", MessageBoxButton.OK);
             }
-            catch(ArgumentNullException ex)
+            catch (ArgumentNullException ex)
             {
                 MessageBox.Show($"Failed to release from charging, {ex.Message}");
             }
-            catch(InvalidEnumArgumentException ex)
+            catch (InvalidEnumArgumentException ex)
             {
                 MessageBox.Show($"Failed to release from charging, {ex.Message}");
             }
@@ -97,11 +103,11 @@ namespace PL.ViewModel.Drones
                 Refresh();
                 MessageBox.Show("the drone succeeded to update ", "success", MessageBoxButton.OK);
             }
-            catch(KeyNotFoundException ex)
+            catch (KeyNotFoundException ex)
             {
                 MessageBox.Show($"Failed to update the drone, {ex.Message}");
             }
-            catch(ArgumentNullException ex)
+            catch (ArgumentNullException ex)
             {
                 MessageBox.Show($"Failed to update the drone, {ex.Message}");
             }
@@ -116,11 +122,11 @@ namespace PL.ViewModel.Drones
                 Refresh();
                 MessageBox.Show("succees Parcel Collection By Drone");
             }
-            catch(ArgumentNullException ex)
+            catch (ArgumentNullException ex)
             {
                 MessageBox.Show($"Failed to Parcel Collection By Dronee,{ex.Message}");
             }
-            catch(KeyNotFoundException ex)
+            catch (KeyNotFoundException ex)
             {
                 MessageBox.Show($"Failed to Parcel Collection By Dronee,{ex.Message}");
 

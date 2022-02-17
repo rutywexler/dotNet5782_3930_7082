@@ -6,10 +6,15 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="ViewDrone" Height="450" Width="800">
+
     <Window.Resources>
         <local:AvailableDroneToVisibilityConverter x:Key="AvailableDroneToVisibilityConverter"/>
         <local:MeintenceDroneToVisibilityConverter x:Key="MeintenceDroneToVisibilityConverter"/>
         <local:DeliveryDroneToVisibilityConverter x:Key="DeliveryDroneToVisibilityConverter"/>
+        <local:TrueVisibileConverter x:Key="TrueVisibileConverter"/>
+        <local:FalseVisibileConverter x:Key="FalseVisibileConverter"/>
+        <local:BatteryToProgressBarConverter x:Key="BatteryToProgressBarConverter"/>
+        <local:BatteryToColorConverter x:Key="BatteryToProgressBarConverter"/>
     </Window.Resources>
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <Grid x:Name="DroneView">
@@ -37,6 +42,7 @@
                 <DockPanel>
                     <TextBlock  Text="BatteryDrone"/>
                     <TextBlock  Text="{Binding SelectedDrone.Battery}" TextAlignment="Right"/>
+                    <ProgressBar Name="BatteryProgressBar" Value="{Binding SelectedDrone.battery ,Converter={StaticResource BatteryToProgressBarConverter}}" Width="Auto" Foreground="{Binding SelectedDrone.Battery, Converter={StaticResource batteryToColorConverter}}"/>
                 </DockPanel>
                 <DockPanel>
                     <TextBlock  Text="DroneStatus"/>
@@ -51,8 +57,8 @@
                     <TextBlock   Text="{Binding SelectedDrone.DeliveryByTransfer}"  />
                 </DockPanel>
             </StackPanel>
-
-            <!--available-->
+            <StackPanel Visibility="{Binding Auto, Converter={StaticResource FalseVisibileConverter}}">
+                <!--available-->
                 <StackPanel Grid.Row="1" Visibility="{Binding SelectedDrone.Status , Converter={StaticResource AvailableDroneToVisibilityConverter}}">
                     <Button Content="Sending the drone for charging"  HorizontalAlignment="Left"   VerticalAlignment="Top" Command="{Binding SendingTheDroneForChargingCommand}" />
                     <Button Content="Sending the drone for delivery"  HorizontalAlignment="Left"   VerticalAlignment="Top" Command="{Binding SendingTheDroneForDeliveryCommand}"/>
@@ -70,13 +76,17 @@
                     <!--drone in the delivery that has already collected the package-->
                     <Button Content="parcel delivery"  HorizontalAlignment="Left"   VerticalAlignment="Top" Command="{Binding ParcelDeliveryCommand}"/>
                 </StackPanel>
+            </StackPanel>
 
 
-                <StackPanel Grid.Row="2" >
+            <StackPanel Grid.Row="2" >
                     <Button Content="close Window" HorizontalAlignment="Left"   VerticalAlignment="Top" Click="CloseWindow" />
                     <Button Content="update" HorizontalAlignment="Left"   VerticalAlignment="Top" Command="{Binding UpdateModelCommand}"/>
-                    <Button Content="simulator" Command="{Binding StartSimulatorCommand}"></Button>
-                </StackPanel>
+                    <Button Content="Manual" HorizontalAlignment="Left" Margin="10, 5, 5, 5"
+                    Visibility="{Binding Auto,Converter={StaticResource TrueVisibileConverter}}" Command="{Binding StopTheAuto}"/>
+                <Button Content="Automatic"  HorizontalAlignment="Left" Margin="10, 5, 5, 5"
+                    Visibility="{Binding Auto,Converter={StaticResource FalseVisibileConverter}}" Command="{Binding StartSimulatorCommand}" />
+            </StackPanel>
             
        
 

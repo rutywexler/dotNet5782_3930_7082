@@ -33,7 +33,7 @@
 
         }
 
-        public enum BatteryUsage { Available, Light, Medium, Heavy, Charging }
+        public enum BatteryUsage { Available, Light, medium, Heavy, Charging }
     }
 }
 

@@ -14,6 +14,7 @@ namespace PL
             : this()
         {
             DataContext = new ViewDroneVM(ibl, selectedDrone, refreshDroneList);
+           
         }
         public ViewDrone()
         {

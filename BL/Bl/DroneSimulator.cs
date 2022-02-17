@@ -16,7 +16,7 @@ namespace BL
         enum Maintenance { Starting, Going, Charging }
         enum Delivery { Starting, Going, Delivery }
         BL.Bl bl { set; get; }
-        DO.Parcel? parcel { set; get; }
+        Parcel? parcel { set; get; }
         BaseStation Station { set; get; }
         int batteryUsage = 0;
         int? stationId;
@@ -72,33 +72,61 @@ namespace BL
         {
             lock (bl)
             {
-               
-                    parcelId = bl.FindTheMuchParcel(bl.GetDrone(drone.DroneId)).FirstOrDefault()?.Id;
-               
-                 switch (parcelId, drone.BatteryDrone)
-                 { 
 
-                    case (null, 1.0):
-                    break;
-                case (null, _):
-                    stationId = bl.ClosetStationThatPossible(drone.Location, drone.BatteryDrone, out double minDistance)?.Id;
-                    if (Station != null)
+                lock (bl)
+                {
+                    try
                     {
-                        drone.DroneStatus = DroneStatus.Meintenence;
-                        maintenance = Maintenance.Starting;
-                        dal.AddDRoneCharge(drone.DroneId, Station.Id);
+                        bl.AssignParcelToDrone(drone.DroneId);
+                        parcelId = drone.ParcelId;
                     }
-                    break;
-                case (_, _):
+                    catch (NotExsistSutibleParcelException)
+                    {
+                        if (drone.BatteryDrone >= 100)
+                            return;
+                        else
+                        {
+                            stationId = bl.ClosetStationThatPossible(drone.Location, drone.BatteryDrone, out double minDistance)?.Id;
+                            if (Station != null)
+                            {
+                                drone.DroneStatus = DroneStatus.Meintenence;
+                                maintenance = Maintenance.Starting;
+                                dal.AddDRoneCharge(drone.DroneId, Station.Id);
+                            }
+                        }
+                    }
+                }
 
-                    dal.AssignParcelToDrone((int)parcelId, drone.DroneId);
-                    drone.ParcelId = parcelId;
-                    initDelivery((int)parcelId);
-                    drone.DroneStatus = DroneStatus.Delivery;
-                    break;
-               
+                //    parcelId = bl.FindTheMuchParcel(bl.GetDrone(drone.DroneId)).FirstOrDefault()?.Id;
 
-                 }
+                //if(parcelId==null)
+                //{
+                //    if(drone.BatteryDrone<100)
+                //    {
+                //        stationId = bl.ClosetStationThatPossible(drone.Location, drone.BatteryDrone, out double minDistance)?.Id;
+                //        if (Station != null)
+                //        {
+                //            drone.DroneStatus = DroneStatus.Meintenence;
+                //            maintenance = Maintenance.Starting;
+                //            dal.AddDRoneCharge(drone.DroneId, Station.Id);
+                //        }
+                //    }
+                //    else
+                //    {
+                //        return;
+                //    }
+
+                //}
+                //else
+                //{
+                //    dal.AssignParcelToDrone((int)parcelId, drone.DroneId);
+                //    drone.ParcelId = parcelId;
+                //    initDelivery((int)parcelId);
+                //    drone.DroneStatus = DroneStatus.Delivery;
+                //}
+
+
+
 
             }
             update();
@@ -136,7 +164,7 @@ namespace BL
                     }
                     break;
                 case Maintenance.Charging:
-                    if (drone.BatteryDrone == 1.0)
+                    if (drone.BatteryDrone == 100)
                         lock (bl)
                         {
                             drone.DroneStatus = DroneStatus.Available;
@@ -145,7 +173,7 @@ namespace BL
                     else
                     {
                         if (!sleepDelayTime()) break;
-                        lock (bl) drone.BatteryDrone = Min(1.0, drone.BatteryDrone + bl.DroneLoadingRate * TIME_STEP);
+                        lock (bl) drone.BatteryDrone = Min(100, drone.BatteryDrone + bl.DroneLoadingRate * TIME_STEP);
                     }
                     break;
                 default:
@@ -166,48 +194,143 @@ namespace BL
         }
 
 
+        //private void DeliveryDrone()
+        //{
+        //    lock (bl)
+        //    {
+        //        /*try {*/
+        //        if (parcelId == null) initDelivery((int)drone.ParcelId); /*}*/
+        //        //catch (DO.ExistIdException ex) { throw new BadStatusException("Internal error getting parcel", ex); }
+        //        distance = LocationExtensions.Distance(drone.Location, customer.Location);
+        //    }
+
+        //    if (distance < 0.01 || drone.BatteryDrone == 0.0)
+        //        lock (bl)
+        //        {
+        //            drone.Location = customer.Location;
+        //            if (pickedUp)
+        //            {
+        //                bl.ParcelDeliveredDrone((int)parcel?.Id);
+        //                drone.DroneStatus = DroneStatus.Available;
+
+        //            }
+        //            else
+        //            {
+        //                bl.colloctDalParcel((int)parcel?.Id);
+        //                customer = bl.GetCustomer((int)parcel?.TargetId);
+        //                pickedUp = true;
+        //            }
+        //        }
+        //    else
+        //    {
+        //        if (!sleepDelayTime()) return;
+        //        lock (bl)
+        //        {
+        //            double delta = distance < STEP ? distance : STEP;
+        //            double proportion = delta / distance;
+        //            drone.BatteryDrone = Max(0.0, drone.BatteryDrone - delta * (pickedUp ? batteryUsage : bl.Available));
+        //            double lat = drone.Location.Lattitude + (customer.Location.Lattitude - drone.Location.Lattitude) * proportion;
+        //            double lon = drone.Location.Longitude + (customer.Location.Longitude - drone.Location.Longitude) * proportion;
+        //            drone.Location = new() { Lattitude = lat, Longitude = lon };
+        //        }
+        //    }
+
+        //    update();
+        //}
+
         private void DeliveryDrone()
         {
-            lock (bl)
+            try
             {
-                /*try {*/
-                if (parcelId == null) initDelivery((int)drone.ParcelId); /*}*/
-                //catch (DO.ExistIdException ex) { throw new BadStatusException("Internal error getting parcel", ex); }
-                distance = LocationExtensions.Distance(drone.Location, customer.Location);
-            }
-
-            if (distance < 0.01 || drone.BatteryDrone == 0.0)
                 lock (bl)
                 {
-                    drone.Location = customer.Location;
-                    if (pickedUp)
-                    {
-                        bl.ParcelDeliveredDrone((int)parcel?.Id);
-                        drone.DroneStatus = DroneStatus.Available;
-
-                    }
-                    else
-                    {
-                        bl.colloctDalParcel((int)parcel?.Id);
-                        customer = bl.GetCustomer((int)parcel?.TargetId);
-                        pickedUp = true;
-                    }
+                    parcel = bl.GetParcel((int)drone.ParcelId);
                 }
-            else
-            {
-                if (!sleepDelayTime()) return;
-                lock (bl)
+                switch (delivery)
                 {
-                    double delta = distance < STEP ? distance : STEP;
-                    double proportion = delta / distance;
-                    drone.BatteryDrone = Max(0.0, drone.BatteryDrone - delta * (pickedUp ? batteryUsage : bl.Available));
-                    double lat = drone.Location.Lattitude + (customer.Location.Lattitude - drone.Location.Lattitude) * proportion;
-                    double lon = drone.Location.Longitude + (customer.Location.Longitude - drone.Location.Longitude) * proportion;
-                    drone.Location = new() { Lattitude = lat, Longitude = lon };
+                    case Delivery.Starting:
+                        {
+                            lock (bl)
+                            {
+                                distance = LocationExtensions.Distance(drone.Location, bl.GetCustomer(parcel.CustomerSendsFrom.Id).Location);
+                            }
+                            delivery = Delivery.Going;
+                            break;
+                        }
+                    case Delivery.Going:
+                        {
+                            lock (bl)
+                            {
+                                if (distance > 0.01)
+                                {
+                                    drone.Location = UpdateLocationAndBattary(bl.GetCustomer(parcel.CustomerSendsFrom.Id).Location, bl.Available);
+                                    distance = LocationExtensions.Distance(drone.Location, bl.GetCustomer(parcel.CustomerSendsFrom.Id).Location);
+                                }
+
+                                else
+                                {
+                                    lock (bl)
+                                    {
+                                        try
+                                        {
+                                            delivery = Delivery.Delivery;
+                                            drone.Location = bl.GetCustomer(parcel.CustomerSendsFrom.Id).Location;
+                                            distance = LocationExtensions.Distance(drone.Location, bl.GetCustomer(parcel.CustomerReceivesTo.Id).Location);
+                                            bl.ParcelCollectionByDrone(drone.DroneId);
+                                            parcelId = drone.ParcelId;
+                                            delivery = Delivery.Delivery;
+                                        }
+                                        catch (ArgumentNullException)
+                                        {
+                                            delivery = Delivery.Delivery;
+                                        }
+                                    }
+                                }
+                            }
+                            break;
+                        }
+                    case Delivery.Delivery:
+                        {
+                            if (distance < 0.01)
+                            {
+                                lock (bl)
+                                {
+                                    bl.DeliveryParcelByDrone(drone.DroneId);
+                                    drone.DroneStatus = DroneStatus.Available;
+                                    parcelId = drone.ParcelId;
+                                }
+                            }
+                            else
+                            {
+                                lock (bl)
+                                {
+                                    double elect = bl.GetParcel((int)drone.ParcelId).WeightParcel switch
+                                    {
+                                        WeightCategories.Heavy => bl.CarryingHeavyWeight,
+                                        WeightCategories.Medium => bl.MediumWeightBearing,
+                                        WeightCategories.Light => bl.LightWeightCarrier,
+                                        _ => 0.0
+                                    };
+                                    drone.Location = UpdateLocationAndBattary(bl.GetCustomer(parcel.CustomerReceivesTo.Id).Location, elect);
+                                    distance = LocationExtensions.Distance(drone.Location, bl.GetCustomer(parcel.CustomerReceivesTo.Id).Location);
+                                }
+                            }
+
+                            break;
+                        }
+
+                    default:
+                        break;
                 }
+
+            }
+            catch (KeyNotFoundException)
+            {
+                drone.DroneStatus = DroneStatus.Available;
             }
 
-            update();
+
+
         }
         private static bool sleepDelayTime()
         {
@@ -224,13 +347,13 @@ namespace BL
             return new() { Lattitude = lat, Longitude = lon };
         }
 
-        void initDelivery(int id)
-        {
-            parcel = dal.GetParcel(id);
-            batteryUsage = (int)Enum.Parse(typeof(BatteryUsage), parcel?.Weight.ToString());
-            pickedUp = parcel?.Collected is not null;
-            customer = bl.GetCustomer((int)(pickedUp ? parcel?.TargetId : parcel?.SenderId));
-        }
+        //void initDelivery(int id)
+        //{
+        //    parcel = dal.GetParcel(id);
+        //    batteryUsage = (int)Enum.Parse(typeof(BatteryUsage), parcel?.Weight.ToString());
+        //    pickedUp = parcel?.Collected is not null;
+        //    customer = bl.GetCustomer((int)(pickedUp ? parcel?.TargetId : parcel?.SenderId));
+        //}
 
     }
 }
