@@ -11,9 +11,9 @@
     <Grid Name="MainGrid">
 
  <Grid>
-        <Grid.Background >
+        <!--<Grid.Background >
             <ImageBrush Stretch="Fill" ImageSource="./Images/background2png-01.png"></ImageBrush>
-        </Grid.Background>
+        </Grid.Background>-->
     </Grid>
         <Grid>
         <Grid.RowDefinitions>

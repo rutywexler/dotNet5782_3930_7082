@@ -20,7 +20,7 @@ namespace Dal
         public void AddDrone(int id, string model, WeightCategories MaxWeight)
         {
             if (ExistsIDCheck(DataSource.Drones, id))
-                throw new Exception_ThereIsInTheListObjectWithTheSameValue();
+                throw new excepti();
             Drone newDrone = new()
             {
                 Id = id,

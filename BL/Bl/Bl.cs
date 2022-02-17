@@ -23,7 +23,7 @@ namespace BL
         public double LightWeightCarrier { get; set; }
         public double MediumWeightBearing { get; set; }
         public double CarryingHeavyWeight { get; set; }
-        public static double DroneLoadingRate { get; set; }
+        public  double DroneLoadingRate { get; set; }
         Bl()
         {
             //dal = new DalObject.DalObject();

@@ -25,6 +25,7 @@ namespace DalApi
         public Drone GetDrone(int id);
         public Customer GetCustomer(int id);
         public Parcel GetParcel(int id);
+        public int GetDroneChargeBaseStationId(int droneId);
         public IEnumerable<Station> GetStations();
         public IEnumerable<Drone> GetDrones();
         public IEnumerable<Parcel> GetParcels();

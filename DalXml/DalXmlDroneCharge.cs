@@ -81,6 +81,10 @@ namespace Dal
 
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public int GetDroneChargeBaseStationId(int droneId) =>
+    (XMLTools.LoadListFromXmlSerializer<DroneCharge>(droneChargesPath).Find(dc => (int)dc.DroneId == droneId).StationId);
+
     }
 }
 
