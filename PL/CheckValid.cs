@@ -111,12 +111,12 @@ namespace PL
                 {
                     return false;
                 }
-                if (customer.Location.Latitude > 90 || customer.Location.Latitude < 0)
+                if (customer.Location.Latitude > 90 || customer.Location.Latitude < -90)
                 {
                     return false;
 
                 }
-                if (customer.Location.Longitude > 90 || customer.Location.Longitude < 0)
+                if (customer.Location.Longitude > 90 || customer.Location.Longitude <-90)
                 {
                     return false;
                 }

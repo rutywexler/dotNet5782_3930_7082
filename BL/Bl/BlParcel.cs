@@ -42,6 +42,26 @@ namespace BL
 
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
             }
+            //Customer customerSender = GetCustomer(parcel.CustomerSendsFrom.Id);
+            //customerSender.GetCustomerSendParcels.Add(ConvertFromParcelToParcelInCustomer(parcel));
+            //Customer customerGetter = GetCustomer(parcel.CustomerReceivesTo.Id);
+            //customerGetter.GetCustomerReceivedParcels.Add(ConvertFromParcelToParcelInCustomer(parcel));
+            //dal.RemoveCustomer(customerSender.Id);
+            //dal.AddCustomer(customerSender.Id, customerSender.PhoneNumber, customerSender.Name, customerSender.Location.Longitude, customerSender.Location.Lattitude);
+
+
+        }
+
+        private ParcelInCustomer ConvertFromParcelToParcelInCustomer(Parcel parcel)
+        {
+            return new ParcelInCustomer()
+            {
+                Id = parcel.Id,
+                Weight = parcel.WeightParcel,
+                Priority = parcel.Priority,
+                Status = Enums.PackageStatuses.COLLECTED,
+                CustomerInDelivery = parcel.CustomerSendsFrom//לבדוק
+            };
         }
 
         /// <summary>
@@ -49,7 +69,7 @@ namespace BL
         /// </summary>
         /// <param name="id">the id of the parcel in transfer</param>
         /// <returns></returns>
-       ////////\
+        ////////\
         public ParcelInTransfer GetParcelforlist(int id)
         {
             DO.Parcel parcel;
