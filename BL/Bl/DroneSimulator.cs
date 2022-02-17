@@ -54,20 +54,18 @@ namespace BL
                 {
                     case DroneStatus.Available:
                         AvailbleDrone();
-                        update();
                         break;
                     case DroneStatus.Meintenence:
                         MaintenanceDrone();
-                        update();
                         break;
                     case DroneStatus.Delivery:
                         DeliveryDrone();
-                        update();
                         break;
                     default:
                         break;
                 }
             }
+            update();
         }
 
         private void AvailbleDrone()

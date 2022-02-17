@@ -71,8 +71,8 @@ namespace BL
         {
             try
             {
-                DroneToList drone = drones.Find(d => d.DroneId == id);
-                ParcelInTransfer parcelInDeliver = drone.DroneStatus == DroneStatus.Delivery ?
+                DroneToList drone = drones.FirstOrDefault(d => d.DroneId == id);
+                ParcelInTransfer parcelInDeliver = ((drone.DroneStatus) == (DroneStatus.Delivery)) ?
                                                   GetParcelforlist((int)drone.ParcelId) :
                                                   null;
                 return new Drone()
@@ -140,13 +140,11 @@ namespace BL
             {
                 throw new InValidActionException("Station not found to charge the drone:( ");
             }
-            drones.Remove(droneToList);
             droneToList.DroneStatus = DroneStatus.Meintenence;
             droneToList.BatteryDrone -= minDistance * Available;
             droneToList.Location = new Location() { Longitude = station.Location.Longitude, Lattitude = station.Location.Lattitude }; 
             lock(dal)
                 dal.AddDRoneCharge(droneToList.DroneId, station.Id);
-            drones.Add(droneToList);
         }
         /// <summary>
         /// the function return the close station that possible

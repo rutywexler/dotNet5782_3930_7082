@@ -76,11 +76,11 @@ namespace BL
             DO.Customer targetCustomer, senderCustomer;
             try
             {
-                lock (dal)
+                //lock (dal)
                     parcel = dal.GetParcel(id);
-                lock (dal)
+               // lock (dal)
                     targetCustomer = dal.GetCustomer(parcel.TargetId);
-                lock (dal)
+               // lock (dal)
                     senderCustomer = dal.GetCustomer(parcel.SenderId);
 
                 return new ParcelInTransfer()
@@ -154,7 +154,6 @@ namespace BL
             DO.Parcel parcel;
             lock (dal)
                 parcel = dal.GetParcel((int)droneToList.ParcelId);
-            drones.Remove(droneToList);
             DO.Customer customer;
             lock (dal)
                 customer = dal.GetCustomer(parcel.TargetId);
@@ -163,7 +162,6 @@ namespace BL
                 droneToList.BatteryDrone -= LocationExtensions.Distance(droneToList.Location, receiverLocation) * dal.GetPowerConsumptionByDrone()[1 + (int)parcel.Weight];
             droneToList.Location = receiverLocation;
             droneToList.DroneStatus = DroneStatus.Available;
-            drones.Add(droneToList);
             ParcelDeliveredDrone(parcel.Id);
         }
 
@@ -270,7 +268,6 @@ namespace BL
                 throw new ArgumentNullException(" There is no a drone with the same id in data");
             if (droneToList.ParcelId == null)
                 throw new ArgumentNullException("No parcel has been associated yet");
-            drones.Remove(droneToList);
             DO.Parcel parcel = default;
             try
             {
