@@ -73,13 +73,13 @@
                 </StackPanel>
 
                 <!--delivery-->
-                <StackPanel Grid.Row="1"  Visibility="{Binding SelectedDrone.Status, Converter={StaticResource DeliveryDroneToVisibilityConverter}}"  >
-                    <!--drone in delivery with a package that has not yet been collected-->
+                <!--<StackPanel Grid.Row="1"  Visibility="{Binding SelectedDrone.Status, Converter={StaticResource DeliveryDroneToVisibilityConverter}}"  >
+                    --><!--drone in delivery with a package that has not yet been collected--><!--
                     <Button Content="parcel collection"  HorizontalAlignment="Left"   VerticalAlignment="Top" Command="{Binding ParcelCollectionCommand}"/>
-                    <!--drone in the delivery that has already collected the package-->
+                    --><!--drone in the delivery that has already collected the package--><!--
                     <Button Content="parcel delivery"  HorizontalAlignment="Left"   VerticalAlignment="Top" Command="{Binding ParcelDeliveryCommand}"/>
-                </StackPanel>
-                <Button x:Name="parcelTreatedByDRone" Command="{Binding ParcelTreatedByDroneCommand}" Visibility="{Binding SelectedDrone.Status, Converter={StaticResource DeliveryDroneToVisibilityConverter}}" >
+                </StackPanel>-->
+                <Button x:Name="parcelTreatedByDRone"  Command="{Binding ParcelTreatedByDroneCommand}" Visibility="{Binding SelectedDrone.Status, Converter={StaticResource DeliveryDroneToVisibilityConverter}}" >
                     <Button.Content>
                         <MultiBinding Converter="{StaticResource parcelTreatedByDroneContent}">
                             <Binding Path="SelectedDrone.Status" />

@@ -218,7 +218,7 @@ namespace PL
 
         #region simulator
 
-        BackgroundWorker worker;
+        public BackgroundWorker worker;
         private bool auto;
 
         public bool Auto

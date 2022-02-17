@@ -32,8 +32,13 @@ namespace PL
 
         private void Window_Close(object sender, CancelEventArgs e)
         {
-            //ViewDroneVM pl= new();
-            //pl.Window_Closing(sender, e);
+           
+            if ((DataContext as ViewDroneVM).Auto)
+            {
+               
+                (DataContext as ViewDroneVM).worker.CancelAsync();
+                e.Cancel = true;
+            }
             PL.ViewDroneVM.buttonCacel = true;
             //Window.GetWindow(sender as FrameworkElement).Close();
             //this.Close();
