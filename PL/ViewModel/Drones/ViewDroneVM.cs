@@ -13,6 +13,8 @@ namespace PL
     {
         BlApi.IBL bl;
         Action refreshDroneList;
+        bool buttonCacel = false;
+        bool close = false;
 
         public ViewDroneVM(BlApi.IBL ibl, Drone selectedDrone, Action refreshDroneList)
         {
@@ -28,9 +30,17 @@ namespace PL
             StartSimulatorCommand = new RelayCommand(Auto_Click, null);
             ParcelTreatedByDroneCommand = new RelayCommand(parcelTreatedByDrone, null);
             StopTheAuto = new RelayCommand(Manual, null);
+
+        }
+        public ViewDroneVM()
+        {
+
         }
 
-        private void Manual(object obj) => worker?.CancelAsync();
+        private void Manual(object obj)
+        {
+            worker?.CancelAsync();
+        }
 
 
         private void Refresh()
@@ -195,6 +205,15 @@ namespace PL
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(memberName));
         }
+        public void Window_Closing(object sender, CancelEventArgs e)
+        {
+            if (buttonCacel == false)
+            {
+                e.Cancel = true;
+                worker.CancelAsync();
+                
+            }
+        }
 
         #region simulator
 
@@ -221,6 +240,7 @@ namespace PL
                 Auto = true;
                 worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };
                 worker.RunWorkerCompleted += (sender, args) => Auto = false;
+                //worker.RunWorkerCompleted += (sender, args) => CloseDroneWindow();
                 worker.ProgressChanged += (sender, args) => updateDroneView();
                 worker.RunWorkerAsync(SelectedDrone.Id);
                 worker.DoWork += (sender, args) => bl.StartSimulator(updateDrone, (int)args.Argument, checkStop);

@@ -25,9 +25,16 @@ namespace PL
         //    InitializeComponent();
         //    DataContext = new ViewDroneVM(this, drone, );
         //}
-        private void CloseWindow(object sender, RoutedEventArgs e)
+        public void  CloseDroneWindow(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void Window_Close(object sender, CancelEventArgs e)
+        {
+            ViewDroneVM pl= new();
+            pl.Window_Closing(sender, e);
+            this.Close();
         }
     }
 }
