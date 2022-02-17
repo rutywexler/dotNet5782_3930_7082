@@ -32,6 +32,7 @@ namespace DalApi
         public IEnumerable<Customer> GetCustomers();
        // public IEnumerable<Parcel> GetUnAssignmentParcels();
         public int NotAvailableChargingPorts(int baseStationId);
+        public void RemoveCustomer(int id);
         public IEnumerable<int> GetDronechargingInStation(int id);
         public IEnumerable<DroneCharge> GetDroneCharging(Predicate<DroneCharge> predicate);
 

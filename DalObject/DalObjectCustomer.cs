@@ -76,5 +76,12 @@ namespace Dal
             AddCustomer(customer.Id,  customer.Phone,customer.Name, customer.Longitude, customer.Lattitude);
         }
 
+        public void RemoveCustomer(int id)
+        {
+            var customer = GetCustomer(id);
+            Customers.Remove(customer);
+        }
+
+
     }
 }

@@ -109,5 +109,17 @@ namespace Dal
             }
             catch { throw new Exception(); }
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void RemoveCustomer(int id)
+        {
+            XElement customers = XMLTools.LoadListFromXmlElement(customersPath);
+
+                (from s in customers.Elements()
+                 where Int32.Parse(s.Element("Id").Value) == id
+                 select s
+                ).FirstOrDefault().Remove();
+            XMLTools.SaveListToXmlElement(customers, customersPath);
+        }
+
     }
 }

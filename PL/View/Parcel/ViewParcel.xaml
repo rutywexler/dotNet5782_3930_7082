@@ -36,9 +36,11 @@
             <TextBlock x:Name="Weight" Text ="{Binding Parcel.Weight, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Text="Drone:"/>
             <TextBlock x:Name="Drone1" Text ="{Binding Parcel.Drone1, UpdateSourceTrigger=PropertyChanged}" />
-            <Button Command="{Binding OpenDroneWindowCommand}" CommandParameter="Parcel.Drone1" Content="Open drone details"></Button>
-    
+                <Button Command="{Binding OpenDroneWindowCommand}" CommandParameter="Parcel.Drone1" Content="Open drone details"></Button>
 
+
+                <Button Command="{Binding CollectParcel}"  Content="Collect The Parcel"></Button>
+                <Button Command="{Binding DeliveryParcel}"  Content="Delivery The Parcel"></Button>
                 <Button Command="{Binding DeleteParcelCommand}"
                  Content="Delete Parcel"></Button>
         </StackPanel>

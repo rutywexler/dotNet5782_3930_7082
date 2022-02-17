@@ -37,6 +37,7 @@ namespace Dal
             newParcel.Delivered = delivered;
             newParcel.DroneId = droneId;
             Parcels.Add(newParcel);
+           
         }
 
 

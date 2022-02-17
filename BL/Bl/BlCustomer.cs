@@ -90,10 +90,10 @@ namespace BL
                     CustomerId = customer.Id,
                     CustomerName = customer.Name,
                     CustomerPhone = customer.Phone,
-                    NumOfParcelsSentAndDelivered = parcels.Where(parcel => parcel.SenderId == customer.Id && !parcel.Delivered.Equals(default)).Count(),
+                    NumOfParcelsSentAndDelivered = parcels.Where(parcel => parcel.SenderId == customer.Id && parcel.Delivered.Equals(default)).Count(),
                     NumOfParcelsSentAndNotDelivered = parcels.Where(parcel => parcel.SenderId == customer.Id && !parcel.Delivered.Equals(default)).Count(),
-                    NumOfRecievedParcels = parcels.Where(parcel => parcel.TargetId == customer.Id && !parcel.Delivered.Equals(default)).Count(),
-                    NumOfParcelsOnTheWay = parcels.Where(parcel => parcel.TargetId == customer.Id && !parcel.Delivered.Equals(default)).Count(),
+                    NumOfRecievedParcels = parcels.Where(parcel => parcel.TargetId == customer.Id && parcel.Delivered.Equals(default)).Count(),
+                    NumOfParcelsOnTheWay = parcels.Where(parcel => parcel.TargetId == customer.Id  && parcel.Associated.Equals(default)).Count(),
                 };
             
         }
@@ -159,16 +159,17 @@ namespace BL
             {
                 newParcel.CustomerInDelivery = new CustomerInParcel()
                 {
-                    Id = parcel.CustomerReceivesTo.Id,
-                    Name = parcel.CustomerReceivesTo.Name
+                    Id = parcel.CustomerSendsFrom.Id,
+                    Name = parcel.CustomerSendsFrom.Name
                 };
             }
             else
             {
                 newParcel.CustomerInDelivery = new CustomerInParcel()
                 {
-                    Id = parcel.CustomerSendsFrom.Id,
-                    Name = parcel.CustomerSendsFrom.Name
+                   
+                    Id = parcel.CustomerReceivesTo.Id,
+                    Name = parcel.CustomerReceivesTo.Name
                 };
             }
 

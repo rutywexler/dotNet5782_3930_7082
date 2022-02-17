@@ -25,14 +25,6 @@
     <IsDeleted>false</IsDeleted>
   </Customer>
   <Customer>
-    <Id>4</Id>
-    <Name>ruty</Name>
-    <Phone>0527657477</Phone>
-    <Lattitude>24564</Lattitude>
-    <Longitude>546631</Longitude>
-    <IsDeleted>false</IsDeleted>
-  </Customer>
-  <Customer>
     <Id>367345632</Id>
     <Name>shalom</Name>
     <Phone>0504122958</Phone>
@@ -41,19 +33,35 @@
     <IsDeleted>false</IsDeleted>
   </Customer>
   <Customer>
-    <Id>213</Id>
-    <Name>4545</Name>
-    <Phone>0527657477</Phone>
-    <Lattitude>369</Lattitude>
-    <Longitude>789</Longitude>
-    <IsDeleted>false</IsDeleted>
-  </Customer>
-  <Customer>
     <Id>33120650</Id>
     <Name>Michal Wexler</Name>
     <Phone>0527657476</Phone>
     <Lattitude>65</Lattitude>
     <Longitude>25</Longitude>
+    <IsDeleted>false</IsDeleted>
+  </Customer>
+  <Customer>
+    <Id>213103935</Id>
+    <Name>Rachel</Name>
+    <Phone>0557658596</Phone>
+    <Lattitude>65</Lattitude>
+    <Longitude>85</Longitude>
+    <IsDeleted>false</IsDeleted>
+  </Customer>
+  <Customer>
+    <Id>4</Id>
+    <Name>ruty</Name>
+    <Phone>0527657477</Phone>
+    <Lattitude>24564</Lattitude>
+    <Longitude>546631</Longitude>
+    <IsDeleted>false</IsDeleted>
+  </Customer>
+  <Customer>
+    <Id>213</Id>
+    <Name>4545</Name>
+    <Phone>0527657477</Phone>
+    <Lattitude>369</Lattitude>
+    <Longitude>789</Longitude>
     <IsDeleted>false</IsDeleted>
   </Customer>
 </Customers>
