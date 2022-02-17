@@ -46,21 +46,21 @@ namespace Dal
         {
             // DroneCharges.Add(new DroneCharge() { DroneId = droneId, StationId = stationId,StartTime=DateTime.Now});
             if (DataSource.DroneCharges.Exists(dc => dc.DroneId == droneId))
-                throw new Exception_ThereIsInTheListObjectWithTheSameValue("This drone is already being charged");
+                throw new excepti("This drone is already being charged");
             DroneCharges.Add(new DroneCharge()
             {
                 DroneId = droneId,
                 StationId = stationId,
                 StartTime = DateTime.Now
             });
-           // BaseStationDroneIn(stationId);
+            // BaseStationDroneIn(stationId);
         }
 
         private void BaseStationDroneIn(int baseStationId)
         {
             int index = Stations.FindIndex(bs => bs.Id == baseStationId);
             if (index == -1)
-                throw new Exception_ThereIsInTheListObjectWithTheSameValue("This drone is already being charged");
+                throw new excepti("This drone is already being charged");
             Station station = Stations[index];
             --station.ChargeSlots;
             Stations[index] = station;
@@ -78,18 +78,22 @@ namespace Dal
             var droneCharge = DroneCharges.Find(charge => charge.DroneId == droneId);
 
             DroneCharges.Remove(droneCharge);
-           // BaseStationDroneOut(droneCharge.StationId);
+            // BaseStationDroneOut(droneCharge.StationId);
         }
 
         public void BaseStationDroneOut(int baseStationId)
         {
             int index = DataSource.Stations.FindIndex(bs => bs.Id == baseStationId);
             if (index == -1)
-                throw new Exception_ThereIsInTheListObjectWithTheSameValue("Base station does not exist");
+                throw new excepti("Base station does not exist");
             Station station = Stations[index];
             ++station.ChargeSlots;
             Stations[index] = station;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public int GetDroneChargeBaseStationId(int droneId) =>
+    (DroneCharges.Find(dc => (int)dc.DroneId == droneId).StationId);
+   //     ?? throw new Exception_ThereIsInTheListObjectWithTheSameValue("Drone is not being charged")).BaseStationId;
     }
 }

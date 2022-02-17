@@ -304,7 +304,7 @@ namespace BL
         /// Collect the parcel by drone
         /// </summary>
         /// <param name="parcelId">The parcel to update</param>
-        private void colloctDalParcel(int parcelId)
+        internal void colloctDalParcel(int parcelId)
         {
             try
             {

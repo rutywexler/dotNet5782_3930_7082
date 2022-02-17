@@ -32,6 +32,8 @@
             Delivery
 
         }
+
+        public enum BatteryUsage { Available, Light, medium, Heavy, Charging }
     }
 }
 

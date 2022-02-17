@@ -26,7 +26,7 @@ namespace BL
                 lock(dal)
                     dal.AddCustomer(customerBL.Id, customerBL.PhoneNumber, customerBL.Name, customerBL.Location.Longitude, customerBL.Location.Lattitude);
             }
-            catch (Dal.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            catch (Dal.excepti ex)
             {
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
             }

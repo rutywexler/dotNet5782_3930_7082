@@ -8,10 +8,10 @@ namespace Dal
 {
 
     [Serializable]
-    public class Exception_ThereIsInTheListObjectWithTheSameValue:Exception
+    public class excepti:Exception
     {
-        public Exception_ThereIsInTheListObjectWithTheSameValue() : base() { }
-        public Exception_ThereIsInTheListObjectWithTheSameValue(string massage): base(massage) { }
+        public excepti() : base() { }
+        public excepti(string massage): base(massage) { }
 
         public override string ToString()
         {

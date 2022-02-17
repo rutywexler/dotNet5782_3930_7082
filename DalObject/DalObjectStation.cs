@@ -23,7 +23,7 @@ namespace Dal
         public void AddStation(int id, string name, double longitude, double latitude, int chargeSlots)
         {
             if (ExistsIDCheck(Stations, id))
-                throw new Exception_ThereIsInTheListObjectWithTheSameValue();
+                throw new excepti();
             Station newStation = new();
             newStation.Id = id;
             newStation.Name = name;

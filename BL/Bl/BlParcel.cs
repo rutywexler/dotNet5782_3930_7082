@@ -37,7 +37,7 @@ namespace BL
                       DateTime.Now
                     );
             }
-            catch (Dal.Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            catch (Dal.excepti ex)
             {
 
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
@@ -116,14 +116,7 @@ namespace BL
             {
                 throw new InvalidEnumArgumentException("Because that The drone is not available  its not possible to send it for charging ");
             }
-            var parcels = GetParcelsNotAssignedToDrone()
-                 .Select(parcel => GetParcel(parcel.Id))
-                 .Where(parcel =>
-                      (int)parcel.WeightParcel <= (int)drone.Weight &&
-                      IsDroneCanTakeTheParcel(drone, GetParcelforlist(parcel.Id)))
-                 .OrderBy(p => p.Priority)
-                 .ThenBy(p => p.WeightParcel)
-                 .ThenBy(p => LocationExtensions.Distance(GetCustomer(p.CustomerSendsFrom.Id).Location, drone.DroneLocation)).ToList();
+            List<Parcel> parcels = FindTheMuchParcel(drone);
 
             if (!parcels.Any())
             {
@@ -138,11 +131,23 @@ namespace BL
             droneToList.DroneStatus = DroneStatus.Delivery;
         }
 
+        internal List<Parcel> FindTheMuchParcel(Drone drone)
+        {
+            return GetParcelsNotAssignedToDrone()
+                 .Select(parcel => GetParcel(parcel.Id))
+                 .Where(parcel =>
+                      (int)parcel.WeightParcel <= (int)drone.Weight &&
+                      IsDroneCanTakeTheParcel(drone, GetParcelforlist(parcel.Id)))
+                 .OrderBy(p => p.Priority)
+                 .ThenBy(p => p.WeightParcel)
+                 .ThenBy(p => LocationExtensions.Distance(GetCustomer(p.CustomerSendsFrom.Id).Location, drone.DroneLocation)).ToList();
+        }
+
         /// <summary>
         /// the function responsible to make the delivery parcel by the drone id the function get
         /// </summary>
         /// <param name="droneId"> the drone id</param>
-       ////////\
+        ////////\
         public void DeliveryParcelByDrone(int droneId)
         {
             DroneToList droneToList = drones.Find(drone => drone.DroneId == droneId);
@@ -166,7 +171,7 @@ namespace BL
         /// the function make the parcel with the id that the function get to deliverd drone
         /// </summary>
         /// <param name="parcelId">the parcel id</param>
-        private void ParcelDeliveredDrone(int parcelId)
+        internal void ParcelDeliveredDrone(int parcelId)
         {
             DO.Parcel parcel;
             lock (dal)
