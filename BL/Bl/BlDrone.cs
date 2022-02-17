@@ -136,6 +136,10 @@ namespace BL
             if (droneToList.DroneStatus != DroneStatus.Available)
                 throw new InvalidDroneStateException($"The drone {id} is {droneToList.DroneStatus} so it is not possible to send it for charging ");
             BaseStation station = ClosetStationThatPossible(droneToList.Location, droneToList.BatteryDrone, out double minDistance);
+            if(station==null)
+            {
+                throw new InValidActionException("Station not found to charge the drone:( ");
+            }
             drones.Remove(droneToList);
             droneToList.DroneStatus = DroneStatus.Meintenence;
             droneToList.BatteryDrone -= minDistance * Available;

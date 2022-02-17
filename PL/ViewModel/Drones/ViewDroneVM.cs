@@ -57,6 +57,10 @@ namespace PL
             {
                 MessageBox.Show($"failed to Send Drone For Charge,{ex.Message}");
             }
+            catch(BL.InValidActionException ex)
+            {
+                MessageBox.Show($"failed to Send Drone For Charge,{ex.Message}");
+            }
         }
         public RelayCommand SendingTheDroneForDeliveryCommand { get; set; }
 
@@ -220,10 +224,10 @@ namespace PL
             {
                 Auto = true;
                 worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };
+                worker.DoWork += (sender, args) => bl.StartSimulator(updateDrone, (int)args.Argument, checkStop);
                 worker.RunWorkerCompleted += (sender, args) => Auto = false;
                 worker.ProgressChanged += (sender, args) => updateDroneView();
                 worker.RunWorkerAsync(SelectedDrone.Id);
-                worker.DoWork += (sender, args) => bl.StartSimulator(updateDrone, (int)args.Argument, checkStop);
             }
             else
             {

@@ -99,19 +99,85 @@ namespace BL
                     }
                 }
             }
+            update();
+
         }
         private void MaintenanceDrone()
         {
-             if (Station == null)
-                Station = bl.GetStations().Select(station => bl.GetStation(station.IdStation)).FirstOrDefault(station => station.DronesInCharge.FirstOrDefault(drone => drone.ID == drone.ID) != null);
-            if (drone.BatteryDrone == 100)
+            switch (maintenance)
             {
-                bl.ReleaseDroneFromCharging(drone.DroneId);
+                case Maintenance.Starting:
+                    lock (bl)
+                    {
+                        /* try {*/
+                        Station = bl.GetStation((int)(stationId != null ? stationId : dal.GetDroneChargeBaseStationId(drone.DroneId)));/* }*/
+                        //  catch (DO. ex) { throw new BadStatusException("Internal error base station", ex); }
+                        distance = LocationExtensions.Distance(drone.Location, Station.Location);
+                        maintenance = Maintenance.Going;
+                    }
+                    break;
+                case Maintenance.Going:
+                    if (distance < 0.01)
+                        lock (bl)
+                        {
+                            drone.Location = Station.Location;
+                            maintenance = Maintenance.Charging;
+                        }
+                    else
+                    {
+                        if (!sleepDelayTime()) break;
+                        lock (bl)
+                        {
+                            double delta = distance < STEP ? distance : STEP;
+                            distance -= delta;
+                            drone.BatteryDrone = Max(0.0, drone.BatteryDrone - delta * bl.Available);
+                        }
+                    }
+                    break;
+                case Maintenance.Charging:
+                        if (drone.BatteryDrone == 100)
+                            lock (bl)
+                            {
+                                drone.DroneStatus = DroneStatus.Available;
+                                dal.ReleaseDroneFromRecharge(drone.DroneId);
+                            }
+                        else
+                        {
+                            if (!sleepDelayTime()) break;
+        
+                            lock (bl) drone.BatteryDrone = Min(100, drone.BatteryDrone + bl.DroneLoadingRate * TIME_STEP);
+                        }
+                    break;
+                default:
+                    break;
             }
-
-            else
-                lock (bl) drone.BatteryDrone = Min(100, drone.BatteryDrone + bl.DroneLoadingRate * TIME_STEP);
+            update();
+            //if (Station == null)
+            //    Station = bl.GetStations().Select(station => bl.GetStation(station.IdStation)).FirstOrDefault(station => station.DronesInCharge.FirstOrDefault(drone => drone.ID == drone.ID) != null);
+            //UpdateLocationAndBattary(Station.Location, drone.BatteryDrone);
+            //if (drone.BatteryDrone == 100)
+            //{
+            //    bl.ReleaseDroneFromCharging(drone.DroneId);
+            //}
+            //else
+            //    lock (bl) drone.BatteryDrone = Math.Min(100, drone.BatteryDrone + BL.Bl.DroneLoadingRate * TIME_STEP);
         }
+
+
+        //private void MaintenanceDrone()
+        //{
+        //     if (Station == null)
+        //        Station = bl.GetStations().Select(station => bl.GetStation(station.IdStation)).FirstOrDefault(station => station.DronesInCharge.FirstOrDefault(drone => drone.ID == drone.ID) != null);
+        //    if (drone.BatteryDrone >= 100)
+        //    {
+        //        bl.ReleaseDroneFromCharging(drone.DroneId);
+        //    }
+
+        //    else
+        //        lock (bl) drone.BatteryDrone = Min(100, drone.BatteryDrone + bl.DroneLoadingRate * TIME_STEP);
+        //    update();
+
+        //}
 
         private void DeliveryDrone()
         {
@@ -189,6 +255,8 @@ namespace BL
                     default:
                         break;
                 }
+                update();
+
 
             }
             catch (KeyNotFoundException)
@@ -196,6 +264,7 @@ namespace BL
                 drone.DroneStatus = DroneStatus.Available;
             }
 
+            update();
 
 
         }

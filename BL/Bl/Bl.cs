@@ -102,7 +102,7 @@ namespace BL
                 {
                     DroneStatus.Available => RandomSuppliedParcelLocation(),
                     DroneStatus.Meintenence => stationsLocations[rand.Next(stationsLocations.Count)],
-                    DroneStatus.Delivery => parcel.Delivered != null
+                    DroneStatus.Delivery => parcel.Collected == null
                                           ? FindClosest(targetLocation, stationsLocations)
                                           : senderLocation,
                 };
