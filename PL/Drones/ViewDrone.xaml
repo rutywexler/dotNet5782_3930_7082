@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="ViewDrone" Height="450" Width="800">
+        Title="ViewDrone" Height="450" Width="800"
+        Closing="Window_Close"
+        >
 
     <Window.Resources>
         <local:AvailableDroneToVisibilityConverter x:Key="AvailableDroneToVisibilityConverter"/>
@@ -89,7 +91,7 @@
 
 
             <StackPanel Grid.Row="2" >
-                <Button Content="close Window" HorizontalAlignment="Left"   VerticalAlignment="Top" Click="CloseWindow" />
+                <Button Content="close Window" HorizontalAlignment="Left"   VerticalAlignment="Top" Click="CloseDroneWindow" />
                 <Button Content="update" HorizontalAlignment="Left"   VerticalAlignment="Top" Command="{Binding UpdateModelCommand}"/>
                 <Button Content="Manual" HorizontalAlignment="Left" Margin="10, 5, 5, 5"
                     Visibility="{Binding Auto,Converter={StaticResource TrueVisibileConverter}}" Command="{Binding StopTheAuto}"/>
