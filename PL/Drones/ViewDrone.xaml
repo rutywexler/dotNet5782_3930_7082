@@ -11,17 +11,22 @@
         <local:AvailableDroneToVisibilityConverter x:Key="AvailableDroneToVisibilityConverter"/>
         <local:MeintenceDroneToVisibilityConverter x:Key="MeintenceDroneToVisibilityConverter"/>
         <local:DeliveryDroneToVisibilityConverter x:Key="DeliveryDroneToVisibilityConverter"/>
+        <local:TrueVisibileConverter x:Key="TrueVisibileConverter"/>
+        <local:FalseVisibileConverter x:Key="FalseVisibileConverter"/>
+        <local:BatteryToProgressBarConverter x:Key="BatteryToProgressBarConverter"/>
+        <local:BatteryToColorConverter x:Key="BatteryToColorConverter"/>
+        <local:parcelTreatedByDroneContent x:Key="parcelTreatedByDroneContent"/>
     </Window.Resources>
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <Grid x:Name="DroneView">
-        
+
 
             <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-       
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
             <StackPanel Grid.Row="0" Margin="188,0,411,60" Grid.RowSpan="2">
                 <DockPanel>
                     <TextBlock  Text="Id"/>
@@ -38,7 +43,7 @@
                 <DockPanel>
                     <TextBlock  Text="BatteryDrone"/>
                     <TextBlock  Text="{Binding SelectedDrone.Battery}" TextAlignment="Right"/>
-                    <ProgressBar Name="BatteryProgressBar" Value="{Binding SelectedDrone.battery ,Converter={StaticResource BatteryToProgressBarConverter}}" Width="Auto" Foreground="{Binding SelectedDrone.Battery, Converter={StaticResource batteryToColorConverter}}"/>
+                    <ProgressBar Name="BatteryProgressBar" Value="{Binding SelectedDrone.Battery ,Converter={StaticResource BatteryToProgressBarConverter}}" Width="Auto"  Foreground="{Binding SelectedDrone.Battery, Converter={StaticResource BatteryToColorConverter}}" Style="{x:Null}"/>
                 </DockPanel>
                 <DockPanel>
                     <TextBlock  Text="DroneStatus"/>
@@ -72,22 +77,30 @@
                     <!--drone in the delivery that has already collected the package-->
                     <Button Content="parcel delivery"  HorizontalAlignment="Left"   VerticalAlignment="Top" Command="{Binding ParcelDeliveryCommand}"/>
                 </StackPanel>
+                <Button x:Name="parcelTreatedByDRone" Command="{Binding ParcelTreatedByDroneCommand}" Visibility="{Binding SelectedDrone.Status, Converter={StaticResource DeliveryDroneToVisibilityConverter}}" >
+                    <Button.Content>
+                        <MultiBinding Converter="{StaticResource parcelTreatedByDroneContent}">
+                            <Binding Path="SelectedDrone.Status" />
+                            <Binding Path="SelectedDrone.DeliveryByTransfer.Status" />
+                        </MultiBinding>
+                    </Button.Content>
+                </Button>
             </StackPanel>
 
 
             <StackPanel Grid.Row="2" >
-                    <Button Content="close Window" HorizontalAlignment="Left"   VerticalAlignment="Top" Click="CloseWindow" />
-                    <Button Content="update" HorizontalAlignment="Left"   VerticalAlignment="Top" Command="{Binding UpdateModelCommand}"/>
-                    <Button Content="Manual" HorizontalAlignment="Left" Margin="10, 5, 5, 5"
+                <Button Content="close Window" HorizontalAlignment="Left"   VerticalAlignment="Top" Click="CloseWindow" />
+                <Button Content="update" HorizontalAlignment="Left"   VerticalAlignment="Top" Command="{Binding UpdateModelCommand}"/>
+                <Button Content="Manual" HorizontalAlignment="Left" Margin="10, 5, 5, 5"
                     Visibility="{Binding Auto,Converter={StaticResource TrueVisibileConverter}}" Command="{Binding StopTheAuto}"/>
                 <Button Content="Automatic"  HorizontalAlignment="Left" Margin="10, 5, 5, 5"
                     Visibility="{Binding Auto,Converter={StaticResource FalseVisibileConverter}}" Command="{Binding StartSimulatorCommand}" />
             </StackPanel>
-            
-       
 
-    </Grid>
-   </ScrollViewer>
+
+
+        </Grid>
+    </ScrollViewer>
 
 
 

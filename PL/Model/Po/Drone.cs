@@ -45,8 +45,8 @@ namespace PL
             }
         }
 
-        private int battery;
-        public int Battery
+        private double battery;
+        public double Battery
         {
             get { return battery; }
             set
@@ -95,6 +95,11 @@ namespace PL
             }
         }
         #endregion
+
+        public override string ToString() =>
+           $"Drone #{Id}: model={Model}, {Status}, {Weight}, location = {Location}, battery={(int)(Battery * 100)} ";
     }
+
+
 }
 
