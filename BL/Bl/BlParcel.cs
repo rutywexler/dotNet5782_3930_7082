@@ -112,10 +112,10 @@ namespace BL
         {
             Drone drone = GetDrone(droneId);
 
-            if (drone.DroneStatus == DroneStatus.Delivery)
-            {
-                throw new InvalidEnumArgumentException("Because that The drone is not available  its not possible to send it for charging ");
-            }
+            //if (drone.DroneStatus == DroneStatus.Delivery)
+            //{
+            //    throw new InvalidEnumArgumentException("Because that The drone is not available  its not possible to send it for charging ");
+            //}
             List<Parcel> parcels = FindTheMuchParcel(drone);
 
             if (!parcels.Any())

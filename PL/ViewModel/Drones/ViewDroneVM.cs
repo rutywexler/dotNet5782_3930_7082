@@ -30,8 +30,8 @@ namespace PL
             StopTheAuto = new RelayCommand(Manual, null);
         }
 
-        private void Manual(object obj)=> worker?.CancelAsync();
-     
+        private void Manual(object obj) => worker?.CancelAsync();
+
 
         private void Refresh()
         {
@@ -118,23 +118,23 @@ namespace PL
 
         public void parcelTreatedByDrone(object param)
         {
-           
-                if (SelectedDrone.Status == DroneStatuses.DELIVERY)
+
+            if (SelectedDrone.Status == DroneStatuses.DELIVERY)
+            {
+                if (SelectedDrone.DeliveryByTransfer.Status == true)
                 {
-                    if (SelectedDrone.DeliveryByTransfer.Status == true)
-                    {
-                        ParcelDelivery(SelectedDrone.Id);
-                    }
-                    else
-                    {
-                        ParcelCollection(SelectedDrone.Id);
-                    }
+                    ParcelDelivery(SelectedDrone.Id);
                 }
                 else
                 {
-                    SendingTheDroneForDelivery(SelectedDrone.Id);
+                    ParcelCollection(SelectedDrone.Id);
                 }
-     
+            }
+            else
+            {
+                SendingTheDroneForDelivery(SelectedDrone.Id);
+            }
+
         }
 
         public RelayCommand ParcelCollectionCommand { get; set; }
@@ -219,11 +219,11 @@ namespace PL
             if (!Auto)
             {
                 Auto = true;
-                worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true, };
-                worker.DoWork += (sender, args) => bl.StartSimulator(updateDrone, (int)args.Argument, checkStop);
+                worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };
                 worker.RunWorkerCompleted += (sender, args) => Auto = false;
                 worker.ProgressChanged += (sender, args) => updateDroneView();
                 worker.RunWorkerAsync(SelectedDrone.Id);
+                worker.DoWork += (sender, args) => bl.StartSimulator(updateDrone, (int)args.Argument, checkStop);
             }
             else
             {

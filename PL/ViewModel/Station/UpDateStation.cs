@@ -55,7 +55,7 @@ namespace PL
         private void OpenViewDroneWindow(object param)
         {
             var drone = param as DroneInCharging;
-            new ViewDrone(bl, ConvertDroneInChargingToDrone(drone, Station), refreshDroneList).Show();
+           // new ViewDrone(bl, ConvertDroneInChargingToDrone(drone, Station), refreshDroneList).Show();
         }
 
         private Drone ConvertDroneInChargingToDrone(DroneInCharging drone, BaseStation station)
