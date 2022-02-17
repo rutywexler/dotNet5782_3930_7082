@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace PL.ViewModel.Drones
+namespace PL
 {
     class ViewDroneVM : INotifyPropertyChanged
     {
@@ -26,6 +26,7 @@ namespace PL.ViewModel.Drones
             ParcelDeliveryCommand = new RelayCommand(ParcelDelivery, null);
             StartSimulatorCommand = new RelayCommand(Auto_Click, null);
         }
+
         private void Refresh()
         {
             SelectedDrone = PL.DroneConverter.ConvertDrone(bl.GetDrone(SelectedDrone.Id));

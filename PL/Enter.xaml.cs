@@ -12,16 +12,26 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL.View.Drone
+namespace PL
 {
     /// <summary>
-    /// Interaction logic for ViewDrone.xaml
+    /// Interaction logic for Enter.xaml
     /// </summary>
-    public partial class ViewDrone : Window
+    public partial class Enter : Window
     {
-        public ViewDrone()
+        string CODE;
+        public Enter()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (Password.Text == "1234")
+            {
+                new MainWindow().Show();
+            }
+            else MessageBox.Show("wrong password:( enter again!");
         }
     }
 }

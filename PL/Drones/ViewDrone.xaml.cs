@@ -1,4 +1,4 @@
-﻿using PL.ViewModel.Drones;
+﻿using PL;
 using System;
 using System.ComponentModel;
 using System.Windows;
@@ -19,6 +19,11 @@ namespace PL
         {
             InitializeComponent();
         }
+        //public ViewDrone(DroneForList drone)
+        //{
+        //    InitializeComponent();
+        //    DataContext = new ViewDroneVM(this, drone, );
+        //}
         private void CloseWindow(object sender, RoutedEventArgs e)
         {
             Close();

@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="ViewStation" Height="450" Width="800">
-    <Window.DataContext>
+    <!--<Window.DataContext>
         <local:UpDateStation/>
-    </Window.DataContext>
+    </Window.DataContext>-->
     <Grid>
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <StackPanel >
@@ -24,8 +24,20 @@
             <TextBlock Text="Longitude: "/>
             <TextBlock  Text ="{Binding Station.Location.Longitude,  UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Text="DronesInCharching: "/>
-            <ListView  ItemsSource ="{Binding Station.DronesInCharching}" />
-            <Button Content="close station"/>
+                <ListView  ItemsSource ="{Binding Station.DronesInCharching}" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ContentControl Content="{Binding }">
+                                <ContentControl.InputBindings>
+                                    <MouseBinding Gesture="LeftDoubleClick" 
+                                                          Command="{Binding DataContext.OpenViewDroneInStationWindowCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                                          CommandParameter="{Binding }"/>
+                                </ContentControl.InputBindings>
+                            </ContentControl>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button Content="close station"/>
             <Button Content="update station" Command="{Binding UpdateStationCommand}"/>
             <!--<Button.Visibility>
                     <MultiBinding Converter="{StaticResource ConverterUpdateStation}">

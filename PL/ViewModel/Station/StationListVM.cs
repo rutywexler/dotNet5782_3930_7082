@@ -27,6 +27,7 @@ namespace PL
 
         public RelayCommand OpenAddStationWindow { get; set; }
         public RelayCommand OpenViewStationWindowCommand { get; set; }
+       
         BlApi.IBL bl;
 
         public StationListVM()
@@ -67,5 +68,6 @@ namespace PL
             ViewStations.GroupDescriptions.Clear();
             ViewStations.GroupDescriptions.Add(new PropertyGroupDescription(param.ToString()));
         }
+
     }
 }

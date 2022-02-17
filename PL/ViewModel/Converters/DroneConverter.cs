@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BlApi;
 using PL;
 
 namespace PL
 {
     public static class DroneConverter
     {
+      
         public static BO.DroneInCharging ConvertBackDroneCharging(DroneInCharging droneInCharging)
         {
             return new BO.DroneInCharging()
@@ -61,6 +63,8 @@ namespace PL
                 ParcelId = drone.ParcelId??0
             };
         }
+
+
 
         public static Drone ConvertDrone(BO.Drone drone)
         {

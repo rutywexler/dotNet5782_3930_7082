@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="ViewDrone" Height="450" Width="800">
-    <Window.Resources>
+    <!--<Window.Resources>
         <local:AvailableDroneToVisibilityConverter x:Key="AvailableDroneToVisibilityConverter"/>
         <local:MeintenceDroneToVisibilityConverter x:Key="MeintenceDroneToVisibilityConverter"/>
         <local:DeliveryDroneToVisibilityConverter x:Key="DeliveryDroneToVisibilityConverter"/>
-    </Window.Resources>
+    </Window.Resources>-->
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <Grid x:Name="DroneView">
         

@@ -12,6 +12,7 @@ namespace PL
     {
         BlApi.IBL bl;
         public RelayCommand UpdateStationCommand { get; set; }
+        public RelayCommand OpenViewDroneInStationWindowCommand { get; set; }
 
 
 
@@ -33,6 +34,7 @@ namespace PL
         {
             Station = GetStation(station.Id);
             UpdateStationCommand = new(UpdateStation, param=>CheckValid.CheckValidUpdateStation(this.Station));
+            OpenViewDroneInStationWindowCommand = new(OpenViewDroneWindow, null);
         }
 
 
@@ -48,6 +50,32 @@ namespace PL
                 bl.UpdateStation(Station.Id, Station.Name, Station.AvailableChargeSlots);
                 MessageBox.Show("Succeed to Update station");
             }
+        }
+
+        private void OpenViewDroneWindow(object param)
+        {
+            var drone = param as DroneInCharging;
+            new ViewDrone(bl, ConvertDroneInChargingToDrone(drone, Station), refreshDroneList).Show();
+        }
+
+        private Drone ConvertDroneInChargingToDrone(DroneInCharging drone, BaseStation station)
+        {
+            
+                return new Drone
+                {
+                    Id = drone.Id,
+                    Model = bl.GetDrone(drone.Id).DroneModel,
+                    Battery = drone.BatteryStatus,
+                    Status = 0,
+                    Location = new Location
+                    {
+                        Latitude = station.Location.Latitude,
+                        Longitude = station.Location.Longitude
+                    },
+                    Weight = (Enums.WeightCategories)bl.GetDrone(drone.Id).Weight,
+                    DeliveryByTransfer = null
+                };
+            
         }
     }
 }
