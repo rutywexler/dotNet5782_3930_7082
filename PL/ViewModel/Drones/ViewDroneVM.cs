@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using static PL.Enums;
 
 namespace PL.ViewModel.Drones
 {
@@ -25,6 +26,7 @@ namespace PL.ViewModel.Drones
             ParcelCollectionCommand = new RelayCommand(ParcelCollection, null);
             ParcelDeliveryCommand = new RelayCommand(ParcelDelivery, null);
             StartSimulatorCommand = new RelayCommand(Auto_Click, null);
+            ParcelTreatedByDroneCommand = new RelayCommand(parcelTreatedByDrone, null);
             StopTheAuto = new RelayCommand(Manual, null);
         }
 
@@ -37,6 +39,7 @@ namespace PL.ViewModel.Drones
             refreshDroneList();
         }
         public RelayCommand SendingTheDroneForChargingCommand { get; set; }
+        public RelayCommand ParcelTreatedByDroneCommand { get; set; }
         public RelayCommand StopTheAuto { get; set; }
         private void SendingTheDroneForCharging(object obj)
         {
@@ -111,6 +114,27 @@ namespace PL.ViewModel.Drones
             {
                 MessageBox.Show($"Failed to update the drone, {ex.Message}");
             }
+        }
+
+        public void parcelTreatedByDrone(object param)
+        {
+           
+                if (SelectedDrone.Status == DroneStatuses.DELIVERY)
+                {
+                    if (SelectedDrone.DeliveryByTransfer.Status == true)
+                    {
+                        ParcelDelivery(SelectedDrone.Id);
+                    }
+                    else
+                    {
+                        ParcelCollection(SelectedDrone.Id);
+                    }
+                }
+                else
+                {
+                    SendingTheDroneForDelivery(SelectedDrone.Id);
+                }
+     
         }
 
         public RelayCommand ParcelCollectionCommand { get; set; }

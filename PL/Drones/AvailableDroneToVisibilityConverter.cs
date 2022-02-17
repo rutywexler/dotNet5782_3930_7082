@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
+using static PL.Enums;
 
 namespace PL
 {
@@ -87,9 +88,9 @@ namespace PL
             throw new NotImplementedException();
     }
 
-    public class BatteryToProgressBarConverter : IValueConverter
+    public class  BatteryToProgressBarConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (double)value * 100;
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (double)value ;
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
             throw new NotImplementedException();
     }
@@ -107,15 +108,55 @@ namespace PL
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) =>
             (double)value switch
             {
-                < 0.1 => Brushes.DarkRed,
-                < 0.2 => Brushes.Red,
-                < 0.4 => Brushes.Yellow,
-                < 0.6 => Brushes.GreenYellow,
+                < 10 => Brushes.DarkRed,
+                < 20 => Brushes.Red,
+                < 40 => Brushes.Yellow,
+                < 60 => Brushes.GreenYellow,
                 _ => Brushes.Green
             };
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
             throw new NotImplementedException();
     }
 
+    public class parcelTreatedByDroneContent : IMultiValueConverter
+    {
+        /// <summary> 
+        /// Multi Converter parcel Treated By Drone Content
+        /// Checks skimmer status and package status.
+        /// Convert to content of the update buttons
+        /// </summary>
+        /// <param name="values">drone state and parcel state</param>
+        /// <param name="targetType"></param>
+        /// <param name="parameter"></param>
+        /// <param name="culture"></param>
+        /// <returns>Returns the content of update buttons</returns>
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (values[0].ToString() == DroneStatuses.DELIVERY.ToString())
+            {
+                if (values[1].ToString() == "True")
+                {
+                    return "Parcel delivery";
+                }
+                else
+                    return "Parcel collection";
+            }
+            else
+                return "Sending the drone for delivery";
+
+        }
+        /// <summary> 
+        /// Convert Back to parcel Treated By Drone Content
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="targetTypes"></param>
+        /// <param name="parameter"></param>
+        /// <param name="culture"></param>
+        /// <returns>Returns Exception</returns>
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 
 }

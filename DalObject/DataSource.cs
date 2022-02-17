@@ -36,7 +36,7 @@ namespace Dal
             internal static double LightWeightCarrier = 0.002;
             internal static double MediumWeightBearing = 0.003;
             internal static double CarriesHeavyWeight = 0.004;
-            internal static double DroneLoadingRate = 2;
+            internal static double DroneLoadingRate = 3;
         }
 
         static internal void Initialize(DalObject dal)

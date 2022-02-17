@@ -86,7 +86,8 @@ namespace BL
                             return;
                         else
                         {
-                            stationId = bl.ClosetStationThatPossible(drone.Location, drone.BatteryDrone, out double minDistance)?.Id;
+                            Station = bl.ClosetStationThatPossible(drone.Location, drone.BatteryDrone, out double minDistance);
+                            stationId = Station.Id;
                             if (Station != null)
                             {
                                 drone.DroneStatus = DroneStatus.Meintenence;
