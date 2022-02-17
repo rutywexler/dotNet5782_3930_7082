@@ -9,12 +9,12 @@ using static PL.Enums;
 
 namespace PL
 {
-    class ViewDroneVM : INotifyPropertyChanged
+     class ViewDroneVM : INotifyPropertyChanged
     {
         BlApi.IBL bl;
         Action refreshDroneList;
-        bool buttonCacel = false;
-        bool close = false;
+        public static bool buttonCacel { get; set; } = false;
+
 
         public ViewDroneVM(BlApi.IBL ibl, Drone selectedDrone, Action refreshDroneList)
         {
@@ -209,15 +209,12 @@ namespace PL
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(memberName));
         }
-        public void Window_Closing(object sender, CancelEventArgs e)
-        {
-            if (buttonCacel == false)
-            {
-                e.Cancel = true;
-                worker.CancelAsync();
-                
-            }
-        }
+        //public void Window_Closing(object sender, CancelEventArgs e)
+        //{
+        //    buttonCacel = true;
+        //    if(worker!=null)
+        //         worker.CancelAsync();     
+        //}
 
         #region simulator
 
@@ -237,6 +234,7 @@ namespace PL
         private bool checkStop() => worker.CancellationPending;
         public RelayCommand StartSimulatorCommand { get; set; }
 
+
         private void Auto_Click(object obj)
         {
             if (!Auto)
@@ -244,7 +242,16 @@ namespace PL
                 Auto = true;
                 worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };
                 worker.DoWork += (sender, args) => bl.StartSimulator(updateDrone, (int)args.Argument, checkStop);
-                worker.RunWorkerCompleted += (sender, args) => Auto = false;
+                worker.RunWorkerCompleted += (sender, args) =>
+                {
+
+                    Auto = false;
+                    if (buttonCacel)
+                    {
+                        App.Current.Windows.Cast<Window>().Single(worker => worker.Title == "ViewDrone").Close();
+                    }
+                };
+                
                 //worker.RunWorkerCompleted += (sender, args) => CloseDroneWindow();
                 worker.ProgressChanged += (sender, args) => updateDroneView();
                 worker.RunWorkerAsync(SelectedDrone.Id);

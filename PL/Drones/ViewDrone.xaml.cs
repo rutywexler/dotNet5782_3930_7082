@@ -32,9 +32,11 @@ namespace PL
 
         private void Window_Close(object sender, CancelEventArgs e)
         {
-            ViewDroneVM pl= new();
-            pl.Window_Closing(sender, e);
-            this.Close();
+            //ViewDroneVM pl= new();
+            //pl.Window_Closing(sender, e);
+            PL.ViewDroneVM.buttonCacel = true;
+            //Window.GetWindow(sender as FrameworkElement).Close();
+            //this.Close();
         }
     }
 }

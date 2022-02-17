@@ -1,45 +1,6 @@
 <?xml version="1.0"?>
 <ArrayOfParcel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Parcel>
-    <Id>1</Id>
-    <SenderId>325207082</SenderId>
-    <TargetId>325207082</TargetId>
-    <Weight>Light</Weight>
-    <Priority>Regular</Priority>
-    <DroneId>1</DroneId>
-    <Created>2022-02-17T01:29:00.1034016+02:00</Created>
-    <Associated>2022-02-17T01:29:01.4404485+02:00</Associated>
-    <Collected>2022-02-17T01:29:05.4882661+02:00</Collected>
-    <Delivered xsi:nil="true" />
-    <IsDeleted>true</IsDeleted>
-  </Parcel>
-  <Parcel>
-    <Id>1</Id>
-    <SenderId>325207082</SenderId>
-    <TargetId>325207082</TargetId>
-    <Weight>Light</Weight>
-    <Priority>Regular</Priority>
-    <DroneId>1</DroneId>
-    <Created>2022-02-17T01:29:00.1034016+02:00</Created>
-    <Associated>2022-02-17T01:29:01.4404485+02:00</Associated>
-    <Collected>2022-02-17T03:45:23.6991974+02:00</Collected>
-    <Delivered xsi:nil="true" />
-    <IsDeleted>false</IsDeleted>
-  </Parcel>
-  <Parcel>
-    <Id>1</Id>
-    <SenderId>325207082</SenderId>
-    <TargetId>325207082</TargetId>
-    <Weight>Light</Weight>
-    <Priority>Regular</Priority>
-    <DroneId>1</DroneId>
-    <Created>2022-02-17T01:29:00.1034016+02:00</Created>
-    <Associated>2022-02-17T01:29:01.4404485+02:00</Associated>
-    <Collected xsi:nil="true" />
-    <Delivered>2022-02-17T03:45:24.7267107+02:00</Delivered>
-    <IsDeleted>false</IsDeleted>
-  </Parcel>
-  <Parcel>
     <Id>2</Id>
     <SenderId>325207082</SenderId>
     <TargetId>325207082</TargetId>
@@ -63,6 +24,58 @@
     <Associated>2022-02-17T01:29:07.5247401+02:00</Associated>
     <Collected xsi:nil="true" />
     <Delivered>2022-02-17T12:26:22.9082167+02:00</Delivered>
+    <IsDeleted>false</IsDeleted>
+  </Parcel>
+  <Parcel>
+    <Id>1</Id>
+    <SenderId>325207082</SenderId>
+    <TargetId>325207082</TargetId>
+    <Weight>Light</Weight>
+    <Priority>Regular</Priority>
+    <DroneId>1</DroneId>
+    <Created>2022-02-17T01:29:00.1034016+02:00</Created>
+    <Associated>2022-02-17T01:29:01.4404485+02:00</Associated>
+    <Collected>2022-02-17T01:29:05.4882661+02:00</Collected>
+    <Delivered xsi:nil="true" />
+    <IsDeleted>true</IsDeleted>
+  </Parcel>
+  <Parcel>
+    <Id>1</Id>
+    <SenderId>325207082</SenderId>
+    <TargetId>325207082</TargetId>
+    <Weight>Light</Weight>
+    <Priority>Regular</Priority>
+    <DroneId>1</DroneId>
+    <Created>2022-02-17T01:29:00.1034016+02:00</Created>
+    <Associated>2022-02-17T01:29:01.4404485+02:00</Associated>
+    <Collected>2022-02-17T22:45:27.3193237+02:00</Collected>
+    <Delivered xsi:nil="true" />
+    <IsDeleted>false</IsDeleted>
+  </Parcel>
+  <Parcel>
+    <Id>1</Id>
+    <SenderId>325207082</SenderId>
+    <TargetId>325207082</TargetId>
+    <Weight>Light</Weight>
+    <Priority>Regular</Priority>
+    <DroneId>1</DroneId>
+    <Created>2022-02-17T01:29:00.1034016+02:00</Created>
+    <Associated>2022-02-17T01:29:01.4404485+02:00</Associated>
+    <Collected>2022-02-17T03:45:23.6991974+02:00</Collected>
+    <Delivered xsi:nil="true" />
+    <IsDeleted>true</IsDeleted>
+  </Parcel>
+  <Parcel>
+    <Id>1</Id>
+    <SenderId>325207082</SenderId>
+    <TargetId>325207082</TargetId>
+    <Weight>Light</Weight>
+    <Priority>Regular</Priority>
+    <DroneId>1</DroneId>
+    <Created>2022-02-17T01:29:00.1034016+02:00</Created>
+    <Associated>2022-02-17T01:29:01.4404485+02:00</Associated>
+    <Collected>2022-02-17T22:45:34.6379422+02:00</Collected>
+    <Delivered xsi:nil="true" />
     <IsDeleted>false</IsDeleted>
   </Parcel>
 </ArrayOfParcel>
