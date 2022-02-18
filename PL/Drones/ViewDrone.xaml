@@ -21,8 +21,6 @@
     </Window.Resources>
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <Grid x:Name="DroneView">
-
-
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -60,15 +58,15 @@
                     <TextBlock   Text="{Binding SelectedDrone.DeliveryByTransfer}"  />
                 </DockPanel>
             </StackPanel>
-            <StackPanel Visibility="{Binding Auto, Converter={StaticResource FalseVisibileConverter}}">
+            <StackPanel  Grid.Row="3" Visibility="{Binding Auto, Converter={StaticResource FalseVisibileConverter}}">
                 <!--available-->
-                <StackPanel Grid.Row="1" Visibility="{Binding SelectedDrone.Status , Converter={StaticResource AvailableDroneToVisibilityConverter}}">
+                <StackPanel Grid.Row="3" Visibility="{Binding SelectedDrone.Status , Converter={StaticResource AvailableDroneToVisibilityConverter}}">
                     <Button Content="Sending the drone for charging"  HorizontalAlignment="Left"   VerticalAlignment="Top" Command="{Binding SendingTheDroneForChargingCommand}" />
                     <Button Content="Sending the drone for delivery"  HorizontalAlignment="Left"   VerticalAlignment="Top" Command="{Binding SendingTheDroneForDeliveryCommand}"/>
                 </StackPanel>
 
                 <!--meintence-->
-                <StackPanel Grid.Row="1" Visibility="{Binding SelectedDrone.Status, Converter={StaticResource MeintenceDroneToVisibilityConverter }}"  >
+                <StackPanel Grid.Row="3" Visibility="{Binding SelectedDrone.Status, Converter={StaticResource MeintenceDroneToVisibilityConverter }}"  >
                     <Button Content="Release drone from charging"  HorizontalAlignment="Left"   VerticalAlignment="Top" Command="{Binding ReleaseDroneFromChargingCommand}"/>
                 </StackPanel>
 
@@ -79,7 +77,18 @@
                     --><!--drone in the delivery that has already collected the package--><!--
                     <Button Content="parcel delivery"  HorizontalAlignment="Left"   VerticalAlignment="Top" Command="{Binding ParcelDeliveryCommand}"/>
                 </StackPanel>-->
-                <Button x:Name="parcelTreatedByDRone"  Command="{Binding ParcelTreatedByDroneCommand}" Visibility="{Binding SelectedDrone.Status, Converter={StaticResource DeliveryDroneToVisibilityConverter}}" >
+
+
+
+                <StackPanel Grid.Row="3" >
+                <Button Content="close Window" HorizontalAlignment="Left"   VerticalAlignment="Top" Click="CloseDroneWindow" />
+                <Button Content="update" HorizontalAlignment="Left"   VerticalAlignment="Top" Command="{Binding UpdateModelCommand}"/>
+                <Button Content="Manual" HorizontalAlignment="Left" Margin="10, 5, 5, 5"
+                    Visibility="{Binding Auto,Converter={StaticResource TrueVisibileConverter}}" Command="{Binding StopTheAuto}"/>
+                <Button Content="Automatic"  HorizontalAlignment="Left" Margin="10, 5, 5, 5"
+                    Visibility="{Binding Auto,Converter={StaticResource FalseVisibileConverter}}" Command="{Binding StartSimulatorCommand}" />
+                </StackPanel >
+                <Button x:Name="parcelTreatedByDRone" Grid.Row="3"  Command="{Binding ParcelTreatedByDroneCommand}" Visibility="{Binding SelectedDrone.Status, Converter={StaticResource DeliveryDroneToVisibilityConverter}}" >
                     <Button.Content>
                         <MultiBinding Converter="{StaticResource parcelTreatedByDroneContent}">
                             <Binding Path="SelectedDrone.Status" />
@@ -87,16 +96,6 @@
                         </MultiBinding>
                     </Button.Content>
                 </Button>
-            </StackPanel>
-
-
-            <StackPanel Grid.Row="2" >
-                <Button Content="close Window" HorizontalAlignment="Left"   VerticalAlignment="Top" Click="CloseDroneWindow" />
-                <Button Content="update" HorizontalAlignment="Left"   VerticalAlignment="Top" Command="{Binding UpdateModelCommand}"/>
-                <Button Content="Manual" HorizontalAlignment="Left" Margin="10, 5, 5, 5"
-                    Visibility="{Binding Auto,Converter={StaticResource TrueVisibileConverter}}" Command="{Binding StopTheAuto}"/>
-                <Button Content="Automatic"  HorizontalAlignment="Left" Margin="10, 5, 5, 5"
-                    Visibility="{Binding Auto,Converter={StaticResource FalseVisibileConverter}}" Command="{Binding StartSimulatorCommand}" />
             </StackPanel>
 
 
