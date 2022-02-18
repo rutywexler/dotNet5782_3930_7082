@@ -46,7 +46,7 @@ namespace Dal
         {
             // DroneCharges.Add(new DroneCharge() { DroneId = droneId, StationId = stationId,StartTime=DateTime.Now});
             if (DataSource.DroneCharges.Exists(dc => dc.DroneId == droneId))
-                throw new excepti("This drone is already being charged");
+                throw new Exception_ThereIsInTheListObjectWithTheSameValue("This drone is already being charged");
             DroneCharges.Add(new DroneCharge()
             {
                 DroneId = droneId,
@@ -60,7 +60,7 @@ namespace Dal
         {
             int index = Stations.FindIndex(bs => bs.Id == baseStationId);
             if (index == -1)
-                throw new excepti("This drone is already being charged");
+                throw new Exception_ThereIsInTheListObjectWithTheSameValue("This drone is already being charged");
             Station station = Stations[index];
             --station.ChargeSlots;
             Stations[index] = station;
@@ -85,7 +85,7 @@ namespace Dal
         {
             int index = DataSource.Stations.FindIndex(bs => bs.Id == baseStationId);
             if (index == -1)
-                throw new excepti("Base station does not exist");
+                throw new Exception_ThereIsInTheListObjectWithTheSameValue("Base station does not exist");
             Station station = Stations[index];
             ++station.ChargeSlots;
             Stations[index] = station;

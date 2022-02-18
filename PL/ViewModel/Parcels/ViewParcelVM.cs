@@ -39,10 +39,10 @@ namespace PL
         }
         private void CollectTheParcel(object param)
         {
-            var parcel = param as Parcel;
+            //var parcel = param as Parcel;
             try 
             {
-                bl.ParcelCollectionByDrone(parcel.Drone1.Id);
+                bl.ParcelCollectionByDrone(Parcel.Drone1.Id);
                 MessageBox.Show("succees collect Parcel By Drone");
             }
 
@@ -55,10 +55,10 @@ namespace PL
 
         private void DeliveryTheParcel(object param)
         {
-            var parcel = param as Parcel;
+            //var parcel = param as Parcel;
             try
             {
-                bl.AssignParcelToDrone(parcel.Id);
+                bl.AssignParcelToDrone(Parcel.Id);
                 MessageBox.Show("succees Delivery Parcel By Drone");
             }
             catch
