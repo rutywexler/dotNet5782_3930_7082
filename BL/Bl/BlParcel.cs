@@ -243,7 +243,7 @@ namespace BL
         public IEnumerable<ParcelList> GetParcels()
         {
             lock (dal)
-                return dal.GetParcels().Select(parcel => ParcelToParcelForList(parcel.Id));
+                return dal.GetParcels().Where(parcel=>parcel.IsDeleted==false).Select(parcel => ParcelToParcelForList(parcel.Id));
         }
 
         
