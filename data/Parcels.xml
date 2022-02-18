@@ -27,32 +27,6 @@
     <IsDeleted>false</IsDeleted>
   </Parcel>
   <Parcel>
-    <Id>3</Id>
-    <SenderId>259631485</SenderId>
-    <TargetId>133698547</TargetId>
-    <Weight>Light</Weight>
-    <Priority>Emergency</Priority>
-    <DroneId>0</DroneId>
-    <Created>2022-02-18T07:38:49.1509927+02:00</Created>
-    <Associated xsi:nil="true" />
-    <Collected xsi:nil="true" />
-    <Delivered xsi:nil="true" />
-    <IsDeleted>false</IsDeleted>
-  </Parcel>
-  <Parcel>
-    <Id>4</Id>
-    <SenderId>289631852</SenderId>
-    <TargetId>203854123</TargetId>
-    <Weight>Light</Weight>
-    <Priority>Emergency</Priority>
-    <DroneId>0</DroneId>
-    <Created>2022-02-18T07:39:05.6244391+02:00</Created>
-    <Associated xsi:nil="true" />
-    <Collected xsi:nil="true" />
-    <Delivered xsi:nil="true" />
-    <IsDeleted>false</IsDeleted>
-  </Parcel>
-  <Parcel>
     <Id>5</Id>
     <SenderId>259631485</SenderId>
     <TargetId>133698547</TargetId>
@@ -177,45 +151,6 @@
     <Priority>Regular</Priority>
     <DroneId>0</DroneId>
     <Created>2022-02-18T07:41:06.5279874+02:00</Created>
-    <Associated xsi:nil="true" />
-    <Collected xsi:nil="true" />
-    <Delivered xsi:nil="true" />
-    <IsDeleted>false</IsDeleted>
-  </Parcel>
-  <Parcel>
-    <Id>15</Id>
-    <SenderId>598743258</SenderId>
-    <TargetId>203854123</TargetId>
-    <Weight>Light</Weight>
-    <Priority>Regular</Priority>
-    <DroneId>0</DroneId>
-    <Created>2022-02-18T07:41:13.4169855+02:00</Created>
-    <Associated xsi:nil="true" />
-    <Collected xsi:nil="true" />
-    <Delivered xsi:nil="true" />
-    <IsDeleted>false</IsDeleted>
-  </Parcel>
-  <Parcel>
-    <Id>16</Id>
-    <SenderId>289631852</SenderId>
-    <TargetId>33120650</TargetId>
-    <Weight>Light</Weight>
-    <Priority>Emergency</Priority>
-    <DroneId>0</DroneId>
-    <Created>2022-02-18T07:41:27.5674192+02:00</Created>
-    <Associated xsi:nil="true" />
-    <Collected xsi:nil="true" />
-    <Delivered xsi:nil="true" />
-    <IsDeleted>false</IsDeleted>
-  </Parcel>
-  <Parcel>
-    <Id>17</Id>
-    <SenderId>33120650</SenderId>
-    <TargetId>259631485</TargetId>
-    <Weight>Light</Weight>
-    <Priority>Fast</Priority>
-    <DroneId>0</DroneId>
-    <Created>2022-02-18T07:41:58.6088656+02:00</Created>
     <Associated xsi:nil="true" />
     <Collected xsi:nil="true" />
     <Delivered xsi:nil="true" />
@@ -352,16 +287,68 @@
     <IsDeleted>false</IsDeleted>
   </Parcel>
   <Parcel>
+    <Id>4</Id>
+    <SenderId>289631852</SenderId>
+    <TargetId>203854123</TargetId>
+    <Weight>Light</Weight>
+    <Priority>Emergency</Priority>
+    <DroneId>1</DroneId>
+    <Created>2022-02-18T07:39:05.6244391+02:00</Created>
+    <Associated>2022-02-18T10:02:24.3510747+02:00</Associated>
+    <Collected>2022-02-18T10:02:25.0323959+02:00</Collected>
+    <Delivered>2022-02-18T10:02:25.1946404+02:00</Delivered>
+    <IsDeleted>false</IsDeleted>
+  </Parcel>
+  <Parcel>
     <Id>28</Id>
     <SenderId>213698695</SenderId>
     <TargetId>289631852</TargetId>
     <Weight>Light</Weight>
     <Priority>Regular</Priority>
-    <DroneId>0</DroneId>
+    <DroneId>1</DroneId>
     <Created>2022-02-18T07:50:12.4581387+02:00</Created>
-    <Associated xsi:nil="true" />
-    <Collected xsi:nil="true" />
-    <Delivered xsi:nil="true" />
+    <Associated>2022-02-18T10:00:19.4884002+02:00</Associated>
+    <Collected>2022-02-18T10:05:29.2746044+02:00</Collected>
+    <Delivered>2022-02-18T10:05:29.7152632+02:00</Delivered>
+    <IsDeleted>false</IsDeleted>
+  </Parcel>
+  <Parcel>
+    <Id>16</Id>
+    <SenderId>289631852</SenderId>
+    <TargetId>33120650</TargetId>
+    <Weight>Light</Weight>
+    <Priority>Emergency</Priority>
+    <DroneId>1</DroneId>
+    <Created>2022-02-18T07:41:27.5674192+02:00</Created>
+    <Associated>2022-02-18T10:05:29.8792238+02:00</Associated>
+    <Collected>2022-02-18T10:05:30.4498075+02:00</Collected>
+    <Delivered>2022-02-18T10:05:30.5863694+02:00</Delivered>
+    <IsDeleted>false</IsDeleted>
+  </Parcel>
+  <Parcel>
+    <Id>17</Id>
+    <SenderId>33120650</SenderId>
+    <TargetId>259631485</TargetId>
+    <Weight>Light</Weight>
+    <Priority>Fast</Priority>
+    <DroneId>1</DroneId>
+    <Created>2022-02-18T07:41:58.6088656+02:00</Created>
+    <Associated>2022-02-18T10:00:20.5335405+02:00</Associated>
+    <Collected>2022-02-18T10:07:42.5311477+02:00</Collected>
+    <Delivered>2022-02-18T10:07:42.7976752+02:00</Delivered>
+    <IsDeleted>false</IsDeleted>
+  </Parcel>
+  <Parcel>
+    <Id>15</Id>
+    <SenderId>598743258</SenderId>
+    <TargetId>203854123</TargetId>
+    <Weight>Light</Weight>
+    <Priority>Regular</Priority>
+    <DroneId>1</DroneId>
+    <Created>2022-02-18T07:41:13.4169855+02:00</Created>
+    <Associated>2022-02-18T09:56:19.6409881+02:00</Associated>
+    <Collected>2022-02-18T10:13:21.7107721+02:00</Collected>
+    <Delivered>2022-02-18T10:13:22.1050268+02:00</Delivered>
     <IsDeleted>false</IsDeleted>
   </Parcel>
 </ArrayOfParcel>

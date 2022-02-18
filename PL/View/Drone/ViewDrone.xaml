@@ -83,11 +83,10 @@
                 <StackPanel Grid.Row="3" >
                 <Button Content="close Window" HorizontalAlignment="Left"   VerticalAlignment="Top" Click="CloseDroneWindow" />
                 <Button Content="update" HorizontalAlignment="Left"   VerticalAlignment="Top" Command="{Binding UpdateModelCommand}"/>
-                <Button Content="Manual" HorizontalAlignment="Left" Margin="10, 5, 5, 5"
-                    Visibility="{Binding Auto,Converter={StaticResource TrueVisibileConverter}}" Command="{Binding StopTheAuto}"/>
-                <Button Content="Automatic"  HorizontalAlignment="Left" Margin="10, 5, 5, 5"
-                    Visibility="{Binding Auto,Converter={StaticResource FalseVisibileConverter}}" Command="{Binding StartSimulatorCommand}" />
+          
                 </StackPanel >
+
+              
                 <Button x:Name="parcelTreatedByDRone" Grid.Row="3"  Command="{Binding ParcelTreatedByDroneCommand}" Visibility="{Binding SelectedDrone.Status, Converter={StaticResource DeliveryDroneToVisibilityConverter}}" >
                     <Button.Content>
                         <MultiBinding Converter="{StaticResource parcelTreatedByDroneContent}">
@@ -98,7 +97,10 @@
                 </Button>
             </StackPanel>
 
-
+            <Button Content="Automatic"  HorizontalAlignment="Left" Margin="10, 5, 5, 5"
+                    Visibility="{Binding Auto,Converter={StaticResource FalseVisibileConverter}}" Command="{Binding StartSimulatorCommand}" />
+            <Button Content="Manual" HorizontalAlignment="Left" Margin="10, 5, 5, 5"
+                    Visibility="{Binding Auto,Converter={StaticResource TrueVisibileConverter}}" Command="{Binding StopTheAuto}"/>
 
         </Grid>
     </ScrollViewer>
