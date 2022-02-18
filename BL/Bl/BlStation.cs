@@ -19,7 +19,7 @@ namespace BL
                 lock (dal)
                     dal.AddStation(baseStation.Id, baseStation.Name, baseStation.Location.Longitude, baseStation.Location.Longitude, baseStation.NumberOfChargingStations);
             }
-            catch (Dal.excepti ex)
+            catch (Dal.Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
             }
@@ -114,7 +114,7 @@ namespace BL
             {
                 throw new KeyNotFoundException(ex.Message);
             }
-            catch (Dal.excepti ex)
+            catch (Dal.Exception_ThereIsInTheListObjectWithTheSameValue ex)
             {
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
             }

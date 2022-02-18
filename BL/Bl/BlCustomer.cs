@@ -26,9 +26,9 @@ namespace BL
                 lock(dal)
                     dal.AddCustomer(customerBL.Id, customerBL.PhoneNumber, customerBL.Name, customerBL.Location.Longitude, customerBL.Location.Lattitude);
             }
-            catch (Dal.excepti ex)
+            catch (Dal.ThereIsAnotherObjectWithThisUniqueID ex)
             {
-                throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
+                throw new ThereIsAnotherObjectWithThisUniqueID(ex.Message);
             }
         }
         /// <summary>
@@ -64,6 +64,10 @@ namespace BL
             catch (KeyNotFoundException ex)
             {
                 throw new KeyNotFoundException(ex.Message);
+            }
+            catch (Dal.ThereIsAnotherObjectWithThisUniqueID ex)
+            {
+                throw new ThereIsAnotherObjectWithThisUniqueID(ex.Message);
             }
         }
 

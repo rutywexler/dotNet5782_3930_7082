@@ -45,7 +45,15 @@ namespace PL
 
         private void Refresh()
         {
-            SelectedDrone = PL.DroneConverter.ConvertDrone(bl.GetDrone(SelectedDrone.Id));
+            try
+            {
+                SelectedDrone = PL.DroneConverter.ConvertDrone(bl.GetDrone(SelectedDrone.Id));
+            }
+            catch (ArgumentNullException )
+            {
+                MessageBox.Show("Failed to refresh the drone");
+            }
+
             refreshDroneList();
         }
         public RelayCommand SendingTheDroneForChargingCommand { get; set; }
@@ -209,12 +217,7 @@ namespace PL
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(memberName));
         }
-        //public void Window_Closing(object sender, CancelEventArgs e)
-        //{
-        //    buttonCacel = true;
-        //    if(worker!=null)
-        //         worker.CancelAsync();     
-        //}
+
 
         #region simulator
 
@@ -252,7 +255,6 @@ namespace PL
                     }
                 };
                 
-                //worker.RunWorkerCompleted += (sender, args) => CloseDroneWindow();
                 worker.ProgressChanged += (sender, args) => updateDroneView();
                 worker.RunWorkerAsync(SelectedDrone.Id);
             }
@@ -264,7 +266,15 @@ namespace PL
 
         private void updateDroneView()
         {
-            SelectedDrone = PL.DroneConverter.ConvertDrone(bl.GetDrone(SelectedDrone.Id));
+            try
+            {
+                SelectedDrone = PL.DroneConverter.ConvertDrone(bl.GetDrone(SelectedDrone.Id));
+            }
+            catch(ArgumentNullException)
+            {
+                MessageBox.Show("Failed to update the drone");
+
+            }
             refreshDroneList();
         }
 

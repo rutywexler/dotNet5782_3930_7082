@@ -23,7 +23,7 @@ namespace Dal
         public void AddCustomer(int id, string phone, string name, double longitude, double latitude)
         {
             if (ExistsIDCheck(DataSource.Customers, id))
-                throw new excepti();
+                throw new ThereIsAnotherObjectWithThisUniqueID();
             Customer newCustomer = new Customer();
             newCustomer.Id = id;
             newCustomer.Name = name;
