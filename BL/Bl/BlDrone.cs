@@ -311,7 +311,7 @@ namespace BL
             try
             {
                 DO.Parcel parcel = dal.GetParcel(parcelId);
-                dal.RemoveParcel(parcel.Id);
+                dal.RemoveParcelAbsolute(parcel.Id);
                 parcel.Collected = DateTime.Now;
                 dal.AddParcel(parcel.SenderId, parcel.TargetId, parcel.Weight, parcel.Priority, parcel.Id, parcel.DroneId, parcel.Created, parcel.Associated, (DateTime)parcel.Collected);
             }

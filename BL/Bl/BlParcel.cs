@@ -92,7 +92,7 @@ namespace BL
                     Priority = (Priorities)parcel.Priority,
                     CollectParcelLocation = new Location { Lattitude = targetCustomer.Lattitude, Longitude = targetCustomer.Longitude },
                     DeliveryDestination = new Location { Lattitude = senderCustomer.Lattitude, Longitude = senderCustomer.Longitude },
-                    ParcelStatus = parcel.Delivered != null,
+                    ParcelStatus = parcel.Collected != null,
                     DeliveryDistance = LocationExtensions.Distance(new Location() { Longitude = senderCustomer.Longitude, Lattitude = senderCustomer.Lattitude }, new Location() { Longitude = targetCustomer.Longitude, Lattitude = targetCustomer.Lattitude }),
                 };
             }
@@ -291,11 +291,7 @@ namespace BL
             {
                 throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
             }
-            finally
-            {
-                drones.Add(droneToList);
-
-            }
+        
         }
 
         /// <summary>

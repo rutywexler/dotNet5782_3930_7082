@@ -25,8 +25,8 @@ namespace PL
             SendingTheDroneForDeliveryCommand = new RelayCommand(SendingTheDroneForDelivery, null);
             ReleaseDroneFromChargingCommand = new RelayCommand(ReleaseDroneFromCharging, null);
             UpdateModelCommand = new RelayCommand(UpdateModel, param => CheckValid.CheckValidUpdateDrone(this.SelectedDrone));
-            ParcelCollectionCommand = new RelayCommand(ParcelCollection, null);
-            ParcelDeliveryCommand = new RelayCommand(ParcelDelivery, null);
+            //ParcelCollectionCommand = new RelayCommand(ParcelCollection, null);
+            //ParcelDeliveryCommand = new RelayCommand(ParcelDelivery, null);
             StartSimulatorCommand = new RelayCommand(Auto_Click, null);
             ParcelTreatedByDroneCommand = new RelayCommand(parcelTreatedByDrone, null);
             StopTheAuto = new RelayCommand(Manual, null);
@@ -248,7 +248,7 @@ namespace PL
                     Auto = false;
                     if (buttonCacel)
                     {
-                        App.Current.Windows.Cast<Window>().Single(worker => worker.Title == "ViewDrone").Close();
+                        App.Current.Windows.Cast<Window>().First(worker => worker.Title == "ViewDrone").Close();
                     }
                 };
                 

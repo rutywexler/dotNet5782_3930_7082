@@ -179,6 +179,8 @@ namespace BL
 
         private void DeliveryDrone()
         {
+
+            update();
             try
             {
                 lock (bl)
@@ -192,6 +194,8 @@ namespace BL
                             lock (bl)
                             {
                                 distance = LocationExtensions.Distance(drone.Location, bl.GetCustomer(parcel.CustomerSendsFrom.Id).Location);
+                                if (!sleepDelayTime()) break;
+                  
                             }
                             delivery = Delivery.Going;
                             break;
@@ -210,12 +214,13 @@ namespace BL
                                 {
                                     lock (bl)
                                     {
-                                            delivery = Delivery.Delivery;
+                                      
+                                        delivery = Delivery.Delivery;
                                             drone.Location = bl.GetCustomer(parcel.CustomerSendsFrom.Id).Location;
                                             distance = LocationExtensions.Distance(drone.Location, bl.GetCustomer(parcel.CustomerReceivesTo.Id).Location);
                                             bl.ParcelCollectionByDrone(drone.DroneId);
                                             delivery = Delivery.Delivery;
-                                       
+                                        update();
                                     }
                                 }
                             }
@@ -244,12 +249,15 @@ namespace BL
                                     };
                                     drone.Location = UpdateLocationAndBattary(bl.GetCustomer(parcel.CustomerReceivesTo.Id).Location, elect);
                                     distance = LocationExtensions.Distance(drone.Location, bl.GetCustomer(parcel.CustomerReceivesTo.Id).Location);
+                                    update();
                                 }
                             }
-
+                            
+          
                             break;
                         }
 
+                      
                     default:
                         break;
                 }
