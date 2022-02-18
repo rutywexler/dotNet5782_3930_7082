@@ -32,7 +32,7 @@ namespace BL
         double distance = 0.0;
         Func<bool> stop;
         Action update;
-        private Delivery delivery= Delivery.Starting;
+        private Delivery delivery = Delivery.Starting;
         Maintenance maintenance;
         private Idal dal;
         private int? parcelId = null;
@@ -64,8 +64,9 @@ namespace BL
                     default:
                         break;
                 }
+                update();
             }
-            update();
+          
         }
 
         private void AvailbleDrone()
@@ -97,7 +98,7 @@ namespace BL
                     }
                 }
             }
-            update();
+          
 
         }
         private void MaintenanceDrone()
@@ -133,54 +134,28 @@ namespace BL
                     }
                     break;
                 case Maintenance.Charging:
-                        if (drone.BatteryDrone == 100)
-                            lock (bl)
-                            {
-                                drone.DroneStatus = DroneStatus.Available;
-                                dal.ReleaseDroneFromRecharge(drone.DroneId);
-                            }
-                        else
+                    if (drone.BatteryDrone == 100)
+                        lock (bl)
                         {
-                            if (!sleepDelayTime()) break;
-        
-                            lock (bl) drone.BatteryDrone = Min(100, drone.BatteryDrone + bl.DroneLoadingRate * TIME_STEP);
+                            drone.DroneStatus = DroneStatus.Available;
+                            dal.ReleaseDroneFromRecharge(drone.DroneId);
                         }
+                    else
+                    {
+                        if (!sleepDelayTime()) break;
+
+                        lock (bl) drone.BatteryDrone = Min(100, drone.BatteryDrone + bl.DroneLoadingRate * TIME_STEP);
+                    }
                     break;
                 default:
                     break;
             }
-            update();
-            //if (Station == null)
-            //    Station = bl.GetStations().Select(station => bl.GetStation(station.IdStation)).FirstOrDefault(station => station.DronesInCharge.FirstOrDefault(drone => drone.ID == drone.ID) != null);
-            //UpdateLocationAndBattary(Station.Location, drone.BatteryDrone);
-            //if (drone.BatteryDrone == 100)
-            //{
-            //    bl.ReleaseDroneFromCharging(drone.DroneId);
-            //}
-            //else
-            //    lock (bl) drone.BatteryDrone = Math.Min(100, drone.BatteryDrone + BL.Bl.DroneLoadingRate * TIME_STEP);
+        
         }
 
 
-        //private void MaintenanceDrone()
-        //{
-        //     if (Station == null)
-        //        Station = bl.GetStations().Select(station => bl.GetStation(station.IdStation)).FirstOrDefault(station => station.DronesInCharge.FirstOrDefault(drone => drone.ID == drone.ID) != null);
-        //    if (drone.BatteryDrone >= 100)
-        //    {
-        //        bl.ReleaseDroneFromCharging(drone.DroneId);
-        //    }
-
-        //    else
-        //        lock (bl) drone.BatteryDrone = Min(100, drone.BatteryDrone + bl.DroneLoadingRate * TIME_STEP);
-        //    update();
-
-        //}
-
         private void DeliveryDrone()
         {
-
-            update();
             try
             {
                 lock (bl)
@@ -195,7 +170,7 @@ namespace BL
                             {
                                 distance = LocationExtensions.Distance(drone.Location, bl.GetCustomer(parcel.CustomerSendsFrom.Id).Location);
                                 if (!sleepDelayTime()) break;
-                  
+
                             }
                             delivery = Delivery.Going;
                             break;
@@ -214,17 +189,17 @@ namespace BL
                                 {
                                     lock (bl)
                                     {
-                                      
+
                                         delivery = Delivery.Delivery;
-                                            drone.Location = bl.GetCustomer(parcel.CustomerSendsFrom.Id).Location;
-                                            distance = LocationExtensions.Distance(drone.Location, bl.GetCustomer(parcel.CustomerReceivesTo.Id).Location);
-                                            bl.ParcelCollectionByDrone(drone.DroneId);
-                                            delivery = Delivery.Delivery;
-                                        update();
+                                        drone.Location = bl.GetCustomer(parcel.CustomerSendsFrom.Id).Location;
+                                        distance = LocationExtensions.Distance(drone.Location, bl.GetCustomer(parcel.CustomerReceivesTo.Id).Location);
+                                        bl.ParcelCollectionByDrone(drone.DroneId);
+                                        delivery = Delivery.Delivery;
+
                                     }
                                 }
+                                break;
                             }
-                            break;
                         }
                     case Delivery.Delivery:
                         {
@@ -249,19 +224,19 @@ namespace BL
                                     };
                                     drone.Location = UpdateLocationAndBattary(bl.GetCustomer(parcel.CustomerReceivesTo.Id).Location, elect);
                                     distance = LocationExtensions.Distance(drone.Location, bl.GetCustomer(parcel.CustomerReceivesTo.Id).Location);
-                                    update();
+                                   
                                 }
                             }
-                            
-          
+
+
                             break;
                         }
 
-                      
+
                     default:
                         break;
                 }
-                update();
+          
 
 
             }
@@ -270,7 +245,7 @@ namespace BL
                 drone.DroneStatus = DroneStatus.Available;
             }
 
-            update();
+         
 
 
         }
@@ -289,13 +264,7 @@ namespace BL
             return new() { Lattitude = lat, Longitude = lon };
         }
 
-        //void initDelivery(int id)
-        //{
-        //    parcel = dal.GetParcel(id);
-        //    batteryUsage = (int)Enum.Parse(typeof(BatteryUsage), parcel?.Weight.ToString());
-        //    pickedUp = parcel?.Collected is not null;
-        //    customer = bl.GetCustomer((int)(pickedUp ? parcel?.TargetId : parcel?.SenderId));
-        //}
+    
 
     }
 }

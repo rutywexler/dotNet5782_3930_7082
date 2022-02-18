@@ -33,7 +33,7 @@ namespace PL
         public UpDateStation(BaseStationForList station) : this()
         {
             Station = GetStation(station.Id);
-            UpdateStationCommand = new(UpdateStation, param=>CheckValid.CheckValidUpdateStation(this.Station));
+            UpdateStationCommand = new(UpdateStation, param => CheckValid.CheckValidUpdateStation(this.Station));
             OpenViewDroneInStationWindowCommand = new(OpenViewDroneWindow, null);
         }
 
@@ -45,7 +45,7 @@ namespace PL
 
         public void UpdateStation(object parameter)
         {
-           // if(Station.Name!=Name|| Station.AvailableChargeSlots!= NumOfChargeSlote)
+            // if(Station.Name!=Name|| Station.AvailableChargeSlots!= NumOfChargeSlote)
             {
                 bl.UpdateStation(Station.Id, Station.Name, Station.AvailableChargeSlots);
                 MessageBox.Show("Succeed to Update station");
@@ -55,27 +55,27 @@ namespace PL
         private void OpenViewDroneWindow(object param)
         {
             var drone = param as DroneInCharging;
-           // new ViewDrone(bl, ConvertDroneInChargingToDrone(drone, Station), refreshDroneList).Show();
+            new ViewDrone(bl, ConvertDroneInChargingToDrone(drone, Station)).Show();
         }
 
         private Drone ConvertDroneInChargingToDrone(DroneInCharging drone, BaseStation station)
         {
-            
-                return new Drone
+
+            return new Drone
+            {
+                Id = drone.Id,
+                Model = bl.GetDrone(drone.Id).DroneModel,
+                Battery = drone.BatteryStatus,
+                Status = Enums.DroneStatuses.MAINTENANCE,
+                Location = new Location
                 {
-                    Id = drone.Id,
-                    Model = bl.GetDrone(drone.Id).DroneModel,
-                    Battery = drone.BatteryStatus,
-                    Status = 0,
-                    Location = new Location
-                    {
-                        Latitude = station.Location.Latitude,
-                        Longitude = station.Location.Longitude
-                    },
-                    Weight = (Enums.WeightCategories)bl.GetDrone(drone.Id).Weight,
-                    DeliveryByTransfer = null
-                };
-            
+                    Latitude = station.Location.Latitude,
+                    Longitude = station.Location.Longitude
+                },
+                Weight = (Enums.WeightCategories)bl.GetDrone(drone.Id).Weight,
+                DeliveryByTransfer = null
+            };
+
         }
     }
 }

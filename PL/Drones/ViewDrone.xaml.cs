@@ -10,10 +10,10 @@ namespace PL
     /// </summary>
     public partial class ViewDrone : Window
     {
-        public ViewDrone(BlApi.IBL ibl, Drone selectedDrone, Action refreshDroneList)
+        public ViewDrone(BlApi.IBL ibl, Drone selectedDrone)
             : this()
         {
-            DataContext = new ViewDroneVM(ibl, selectedDrone, refreshDroneList);
+            DataContext = new ViewDroneVM(ibl, selectedDrone);
            
         }
         public ViewDrone()

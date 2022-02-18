@@ -14,7 +14,20 @@ namespace PL
     public partial class DroneListView : UserControl
     {
         private BlApi.IBL ibl;
-        ListCollectionView droneCollectionView;
+
+
+        public ListCollectionView droneCollectionView
+        {
+            get { return (ListCollectionView)GetValue(droneCollectionViewProperty); }
+            set { SetValue(droneCollectionViewProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for droneCollectionView.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty droneCollectionViewProperty =
+            DependencyProperty.Register("droneCollectionView", typeof(ListCollectionView), typeof(DroneListView), new PropertyMetadata(null));
+
+
+        
 
         public DroneListView()
         {
@@ -76,8 +89,7 @@ namespace PL
         {
             var selectedDrone = (e.OriginalSource as FrameworkElement).DataContext;
             BO.DroneToList drone = (BO.DroneToList)selectedDrone;
-            new ViewDrone(ibl, DroneConverter.ConvertDrone(ibl.GetDrone(drone.DroneId)), RefreshDroneList).Show();
-      
+            new ViewDrone(ibl, DroneConverter.ConvertDrone(ibl.GetDrone(drone.DroneId))).ShowDialog();
             RefreshDroneList();
         }
 

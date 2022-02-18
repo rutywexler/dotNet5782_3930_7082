@@ -12,15 +12,15 @@ namespace PL
      class ViewDroneVM : INotifyPropertyChanged
     {
         BlApi.IBL bl;
-        Action refreshDroneList;
+       
         public static bool buttonCacel { get; set; } = false;
 
 
-        public ViewDroneVM(BlApi.IBL ibl, Drone selectedDrone, Action refreshDroneList)
+        public ViewDroneVM(BlApi.IBL ibl, Drone selectedDrone)
         {
             bl = ibl;
             SelectedDrone = selectedDrone;
-            this.refreshDroneList = refreshDroneList;
+            //this.refreshDroneList = refreshDroneList;
             SendingTheDroneForChargingCommand = new RelayCommand(SendingTheDroneForCharging, null);
             SendingTheDroneForDeliveryCommand = new RelayCommand(SendingTheDroneForDelivery, null);
             ReleaseDroneFromChargingCommand = new RelayCommand(ReleaseDroneFromCharging, null);
@@ -54,7 +54,7 @@ namespace PL
                 MessageBox.Show("Failed to refresh the drone");
             }
 
-            refreshDroneList();
+            
         }
         public RelayCommand SendingTheDroneForChargingCommand { get; set; }
         public RelayCommand ParcelTreatedByDroneCommand { get; set; }
@@ -275,7 +275,7 @@ namespace PL
                 MessageBox.Show("Failed to update the drone");
 
             }
-            refreshDroneList();
+           
         }
 
         #endregion
