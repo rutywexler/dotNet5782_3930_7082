@@ -29,7 +29,7 @@ namespace Dal
                                new XElement("LightWeightCarrier", 0.002),
                                new XElement("MediumWeightBearing", 0.003),
                                new XElement("CarriesHeavyWeight", 0.004),
-                               new XElement("DroneLoadingRate", 2))
+                               new XElement("DroneLoadingRate", 3))
                          ).Save(dir + Config);
         }
         //public static XElement LoadConfigToXML(string filePath)

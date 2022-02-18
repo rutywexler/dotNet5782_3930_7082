@@ -58,7 +58,7 @@ namespace Dal
             {
                 return root.Elements(nameof(Customer))
                      .Select(customerElement => ConvertXElementToCustomerObject(customerElement))
-                     .SingleOrDefault(customer => customer.Id == id && !customer.IsDeleted);
+                     .SingleOrDefault(customer => customer.Id == id );
             }
             //catch (Exception e)
             //{
