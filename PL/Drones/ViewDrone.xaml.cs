@@ -14,7 +14,7 @@ namespace PL
             : this()
         {
             DataContext = new ViewDroneVM(ibl, selectedDrone, refreshDroneList);
-           
+
         }
         public ViewDrone()
         {
@@ -25,17 +25,17 @@ namespace PL
         //    InitializeComponent();
         //    DataContext = new ViewDroneVM(this, drone, );
         //}
-        public void  CloseDroneWindow(object sender, RoutedEventArgs e)
+        public void CloseDroneWindow(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
         private void Window_Close(object sender, CancelEventArgs e)
         {
-           
+
             if ((DataContext as ViewDroneVM).Auto)
             {
-               
+
                 (DataContext as ViewDroneVM).worker.CancelAsync();
                 e.Cancel = true;
             }

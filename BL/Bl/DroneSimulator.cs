@@ -180,7 +180,7 @@ namespace BL
         private void DeliveryDrone()
         {
 
-            update();
+          
             try
             {
                 lock (bl)
