@@ -7,44 +7,73 @@
         Icon="./Images/logo.png"
         mc:Ignorable="d"
         Title="MainWindow" Height="640" Width="800">
-   
+
     <Grid Name="MainGrid">
 
- <Grid>
-        <!--<Grid.Background >
+        <Grid>
+            <!--<Grid.Background >
             <ImageBrush Stretch="Fill" ImageSource="./Images/background2png-01.png"></ImageBrush>
         </Grid.Background>-->
-    </Grid>
+        </Grid>
         <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="200"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="*"/>
-            <!--<RowDefinition Height="300"/>-->
-       
+            <Grid.RowDefinitions>
+                <RowDefinition Height="200"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <!--<RowDefinition Height="300"/>-->
 
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <!--<ColumnDefinition Width="300"/>-->
 
-        </Grid.ColumnDefinitions>
-        <Button Grid.Row="1" Grid.Column="1" 
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <!--<ColumnDefinition Width="300"/>-->
+
+            </Grid.ColumnDefinitions>
+            <Button Grid.Row="1" Grid.Column="1" 
                 Content="For all Drone-Option:)" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="Drone_Click"/>
-        <Button Grid.Row="1" Grid.Column="2" 
+            <Button Grid.Row="1" Grid.Column="2" 
                 Content="For all Customer-Option:)" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="Customer_Click"/>
-        <Button Grid.Row="1" Grid.Column="3" 
+            <Button Grid.Row="1" Grid.Column="3" 
                 Content="For all station-Option:)" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="Station_Click"/>
-        <Button Grid.Row="1" Grid.Column="4" 
+            <Button Grid.Row="1" Grid.Column="4" 
                 Content="For all parcels-option:)" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="Parcel_Click"></Button>
-        <ContentPresenter Grid.Row="2" Grid.ColumnSpan="5" 
+            <ContentPresenter Grid.Row="2" Grid.ColumnSpan="5" 
                           Content="{Binding CurrentView}"/>
-   
-        <!--<Grid Grid.Row="0" Grid.Column="0">
+           
+            <Grid x:Name="logo" Grid.ColumnSpan="2" Margin="-50,-46,100,10" >
+                <Grid.Background>
+                    <ImageBrush ImageSource="./Images/logo.png"/>
+                </Grid.Background>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid x:Name="aside" Grid.Column="3" Grid.ColumnSpan="2" Margin="0,138,0,0" Grid.Row="2" >
+                    <Grid.Background>
+                        <ImageBrush ImageSource="./Images/background2png-01.png"/>
+                    </Grid.Background>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                </Grid>
+            </Grid>
+          
+
+
+            <!--<Grid Grid.Row="0" Grid.Column="0">
             <Grid.Background >
                 <ImageBrush Stretch="Fill" ImageSource="./Images/logo.png"></ImageBrush>
             </Grid.Background>
