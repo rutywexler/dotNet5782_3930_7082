@@ -273,6 +273,7 @@ namespace BL
             {
                 lock (dal)
                     parcel = dal.GetParcel((int)droneToList.ParcelId);
+                     
                 //if (parcel.PickedUp != default)
                 //    throw new ArgumentNullException("The package has already been collected");
                 DO.Customer customer;
@@ -281,6 +282,8 @@ namespace BL
                 Location senderLocation = new() { Longitude = customer.Longitude, Lattitude = customer.Lattitude };
                 droneToList.BatteryDrone -= LocationExtensions.Distance(droneToList.Location, senderLocation) * Available;
                 droneToList.Location = senderLocation;
+               
+               
                 colloctDalParcel(parcel.Id);
             }
             catch (KeyNotFoundException ex)
