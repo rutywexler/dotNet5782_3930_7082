@@ -247,7 +247,6 @@ namespace PL
                 worker.DoWork += (sender, args) => bl.StartSimulator(updateDrone, (int)args.Argument, checkStop);
                 worker.RunWorkerCompleted += (sender, args) =>
                 {
-
                     Auto = false;
                     if (buttonCacel)
                     {

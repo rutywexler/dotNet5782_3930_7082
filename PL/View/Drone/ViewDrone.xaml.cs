@@ -38,8 +38,9 @@ namespace PL
 
                 (DataContext as ViewDroneVM).worker.CancelAsync();
                 e.Cancel = true;
+                PL.ViewDroneVM.buttonCacel = true;
             }
-            PL.ViewDroneVM.buttonCacel = true;
+          
             //Window.GetWindow(sender as FrameworkElement).Close();
             //this.Close();
         }

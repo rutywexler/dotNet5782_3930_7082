@@ -32,35 +32,6 @@ namespace Dal
                                new XElement("DroneLoadingRate", 2))
                          ).Save(dir + Config);
         }
-        //public static XElement LoadConfigToXML(string filePath)
-        //{
-        //    try
-        //    {
-        //        if (!File.Exists(dir + filePath))
-        //        {
-        //            throw new XMLFileLoadCreateException($"fail to load xml file: {filePath}");
-        //        }
-        //        XDocument document = XDocument.Load(dir + filePath);
-        //        return document.Root;
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //        throw new XMLFileLoadCreateException();
-        //    }
-
-        //}
-
-        //internal static void SaveConfigToXML(XElement rootElem, string filePath)
-        //{
-        //    try
-        //    {
-        //        rootElem.Save(dir + filePath);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw new XMLFileLoadCreateException($"fail to create xml file: {filePath}");
-        //    }
-        //}
+ 
     }
 }

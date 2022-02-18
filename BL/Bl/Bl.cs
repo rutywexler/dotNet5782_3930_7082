@@ -23,11 +23,9 @@ namespace BL
         public double LightWeightCarrier { get; set; }
         public double MediumWeightBearing { get; set; }
         public double CarryingHeavyWeight { get; set; }
-        public  double DroneLoadingRate { get; set; }
+        public double DroneLoadingRate { get; set; }
         Bl()
         {
-            //dal = new DalObject.DalObject();
-            //drones = new List<DroneToList>();
             double[] arr;
             arr = dal.GetPowerConsumptionByDrone();
             Available = arr[0];
@@ -107,11 +105,6 @@ namespace BL
                                           : senderLocation,
                 };
 
-                if (status == DroneStatus.Meintenence)
-                {
-                    //dal.AddDRoneCharge(drone.Id, dal.GetStations().FirstOrDefault(station => station.Lattitude == location.Lattitude && station.Longitude == location.Longitude).Id);
-                }
-
                 var availableStationsLocations = dal.GetAvailableChargingStations()
                                                    .Select(s => new Location() { Lattitude = s.Lattitude, Longitude = s.Longitude })
                                                    .ToList();
@@ -120,15 +113,15 @@ namespace BL
                 //battery
                 battery = status switch
                 {
-                    DroneStatus.Available => rand.Next(/*(int)((int)Distance(location, FindClosest(location, availableStationsLocations))*/(int)(20 * Available), 100),
-                    DroneStatus.Meintenence => rand.NextDouble() * 20,
+                    DroneStatus.Available => rand.Next((int)(MAXINITBATTARY * Available), 100),
+                    DroneStatus.Meintenence => rand.NextDouble() * MAXINITBATTARY,
                     DroneStatus.Delivery => rand.Next(Math.Min(
                                               (int)(
                                                   LocationExtensions.Distance(location, senderLocation) * Available +
                                                   LocationExtensions.Distance(senderLocation, targetLocation) * GetElectricity((WeightCategories)parcel.Weight) +
                                                   LocationExtensions.Distance(targetLocation, FindClosest(targetLocation, availableStationsLocations)) * Available
                                               ), 80)
-                                             , 100
+                                             , FULLBATTRY
                                           ),
                 };
 
@@ -159,10 +152,6 @@ namespace BL
         {
             return locations.OrderBy(l => LocationExtensions.Distance(location, l)).First();
         }
-
-
-
-
 
         ///  <summary>
         /// Find if the id is unique in a spesific list

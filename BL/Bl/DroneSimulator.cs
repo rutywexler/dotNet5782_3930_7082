@@ -19,11 +19,9 @@ namespace BL
         BL.Bl bl { set; get; }
         Parcel? parcel { set; get; }
         BaseStation Station { set; get; }
-        int batteryUsage = 0;
         int? stationId;
         DroneToList drone;
-        bool pickedUp = false;
-        Customer customer = null;
+
         private const int DELAY = 500;
 
         private const double TIME_STEP = DELAY / 1000.0;
@@ -108,9 +106,8 @@ namespace BL
                 case Maintenance.Starting:
                     lock (bl)
                     {
-                        /* try {*/
-                        Station = bl.GetStation((int)(stationId != null ? stationId : dal.GetDroneChargeBaseStationId(drone.DroneId)));/* }*/
-                        //  catch (DO. ex) { throw new BadStatusException("Internal error base station", ex); }
+                      
+                        Station = bl.GetStation((int)(stationId != null ? stationId : dal.GetDroneChargeBaseStationId(drone.DroneId)));
                         distance = LocationExtensions.Distance(drone.Location, Station.Location);
                         maintenance = Maintenance.Going;
                     }

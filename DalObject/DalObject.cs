@@ -32,7 +32,7 @@ namespace Dal
                 return false;
             T temp = list.FirstOrDefault(item => (int)item.GetType().GetProperty("Id")?.GetValue(item) == id);
 
-            return !(temp.Equals(default(T)));
+            return !temp.Equals(default(T));
         }
     }
     }

@@ -13,8 +13,6 @@ namespace Dal
         private const int STATIONS_INIT = 9;
         private const int CUSTOMERS_INIT = 25;
         private const int PARCELS_INIT = 50;
-        private const int PHONE_MIN = 100000000;
-        private const int PHONE_MAX = 1000000000;
         private const int LATITUDE_MAX = 90;
         private const int LATITUDE_MIN = -90;
         private const int LONGITUDE_MAX = 90;
@@ -78,7 +76,7 @@ namespace Dal
         private static void RandomCustomer(DalObject dal, int id)
         {
             string[] tempNames = { "Tamar", "Ruty", "Michal", "Moshe", "Aviad", "Shimon", "Eliether", "Ariel", "Naomi", "Tehila" };
-            string name = tempNames[Rnd.Next(tempNames.Length)]; 
+            string name = tempNames[Rnd.Next(tempNames.Length)];
             string phone = $"05{Rnd.Next(100000000)}";
             double latitude = Rnd.Next(LATITUDE_MIN, LATITUDE_MAX) + Rnd.NextDouble();
             double longitude = Rnd.Next(LONGITUDE_MAX) + Rnd.NextDouble();
@@ -123,14 +121,11 @@ namespace Dal
                         newParcel.Collected = DateTime.Now;
                         newParcel.Delivered = DateTime.Now;
                     }
-
                 }
-
             }
             Parcels.Add(newParcel);
         }
     }
-
 }
 
 

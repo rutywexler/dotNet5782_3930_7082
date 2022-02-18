@@ -55,7 +55,7 @@ namespace BL
                 Id = parcel.Id,
                 Weight = parcel.WeightParcel,
                 Priority = parcel.Priority,
-                Status = Enums.PackageStatuses.COLLECTED,
+                Status = PackageStatuses.COLLECTED,
                 CustomerInDelivery = parcel.CustomerSendsFrom
             };
         }

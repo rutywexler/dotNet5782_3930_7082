@@ -21,7 +21,7 @@ namespace Dal
         /// <param name="name">The customer`s name</param>
         /// <param name="longitude">>The position of the customer in relation to the longitude</param>
         /// <param name="latitude">>The position of the customer in relation to the latitude</param>
-  
+
         private Customer ConvertXElementToCustomerObject(XElement element)
         {
             return new Customer()
@@ -54,16 +54,10 @@ namespace Dal
         public Customer GetCustomer(int id)
         {
             XElement root = XMLTools.LoadListFromXmlElement(customersPath);
-            // try
-            {
-                return root.Elements(nameof(Customer))
-                     .Select(customerElement => ConvertXElementToCustomerObject(customerElement))
-                     .SingleOrDefault(customer => customer.Id == id && !customer.IsDeleted);
-            }
-            //catch (Exception e)
-            //{
-            //    //dthydyfrhedtrh לטפפפפפפפפפפפפפפפפללללל
-            //}
+            return root.Elements(nameof(Customer))
+                 .Select(customerElement => ConvertXElementToCustomerObject(customerElement))
+                 .SingleOrDefault(customer => customer.Id == id && !customer.IsDeleted);
+
         }
 
 
@@ -77,15 +71,18 @@ namespace Dal
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomer(int customerId, string customerPhone, string customername, double customerLongitude, double customerLatitude)
         {
-            XElement Customer = XMLTools.LoadListFromXmlElement(customersPath);
-            XElement id = new XElement(nameof(DO.Customer.Id), customerId);
-            XElement name = new XElement(nameof(DO.Customer.Name), customername);
-            XElement phone = new XElement(nameof(DO.Customer.Phone), customerPhone);
-            XElement longitude = new XElement(nameof(DO.Customer.Longitude), customerLongitude);
-            XElement latitude = new XElement(nameof(DO.Customer.Lattitude), customerLatitude);
-            XElement isDeleted = new XElement(nameof(DO.Customer.IsDeleted), false);
-            Customer.Add(new XElement(nameof(DO.Customer), id, name, phone, latitude, longitude, isDeleted));
-            XMLTools.SaveListToXmlElement(Customer, customersPath);
+            
+                XElement Customer = XMLTools.LoadListFromXmlElement(customersPath);
+                XElement id = new XElement(nameof(DO.Customer.Id), customerId);
+                XElement name = new XElement(nameof(DO.Customer.Name), customername);
+                XElement phone = new XElement(nameof(DO.Customer.Phone), customerPhone);
+                XElement longitude = new XElement(nameof(DO.Customer.Longitude), customerLongitude);
+                XElement latitude = new XElement(nameof(DO.Customer.Lattitude), customerLatitude);
+                XElement isDeleted = new XElement(nameof(DO.Customer.IsDeleted), false);
+                Customer.Add(new XElement(nameof(DO.Customer), id, name, phone, latitude, longitude, isDeleted));
+                XMLTools.SaveListToXmlElement(Customer, customersPath);
+           
+
         }
 
 
@@ -107,17 +104,17 @@ namespace Dal
 
 
             }
-            catch { throw new Exception(); }
+            catch (XMLFileLoadCreateException) { throw new XMLFileLoadCreateException("Customers.xml"); }
         }
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveCustomer(int id)
         {
             XElement customers = XMLTools.LoadListFromXmlElement(customersPath);
 
-                (from s in customers.Elements()
-                 where Int32.Parse(s.Element("Id").Value) == id
-                 select s
-                ).FirstOrDefault().Remove();
+            (from s in customers.Elements()
+             where Int32.Parse(s.Element("Id").Value) == id
+             select s
+            ).FirstOrDefault().Remove();
             XMLTools.SaveListToXmlElement(customers, customersPath);
         }
 

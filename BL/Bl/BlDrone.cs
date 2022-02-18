@@ -13,10 +13,8 @@ namespace BL
 {
     partial class Bl : IblDrone
     {
-
-        private const int NUM_OF_MINUTE_IN_HOUR = 60;
         private const int MIN_BATTERY = 20;
-        private const int MAX_BATTERY = 40;
+        private const int MAX_BATTERY_INIT = 40;
 
         /// <summary>
         /// the function add to the data the drone
@@ -28,7 +26,7 @@ namespace BL
         {
             try
             {
-                Drone drone = new() { DroneId = id, Weight = (WeightCategories)MaxWeight, DroneModel = Model };
+                Drone drone = new() { DroneId = id, Weight =MaxWeight, DroneModel = Model };
                 lock(dal)
                     dal.AddDrone(drone.DroneId, drone.DroneModel, (DO.WeightCategories)drone.Weight);
                 DO.Station station;
@@ -39,7 +37,7 @@ namespace BL
                     DroneId = drone.DroneId,
                     ModelDrone = drone.DroneModel,
                     DroneWeight = drone.Weight,
-                    BatteryDrone = rand.NextDouble() + rand.Next(MIN_BATTERY, MAX_BATTERY),
+                    BatteryDrone = rand.NextDouble() + rand.Next(MIN_BATTERY, MAX_BATTERY_INIT),
                     DroneStatus = DroneStatus.Meintenence,
                     Location = new Location() { Lattitude = station.Lattitude, Longitude = station.Longitude }
                 };
@@ -196,7 +194,6 @@ namespace BL
 
         private List<DroneInCharging> GetDroneInStation(int id)
         {
-            // איך עושים????
             IEnumerable<DO.DroneCharge> list;
             lock (dal)
                 list = dal.GetDroneCharging((stationIdOfDrone) => stationIdOfDrone.StationId == id);
@@ -234,13 +231,6 @@ namespace BL
             dal.UpdateDrone(droneDl, name);
             DroneToList droneToList = drones.Find(item => item.DroneId == id);
             droneToList.ModelDrone = name;
-
-            //dal.RemoveDrone(droneDl);
-            //dal.AddDrone(id, name, droneDl.MaxWeight);
-            //DroneToList droneToList = drones.Find(item => item.DroneId == id);
-            //drones.Remove(droneToList);
-            //droneToList.ModelDrone = name;
-            //drones.Add(droneToList);
         }
 
         /// <summary>
@@ -319,11 +309,7 @@ namespace BL
             {
                 throw new KeyNotFoundException(ex.Message);
             }
-            //catch (Dal.Exception_ThereIsInTheListObjectWithTheSameValue ex)
-            //{
-            //    throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
-            //}
-
+    
         }
 
        // [MethodImpl(MethodImplOptions.Synchronized)]

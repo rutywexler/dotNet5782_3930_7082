@@ -23,7 +23,7 @@ namespace BL
         {
             try
             {
-                lock(dal)
+                lock (dal)
                     dal.AddCustomer(customerBL.Id, customerBL.PhoneNumber, customerBL.Name, customerBL.Location.Longitude, customerBL.Location.Lattitude);
             }
             catch (Dal.ThereIsAnotherObjectWithThisUniqueID ex)
@@ -44,22 +44,23 @@ namespace BL
             {
                 lock (dal)
                     customer = dal.GetCustomer(id);
-                lock (dal) { 
+                lock (dal)
+                {
                     return new Customer()
                     {
                         Id = customer.Id,
                         Location = new Location() { Lattitude = customer.Lattitude, Longitude = customer.Longitude },
                         Name = customer.Name,
                         PhoneNumber = customer.Phone,
-                            GetCustomerSendParcels = (from parcel in dal.GetParcels()
-                                                      where parcel.SenderId == id
-                                                      select ParcelToParcelAtCustomer(GetParcel(parcel.Id), "sender")).ToList(),
+                        GetCustomerSendParcels = (from parcel in dal.GetParcels()
+                                                  where parcel.SenderId == id
+                                                  select ParcelToParcelAtCustomer(GetParcel(parcel.Id), "sender")).ToList(),
                         GetCustomerReceivedParcels = (from parcel in dal.GetParcels()
                                                       where parcel.TargetId == id
                                                       select ParcelToParcelAtCustomer(GetParcel(parcel.Id), "Target")).ToList(),
                     };
                 }
-                
+
             }
             catch (KeyNotFoundException ex)
             {
@@ -79,7 +80,7 @@ namespace BL
        // [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<CustomerForList> GetCustomers()
         {
-            lock(dal)
+            lock (dal)
                 return dal.GetCustomers().Select(customer => CustomerToList(customer));
         }
 
@@ -87,19 +88,19 @@ namespace BL
         private CustomerForList CustomerToList(DO.Customer customer)
         {
             IEnumerable<DO.Parcel> parcels;
-            lock(dal)
+            lock (dal)
                 parcels = dal.GetParcels();
-                return new CustomerForList()
-                {
-                    CustomerId = customer.Id,
-                    CustomerName = customer.Name,
-                    CustomerPhone = customer.Phone,
-                    NumOfParcelsSentAndDelivered = parcels.Where(parcel => parcel.SenderId == customer.Id && parcel.Delivered.Equals(default)).Count(),
-                    NumOfParcelsSentAndNotDelivered = parcels.Where(parcel => parcel.SenderId == customer.Id && !parcel.Delivered.Equals(default)).Count(),
-                    NumOfRecievedParcels = parcels.Where(parcel => parcel.TargetId == customer.Id && parcel.Delivered.Equals(default)).Count(),
-                    NumOfParcelsOnTheWay = parcels.Where(parcel => parcel.TargetId == customer.Id  && parcel.Associated.Equals(default)).Count(),
-                };
-            
+            return new CustomerForList()
+            {
+                CustomerId = customer.Id,
+                CustomerName = customer.Name,
+                CustomerPhone = customer.Phone,
+                NumOfParcelsSentAndDelivered = parcels.Where(parcel => parcel.SenderId == customer.Id && parcel.Delivered.Equals(default)).Count(),
+                NumOfParcelsSentAndNotDelivered = parcels.Where(parcel => parcel.SenderId == customer.Id && !parcel.Delivered.Equals(default)).Count(),
+                NumOfRecievedParcels = parcels.Where(parcel => parcel.TargetId == customer.Id && parcel.Delivered.Equals(default)).Count(),
+                NumOfParcelsOnTheWay = parcels.Where(parcel => parcel.TargetId == customer.Id && parcel.Associated.Equals(default)).Count(),
+            };
+
         }
 
         /// <summary>
@@ -114,33 +115,33 @@ namespace BL
             if (name.Equals(string.Empty) && PhoneNumber.Equals(string.Empty))
                 throw new ArgumentNullException("There is not field to update");
             DO.Customer customer;
-            lock (dal)            
+            lock (dal)
                 customer = dal.GetCustomer(id);
-                try
-                {
+            try
+            {
 
-                    if (name.Equals(default))
-                        name = customer.Name;
-                    else
-                        customer.Name = name;
-                    if (PhoneNumber.Equals(default))
-                        PhoneNumber = customer.Phone;
-                    else
-                        customer.Phone = PhoneNumber;
-                    lock(dal)
-                        dal.UpdateCustomer(customer);
-                }
-                catch (Exception_ThereIsInTheListObjectWithTheSameValue ex)
-                {
-                    throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
-                }
-                catch (KeyNotFoundException ex)
-                {
-                    throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
-                }
-            
+                if (name.Equals(default))
+                    name = customer.Name;
+                else
+                    customer.Name = name;
+                if (PhoneNumber.Equals(default))
+                    PhoneNumber = customer.Phone;
+                else
+                    customer.Phone = PhoneNumber;
+                lock (dal)
+                    dal.UpdateCustomer(customer);
+            }
+            catch (Exception_ThereIsInTheListObjectWithTheSameValue ex)
+            {
+                throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw new Exception_ThereIsInTheListObjectWithTheSameValue(ex.Message);
+            }
+
         }
-        
+
         /// <summary>
         /// Convert a BL parcel to Parcel At Customer
         /// </summary>
@@ -171,7 +172,7 @@ namespace BL
             {
                 newParcel.CustomerInDelivery = new CustomerInParcel()
                 {
-                   
+
                     Id = parcel.CustomerReceivesTo.Id,
                     Name = parcel.CustomerReceivesTo.Name
                 };
@@ -180,7 +181,7 @@ namespace BL
             return newParcel;
         }
 
-   
+
 
 
 

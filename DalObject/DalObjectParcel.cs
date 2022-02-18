@@ -19,14 +19,14 @@ namespace Dal
         /// <param name="Weigth"> The weigth of parcel (light- 0,medium - 1,heavy - 2)</param>
         /// <param name="Priority"> The priority of send the parcel (regular - 0,fast - 1,emergency - 2)</param>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void AddParcel(int SenderId, int TargetId, WeightCategories Weigth, Priorities Priority, int id = -1, int droneId = 0, DateTime? created=null , DateTime? accosiated = null, DateTime? collected = null, DateTime? delivered = null)
+        public void AddParcel(int SenderId, int TargetId, WeightCategories Weigth, Priorities Priority, int id = 0, int droneId = 0, DateTime? created=null , DateTime? accosiated = null, DateTime? collected = null, DateTime? delivered = null)
         {
             if (!ExistsIDCheck(GetCustomers(), SenderId))
                 throw new KeyNotFoundException("Sender not exist");
             if (!ExistsIDCheck(GetCustomers(), TargetId))
                 throw new KeyNotFoundException("Target not exist");
             Parcel newParcel = new();
-            newParcel.Id = id == -1 ? ++Config.IdParcel : id;
+            newParcel.Id = id == 0 ? ++Config.IdParcel : id;
             newParcel.SenderId = SenderId;
             newParcel.TargetId = TargetId;
             newParcel.Weight = Weigth;

@@ -10,8 +10,7 @@ namespace BL
 {
     partial class Bl : IblStation
     {
-       ////
-       ///
+       
         public void AddStation(BaseStation baseStation)
         {
             try

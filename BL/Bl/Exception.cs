@@ -64,4 +64,24 @@ namespace BL
         public ThereIsAnotherObjectWithThisUniqueID(string message, Exception inner) : base(message, inner) { }
         protected ThereIsAnotherObjectWithThisUniqueID(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
+
+    [Serializable]
+    public class InvalidDroneStateException : Exception
+    {
+        public InvalidDroneStateException()
+        {
+        }
+
+        public InvalidDroneStateException(string message) : base(message)
+        {
+        }
+
+        public InvalidDroneStateException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        protected InvalidDroneStateException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
+    }
 }
