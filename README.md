@@ -1,9 +1,9 @@
-my name is Tamar
-# dotNet5782_3930_7082
-wonderfull Life!!
-
-
-please pay attention:
-We made changes and sat on a computer that was Open at another expense 
-so the changes are mistakenly named after another account (tamarsy, YaelSlushtz)
-But of course we ourselves made the changes.
+Project summary:
+The project deals with the management of an information system of delivery service performed using skimmers
+Deliveries work between service.
+The company holds base stations for the maintenance and loading of the skimmers, 
+as well as, customer information and packages sent through the service.
+In the interface you can track the packages sent, message,
+send skimmer for charging and so on and so forth.
+Login Password: 1234
+Double-clicking on a particular skimmer allows you to click on a simulator that shows real-time activity.
